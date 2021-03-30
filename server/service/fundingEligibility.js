@@ -67,19 +67,6 @@ function buildFundingEligibilityQuery(basicFundingEligibility : FundingEligibili
         };
     };
 
-    const getPayLaterProductQuery = () => {
-        return {
-            eligible:  graphqlTypes.boolean
-        };
-    };
-
-    const getPayLaterProductsQuery = () => {
-        return {
-            flex:   getPayLaterProductQuery(),
-            payIn4: getPayLaterProductQuery()
-        };
-    };
-
     const getPayPalQuery = () => {
         return {
             eligible:  graphqlTypes.boolean
@@ -97,8 +84,7 @@ function buildFundingEligibilityQuery(basicFundingEligibility : FundingEligibili
 
     const getPayLaterQuery = () => {
         return {
-            eligible: graphqlTypes.boolean,
-            products: getPayLaterProductsQuery()
+            eligible: graphqlTypes.boolean
         };
     };
 

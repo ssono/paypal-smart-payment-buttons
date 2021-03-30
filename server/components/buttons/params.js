@@ -3,7 +3,7 @@
 
 import type { FundingEligibilityType } from '@paypal/sdk-constants/src/types';
 import { ENV, COUNTRY, CURRENCY, INTENT, COMMIT, VAULT, CARD, FUNDING, DEFAULT_COUNTRY,
-    COUNTRY_LANGS, PLATFORM, FUNDING_PRODUCTS, SDK_QUERY_KEYS } from '@paypal/sdk-constants';
+    COUNTRY_LANGS, PLATFORM, SDK_QUERY_KEYS } from '@paypal/sdk-constants';
 import { values, constHas } from 'belter';
 
 import { HTTP_HEADER, ERROR_CODE } from '../../config';
@@ -104,7 +104,6 @@ const getDefaultFundingEligibility = () : FundingEligibilityType => {
     return {};
 };
 
-// eslint-disable-next-line complexity
 function getFundingEligibilityParam(req : ExpressRequest) : FundingEligibilityType {
     const encodedFundingEligibility = req.query.fundingEligibility;
 
@@ -161,23 +160,6 @@ function getFundingEligibilityParam(req : ExpressRequest) : FundingEligibilityTy
         
                         if (typeof vendorEligibilityInput.vaultable === 'boolean') {
                             vendorEligibility.vaultable = vendorEligibilityInput.vaultable;
-                        }
-                    }
-                }
-
-                const productsEligibilityInput = fundingSourceEligibilityInput.products;
-                const productsEligibility = fundingSourceEligibility.products || {};
-
-                if (productsEligibilityInput) {
-                    fundingSourceEligibility.products = productsEligibility;
-
-                    for (const product of values(FUNDING_PRODUCTS)) {
-                        const productEligibilityInput = productsEligibilityInput[product] || {};
-                        const productEligibility = productsEligibility[product] || {};
-
-                        if (typeof productEligibilityInput.eligible === 'boolean') {
-                            productEligibility.eligible = productEligibilityInput.eligible;
-                            productsEligibility[product] = productEligibility;
                         }
                     }
                 }
