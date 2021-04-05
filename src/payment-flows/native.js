@@ -434,7 +434,6 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
     const { sdkVersion, firebase: firebaseConfig } = config;
 
     const shippingCallbackEnabled = Boolean(onShippingChange);
-
     sdkMeta = sdkMeta.replace(/[=]+$/, '');
 
     if (!firebaseConfig) {
@@ -584,7 +583,6 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
 
     const onApproveCallback = ({ data: { payerID, paymentID, billingToken } }) => {
         approved = true;
-        document.dispatchEvent(approvedEvent);
 
         if (isAndroidChrome() && !isControlGroup(fundingSource)) {
             androidPopupExperiment.logComplete();
