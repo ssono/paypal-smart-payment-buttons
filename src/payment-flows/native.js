@@ -81,12 +81,6 @@ const PARTIAL_ENCODING_CLIENT = [
     'AeG7a0wQ2s97hNLb6yWzDqYTsuD-4AaxDHjz4I2EWMKN6vktKYqKJhtGqmH2cNj_JyjHR4Xj9Jt6ORHs'
 ];
 
-const FIREBASE_EVENT = {
-    APPROVED:   'approved',
-    CANCELLED:  'cancelled',
-    ERRORED:    'errored'
-};
-
 let clean;
 let initialPageUrl;
 let nativeEligibility : NativeEligibility;
@@ -1082,7 +1076,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                 });
             }).catch(err => {
                 popupWin.close();
-                
+
                 return close().then(() => {
                     return onError(err);
                 });
