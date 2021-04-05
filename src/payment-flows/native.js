@@ -434,6 +434,10 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
     const { sdkVersion, firebase: firebaseConfig } = config;
 
     const shippingCallbackEnabled = Boolean(onShippingChange);
+
+    const approvedEvent = document.createEvent('Event');
+    approvedEvent.initEvent('approved', true, true);
+
     sdkMeta = sdkMeta.replace(/[=]+$/, '');
 
     if (!firebaseConfig) {
@@ -583,6 +587,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
 
     const onApproveCallback = ({ data: { payerID, paymentID, billingToken } }) => {
         approved = true;
+        document.dispatchEvent(approvedEvent);
 
         if (isAndroidChrome() && !isControlGroup(fundingSource)) {
             androidPopupExperiment.logComplete();
@@ -1112,7 +1117,10 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     [FPTI_KEY.STATE]:           FPTI_STATE.BUTTON,
                     [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ON_COMPLETE
                 }).flush();
-            closePopup('onComplete');
+
+            document.addEventListener('approved', () => {
+                closePopup('onComplete');
+            });
         });
 
         const onErrorListener = listen(popupWin, getNativePopupDomain(), POST_MESSAGE.ON_ERROR, (data) => {
