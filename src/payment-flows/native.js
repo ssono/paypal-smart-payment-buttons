@@ -930,8 +930,8 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
             }).then(noop);
         }, 500);
 
-        const closePopup = (event) => {
-            const eventType = event && event.type ? String(event.type) : event;
+        const closePopup = (event : Event | string) => {
+            const eventType : string = event && event.type ? String(event.type) : String(event);
 
             getLogger().info(`native_closing_popup_${ eventType }`).track({
                 [FPTI_KEY.STATE]:       FPTI_STATE.BUTTON,
@@ -1118,9 +1118,8 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ON_COMPLETE
                 }).flush();
 
-            document.addEventListener('approved', () => {
-                closePopup('onComplete');
-            });
+            document.addEventListener('approved', closePopup);
+            clean.register(() => window.removeEventListener('approved', closePopup));
         });
 
         const onErrorListener = listen(popupWin, getNativePopupDomain(), POST_MESSAGE.ON_ERROR, (data) => {
