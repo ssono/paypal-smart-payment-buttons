@@ -441,14 +441,6 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
 
     const shippingCallbackEnabled = Boolean(onShippingChange);
 
-    const approvedEvent = document.createEvent('Event');
-    const cancelledEvent = document.createEvent('Event');
-    const erroredEvent = document.createEvent('Event');
-
-    approvedEvent.initEvent(FIREBASE_EVENT.APPROVED, true, true);
-    cancelledEvent.initEvent(FIREBASE_EVENT.CANCELLED, true, true);
-    erroredEvent.initEvent(FIREBASE_EVENT.ERRORED, true, true);
-
     sdkMeta = sdkMeta.replace(/[=]+$/, '');
 
     if (!firebaseConfig) {
@@ -834,14 +826,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
     });
 
     const popup = memoize((url : string) => {
-        const win = window.open(url);
-        clean.register(() => {
-            if (win && !isWindowClosed(win)) {
-                win.close();
-            }
-        });
-
-        return win;
+        return window.open(url);
     });
 
     const initDirectAppSwitch = ({ sessionUID } : {| sessionUID : string |}) => {
@@ -890,6 +875,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                         return connectNative({ sessionUID }).close();
                     }
                 }).then(() => {
+                    nativeWin.close();
                     return close();
                 });
             }
@@ -909,6 +895,8 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                         [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ATTEMPT_APP_SWITCH_ERRORED,
                         [FPTI_CUSTOM_KEY.ERR_DESC]: stringifyError(err)
                     }).flush();
+                
+                nativeWin.close();
                 return connectNative({ sessionUID }).close().then(() => {
                     throw err;
                 });
@@ -1093,6 +1081,8 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     return { redirect: true, appSwitch: false, redirectUrl: fallbackUrl };
                 });
             }).catch(err => {
+                popupWin.close();
+                
                 return close().then(() => {
                     return onError(err);
                 });
@@ -1128,14 +1118,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     [FPTI_KEY.STATE]:           FPTI_STATE.BUTTON,
                     [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ON_COMPLETE
                 }).flush();
-
-            document.addEventListener(FIREBASE_EVENT.APPROVED, closePopup);
-            document.addEventListener(FIREBASE_EVENT.CANCELLED, closePopup);
-            document.addEventListener(FIREBASE_EVENT.ERRORED, closePopup);
-
-            clean.register(() => window.removeEventListener(FIREBASE_EVENT.APPROVED, closePopup));
-            clean.register(() => window.removeEventListener(FIREBASE_EVENT.CANCELLED, closePopup));
-            clean.register(() => window.removeEventListener(FIREBASE_EVENT.ERRORED, closePopup));
+            closePopup('onComplete');
         });
 
         const onErrorListener = listen(popupWin, getNativePopupDomain(), POST_MESSAGE.ON_ERROR, (data) => {
