@@ -1129,15 +1129,13 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ON_COMPLETE
                 }).flush();
 
-            return ZalgoPromise.try(() => {
-                document.addEventListener(FIREBASE_EVENT.APPROVED, closePopup);
-                document.addEventListener(FIREBASE_EVENT.CANCELLED, closePopup);
-                document.addEventListener(FIREBASE_EVENT.ERRORED, closePopup);
+            document.addEventListener(FIREBASE_EVENT.APPROVED, closePopup);
+            document.addEventListener(FIREBASE_EVENT.CANCELLED, closePopup);
+            document.addEventListener(FIREBASE_EVENT.ERRORED, closePopup);
 
-                clean.register(() => window.removeEventListener(FIREBASE_EVENT.APPROVED, closePopup));
-                clean.register(() => window.removeEventListener(FIREBASE_EVENT.CANCELLED, closePopup));
-                clean.register(() => window.removeEventListener(FIREBASE_EVENT.ERRORED, closePopup));
-            });
+            clean.register(() => window.removeEventListener(FIREBASE_EVENT.APPROVED, closePopup));
+            clean.register(() => window.removeEventListener(FIREBASE_EVENT.CANCELLED, closePopup));
+            clean.register(() => window.removeEventListener(FIREBASE_EVENT.ERRORED, closePopup));
         });
 
         const onErrorListener = listen(popupWin, getNativePopupDomain(), POST_MESSAGE.ON_ERROR, (data) => {
