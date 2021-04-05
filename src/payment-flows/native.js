@@ -1026,9 +1026,8 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                 }
 
                 if (!valid) {
-                    return destroy().then(() => {
-                        return { redirect: false };
-                    });
+                    popupWin.close();
+                    return destroy();
                 }
 
                 if (!eligible || (app && !app.installed)) {
