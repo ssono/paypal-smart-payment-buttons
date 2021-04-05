@@ -922,7 +922,7 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
         }, 500);
 
         const closePopup = (event) => {
-            const eventType : string = event && event.type ? String(event.type) : event;
+            const eventType = event && event.type ? String(event.type) : event;
 
             getLogger().info(`native_closing_popup_${ eventType }`).track({
                 [FPTI_KEY.STATE]:       FPTI_STATE.BUTTON,
