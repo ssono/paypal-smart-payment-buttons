@@ -256,7 +256,7 @@ export function setupNativePopup({ parentDomain, env, sessionID, buttonSessionID
             break;
         }
         case HASH.CLOSE: {
-            sendToParent(MESSAGE.ON_COMPLETE);
+            sendToParent(MESSAGE.ON_COMPLETE).finally(closeWindow);
             break;
         }
         case HASH.TEST: {
