@@ -81,6 +81,12 @@ const PARTIAL_ENCODING_CLIENT = [
     'AeG7a0wQ2s97hNLb6yWzDqYTsuD-4AaxDHjz4I2EWMKN6vktKYqKJhtGqmH2cNj_JyjHR4Xj9Jt6ORHs'
 ];
 
+const FIREBASE_EVENT = {
+    APPROVED:   'approved',
+    CANCELLED:  'cancelled',
+    ERRORED:    'errored'
+};
+
 let clean;
 let initialPageUrl;
 let nativeEligibility : NativeEligibility;
@@ -436,7 +442,12 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
     const shippingCallbackEnabled = Boolean(onShippingChange);
 
     const approvedEvent = document.createEvent('Event');
-    approvedEvent.initEvent('approved', true, true);
+    const cancelledEvent = document.createEvent('Event');
+    const erroredEvent = document.createEvent('Event');
+
+    approvedEvent.initEvent(FIREBASE_EVENT.APPROVED, true, true);
+    cancelledEvent.initEvent(FIREBASE_EVENT.CANCELLED, true, true);
+    erroredEvent.initEvent(FIREBASE_EVENT.ERRORED, true, true);
 
     sdkMeta = sdkMeta.replace(/[=]+$/, '');
 
@@ -1118,8 +1129,15 @@ function initNative({ props, components, config, payment, serviceData } : InitOp
                     [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_ON_COMPLETE
                 }).flush();
 
-            document.addEventListener('approved', closePopup);
-            clean.register(() => window.removeEventListener('approved', closePopup));
+            return ZalgoPromise.try(() => {
+                document.addEventListener(FIREBASE_EVENT.APPROVED, closePopup);
+                document.addEventListener(FIREBASE_EVENT.CANCELLED, closePopup);
+                document.addEventListener(FIREBASE_EVENT.ERRORED, closePopup);
+
+                clean.register(() => window.removeEventListener(FIREBASE_EVENT.APPROVED, closePopup));
+                clean.register(() => window.removeEventListener(FIREBASE_EVENT.CANCELLED, closePopup));
+                clean.register(() => window.removeEventListener(FIREBASE_EVENT.ERRORED, closePopup));
+            });
         });
 
         const onErrorListener = listen(popupWin, getNativePopupDomain(), POST_MESSAGE.ON_ERROR, (data) => {
