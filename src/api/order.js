@@ -68,6 +68,13 @@ export function createOrderID(order : OrderCreateRequest, { facilitatorAccessTok
     });
 }
 
+const handleRestAPIResponse = (err, orderID : string, action : string) => {
+    // $FlowFixMe
+    const { headers } = err.response;
+    const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+    getLogger().info(`call_rest_api_failure_${ action }`, { corrID, orderID });
+};
+
 const handleSmartResponse = (response, orderID : string, action : string) => {
     const { headers } = response;
     const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
@@ -86,7 +93,9 @@ export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccess
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        }).catch(() => {
+        }).catch(err => {
+            handleRestAPIResponse(err, orderID, 'get');
+
             return callSmartAPI({
                 accessToken: buyerAccessToken,
                 url:         `${ SMART_API_URI.ORDER }/${ orderID }`,
@@ -118,7 +127,9 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        }).catch(() => {
+        }).catch(err => {
+            handleRestAPIResponse(err, orderID, 'capture');
+
             return callSmartAPI({
                 accessToken: buyerAccessToken,
                 method:      'post',
@@ -152,7 +163,9 @@ export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyer
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        }).catch(() => {
+        }).catch(err => {
+            handleRestAPIResponse(err, orderID, 'authorize');
+
             return callSmartAPI({
                 accessToken: buyerAccessToken,
                 method:      'post',
