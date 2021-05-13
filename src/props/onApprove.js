@@ -61,12 +61,7 @@ type ActionOptions = {|
     forceRestAPI : boolean
 |};
 
-const ACTION = {
-    capture:    'capture',
-    authorize:  'authorize',
-    execute:    'execute'
-};
-const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>, action : string) : ZalgoPromise<T> => {
+const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>) : ZalgoPromise<T> => {
     // $FlowFixMe
     const isProcessorDecline = err && err.data && err.data.details && err.data.details.some(detail => {
         return detail.issue === ORDER_API_ERROR.INSTRUMENT_DECLINED || detail.issue === ORDER_API_ERROR.PAYER_ACTION_REQUIRED;
@@ -76,7 +71,7 @@ const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>
         return restart().then(unresolvedPromise);
     }
 
-    throw new Error(`Order could not be captured for action: ${ action }`);
+    throw err;
 };
 
 function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI } : ActionOptions) : OrderActions {
@@ -92,7 +87,7 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return captureOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(capture.reset)
-            .catch(err => handleProcessorError<OrderResponse>(err, restart, ACTION.capture));
+            .catch(err => handleProcessorError<OrderResponse>(err, restart));
     });
 
     const authorize = memoize(() => {
@@ -103,7 +98,7 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return authorizeOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(authorize.reset)
-            .catch(err => handleProcessorError<OrderResponse>(err, restart, ACTION.authorize));
+            .catch(err => handleProcessorError<OrderResponse>(err, restart));
     });
 
     const patch = (data = {}) => {
@@ -137,7 +132,7 @@ function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorA
         return executePayment(paymentID, payerID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID })
             .finally(get.reset)
             .finally(execute.reset)
-            .catch(err => handleProcessorError<PaymentResponse>(err, restart, ACTION.execute));
+            .catch(err => handleProcessorError<PaymentResponse>(err, restart));
     });
 
     const patch = (data = {}) => {
