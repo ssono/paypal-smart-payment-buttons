@@ -61,21 +61,25 @@ type ActionOptions = {|
     forceRestAPI : boolean
 |};
 
+const ACTION = {
+    capture:    'capture',
+    authorize:  'authorize',
+    execute:    'execute'
+};
+const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>, action : string) : ZalgoPromise<T> => {
+    // $FlowFixMe
+    const isProcessorDecline = err && err.data && err.data.details && err.data.details.some(detail => {
+        return detail.issue === ORDER_API_ERROR.INSTRUMENT_DECLINED || detail.issue === ORDER_API_ERROR.PAYER_ACTION_REQUIRED;
+    });
+
+    if (isProcessorDecline) {
+        return restart().then(unresolvedPromise);
+    }
+
+    throw new Error(`Order could not be captured for action: ${ action }`);
+};
+
 function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI } : ActionOptions) : OrderActions {
-
-    const handleProcessorError = (err : mixed) : ZalgoPromise<OrderResponse> => {
-        // $FlowFixMe
-        const isProcessorDecline = err && err.data && err.data.details && err.data.details.some(detail => {
-            return detail.issue === ORDER_API_ERROR.INSTRUMENT_DECLINED || detail.issue === ORDER_API_ERROR.PAYER_ACTION_REQUIRED;
-        });
-
-        if (isProcessorDecline) {
-            return restart().then(unresolvedPromise);
-        }
-
-        throw new Error('Order could not be captured');
-    };
-
     const get = memoize(() => {
         return getOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI });
     });
@@ -88,7 +92,7 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return captureOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(capture.reset)
-            .catch(handleProcessorError);
+            .catch(err => handleProcessorError<OrderResponse>(err, restart, ACTION.capture));
     });
 
     const authorize = memoize(() => {
@@ -99,7 +103,7 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return authorizeOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(authorize.reset)
-            .catch(handleProcessorError);
+            .catch(err => handleProcessorError<OrderResponse>(err, restart, ACTION.authorize));
     });
 
     const patch = (data = {}) => {
@@ -117,19 +121,6 @@ function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorA
         return;
     }
 
-    const handleProcessorError = (err : mixed) : ZalgoPromise<PaymentResponse> => {
-        // $FlowFixMe
-        const isProcessorDecline = err && err.data && err.data.details && err.data.details.some(detail => {
-            return detail.issue === ORDER_API_ERROR.INSTRUMENT_DECLINED || detail.issue === ORDER_API_ERROR.PAYER_ACTION_REQUIRED;
-        });
-
-        if (isProcessorDecline) {
-            return restart().then(unresolvedPromise);
-        }
-
-        throw new Error('Order could not be captured');
-    };
-
     const get = memoize(() => {
         return getPayment(paymentID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID });
     });
@@ -146,7 +137,7 @@ function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorA
         return executePayment(paymentID, payerID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID })
             .finally(get.reset)
             .finally(execute.reset)
-            .catch(handleProcessorError);
+            .catch(err => handleProcessorError<PaymentResponse>(err, restart, ACTION.execute));
     });
 
     const patch = (data = {}) => {

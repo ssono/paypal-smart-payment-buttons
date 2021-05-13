@@ -88,8 +88,8 @@ export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccess
 }
 
 export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
-    return forceRestAPI
-        ? callRestAPI({
+    if (forceRestAPI) {
+        return callRestAPI({
             accessToken: facilitatorAccessToken,
             method:      `post`,
             url:         `${ ORDERS_API_URL }/${ orderID }/capture`,
@@ -97,20 +97,35 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        })
-        : callSmartAPI({
-            accessToken: buyerAccessToken,
-            method:      'post',
-            url:         `${ SMART_API_URI.ORDER }/${ orderID }/capture`,
-            headers:     {
-                [HEADERS.CLIENT_CONTEXT]: orderID
-            }
+        }).catch(() => {
+            return callSmartAPI({
+                accessToken: buyerAccessToken,
+                method:      'post',
+                url:         `${ SMART_API_URI.ORDER }/${ orderID }/capture`,
+                headers:     {
+                    [HEADERS.CLIENT_CONTEXT]: orderID
+                }
+            }).then(smartResponse => {
+                getLogger().info(`lsat_uprade_shadow_success_capture`, { orderID });
+
+                return smartResponse;
+            });
         });
+    }
+
+    return callSmartAPI({
+        accessToken: buyerAccessToken,
+        method:      'post',
+        url:         `${ SMART_API_URI.ORDER }/${ orderID }/capture`,
+        headers:     {
+            [HEADERS.CLIENT_CONTEXT]: orderID
+        }
+    });
 }
 
 export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
-    return forceRestAPI
-        ? callRestAPI({
+    if (forceRestAPI) {
+        return callRestAPI({
             accessToken: facilitatorAccessToken,
             method:      `post`,
             url:         `${ ORDERS_API_URL }/${ orderID }/authorize`,
@@ -118,15 +133,30 @@ export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyer
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        })
-        : callSmartAPI({
-            accessToken: buyerAccessToken,
-            method:      'post',
-            url:         `${ SMART_API_URI.ORDER }/${ orderID }/authorize`,
-            headers:     {
-                [HEADERS.CLIENT_CONTEXT]: orderID
-            }
+        }).catch(() => {
+            return callSmartAPI({
+                accessToken: buyerAccessToken,
+                method:      'post',
+                url:         `${ SMART_API_URI.ORDER }/${ orderID }/authorize`,
+                headers:     {
+                    [HEADERS.CLIENT_CONTEXT]: orderID
+                }
+            }).then(smartResponse => {
+                getLogger().info(`lsat_uprade_shadow_success_authorize`, { orderID });
+
+                return smartResponse;
+            });
         });
+    }
+
+    return callSmartAPI({
+        accessToken: buyerAccessToken,
+        method:      'post',
+        url:         `${ SMART_API_URI.ORDER }/${ orderID }/authorize`,
+        headers:     {
+            [HEADERS.CLIENT_CONTEXT]: orderID
+        }
+    });
 }
 
 type PatchData = {|
