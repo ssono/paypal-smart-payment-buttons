@@ -69,22 +69,39 @@ export function createOrderID(order : OrderCreateRequest, { facilitatorAccessTok
 }
 
 export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
-    return forceRestAPI
-        ? callRestAPI({
+    if (forceRestAPI) {
+        return callRestAPI({
             accessToken: facilitatorAccessToken,
             url:         `${ ORDERS_API_URL }/${ orderID }`,
             headers:     {
                 [ HEADERS.PARTNER_ATTRIBUTION_ID ]: partnerAttributionID || '',
                 [ HEADERS.PREFER ]:                 PREFER.REPRESENTATION
             }
-        })
-        : callSmartAPI({
-            accessToken: buyerAccessToken,
-            url:         `${ SMART_API_URI.ORDER }/${ orderID }`,
-            headers:     {
-                [HEADERS.CLIENT_CONTEXT]:         orderID
-            }
+        }).catch(() => {
+            return callSmartAPI({
+                accessToken: buyerAccessToken,
+                url:         `${ SMART_API_URI.ORDER }/${ orderID }`,
+                headers:     {
+                    [HEADERS.CLIENT_CONTEXT]:         orderID
+                }
+            }).then(smartResponse => {
+                const { headers } = smartResponse;
+                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+                
+                getLogger().info(`lsat_uprade_shadow_success_get`, { corrID, orderID });
+
+                return smartResponse;
+            });
         });
+    }
+
+    return callSmartAPI({
+        accessToken: buyerAccessToken,
+        url:         `${ SMART_API_URI.ORDER }/${ orderID }`,
+        headers:     {
+            [HEADERS.CLIENT_CONTEXT]:         orderID
+        }
+    });
 }
 
 export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
@@ -106,7 +123,10 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                getLogger().info(`lsat_uprade_shadow_success_capture`, { orderID });
+                const { headers } = smartResponse;
+                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+                
+                getLogger().info(`lsat_uprade_shadow_success_capture`, { corrID, orderID });
 
                 return smartResponse;
             });
@@ -142,7 +162,10 @@ export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyer
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                getLogger().info(`lsat_uprade_shadow_success_authorize`, { orderID });
+                const { headers } = smartResponse;
+                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+
+                getLogger().info(`lsat_uprade_shadow_success_authorize`, { corrID, orderID });
 
                 return smartResponse;
             });
