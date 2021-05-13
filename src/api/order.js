@@ -68,6 +68,15 @@ export function createOrderID(order : OrderCreateRequest, { facilitatorAccessTok
     });
 }
 
+const handleSmartResponse = (response, orderID : string, action : string) => {
+    const { headers } = response;
+    const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+    
+    getLogger().info(`lsat_uprade_shadow_success_get_${ action }`, { corrID, orderID });
+
+    return response;
+};
+
 export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
     if (forceRestAPI) {
         return callRestAPI({
@@ -85,12 +94,7 @@ export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccess
                     [HEADERS.CLIENT_CONTEXT]:         orderID
                 }
             }).then(smartResponse => {
-                const { headers } = smartResponse;
-                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
-                
-                getLogger().info(`lsat_uprade_shadow_success_get`, { corrID, orderID });
-
-                return smartResponse;
+                return handleSmartResponse(smartResponse, orderID, 'get');
             });
         });
     }
@@ -123,12 +127,7 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                const { headers } = smartResponse;
-                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
-                
-                getLogger().info(`lsat_uprade_shadow_success_capture`, { corrID, orderID });
-
-                return smartResponse;
+                return handleSmartResponse(smartResponse, orderID, 'capture');
             });
         });
     }
@@ -162,12 +161,7 @@ export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyer
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                const { headers } = smartResponse;
-                const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
-
-                getLogger().info(`lsat_uprade_shadow_success_authorize`, { corrID, orderID });
-
-                return smartResponse;
+                return handleSmartResponse(smartResponse, orderID, 'authorize');
             });
         });
     }
