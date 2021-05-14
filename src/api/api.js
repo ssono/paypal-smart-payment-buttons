@@ -39,6 +39,7 @@ export function callRestAPI<D, T>({ accessToken, method, url, data, headers } : 
             const description = (hasDetails && body.details[0].description) ? body.details[0].description : 'no description';
             
             const error = new Error(`${ issue }: ${ description } (Corr ID: ${ responseHeaders[HEADERS.PAYPAL_DEBUG_ID] }`);
+            // $FlowFixMe
             error.response = { status, headers: responseHeaders };
 
             throw error;
