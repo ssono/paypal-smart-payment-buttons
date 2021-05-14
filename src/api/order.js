@@ -79,6 +79,7 @@ const handleSmartResponse = (response, orderID : string, restAPIError, action : 
     const { headers } = response;
     const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
 
+    // $FlowFixMe
     const { apiHeaders } = restAPIError.response;
     const apiCorrID = apiHeaders[HEADERS.PAYPAL_DEBUG_ID];
     
