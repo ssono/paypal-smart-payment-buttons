@@ -107,7 +107,7 @@ export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccess
                     [HEADERS.CLIENT_CONTEXT]:         orderID
                 }
             }).then(smartResponse => {
-                return handleSmartResponse(smartResponse, err, orderID, 'get');
+                return handleSmartResponse(smartResponse, orderID, err, 'get');
             });
         });
     }
