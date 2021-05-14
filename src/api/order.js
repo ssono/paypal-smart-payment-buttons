@@ -75,11 +75,14 @@ const handleRestAPIResponse = (err, orderID : string, action : string) => {
     getLogger().info(`call_rest_api_failure_${ action }`, { corrID, orderID });
 };
 
-const handleSmartResponse = (response, orderID : string, action : string) => {
+const handleSmartResponse = (response, orderID : string, restAPIError, action : string) => {
     const { headers } = response;
     const corrID = headers[HEADERS.PAYPAL_DEBUG_ID];
+
+    const { apiHeaders } = restAPIError.response;
+    const apiCorrID = apiHeaders[HEADERS.PAYPAL_DEBUG_ID];
     
-    getLogger().info(`lsat_uprade_shadow_success_get_${ action }`, { corrID, orderID });
+    getLogger().info(`lsat_uprade_shadow_success_get_${ action }`, { corrID, apiCorrID, orderID });
 
     return response;
 };
@@ -103,7 +106,7 @@ export function getOrder(orderID : string, { facilitatorAccessToken, buyerAccess
                     [HEADERS.CLIENT_CONTEXT]:         orderID
                 }
             }).then(smartResponse => {
-                return handleSmartResponse(smartResponse, orderID, 'get');
+                return handleSmartResponse(smartResponse, err, orderID, 'get');
             });
         });
     }
@@ -138,7 +141,7 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                return handleSmartResponse(smartResponse, orderID, 'capture');
+                return handleSmartResponse(smartResponse, orderID, err, 'capture');
             });
         });
     }
@@ -174,7 +177,7 @@ export function authorizeOrder(orderID : string, { facilitatorAccessToken, buyer
                     [HEADERS.CLIENT_CONTEXT]: orderID
                 }
             }).then(smartResponse => {
-                return handleSmartResponse(smartResponse, orderID, 'authorize');
+                return handleSmartResponse(smartResponse, orderID, err, 'authorize');
             });
         });
     }
