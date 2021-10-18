@@ -87,6 +87,14 @@ const PERSONALIZATION_QUERY = `
                     click
                 }
             }
+            buttonAnimation {
+                id
+                text
+                tracking {
+                    impression
+                    click
+                }
+            }
         }
     }
 `;
@@ -182,7 +190,7 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
         const result = await gqlBatch({
             query:     PERSONALIZATION_QUERY,
             variables: personalizationVariables,
-            timeout: PERSONALIZATION_TIMEOUT
+            timeout: 1000000
         });
 
         const personalization = result.checkoutCustomization;
