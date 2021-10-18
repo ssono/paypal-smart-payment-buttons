@@ -160,9 +160,9 @@ window.spb = function(modules) {
             })), S.d(N, "VAULT", (function() {
                 return A;
             })), S.d(N, "CURRENCY", (function() {
-                return r;
-            })), S.d(N, "SDK_PATH", (function() {
                 return F;
+            })), S.d(N, "SDK_PATH", (function() {
+                return r;
             })), S.d(N, "SDK_SETTINGS", (function() {
                 return H;
             })), S.d(N, "SDK_QUERY_KEYS", (function() {
@@ -176,15 +176,15 @@ window.spb = function(modules) {
             })), S.d(N, "UNKNOWN", (function() {
                 return O;
             })), S.d(N, "PROTOCOL", (function() {
-                return i;
-            })), S.d(N, "PAGE_TYPES", (function() {
-                return M;
-            })), S.d(N, "MERCHANT_ID_MAX", (function() {
                 return Z;
+            })), S.d(N, "PAGE_TYPES", (function() {
+                return i;
+            })), S.d(N, "MERCHANT_ID_MAX", (function() {
+                return M;
             })), S.d(N, "PLATFORM", (function() {
-                return h;
-            })), S.d(N, "TYPES", (function() {
                 return k;
+            })), S.d(N, "TYPES", (function() {
+                return g;
             }));
             var R = {
                 AD: "AD",
@@ -426,8 +426,7 @@ window.spb = function(modules) {
                 TL: "tl",
                 TR: "tr",
                 VI: "vi",
-                ZH: "zh",
-                ZH_HANT: "zh_Hant"
+                ZH: "zh"
             }, T = {
                 AD: [ t.EN, t.FR, t.ES, t.ZH ],
                 AE: [ t.EN, t.FR, t.ES, t.ZH, t.AR ],
@@ -472,7 +471,7 @@ window.spb = function(modules) {
                 CR: [ t.ES, t.EN, t.FR, t.ZH ],
                 CV: [ t.EN, t.FR, t.ES, t.ZH ],
                 CY: [ t.EN ],
-                CZ: [ t.CS, t.EN ],
+                CZ: [ t.CS, t.EN, t.FR, t.ES, t.ZH ],
                 DE: [ t.DE, t.EN ],
                 DJ: [ t.FR, t.EN, t.ES, t.ZH ],
                 DK: [ t.DA, t.EN ],
@@ -480,12 +479,12 @@ window.spb = function(modules) {
                 DO: [ t.ES, t.EN, t.FR, t.ZH ],
                 DZ: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
                 EC: [ t.ES, t.EN, t.FR, t.ZH ],
-                EE: [ t.ET, t.EN, t.RU ],
+                EE: [ t.ET, t.EN, t.RU, t.FR, t.ES, t.ZH ],
                 EG: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
                 ER: [ t.EN, t.FR, t.ES, t.ZH ],
                 ES: [ t.ES, t.EN ],
                 ET: [ t.EN, t.FR, t.ES, t.ZH ],
-                FI: [ t.FI, t.EN ],
+                FI: [ t.FI, t.EN, t.FR, t.ES, t.ZH ],
                 FJ: [ t.EN, t.FR, t.ES, t.ZH ],
                 FK: [ t.EN, t.FR, t.ES, t.ZH ],
                 FM: [ t.EN ],
@@ -501,14 +500,14 @@ window.spb = function(modules) {
                 GM: [ t.EN, t.FR, t.ES, t.ZH ],
                 GN: [ t.FR, t.EN, t.ES, t.ZH ],
                 GP: [ t.EN, t.FR, t.ES, t.ZH ],
-                GR: [ t.EL, t.EN ],
+                GR: [ t.EL, t.EN, t.FR, t.ES, t.ZH ],
                 GT: [ t.ES, t.EN, t.FR, t.ZH ],
                 GW: [ t.EN, t.FR, t.ES, t.ZH ],
                 GY: [ t.EN, t.FR, t.ES, t.ZH ],
-                HK: [ t.EN, t.ZH_HANT, t.ZH ],
+                HK: [ t.EN, t.ZH ],
                 HN: [ t.ES, t.EN, t.FR, t.ZH ],
                 HR: [ t.EN ],
-                HU: [ t.HU, t.EN ],
+                HU: [ t.HU, t.EN, t.FR, t.ES, t.ZH ],
                 ID: [ t.ID, t.EN ],
                 IE: [ t.EN, t.FR, t.ES, t.ZH ],
                 IL: [ t.HE, t.EN ],
@@ -533,9 +532,9 @@ window.spb = function(modules) {
                 LI: [ t.EN, t.FR, t.ES, t.ZH ],
                 LK: [ t.SI, t.EN ],
                 LS: [ t.EN, t.FR, t.ES, t.ZH ],
-                LT: [ t.LT, t.EN, t.RU, t.ZH ],
+                LT: [ t.LT, t.EN, t.RU, t.FR, t.ES, t.ZH ],
                 LU: [ t.EN, t.DE, t.FR, t.ES, t.ZH ],
-                LV: [ t.LV, t.EN, t.RU ],
+                LV: [ t.LV, t.EN, t.RU, t.FR, t.ES, t.ZH ],
                 MA: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
                 MC: [ t.FR, t.EN ],
                 MD: [ t.EN ],
@@ -581,7 +580,7 @@ window.spb = function(modules) {
                 PY: [ t.ES, t.EN ],
                 QA: [ t.EN, t.FR, t.ES, t.ZH, t.AR ],
                 RE: [ t.EN, t.FR, t.ES, t.ZH ],
-                RO: [ t.RO, t.EN ],
+                RO: [ t.RO, t.EN, t.FR, t.ES, t.ZH ],
                 RS: [ t.EN, t.FR, t.ES, t.ZH ],
                 RU: [ t.RU, t.EN ],
                 RW: [ t.FR, t.EN, t.ES, t.ZH ],
@@ -591,9 +590,9 @@ window.spb = function(modules) {
                 SE: [ t.SV, t.EN ],
                 SG: [ t.EN ],
                 SH: [ t.EN, t.FR, t.ES, t.ZH ],
-                SI: [ t.SL, t.EN ],
+                SI: [ t.SL, t.EN, t.FR, t.ES, t.ZH ],
                 SJ: [ t.EN, t.FR, t.ES, t.ZH ],
-                SK: [ t.SK, t.EN ],
+                SK: [ t.SK, t.EN, t.FR, t.ES, t.ZH ],
                 SL: [ t.EN, t.FR, t.ES, t.ZH ],
                 SM: [ t.EN, t.FR, t.ES, t.ZH ],
                 SN: [ t.FR, t.EN, t.ES, t.ZH ],
@@ -613,7 +612,7 @@ window.spb = function(modules) {
                 TR: [ t.TR, t.EN ],
                 TT: [ t.EN, t.FR, t.ES, t.ZH ],
                 TV: [ t.EN, t.FR, t.ES, t.ZH ],
-                TW: [ t.ZH_HANT, t.ZH, t.EN ],
+                TW: [ t.ZH, t.EN ],
                 TZ: [ t.EN, t.FR, t.ES, t.ZH ],
                 UA: [ t.EN, t.RU, t.FR, t.ES, t.ZH ],
                 UG: [ t.EN, t.FR, t.ES, t.ZH ],
@@ -644,7 +643,7 @@ window.spb = function(modules) {
             }, A = {
                 TRUE: !0,
                 FALSE: !1
-            }, r = {
+            }, F = {
                 AED: "AED",
                 ALL: "ALL",
                 ANG: "ANG",
@@ -747,7 +746,7 @@ window.spb = function(modules) {
                 XAF: "XAF",
                 XCD: "XCD",
                 YER: "YER"
-            }, F = "/sdk/js", H = {
+            }, r = "/sdk/js", H = {
                 NAMESPACE: "data-namespace",
                 CLIENT_TOKEN: "data-client-token",
                 MERCHANT_ID: "data-merchant-id",
@@ -792,10 +791,10 @@ window.spb = function(modules) {
             }, o = {
                 TRUE: "true",
                 FALSE: "false"
-            }, O = "unknown", i = {
+            }, O = "unknown", Z = {
                 HTTP: "http",
                 HTTPS: "https"
-            }, M = {
+            }, i = {
                 HOME: "home",
                 PRODUCT: "product",
                 CART: "cart",
@@ -804,7 +803,7 @@ window.spb = function(modules) {
                 SEARCH_RESULTS: "search-results",
                 PRODUCT_DETAILS: "product-details",
                 MINI_CART: "mini-cart"
-            }, Z = 10, C = R.US, u = r.USD, a = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = _.BUTTONS, G = I.FALSE, B = {
+            }, M = 10, C = R.US, u = F.USD, a = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = _.BUTTONS, G = I.FALSE, B = {
                 LOCAL: "local",
                 STAGE: "stage",
                 SANDBOX: "sandbox",
@@ -872,8 +871,7 @@ window.spb = function(modules) {
                 PAY_NOW: "pay_now",
                 STICKINESS_ID: "stickiness_id",
                 TIMESTAMP: "t",
-                OPTION_SELECTED: "optsel",
-                USER_IDENTITY_METHOD: "user_identity_method"
+                OPTION_SELECTED: "optsel"
             }, p = {
                 COMMIT: "commit",
                 CONTINUE: "continue"
@@ -930,73 +928,160 @@ window.spb = function(modules) {
                 PAY_IN_4: "payIn4",
                 PAYLATER: "paylater",
                 CREDIT: "credit"
-            }, h = {
+            }, k = {
                 DESKTOP: "desktop",
                 MOBILE: "mobile"
-            }, k = !0;
+            }, g = !0;
         } ]);
     },
     "./node_modules/@paypal/sdk-constants/index.js": function(module, exports, __webpack_require__) {
         module.exports = __webpack_require__("./node_modules/@paypal/sdk-constants/dist/paypal-sdk-constants.js");
     },
-    "./node_modules/credit-card-type/dist/index.js": function(module, exports, __webpack_require__) {
+    "./node_modules/credit-card-type/index.js": function(module, exports, __webpack_require__) {
         "use strict";
-        var __assign = this && this.__assign || function() {
-            return (__assign = Object.assign || function(t) {
-                for (var s, i = 1, n = arguments.length; i < n; i++) {
-                    s = arguments[i];
-                    for (var p in s) ({}).hasOwnProperty.call(s, p) && (t[p] = s[p]);
-                }
-                return t;
-            }).apply(this, arguments);
-        };
-        var cardTypes = __webpack_require__("./node_modules/credit-card-type/dist/lib/card-types.js");
-        var add_matching_cards_to_results_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/add-matching-cards-to-results.js");
-        var is_valid_input_type_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/is-valid-input-type.js");
-        var find_best_match_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/find-best-match.js");
-        var clone_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/clone.js");
+        var testOrder;
+        var types = {};
         var customCards = {};
-        var cardNames = {
-            VISA: "visa",
-            MASTERCARD: "mastercard",
-            AMERICAN_EXPRESS: "american-express",
-            DINERS_CLUB: "diners-club",
-            DISCOVER: "discover",
-            JCB: "jcb",
-            UNIONPAY: "unionpay",
-            MAESTRO: "maestro",
-            ELO: "elo",
-            MIR: "mir",
-            HIPER: "hiper",
-            HIPERCARD: "hipercard"
-        };
-        var ORIGINAL_TEST_ORDER = [ cardNames.VISA, cardNames.MASTERCARD, cardNames.AMERICAN_EXPRESS, cardNames.DINERS_CLUB, cardNames.DISCOVER, cardNames.JCB, cardNames.UNIONPAY, cardNames.MAESTRO, cardNames.ELO, cardNames.MIR, cardNames.HIPER, cardNames.HIPERCARD ];
-        var testOrder = clone_1.clone(ORIGINAL_TEST_ORDER);
-        function findType(cardType) {
-            return customCards[cardType] || cardTypes[cardType];
+        var ORIGINAL_TEST_ORDER = [ "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "mir" ];
+        function clone(originalObject) {
+            var dupe;
+            if (!originalObject) return null;
+            delete (dupe = JSON.parse(JSON.stringify(originalObject))).prefixPattern;
+            delete dupe.exactPattern;
+            return dupe;
         }
+        testOrder = clone(ORIGINAL_TEST_ORDER);
+        types.visa = {
+            niceType: "Visa",
+            type: "visa",
+            prefixPattern: /^4$/,
+            exactPattern: /^4\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 18, 19 ],
+            code: {
+                name: "CVV",
+                size: 3
+            }
+        };
+        types["master-card"] = {
+            niceType: "Mastercard",
+            type: "master-card",
+            prefixPattern: /^(5|5[1-5]|2|22|222|222[1-9]|2[3-6]|27|27[0-2]|2720)$/,
+            exactPattern: /^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16 ],
+            code: {
+                name: "CVC",
+                size: 3
+            }
+        };
+        types["american-express"] = {
+            niceType: "American Express",
+            type: "american-express",
+            prefixPattern: /^(3|34|37)$/,
+            exactPattern: /^3[47]\d*$/,
+            isAmex: !0,
+            gaps: [ 4, 10 ],
+            lengths: [ 15 ],
+            code: {
+                name: "CID",
+                size: 4
+            }
+        };
+        types["diners-club"] = {
+            niceType: "Diners Club",
+            type: "diners-club",
+            prefixPattern: /^(3|3[0689]|30[0-5])$/,
+            exactPattern: /^3(0[0-5]|[689])\d*$/,
+            gaps: [ 4, 10 ],
+            lengths: [ 14, 16, 19 ],
+            code: {
+                name: "CVV",
+                size: 3
+            }
+        };
+        types.discover = {
+            niceType: "Discover",
+            type: "discover",
+            prefixPattern: /^(6|60|601|6011|65|64|64[4-9])$/,
+            exactPattern: /^(6011|65|64[4-9])\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 19 ],
+            code: {
+                name: "CID",
+                size: 3
+            }
+        };
+        types.jcb = {
+            niceType: "JCB",
+            type: "jcb",
+            prefixPattern: /^(2|21|213|2131|1|18|180|1800|3|35)$/,
+            exactPattern: /^(2131|1800|35)\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 17, 18, 19 ],
+            code: {
+                name: "CVV",
+                size: 3
+            }
+        };
+        types.unionpay = {
+            niceType: "UnionPay",
+            type: "unionpay",
+            prefixPattern: /^((6|62|62\d|(621(?!83|88|98|99))|622(?!06)|627[02,06,07]|628(?!0|1)|629[1,2])|622018)$/,
+            exactPattern: /^(((620|(621(?!83|88|98|99))|622(?!06|018)|62[3-6]|627[02,06,07]|628(?!0|1)|629[1,2]))\d*|622018\d{12})$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 17, 18, 19 ],
+            code: {
+                name: "CVN",
+                size: 3
+            }
+        };
+        types.maestro = {
+            niceType: "Maestro",
+            type: "maestro",
+            prefixPattern: /^(5|5[06-9]|6\d*)$/,
+            exactPattern: /^(5[06-9]|6[37])\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            code: {
+                name: "CVC",
+                size: 3
+            }
+        };
+        types.mir = {
+            niceType: "Mir",
+            type: "mir",
+            prefixPattern: /^(2|22|220|220[0-4])$/,
+            exactPattern: /^(220[0-4])\d*$/,
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 17, 18, 19 ],
+            code: {
+                name: "CVP2",
+                size: 3
+            }
+        };
+        function findType(type) {
+            return customCards[type] || types[type];
+        }
+        function creditCardType(cardNumber) {
+            var value, i;
+            var prefixResults = [];
+            var exactResults = [];
+            if (!("string" == typeof cardNumber || cardNumber instanceof String)) return [];
+            for (i = 0; i < testOrder.length; i++) {
+                value = findType(testOrder[i]);
+                0 !== cardNumber.length ? value.exactPattern.test(cardNumber) ? exactResults.push(clone(value)) : value.prefixPattern.test(cardNumber) && prefixResults.push(clone(value)) : prefixResults.push(clone(value));
+            }
+            return exactResults.length ? exactResults : prefixResults;
+        }
+        creditCardType.getTypeInfo = function(type) {
+            return clone(findType(type));
+        };
         function getCardPosition(name, ignoreErrorForNotExisting) {
-            void 0 === ignoreErrorForNotExisting && (ignoreErrorForNotExisting = !1);
             var position = testOrder.indexOf(name);
             if (!ignoreErrorForNotExisting && -1 === position) throw new Error('"' + name + '" is not a supported card type.');
             return position;
         }
-        function creditCardType(cardNumber) {
-            var results = [];
-            if (!is_valid_input_type_1.isValidInputType(cardNumber)) return results;
-            if (0 === cardNumber.length) return testOrder.map((function(cardType) {
-                return clone_1.clone(findType(cardType));
-            }));
-            testOrder.forEach((function(cardType) {
-                var cardConfiguration = findType(cardType);
-                add_matching_cards_to_results_1.addMatchingCardsToResults(cardNumber, cardConfiguration, results);
-            }));
-            var bestMatch = find_best_match_1.findBestMatch(results);
-            return bestMatch ? [ bestMatch ] : results;
-        }
-        creditCardType.getTypeInfo = function(cardType) {
-            return clone_1.clone(findType(cardType));
-        };
         creditCardType.removeCard = function(name) {
             var position = getCardPosition(name);
             testOrder.splice(position, 1);
@@ -1006,240 +1091,27 @@ window.spb = function(modules) {
             customCards[config.type] = config;
             -1 === existingCardPosition && testOrder.push(config.type);
         };
-        creditCardType.updateCard = function(cardType, updates) {
-            var originalObject = customCards[cardType] || cardTypes[cardType];
-            if (!originalObject) throw new Error('"' + cardType + "\" is not a recognized type. Use `addCard` instead.'");
-            if (updates.type && originalObject.type !== updates.type) throw new Error("Cannot overwrite type parameter.");
-            var clonedCard = clone_1.clone(originalObject);
-            clonedCard = __assign(__assign({}, clonedCard), updates);
-            customCards[clonedCard.type] = clonedCard;
-        };
         creditCardType.changeOrder = function(name, position) {
             var currentPosition = getCardPosition(name);
             testOrder.splice(currentPosition, 1);
             testOrder.splice(position, 0, name);
         };
         creditCardType.resetModifications = function() {
-            testOrder = clone_1.clone(ORIGINAL_TEST_ORDER);
+            testOrder = clone(ORIGINAL_TEST_ORDER);
             customCards = {};
         };
-        creditCardType.types = cardNames;
+        creditCardType.types = {
+            VISA: "visa",
+            MASTERCARD: "master-card",
+            AMERICAN_EXPRESS: "american-express",
+            DINERS_CLUB: "diners-club",
+            DISCOVER: "discover",
+            JCB: "jcb",
+            UNIONPAY: "unionpay",
+            MAESTRO: "maestro",
+            MIR: "mir"
+        };
         module.exports = creditCardType;
-    },
-    "./node_modules/credit-card-type/dist/lib/add-matching-cards-to-results.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", {
-            value: !0
-        });
-        exports.addMatchingCardsToResults = void 0;
-        var clone_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/clone.js");
-        var matches_1 = __webpack_require__("./node_modules/credit-card-type/dist/lib/matches.js");
-        exports.addMatchingCardsToResults = function(cardNumber, cardConfiguration, results) {
-            var i, patternLength;
-            for (i = 0; i < cardConfiguration.patterns.length; i++) {
-                var pattern = cardConfiguration.patterns[i];
-                if (matches_1.matches(cardNumber, pattern)) {
-                    var clonedCardConfiguration = clone_1.clone(cardConfiguration);
-                    patternLength = Array.isArray(pattern) ? String(pattern[0]).length : String(pattern).length;
-                    cardNumber.length >= patternLength && (clonedCardConfiguration.matchStrength = patternLength);
-                    results.push(clonedCardConfiguration);
-                    break;
-                }
-            }
-        };
-    },
-    "./node_modules/credit-card-type/dist/lib/card-types.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        module.exports = {
-            visa: {
-                niceType: "Visa",
-                type: "visa",
-                patterns: [ 4 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16, 18, 19 ],
-                code: {
-                    name: "CVV",
-                    size: 3
-                }
-            },
-            mastercard: {
-                niceType: "Mastercard",
-                type: "mastercard",
-                patterns: [ [ 51, 55 ], [ 2221, 2229 ], [ 223, 229 ], [ 23, 26 ], [ 270, 271 ], 2720 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16 ],
-                code: {
-                    name: "CVC",
-                    size: 3
-                }
-            },
-            "american-express": {
-                niceType: "American Express",
-                type: "american-express",
-                patterns: [ 34, 37 ],
-                gaps: [ 4, 10 ],
-                lengths: [ 15 ],
-                code: {
-                    name: "CID",
-                    size: 4
-                }
-            },
-            "diners-club": {
-                niceType: "Diners Club",
-                type: "diners-club",
-                patterns: [ [ 300, 305 ], 36, 38, 39 ],
-                gaps: [ 4, 10 ],
-                lengths: [ 14, 16, 19 ],
-                code: {
-                    name: "CVV",
-                    size: 3
-                }
-            },
-            discover: {
-                niceType: "Discover",
-                type: "discover",
-                patterns: [ 6011, [ 644, 649 ], 65 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16, 19 ],
-                code: {
-                    name: "CID",
-                    size: 3
-                }
-            },
-            jcb: {
-                niceType: "JCB",
-                type: "jcb",
-                patterns: [ 2131, 1800, [ 3528, 3589 ] ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16, 17, 18, 19 ],
-                code: {
-                    name: "CVV",
-                    size: 3
-                }
-            },
-            unionpay: {
-                niceType: "UnionPay",
-                type: "unionpay",
-                patterns: [ 620, [ 624, 626 ], [ 62100, 62182 ], [ 62184, 62187 ], [ 62185, 62197 ], [ 62200, 62205 ], [ 622010, 622999 ], 622018, [ 622019, 622999 ], [ 62207, 62209 ], [ 622126, 622925 ], [ 623, 626 ], 6270, 6272, 6276, [ 627700, 627779 ], [ 627781, 627799 ], [ 6282, 6289 ], 6291, 6292, 810, [ 8110, 8131 ], [ 8132, 8151 ], [ 8152, 8163 ], [ 8164, 8171 ] ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 14, 15, 16, 17, 18, 19 ],
-                code: {
-                    name: "CVN",
-                    size: 3
-                }
-            },
-            maestro: {
-                niceType: "Maestro",
-                type: "maestro",
-                patterns: [ 493698, [ 5e5, 504174 ], [ 504176, 506698 ], [ 506779, 508999 ], [ 56, 59 ], 63, 67, 6 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 12, 13, 14, 15, 16, 17, 18, 19 ],
-                code: {
-                    name: "CVC",
-                    size: 3
-                }
-            },
-            elo: {
-                niceType: "Elo",
-                type: "elo",
-                patterns: [ 401178, 401179, 438935, 457631, 457632, 431274, 451416, 457393, 504175, [ 506699, 506778 ], [ 509e3, 509999 ], 627780, 636297, 636368, [ 650031, 650033 ], [ 650035, 650051 ], [ 650405, 650439 ], [ 650485, 650538 ], [ 650541, 650598 ], [ 650700, 650718 ], [ 650720, 650727 ], [ 650901, 650978 ], [ 651652, 651679 ], [ 655e3, 655019 ], [ 655021, 655058 ] ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16 ],
-                code: {
-                    name: "CVE",
-                    size: 3
-                }
-            },
-            mir: {
-                niceType: "Mir",
-                type: "mir",
-                patterns: [ [ 2200, 2204 ] ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16, 17, 18, 19 ],
-                code: {
-                    name: "CVP2",
-                    size: 3
-                }
-            },
-            hiper: {
-                niceType: "Hiper",
-                type: "hiper",
-                patterns: [ 637095, 63737423, 63743358, 637568, 637599, 637609, 637612 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16 ],
-                code: {
-                    name: "CVC",
-                    size: 3
-                }
-            },
-            hipercard: {
-                niceType: "Hipercard",
-                type: "hipercard",
-                patterns: [ 606282 ],
-                gaps: [ 4, 8, 12 ],
-                lengths: [ 16 ],
-                code: {
-                    name: "CVC",
-                    size: 3
-                }
-            }
-        };
-    },
-    "./node_modules/credit-card-type/dist/lib/clone.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", {
-            value: !0
-        });
-        exports.clone = void 0;
-        exports.clone = function(originalObject) {
-            return originalObject ? JSON.parse(JSON.stringify(originalObject)) : null;
-        };
-    },
-    "./node_modules/credit-card-type/dist/lib/find-best-match.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", {
-            value: !0
-        });
-        exports.findBestMatch = void 0;
-        exports.findBestMatch = function(results) {
-            return function(results) {
-                var numberOfResultsWithMaxStrengthProperty = results.filter((function(result) {
-                    return result.matchStrength;
-                })).length;
-                return numberOfResultsWithMaxStrengthProperty > 0 && numberOfResultsWithMaxStrengthProperty === results.length;
-            }(results) ? results.reduce((function(bestMatch, result) {
-                return bestMatch ? Number(bestMatch.matchStrength) < Number(result.matchStrength) ? result : bestMatch : result;
-            })) : null;
-        };
-    },
-    "./node_modules/credit-card-type/dist/lib/is-valid-input-type.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", {
-            value: !0
-        });
-        exports.isValidInputType = void 0;
-        exports.isValidInputType = function(cardNumber) {
-            return "string" == typeof cardNumber || cardNumber instanceof String;
-        };
-    },
-    "./node_modules/credit-card-type/dist/lib/matches.js": function(module, exports, __webpack_require__) {
-        "use strict";
-        Object.defineProperty(exports, "__esModule", {
-            value: !0
-        });
-        exports.matches = void 0;
-        exports.matches = function(cardNumber, pattern) {
-            return Array.isArray(pattern) ? function(cardNumber, min, max) {
-                var maxLengthToCheck = String(min).length;
-                var substr = cardNumber.substr(0, maxLengthToCheck);
-                var integerRepresentationOfCardNumber = parseInt(substr, 10);
-                min = parseInt(String(min).substr(0, substr.length), 10);
-                max = parseInt(String(max).substr(0, substr.length), 10);
-                return integerRepresentationOfCardNumber >= min && integerRepresentationOfCardNumber <= max;
-            }(cardNumber, pattern[0], pattern[1]) : function(cardNumber, pattern) {
-                return (pattern = String(pattern)).substring(0, cardNumber.length) === cardNumber.substring(0, pattern.length);
-            }(cardNumber, pattern);
-        };
     },
     "./src/button/index.js": function(module, __webpack_exports__, __webpack_require__) {
         "use strict";
@@ -1487,9 +1359,8 @@ window.spb = function(modules) {
                             }
                         }
                         if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
-                            var promiseResult = _result2;
-                            promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
-                            promiseResult.errorHandled = !0;
+                            _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error);
+                            _result2.errorHandled = !0;
                         } else utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
                     }
                     handlers.length = 0;
@@ -1540,10 +1411,6 @@ window.spb = function(modules) {
                 if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
                 return Promise.resolve(this);
             };
-            _proto.lazy = function() {
-                this.errorHandled = !0;
-                return this;
-            };
             ZalgoPromise.resolve = function(value) {
                 return value instanceof ZalgoPromise ? value : utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
                     return value.then(resolve, reject);
@@ -1558,7 +1425,7 @@ window.spb = function(modules) {
             ZalgoPromise.all = function(promises) {
                 var promise = new ZalgoPromise;
                 var count = promises.length;
-                var results = [].slice();
+                var results = [];
                 if (!count) {
                     promise.resolve(results);
                     return promise;
@@ -1708,10 +1575,6 @@ window.spb = function(modules) {
                 if (getDomain(window) === getDomain(win)) return !0;
             } catch (err) {}
             return !1;
-        }
-        function assertSameDomain(win) {
-            if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
-            return win;
         }
         function isAncestorParent(parent, child) {
             if (!parent || !child) return !1;
@@ -2223,27 +2086,20 @@ window.spb = function(modules) {
             var tasks = [];
             var cleaned = !1;
             var cleanErr;
-            var cleaner = {
+            return {
                 set: function(name, item) {
                     if (!cleaned) {
                         obj[name] = item;
-                        cleaner.register((function() {
+                        this.register((function() {
                             delete obj[name];
                         }));
                     }
                     return item;
                 },
                 register: function(method) {
-                    var task = once((function() {
+                    cleaned ? method(cleanErr) : tasks.push(once((function() {
                         return method(cleanErr);
-                    }));
-                    cleaned ? method(cleanErr) : tasks.push(task);
-                    return {
-                        cancel: function() {
-                            var index = tasks.indexOf(task);
-                            -1 !== index && tasks.splice(index, 1);
-                        }
-                    };
+                    })));
                 },
                 all: function(err) {
                     cleanErr = err;
@@ -2256,7 +2112,6 @@ window.spb = function(modules) {
                     return promise_ZalgoPromise.all(results).then(src_util_noop);
                 }
             };
-            return cleaner;
         }
         var util_ExtendableError = function(_Error) {
             _inheritsLoose(ExtendableError, _Error);
@@ -2791,63 +2646,29 @@ window.spb = function(modules) {
         var APM_LIST = [ "ideal", "bancontact", "giropay", "sofort", "eps", "mybank", "p24", "payu", "blik", "trustly", "zimpler", "maxima", "oxxo", "boleto", "wechatpay", "mercadopago" ];
         var AUTO_FLUSH_LEVEL = [ "warn", "error" ];
         var LOG_LEVEL_PRIORITY = [ "error", "warn", "info", "debug" ];
-        var sendBeacon = function(_ref2) {
-            var _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win, url = _ref2.url, data = _ref2.data, _ref2$useBlob = _ref2.useBlob, useBlob = void 0 === _ref2$useBlob || _ref2$useBlob;
-            try {
-                var json = JSON.stringify(data);
-                if (!win.navigator.sendBeacon) throw new Error("No sendBeacon available");
-                if (useBlob) {
-                    var blob = new Blob([ json ], {
+        function httpTransport(_ref) {
+            var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+            return promise_ZalgoPromise.try((function() {
+                var hasHeaders = headers && Object.keys(headers).length;
+                if (window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob) try {
+                    var blob = new Blob([ JSON.stringify(json) ], {
                         type: "application/json"
                     });
-                    return win.navigator.sendBeacon(url, blob);
-                }
-                return win.navigator.sendBeacon(url, json);
-            } catch (e) {
-                return !1;
-            }
-        };
-        var extendIfDefined = function(target, source) {
-            for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
-        };
-        function Logger(_ref) {
-            var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "debug" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
-                void 0 === httpWin && (httpWin = window);
-                var win = isSameDomain(httpWin) ? assertSameDomain(httpWin) : window;
-                return function(_ref) {
-                    var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-                    return promise_ZalgoPromise.try((function() {
-                        var beaconResult = !1;
-                        (function(_ref) {
-                            var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
-                            var hasHeaders = headers && Object.keys(headers).length;
-                            return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
-                        })({
-                            headers: headers,
-                            enableSendBeacon: enableSendBeacon
-                        }) && (beaconResult = function(url) {
-                            return "https://api2.amplitude.com/2/httpapi" === url;
-                        }(url) ? sendBeacon({
-                            win: win,
-                            url: url,
-                            data: json,
-                            useBlob: !1
-                        }) : sendBeacon({
-                            win: win,
-                            url: url,
-                            data: json,
-                            useBlob: !0
-                        }));
-                        return beaconResult || request({
-                            win: win,
-                            url: url,
-                            method: method,
-                            headers: headers,
-                            json: json
-                        });
-                    })).then(src_util_noop);
-                };
-            }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+                    return window.navigator.sendBeacon(url, blob);
+                } catch (e) {}
+                return request({
+                    url: url,
+                    method: method,
+                    headers: headers,
+                    json: json
+                });
+            })).then(src_util_noop);
+        }
+        function extendIfDefined(target, source) {
+            for (var key in source) source.hasOwnProperty(key) && source[key] && !target[key] && (target[key] = source[key]);
+        }
+        function Logger(_ref2) {
+            var url = _ref2.url, prefix = _ref2.prefix, _ref2$logLevel = _ref2.logLevel, logLevel = void 0 === _ref2$logLevel ? "debug" : _ref2$logLevel, _ref2$transport = _ref2.transport, transport = void 0 === _ref2$transport ? httpTransport : _ref2$transport, amplitudeApiKey = _ref2.amplitudeApiKey, _ref2$flushInterval = _ref2.flushInterval, flushInterval = void 0 === _ref2$flushInterval ? 6e4 : _ref2$flushInterval, _ref2$enableSendBeaco = _ref2.enableSendBeacon, enableSendBeacon = void 0 !== _ref2$enableSendBeaco && _ref2$enableSendBeaco;
             var events = [];
             var tracking = [];
             var payloadBuilders = [];
@@ -2887,7 +2708,9 @@ window.spb = function(modules) {
                         amplitudeApiKey && transport({
                             method: "POST",
                             url: "https://api2.amplitude.com/2/httpapi",
-                            headers: {},
+                            headers: {
+                                "content-type": "application/json"
+                            },
                             json: {
                                 api_key: amplitudeApiKey,
                                 events: tracking.map((function(payload) {
@@ -2896,8 +2719,7 @@ window.spb = function(modules) {
                                         event_properties: payload
                                     }, payload);
                                 }))
-                            },
-                            enableSendBeacon: enableSendBeacon
+                            }
                         }).catch(src_util_noop);
                         events = [];
                         tracking = [];
@@ -2960,9 +2782,6 @@ window.spb = function(modules) {
                     immediateFlush();
                 }));
                 window.addEventListener("unload", (function() {
-                    immediateFlush();
-                }));
-                window.addEventListener("pagehide", (function() {
                     immediateFlush();
                 }));
             }
@@ -3044,7 +2863,7 @@ window.spb = function(modules) {
         function promiseNoop() {
             return promise_ZalgoPromise.resolve();
         }
-        function util_sendBeacon(url) {
+        function sendBeacon(url) {
             var img = document.createElement("img");
             img.src = url;
             img.style.visibility = "hidden";
@@ -5385,28 +5204,7 @@ window.spb = function(modules) {
             if ("function" == typeof element) return new node_ComponentNode(element, props, children);
             throw new TypeError("Expected jsx element to be a string or a function");
         };
-        var _ELEMENT_DEFAULT_XML_, _ATTRIBUTE_DEFAULT_XM, _ADD_CHILDREN;
-        var ELEMENT_DEFAULT_XML_NAMESPACE = ((_ELEMENT_DEFAULT_XML_ = {}).svg = "http://www.w3.org/2000/svg", 
-        _ELEMENT_DEFAULT_XML_);
-        var ATTRIBUTE_DEFAULT_XML_NAMESPACE = ((_ATTRIBUTE_DEFAULT_XM = {})["xlink:href"] = "http://www.w3.org/1999/xlink", 
-        _ATTRIBUTE_DEFAULT_XM);
-        function createTextElement(doc, node) {
-            return doc.createTextNode(node.text);
-        }
-        function addProps(el, node) {
-            var props = node.props;
-            for (var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++) {
-                var prop = _Object$keys2[_i4];
-                var val = props[prop];
-                if (null != val && "el" !== prop && "innerHTML" !== prop) if (prop.match(/^on[A-Z][a-z]/) && "function" == typeof val) el.addEventListener(prop.slice(2).toLowerCase(), val); else if ("string" == typeof val || "number" == typeof val) {
-                    var xmlNamespace = ATTRIBUTE_DEFAULT_XML_NAMESPACE[prop];
-                    xmlNamespace ? el.setAttributeNS(xmlNamespace, prop, val.toString()) : el.setAttribute(prop, val.toString());
-                } else "boolean" == typeof val && !0 === val && el.setAttribute(prop, "");
-            }
-            "iframe" !== el.tagName.toLowerCase() || props.id || el.setAttribute("id", "jsx-iframe-" + "xxxxxxxxxx".replace(/./g, (function() {
-                return "0123456789abcdef".charAt(Math.floor(Math.random() * "0123456789abcdef".length));
-            })));
-        }
+        var _ADD_CHILDREN;
         var ADD_CHILDREN = ((_ADD_CHILDREN = {}).iframe = function(el, node) {
             var firstChild = node.children[0];
             if (1 !== node.children.length || !firstChild || "element" !== firstChild.type || "html" !== firstChild.name) throw new Error("Expected only single html element node as child of iframe element");
@@ -5428,58 +5226,51 @@ window.spb = function(modules) {
         }, _ADD_CHILDREN.default = function(el, node, renderer) {
             for (var _i6 = 0, _node$renderChildren2 = node.renderChildren(renderer); _i6 < _node$renderChildren2.length; _i6++) el.appendChild(_node$renderChildren2[_i6]);
         }, _ADD_CHILDREN);
-        function addChildren(el, node, doc, renderer) {
-            if (node.props.hasOwnProperty("innerHTML")) {
-                if (node.children.length) throw new Error("Expected no children to be passed when innerHTML prop is set");
-                var html = node.props.innerHTML;
-                if ("string" != typeof html) throw new TypeError("innerHTML prop must be string");
-                if ("script" === node.name) el.text = html; else {
-                    el.innerHTML = html;
-                    !function(el, doc) {
-                        void 0 === doc && (doc = window.document);
-                        for (var _i2 = 0, _el$querySelectorAll2 = el.querySelectorAll("script"); _i2 < _el$querySelectorAll2.length; _i2++) {
-                            var script = _el$querySelectorAll2[_i2];
-                            var parentNode = script.parentNode;
-                            if (parentNode) {
-                                var newScript = doc.createElement("script");
-                                newScript.text = script.textContent;
-                                parentNode.replaceChild(newScript, script);
-                            }
-                        }
-                    }(el, doc);
-                }
-            } else (ADD_CHILDREN[node.name] || ADD_CHILDREN.default)(el, node, renderer);
-        }
         function dom(opts) {
             void 0 === opts && (opts = {});
             var _opts$doc = opts.doc, doc = void 0 === _opts$doc ? document : _opts$doc;
             return function domRenderer(node) {
                 if ("component" === node.type) return node.renderComponent(domRenderer);
-                if ("text" === node.type) return createTextElement(doc, node);
+                if ("text" === node.type) return function(doc, node) {
+                    return doc.createTextNode(node.text);
+                }(doc, node);
                 if ("element" === node.type) {
-                    var xmlNamespace = ELEMENT_DEFAULT_XML_NAMESPACE[node.name.toLowerCase()];
-                    if (xmlNamespace) return function xmlNamespaceDomRenderer(node, xmlNamespace) {
-                        if ("component" === node.type) return node.renderComponent((function(childNode) {
-                            return xmlNamespaceDomRenderer(childNode, xmlNamespace);
-                        }));
-                        if ("text" === node.type) return createTextElement(doc, node);
-                        if ("element" === node.type) {
-                            var el = function(doc, node, xmlNamespace) {
-                                return doc.createElementNS(xmlNamespace, node.name);
-                            }(doc, node, xmlNamespace);
-                            addProps(el, node);
-                            addChildren(el, node, doc, (function(childNode) {
-                                return xmlNamespaceDomRenderer(childNode, xmlNamespace);
-                            }));
-                            return el;
-                        }
-                        throw new TypeError("Unhandleable node");
-                    }(node, xmlNamespace);
                     var el = function(doc, node) {
                         return node.props.el ? node.props.el : doc.createElement(node.name);
                     }(doc, node);
-                    addProps(el, node);
-                    addChildren(el, node, doc, domRenderer);
+                    !function(el, node) {
+                        var props = node.props;
+                        for (var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++) {
+                            var prop = _Object$keys2[_i4];
+                            var val = props[prop];
+                            null != val && "el" !== prop && "innerHTML" !== prop && (prop.match(/^on[A-Z][a-z]/) && "function" == typeof val ? el.addEventListener(prop.slice(2).toLowerCase(), val) : "string" == typeof val || "number" == typeof val ? el.setAttribute(prop, val.toString()) : "boolean" == typeof val && !0 === val && el.setAttribute(prop, ""));
+                        }
+                        "iframe" !== el.tagName.toLowerCase() || props.id || el.setAttribute("id", "jsx-iframe-" + "xxxxxxxxxx".replace(/./g, (function() {
+                            return "0123456789abcdef".charAt(Math.floor(Math.random() * "0123456789abcdef".length));
+                        })));
+                    }(el, node);
+                    !function(el, node, doc, renderer) {
+                        if (node.props.hasOwnProperty("innerHTML")) {
+                            if (node.children.length) throw new Error("Expected no children to be passed when innerHTML prop is set");
+                            var html = node.props.innerHTML;
+                            if ("string" != typeof html) throw new TypeError("innerHTML prop must be string");
+                            if ("script" === node.name) el.text = html; else {
+                                el.innerHTML = html;
+                                !function(el, doc) {
+                                    void 0 === doc && (doc = window.document);
+                                    for (var _i2 = 0, _el$querySelectorAll2 = el.querySelectorAll("script"); _i2 < _el$querySelectorAll2.length; _i2++) {
+                                        var script = _el$querySelectorAll2[_i2];
+                                        var parentNode = script.parentNode;
+                                        if (parentNode) {
+                                            var newScript = doc.createElement("script");
+                                            newScript.text = script.textContent;
+                                            parentNode.replaceChild(newScript, script);
+                                        }
+                                    }
+                                }(el, doc);
+                            }
+                        } else (ADD_CHILDREN[node.name] || ADD_CHILDREN.default)(el, node, renderer);
+                    }(el, node, doc, domRenderer);
                     return el;
                 }
                 throw new TypeError("Unhandleable node");
@@ -5785,14 +5576,15 @@ window.spb = function(modules) {
                                 var _getDimensions = getDimensions(fundingSource);
                                 win = function(_ref) {
                                     var _ref$closeOnUnload = _ref.closeOnUnload;
-                                    var win = assertSameDomain(function(url, options) {
-                                        var _options$closeOnUnloa = (options = options || {}).closeOnUnload, closeOnUnload = void 0 === _options$closeOnUnloa ? 1 : _options$closeOnUnloa, _options$name = options.name, name = void 0 === _options$name ? "" : _options$name, width = options.width, height = options.height;
+                                    var win = function(win) {
+                                        if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
+                                        return win;
+                                    }(function(url, options) {
+                                        var width = (options = options || {}).width, height = options.height;
                                         var top = 0;
                                         var left = 0;
                                         width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
                                         height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
-                                        delete options.closeOnUnload;
-                                        delete options.name;
                                         width && height && (options = _extends({
                                             top: top,
                                             left: left,
@@ -5804,6 +5596,8 @@ window.spb = function(modules) {
                                             resizable: 1,
                                             scrollbars: 1
                                         }, options));
+                                        var name = options.name || "";
+                                        delete options.name;
                                         var params = Object.keys(options).map((function(key) {
                                             if (null != options[key]) return key + "=" + ("string" == typeof (item = options[key]) ? item : item && item.toString && "function" == typeof item.toString ? item.toString() : {}.toString.call(item));
                                             var item;
@@ -5818,7 +5612,7 @@ window.spb = function(modules) {
                                             var err;
                                             throw new dom_PopupOpenError("Can not open popup window - blocked");
                                         }
-                                        closeOnUnload && window.addEventListener("unload", (function() {
+                                        window.addEventListener("unload", (function() {
                                             return win.close();
                                         }));
                                         return win;
@@ -6030,18 +5824,18 @@ window.spb = function(modules) {
             inline: !0
         };
         var sdk_constants = __webpack_require__("./node_modules/@paypal/sdk-constants/index.js");
-        var dist = __webpack_require__("./node_modules/credit-card-type/dist/index.js");
+        var credit_card_type = __webpack_require__("./node_modules/credit-card-type/index.js");
         var _CARD_FIELD_TYPE_TO_F, _VALIDATOR_TO_TYPE_MA;
         (_CARD_FIELD_TYPE_TO_F = {}).single = "card-field", _CARD_FIELD_TYPE_TO_F.number = "card-number-field", 
         _CARD_FIELD_TYPE_TO_F.cvv = "card-cvv-field", _CARD_FIELD_TYPE_TO_F.expiry = "card-expiry-field";
-        (_VALIDATOR_TO_TYPE_MA = {})[dist.types.AMERICAN_EXPRESS] = "AMEX", _VALIDATOR_TO_TYPE_MA[dist.types.DINERS_CLUB] = "DINERS", 
-        _VALIDATOR_TO_TYPE_MA[dist.types.DISCOVER] = "DISCOVER", _VALIDATOR_TO_TYPE_MA[dist.types.ELO] = "ELO", 
-        _VALIDATOR_TO_TYPE_MA[dist.types.HIPER] = "HIPER", _VALIDATOR_TO_TYPE_MA[dist.types.HIPERCARD] = "HIPERCARD", 
-        _VALIDATOR_TO_TYPE_MA[dist.types.JCB] = "JCB", _VALIDATOR_TO_TYPE_MA[dist.types.MASTERCARD] = "MASTER_CARD", 
-        _VALIDATOR_TO_TYPE_MA[dist.types.MAESTRO] = "MAESTRO", _VALIDATOR_TO_TYPE_MA[dist.types.UNIONPAY] = "CHINA_UNION_PAY", 
-        _VALIDATOR_TO_TYPE_MA[dist.types.VISA] = "VISA", _VALIDATOR_TO_TYPE_MA["cb-nationale"] = "CB_NATIONALE", 
-        _VALIDATOR_TO_TYPE_MA.cetelem = "CETELEM", _VALIDATOR_TO_TYPE_MA.cofidis = "COFIDIS", 
-        _VALIDATOR_TO_TYPE_MA.cofinoga = "COFINOGA";
+        (_VALIDATOR_TO_TYPE_MA = {})[credit_card_type.types.AMERICAN_EXPRESS] = "AMEX", 
+        _VALIDATOR_TO_TYPE_MA[credit_card_type.types.DINERS_CLUB] = "DINERS", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.DISCOVER] = "DISCOVER", 
+        _VALIDATOR_TO_TYPE_MA[credit_card_type.types.ELO] = "ELO", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.HIPER] = "HIPER", 
+        _VALIDATOR_TO_TYPE_MA[credit_card_type.types.HIPERCARD] = "HIPERCARD", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.JCB] = "JCB", 
+        _VALIDATOR_TO_TYPE_MA[credit_card_type.types.MASTERCARD] = "MASTER_CARD", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.MAESTRO] = "MAESTRO", 
+        _VALIDATOR_TO_TYPE_MA[credit_card_type.types.UNIONPAY] = "CHINA_UNION_PAY", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.VISA] = "VISA", 
+        _VALIDATOR_TO_TYPE_MA["cb-nationale"] = "CB_NATIONALE", _VALIDATOR_TO_TYPE_MA.cetelem = "CETELEM", 
+        _VALIDATOR_TO_TYPE_MA.cofidis = "COFIDIS", _VALIDATOR_TO_TYPE_MA.cofinoga = "COFINOGA";
         function getExportsByFrameName(name) {
             try {
                 for (var _i2 = 0, _getAllFramesInWindow2 = getAllFramesInWindow(window); _i2 < _getAllFramesInWindow2.length; _i2++) {
@@ -6932,7 +6726,7 @@ window.spb = function(modules) {
                 try {
                     window.localStorage && window.localStorage.getItem(name) && (forced = !0);
                 } catch (err) {}
-                var exp = {
+                return {
                     isEnabled: function() {
                         return "test" === group || forced;
                     },
@@ -6944,7 +6738,7 @@ window.spb = function(modules) {
                     },
                     log: function(checkpoint, payload) {
                         void 0 === payload && (payload = {});
-                        if (!started) return exp;
+                        if (!started) return this;
                         isEventUnique(treatment + "_" + JSON.stringify(payload)) && logTreatment({
                             name: name,
                             treatment: treatment,
@@ -6958,19 +6752,18 @@ window.spb = function(modules) {
                             payload: payload,
                             throttle: throttle
                         });
-                        return exp;
+                        return this;
                     },
                     logStart: function(payload) {
                         void 0 === payload && (payload = {});
                         started = !0;
-                        return exp.log("start", payload);
+                        return this.log("start", payload);
                     },
                     logComplete: function(payload) {
                         void 0 === payload && (payload = {});
-                        return exp.log("complete", payload);
+                        return this.log("complete", payload);
                     }
                 };
-                return exp;
             }({
                 name: name,
                 sample: sample,
@@ -8662,8 +8455,8 @@ window.spb = function(modules) {
                 var merchantID = serviceData.merchantID, fundingEligibility = serviceData.fundingEligibility, buyerCountry = serviceData.buyerCountry;
                 var clientID = props.clientID, onClick = props.onClick, createOrder = props.createOrder, env = props.env, vault = props.vault, partnerAttributionID = props.partnerAttributionID, userExperienceFlow = props.userExperienceFlow, buttonSessionID = props.buttonSessionID, intent = props.intent, currency = props.currency, clientAccessToken = props.clientAccessToken, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, commit = props.commit, disableFunding = props.disableFunding, disableCard = props.disableCard, userIDToken = props.userIDToken, enableNativeCheckout = props.enableNativeCheckout;
                 !function(personalization) {
-                    personalization && personalization.tagline && personalization.tagline.tracking && util_sendBeacon(personalization.tagline.tracking.click);
-                    personalization && personalization.buttonText && personalization.buttonText.tracking && util_sendBeacon(personalization.buttonText.tracking.click);
+                    personalization && personalization.tagline && personalization.tagline.tracking && sendBeacon(personalization.tagline.tracking.click);
+                    personalization && personalization.buttonText && personalization.buttonText.tracking && sendBeacon(personalization.buttonText.tracking.click);
                 }(serviceData.personalization);
                 var _getPaymentFlow = getPaymentFlow({
                     props: props,

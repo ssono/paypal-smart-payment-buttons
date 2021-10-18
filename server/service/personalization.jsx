@@ -52,6 +52,7 @@ const PERSONALIZATION_QUERY = `
         $period: String,
         $taglineEnabled: Boolean,
         $renderedButtons: [FundingButtonType]
+        $layout: ButtonLayouts
     ) {
         checkoutCustomization(
             clientId: $clientID,
@@ -70,6 +71,7 @@ const PERSONALIZATION_QUERY = `
             installmentPeriod: $period,
             taglineEnabled: $taglineEnabled,
             renderedButtons: $renderedButtons
+            layout: $layout
         ) {
             tagline {
                 text
@@ -103,7 +105,8 @@ export type PersonalizationOptions = {|
     period : ?number,
     tagline? : boolean | string,
     personalizationEnabled : boolean,
-    renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>
+    renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
+    layout?: string
 |};
 
 function getDefaultPersonalization() : Personalization {
@@ -135,7 +138,7 @@ function contentToJSX(content : string) : ComponentFunctionType<PersonalizationC
 
 export async function resolvePersonalization(req : ExpressRequest, gqlBatch : GraphQLBatchCall, personalizationOptions : PersonalizationOptions) : Promise<Personalization> {
     let { logger, clientID, locale, buyerCountry, buttonSessionID, currency, intent, commit,
-        vault, label, period, tagline, personalizationEnabled, renderedButtons } = personalizationOptions;
+        vault, label, period, tagline, personalizationEnabled, renderedButtons, layout } = personalizationOptions;
 
     if (!personalizationEnabled) {
         return getDefaultPersonalization();
@@ -149,13 +152,36 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
     label = label ? label.toUpperCase() : label;
 
     const taglineEnabled = tagline === true || tagline === 'true';
+    const personalizationVariables = {
+        clientID,
+        locale,
+        buyerCountry,
+        currency,
+        intent,
+        commit,
+        vault,
+        ip,
+        cookies,
+        userAgent,
+        buttonSessionID,
+        label,
+        period,
+        taglineEnabled,
+        renderedButtons,
+        layout
+    };
+
+    // Fix enum checking errors on graphql by only sending truthy variables
+    for (const key of Object.keys(personalizationVariables)) {
+        if (!personalizationVariables[key]) {
+            delete personalizationVariables[key];
+        }
+    }
+
     try {
         const result = await gqlBatch({
             query:     PERSONALIZATION_QUERY,
-            variables: {
-                clientID, locale, buyerCountry, currency, intent, commit, vault, ip, cookies, userAgent,
-                buttonSessionID, label, period, taglineEnabled, renderedButtons
-            },
+            variables: personalizationVariables,
             timeout: PERSONALIZATION_TIMEOUT
         });
 

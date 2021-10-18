@@ -76,7 +76,7 @@ export function getButtonMiddleware({
                 merchantID: sdkMerchantID, currency, intent, commit, vault, clientAccessToken, basicFundingEligibility, locale,
                 correlationID, cookies, enableFunding, style, paymentMethodToken, branded, fundingSource, allowBillingPayments } = getButtonParams(params, req, res);
 
-            const { label, period, tagline } = style;
+            const { label, period, tagline, layout } = style;
             logger.info(req, `button_params`, { params: JSON.stringify(params) });
 
             const sdkLocationInformation = await getSDKLocationInformation(req, params.env);
@@ -122,7 +122,7 @@ export function getButtonMiddleware({
             const personalizationEnabled = getPersonalizationEnabled(req);
             const personalizationPromise = resolvePersonalization(req, gqlBatch, {
                 logger, clientID, buyerCountry, locale, buttonSessionID, currency, intent, commit,
-                vault, label, period, tagline, personalizationEnabled, renderedButtons
+                vault, label, period, tagline, personalizationEnabled, renderedButtons, layout
             });
 
             gqlBatch.flush();

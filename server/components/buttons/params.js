@@ -15,7 +15,8 @@ import { SPB_QUERY_KEYS } from './constants';
 type StyleType = {|
     label? : string,
     period? : ?number,
-    tagline? : boolean | string
+    tagline? : boolean | string,
+    layout? : string
 |};
 
 type ButtonInputParams = {|
@@ -53,7 +54,8 @@ type ButtonInputParams = {|
 type Style = {|
     label : string,
     period : ?number,
-    tagline? : boolean | string
+    tagline? : boolean | string,
+    layout?: string
 |};
 
 type ButtonParams = {|
@@ -297,10 +299,11 @@ function getStyle(params : ButtonInputParams) : Style {
     const {
         label = 'paypal',
         period,
-        tagline
+        tagline,
+        layout = ''
     } = params.style || {};
 
-    return { label, period, tagline };
+    return { label, period, tagline, layout };
 }
 
 export function getButtonParams(params : ButtonInputParams, req : ExpressRequest, res : ExpressResponse) : ButtonParams {

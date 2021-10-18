@@ -55,65 +55,152 @@ window.smartCard = function(modules) {
         return {}.hasOwnProperty.call(object, property);
     };
     __webpack_require__.p = "";
-    return __webpack_require__(__webpack_require__.s = 12);
+    return __webpack_require__(__webpack_require__.s = 6);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
-    var __assign = this && this.__assign || function() {
-        return (__assign = Object.assign || function(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) ({}).hasOwnProperty.call(s, p) && (t[p] = s[p]);
-            }
-            return t;
-        }).apply(this, arguments);
-    };
-    var cardTypes = __webpack_require__(6);
-    var add_matching_cards_to_results_1 = __webpack_require__(7);
-    var is_valid_input_type_1 = __webpack_require__(9);
-    var find_best_match_1 = __webpack_require__(10);
-    var clone_1 = __webpack_require__(3);
+    var testOrder;
+    var types = {};
     var customCards = {};
-    var cardNames = {
-        VISA: "visa",
-        MASTERCARD: "mastercard",
-        AMERICAN_EXPRESS: "american-express",
-        DINERS_CLUB: "diners-club",
-        DISCOVER: "discover",
-        JCB: "jcb",
-        UNIONPAY: "unionpay",
-        MAESTRO: "maestro",
-        ELO: "elo",
-        MIR: "mir",
-        HIPER: "hiper",
-        HIPERCARD: "hipercard"
-    };
-    var ORIGINAL_TEST_ORDER = [ cardNames.VISA, cardNames.MASTERCARD, cardNames.AMERICAN_EXPRESS, cardNames.DINERS_CLUB, cardNames.DISCOVER, cardNames.JCB, cardNames.UNIONPAY, cardNames.MAESTRO, cardNames.ELO, cardNames.MIR, cardNames.HIPER, cardNames.HIPERCARD ];
-    var testOrder = clone_1.clone(ORIGINAL_TEST_ORDER);
-    function findType(cardType) {
-        return customCards[cardType] || cardTypes[cardType];
+    var ORIGINAL_TEST_ORDER = [ "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "mir" ];
+    function clone(originalObject) {
+        var dupe;
+        if (!originalObject) return null;
+        delete (dupe = JSON.parse(JSON.stringify(originalObject))).prefixPattern;
+        delete dupe.exactPattern;
+        return dupe;
     }
+    testOrder = clone(ORIGINAL_TEST_ORDER);
+    types.visa = {
+        niceType: "Visa",
+        type: "visa",
+        prefixPattern: /^4$/,
+        exactPattern: /^4\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16, 18, 19 ],
+        code: {
+            name: "CVV",
+            size: 3
+        }
+    };
+    types["master-card"] = {
+        niceType: "Mastercard",
+        type: "master-card",
+        prefixPattern: /^(5|5[1-5]|2|22|222|222[1-9]|2[3-6]|27|27[0-2]|2720)$/,
+        exactPattern: /^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16 ],
+        code: {
+            name: "CVC",
+            size: 3
+        }
+    };
+    types["american-express"] = {
+        niceType: "American Express",
+        type: "american-express",
+        prefixPattern: /^(3|34|37)$/,
+        exactPattern: /^3[47]\d*$/,
+        isAmex: !0,
+        gaps: [ 4, 10 ],
+        lengths: [ 15 ],
+        code: {
+            name: "CID",
+            size: 4
+        }
+    };
+    types["diners-club"] = {
+        niceType: "Diners Club",
+        type: "diners-club",
+        prefixPattern: /^(3|3[0689]|30[0-5])$/,
+        exactPattern: /^3(0[0-5]|[689])\d*$/,
+        gaps: [ 4, 10 ],
+        lengths: [ 14, 16, 19 ],
+        code: {
+            name: "CVV",
+            size: 3
+        }
+    };
+    types.discover = {
+        niceType: "Discover",
+        type: "discover",
+        prefixPattern: /^(6|60|601|6011|65|64|64[4-9])$/,
+        exactPattern: /^(6011|65|64[4-9])\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16, 19 ],
+        code: {
+            name: "CID",
+            size: 3
+        }
+    };
+    types.jcb = {
+        niceType: "JCB",
+        type: "jcb",
+        prefixPattern: /^(2|21|213|2131|1|18|180|1800|3|35)$/,
+        exactPattern: /^(2131|1800|35)\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16, 17, 18, 19 ],
+        code: {
+            name: "CVV",
+            size: 3
+        }
+    };
+    types.unionpay = {
+        niceType: "UnionPay",
+        type: "unionpay",
+        prefixPattern: /^((6|62|62\d|(621(?!83|88|98|99))|622(?!06)|627[02,06,07]|628(?!0|1)|629[1,2])|622018)$/,
+        exactPattern: /^(((620|(621(?!83|88|98|99))|622(?!06|018)|62[3-6]|627[02,06,07]|628(?!0|1)|629[1,2]))\d*|622018\d{12})$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16, 17, 18, 19 ],
+        code: {
+            name: "CVN",
+            size: 3
+        }
+    };
+    types.maestro = {
+        niceType: "Maestro",
+        type: "maestro",
+        prefixPattern: /^(5|5[06-9]|6\d*)$/,
+        exactPattern: /^(5[06-9]|6[37])\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+        code: {
+            name: "CVC",
+            size: 3
+        }
+    };
+    types.mir = {
+        niceType: "Mir",
+        type: "mir",
+        prefixPattern: /^(2|22|220|220[0-4])$/,
+        exactPattern: /^(220[0-4])\d*$/,
+        gaps: [ 4, 8, 12 ],
+        lengths: [ 16, 17, 18, 19 ],
+        code: {
+            name: "CVP2",
+            size: 3
+        }
+    };
+    function findType(type) {
+        return customCards[type] || types[type];
+    }
+    function creditCardType(cardNumber) {
+        var value, i;
+        var prefixResults = [];
+        var exactResults = [];
+        if (!("string" == typeof cardNumber || cardNumber instanceof String)) return [];
+        for (i = 0; i < testOrder.length; i++) {
+            value = findType(testOrder[i]);
+            0 !== cardNumber.length ? value.exactPattern.test(cardNumber) ? exactResults.push(clone(value)) : value.prefixPattern.test(cardNumber) && prefixResults.push(clone(value)) : prefixResults.push(clone(value));
+        }
+        return exactResults.length ? exactResults : prefixResults;
+    }
+    creditCardType.getTypeInfo = function(type) {
+        return clone(findType(type));
+    };
     function getCardPosition(name, ignoreErrorForNotExisting) {
-        void 0 === ignoreErrorForNotExisting && (ignoreErrorForNotExisting = !1);
         var position = testOrder.indexOf(name);
         if (!ignoreErrorForNotExisting && -1 === position) throw new Error('"' + name + '" is not a supported card type.');
         return position;
     }
-    function creditCardType(cardNumber) {
-        var results = [];
-        if (!is_valid_input_type_1.isValidInputType(cardNumber)) return results;
-        if (0 === cardNumber.length) return testOrder.map((function(cardType) {
-            return clone_1.clone(findType(cardType));
-        }));
-        testOrder.forEach((function(cardType) {
-            var cardConfiguration = findType(cardType);
-            add_matching_cards_to_results_1.addMatchingCardsToResults(cardNumber, cardConfiguration, results);
-        }));
-        var bestMatch = find_best_match_1.findBestMatch(results);
-        return bestMatch ? [ bestMatch ] : results;
-    }
-    creditCardType.getTypeInfo = function(cardType) {
-        return clone_1.clone(findType(cardType));
-    };
     creditCardType.removeCard = function(name) {
         var position = getCardPosition(name);
         testOrder.splice(position, 1);
@@ -123,38 +210,31 @@ window.smartCard = function(modules) {
         customCards[config.type] = config;
         -1 === existingCardPosition && testOrder.push(config.type);
     };
-    creditCardType.updateCard = function(cardType, updates) {
-        var originalObject = customCards[cardType] || cardTypes[cardType];
-        if (!originalObject) throw new Error('"' + cardType + "\" is not a recognized type. Use `addCard` instead.'");
-        if (updates.type && originalObject.type !== updates.type) throw new Error("Cannot overwrite type parameter.");
-        var clonedCard = clone_1.clone(originalObject);
-        clonedCard = __assign(__assign({}, clonedCard), updates);
-        customCards[clonedCard.type] = clonedCard;
-    };
     creditCardType.changeOrder = function(name, position) {
         var currentPosition = getCardPosition(name);
         testOrder.splice(currentPosition, 1);
         testOrder.splice(position, 0, name);
     };
     creditCardType.resetModifications = function() {
-        testOrder = clone_1.clone(ORIGINAL_TEST_ORDER);
+        testOrder = clone(ORIGINAL_TEST_ORDER);
         customCards = {};
     };
-    creditCardType.types = cardNames;
+    creditCardType.types = {
+        VISA: "visa",
+        MASTERCARD: "master-card",
+        AMERICAN_EXPRESS: "american-express",
+        DINERS_CLUB: "diners-club",
+        DISCOVER: "discover",
+        JCB: "jcb",
+        UNIONPAY: "unionpay",
+        MAESTRO: "maestro",
+        MIR: "mir"
+    };
     module.exports = creditCardType;
 }, function(module, exports, __webpack_require__) {
+    module.exports = __webpack_require__(4);
+}, function(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(5);
-}, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(11);
-}, function(module, exports, __webpack_require__) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    exports.clone = void 0;
-    exports.clone = function(originalObject) {
-        return originalObject ? JSON.parse(JSON.stringify(originalObject)) : null;
-    };
 }, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = function(identifier) {
@@ -239,9 +319,6 @@ window.smartCard = function(modules) {
         __webpack_require__.d(__webpack_exports__, "isDevice", (function() {
             return isDevice;
         }));
-        __webpack_require__.d(__webpack_exports__, "isTablet", (function() {
-            return isTablet;
-        }));
         __webpack_require__.d(__webpack_exports__, "isWebView", (function() {
             return isWebView;
         }));
@@ -313,9 +390,6 @@ window.smartCard = function(modules) {
         }));
         __webpack_require__.d(__webpack_exports__, "isApplePaySupported", (function() {
             return isApplePaySupported;
-        }));
-        __webpack_require__.d(__webpack_exports__, "getBody", (function() {
-            return getBody;
         }));
         __webpack_require__.d(__webpack_exports__, "isDocumentReady", (function() {
             return isDocumentReady;
@@ -511,9 +585,6 @@ window.smartCard = function(modules) {
         }));
         __webpack_require__.d(__webpack_exports__, "getCurrentScriptUID", (function() {
             return getCurrentScriptUID;
-        }));
-        __webpack_require__.d(__webpack_exports__, "submitForm", (function() {
-            return submitForm;
         }));
         __webpack_require__.d(__webpack_exports__, "experiment", (function() {
             return experiment;
@@ -911,14 +982,9 @@ window.smartCard = function(modules) {
         function getUserAgent() {
             return window.navigator.mockUserAgent || window.navigator.userAgent;
         }
-        var TABLET_PATTERN = /ip(a|ro)d|silk|xoom|playbook|tablet|kindle|Nexus 7|GT-P10|SC-01C|SHW-M180S|SM-T320|SGH-T849|SCH-I800|SHW-M180L|SPH-P100|SGH-I987|zt180|HTC( Flyer|_Flyer)|Sprint ATP51|ViewPad7|pandigital(sprnova|nova)|Ideos S7|Dell Streak 7|Advent Vega|A101IT|A70BHT|MID7015|Next2|nook|FOLIO|MB511.*RUTEM|Mac OS.*Silk/i;
         function isDevice(userAgent) {
             void 0 === userAgent && (userAgent = getUserAgent());
             return !!userAgent.match(/Android|webOS|iPhone|iPad|iPod|bada|Symbian|Palm|CriOS|BlackBerry|IEMobile|WindowsMobile|Opera Mini/i);
-        }
-        function isTablet(userAgent) {
-            void 0 === userAgent && (userAgent = getUserAgent());
-            return TABLET_PATTERN.test(userAgent);
         }
         function isWebView() {
             var userAgent = getUserAgent();
@@ -1218,9 +1284,8 @@ window.smartCard = function(modules) {
                             }
                         }
                         if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
-                            var promiseResult = _result2;
-                            promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
-                            promiseResult.errorHandled = !0;
+                            _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error);
+                            _result2.errorHandled = !0;
                         } else utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
                     }
                     handlers.length = 0;
@@ -1285,7 +1350,7 @@ window.smartCard = function(modules) {
             ZalgoPromise.all = function(promises) {
                 var promise = new ZalgoPromise;
                 var count = promises.length;
-                var results = [].slice();
+                var results = [];
                 if (!count) {
                     promise.resolve(results);
                     return promise;
@@ -1939,12 +2004,12 @@ window.smartCard = function(modules) {
             for (var key in source) source.hasOwnProperty(key) && (obj[key] = source[key]);
             return obj;
         }
-        function util_values(obj) {
+        var util_values = function(obj) {
             if (Object.values) return Object.values(obj);
             var result = [];
             for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
             return result;
-        }
+        };
         var memoizedValues = memoize(util_values);
         function perc(pixels, percentage) {
             return Math.round(pixels * percentage / 100);
@@ -2063,7 +2128,7 @@ window.smartCard = function(modules) {
         function eventEmitter() {
             var triggered = {};
             var handlers = {};
-            var emitter = {
+            return {
                 on: function(eventName, handler) {
                     var handlerList = handlers[eventName] = handlers[eventName] || [];
                     handlerList.push(handler);
@@ -2078,7 +2143,7 @@ window.smartCard = function(modules) {
                     };
                 },
                 once: function(eventName, handler) {
-                    var listener = emitter.on(eventName, (function() {
+                    var listener = this.on(eventName, (function() {
                         listener.cancel();
                         handler();
                     }));
@@ -2103,13 +2168,12 @@ window.smartCard = function(modules) {
                     if (triggered[eventName]) return promise_ZalgoPromise.resolve();
                     triggered[eventName] = !0;
                     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) args[_key4 - 1] = arguments[_key4];
-                    return emitter.trigger.apply(emitter, [ eventName ].concat(args));
+                    return this.trigger.apply(this, [ eventName ].concat(args));
                 },
                 reset: function() {
                     handlers = {};
                 }
             };
-            return emitter;
         }
         function camelToDasherize(string) {
             return string.replace(/([A-Z])/g, (function(g) {
@@ -2296,27 +2360,20 @@ window.smartCard = function(modules) {
             var tasks = [];
             var cleaned = !1;
             var cleanErr;
-            var cleaner = {
+            return {
                 set: function(name, item) {
                     if (!cleaned) {
                         obj[name] = item;
-                        cleaner.register((function() {
+                        this.register((function() {
                             delete obj[name];
                         }));
                     }
                     return item;
                 },
                 register: function(method) {
-                    var task = once((function() {
+                    cleaned ? method(cleanErr) : tasks.push(once((function() {
                         return method(cleanErr);
-                    }));
-                    cleaned ? method(cleanErr) : tasks.push(task);
-                    return {
-                        cancel: function() {
-                            var index = tasks.indexOf(task);
-                            -1 !== index && tasks.splice(index, 1);
-                        }
-                    };
+                    })));
                 },
                 all: function(err) {
                     cleanErr = err;
@@ -2329,7 +2386,6 @@ window.smartCard = function(modules) {
                     return promise_ZalgoPromise.all(results).then(src_util_noop);
                 }
             };
-            return cleaner;
         }
         function tryCatch(fn) {
             var result;
@@ -2395,11 +2451,6 @@ window.smartCard = function(modules) {
             UID: "data-uid"
         };
         var UID_HASH_LENGTH = 30;
-        function getBody() {
-            var body = document.body;
-            if (!body) throw new Error("Body element not found");
-            return body;
-        }
         function isDocumentReady() {
             return Boolean(document.body) && "complete" === document.readyState;
         }
@@ -2604,9 +2655,10 @@ window.smartCard = function(modules) {
                 if (isDocumentReady()) return reject(new Error("Document is ready and element " + name + " does not exist"));
                 var interval = setInterval((function() {
                     if (el = getElementSafe(id)) {
-                        resolve(el);
                         clearInterval(interval);
-                    } else if (isDocumentReady()) {
+                        return resolve(el);
+                    }
+                    if (isDocumentReady()) {
                         clearInterval(interval);
                         return reject(new Error("Document is ready and element " + name + " does not exist"));
                     }
@@ -2621,13 +2673,11 @@ window.smartCard = function(modules) {
             return PopupOpenError;
         }(util_ExtendableError);
         function popup(url, options) {
-            var _options$closeOnUnloa = (options = options || {}).closeOnUnload, closeOnUnload = void 0 === _options$closeOnUnloa ? 1 : _options$closeOnUnloa, _options$name = options.name, name = void 0 === _options$name ? "" : _options$name, width = options.width, height = options.height;
+            var width = (options = options || {}).width, height = options.height;
             var top = 0;
             var left = 0;
             width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
             height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
-            delete options.closeOnUnload;
-            delete options.name;
             width && height && (options = _extends({
                 top: top,
                 left: left,
@@ -2639,6 +2689,8 @@ window.smartCard = function(modules) {
                 resizable: 1,
                 scrollbars: 1
             }, options));
+            var name = options.name || "";
+            delete options.name;
             var params = Object.keys(options).map((function(key) {
                 if (null != options[key]) return key + "=" + stringify(options[key]);
             })).filter(Boolean).join(",");
@@ -2652,7 +2704,7 @@ window.smartCard = function(modules) {
                 var err;
                 throw new dom_PopupOpenError("Can not open popup window - blocked");
             }
-            closeOnUnload && window.addEventListener("unload", (function() {
+            window.addEventListener("unload", (function() {
                 return win.close();
             }));
             return win;
@@ -3069,25 +3121,6 @@ window.smartCard = function(modules) {
             script.setAttribute(ATTRIBUTES.UID + "-auto", uid);
             return uid;
         }));
-        function submitForm(_ref3) {
-            var url = _ref3.url, target = _ref3.target, body = _ref3.body, _ref3$method = _ref3.method, method = void 0 === _ref3$method ? "post" : _ref3$method;
-            var form = document.createElement("form");
-            form.setAttribute("target", target);
-            form.setAttribute("method", method);
-            form.setAttribute("action", url);
-            form.style.display = "none";
-            if (body) for (var _i24 = 0, _Object$keys4 = Object.keys(body); _i24 < _Object$keys4.length; _i24++) {
-                var _body$key;
-                var key = _Object$keys4[_i24];
-                var input = document.createElement("input");
-                input.setAttribute("name", key);
-                input.setAttribute("value", null == (_body$key = body[key]) ? void 0 : _body$key.toString());
-                form.appendChild(input);
-            }
-            getBody().appendChild(form);
-            form.submit();
-            getBody().removeChild(form);
-        }
         function getStorage(_ref) {
             var name = _ref.name, _ref$lifetime = _ref.lifetime, lifetime = void 0 === _ref$lifetime ? 12e5 : _ref$lifetime;
             return inlineMemoize(getStorage, (function() {
@@ -3188,7 +3221,7 @@ window.smartCard = function(modules) {
             try {
                 window.localStorage && window.localStorage.getItem(name) && (forced = !0);
             } catch (err) {}
-            var exp = {
+            return {
                 isEnabled: function() {
                     return "test" === group || forced;
                 },
@@ -3200,7 +3233,7 @@ window.smartCard = function(modules) {
                 },
                 log: function(checkpoint, payload) {
                     void 0 === payload && (payload = {});
-                    if (!started) return exp;
+                    if (!started) return this;
                     isEventUnique(treatment + "_" + JSON.stringify(payload)) && logTreatment({
                         name: name,
                         treatment: treatment,
@@ -3214,19 +3247,18 @@ window.smartCard = function(modules) {
                         payload: payload,
                         throttle: throttle
                     });
-                    return exp;
+                    return this;
                 },
                 logStart: function(payload) {
                     void 0 === payload && (payload = {});
                     started = !0;
-                    return exp.log("start", payload);
+                    return this.log("start", payload);
                 },
                 logComplete: function(payload) {
                     void 0 === payload && (payload = {});
-                    return exp.log("complete", payload);
+                    return this.log("complete", payload);
                 }
             };
-            return exp;
         }
         function getGlobalNameSpace(_ref) {
             var name = _ref.name, _ref$version = _ref.version, version = void 0 === _ref$version ? "latest" : _ref$version;
@@ -3449,206 +3481,6 @@ window.smartCard = function(modules) {
         }
     } ]);
 }, function(module, exports, __webpack_require__) {
-    "use strict";
-    module.exports = {
-        visa: {
-            niceType: "Visa",
-            type: "visa",
-            patterns: [ 4 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16, 18, 19 ],
-            code: {
-                name: "CVV",
-                size: 3
-            }
-        },
-        mastercard: {
-            niceType: "Mastercard",
-            type: "mastercard",
-            patterns: [ [ 51, 55 ], [ 2221, 2229 ], [ 223, 229 ], [ 23, 26 ], [ 270, 271 ], 2720 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16 ],
-            code: {
-                name: "CVC",
-                size: 3
-            }
-        },
-        "american-express": {
-            niceType: "American Express",
-            type: "american-express",
-            patterns: [ 34, 37 ],
-            gaps: [ 4, 10 ],
-            lengths: [ 15 ],
-            code: {
-                name: "CID",
-                size: 4
-            }
-        },
-        "diners-club": {
-            niceType: "Diners Club",
-            type: "diners-club",
-            patterns: [ [ 300, 305 ], 36, 38, 39 ],
-            gaps: [ 4, 10 ],
-            lengths: [ 14, 16, 19 ],
-            code: {
-                name: "CVV",
-                size: 3
-            }
-        },
-        discover: {
-            niceType: "Discover",
-            type: "discover",
-            patterns: [ 6011, [ 644, 649 ], 65 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16, 19 ],
-            code: {
-                name: "CID",
-                size: 3
-            }
-        },
-        jcb: {
-            niceType: "JCB",
-            type: "jcb",
-            patterns: [ 2131, 1800, [ 3528, 3589 ] ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16, 17, 18, 19 ],
-            code: {
-                name: "CVV",
-                size: 3
-            }
-        },
-        unionpay: {
-            niceType: "UnionPay",
-            type: "unionpay",
-            patterns: [ 620, [ 624, 626 ], [ 62100, 62182 ], [ 62184, 62187 ], [ 62185, 62197 ], [ 62200, 62205 ], [ 622010, 622999 ], 622018, [ 622019, 622999 ], [ 62207, 62209 ], [ 622126, 622925 ], [ 623, 626 ], 6270, 6272, 6276, [ 627700, 627779 ], [ 627781, 627799 ], [ 6282, 6289 ], 6291, 6292, 810, [ 8110, 8131 ], [ 8132, 8151 ], [ 8152, 8163 ], [ 8164, 8171 ] ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 14, 15, 16, 17, 18, 19 ],
-            code: {
-                name: "CVN",
-                size: 3
-            }
-        },
-        maestro: {
-            niceType: "Maestro",
-            type: "maestro",
-            patterns: [ 493698, [ 5e5, 504174 ], [ 504176, 506698 ], [ 506779, 508999 ], [ 56, 59 ], 63, 67, 6 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 12, 13, 14, 15, 16, 17, 18, 19 ],
-            code: {
-                name: "CVC",
-                size: 3
-            }
-        },
-        elo: {
-            niceType: "Elo",
-            type: "elo",
-            patterns: [ 401178, 401179, 438935, 457631, 457632, 431274, 451416, 457393, 504175, [ 506699, 506778 ], [ 509e3, 509999 ], 627780, 636297, 636368, [ 650031, 650033 ], [ 650035, 650051 ], [ 650405, 650439 ], [ 650485, 650538 ], [ 650541, 650598 ], [ 650700, 650718 ], [ 650720, 650727 ], [ 650901, 650978 ], [ 651652, 651679 ], [ 655e3, 655019 ], [ 655021, 655058 ] ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16 ],
-            code: {
-                name: "CVE",
-                size: 3
-            }
-        },
-        mir: {
-            niceType: "Mir",
-            type: "mir",
-            patterns: [ [ 2200, 2204 ] ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16, 17, 18, 19 ],
-            code: {
-                name: "CVP2",
-                size: 3
-            }
-        },
-        hiper: {
-            niceType: "Hiper",
-            type: "hiper",
-            patterns: [ 637095, 63737423, 63743358, 637568, 637599, 637609, 637612 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16 ],
-            code: {
-                name: "CVC",
-                size: 3
-            }
-        },
-        hipercard: {
-            niceType: "Hipercard",
-            type: "hipercard",
-            patterns: [ 606282 ],
-            gaps: [ 4, 8, 12 ],
-            lengths: [ 16 ],
-            code: {
-                name: "CVC",
-                size: 3
-            }
-        }
-    };
-}, function(module, exports, __webpack_require__) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    exports.addMatchingCardsToResults = void 0;
-    var clone_1 = __webpack_require__(3);
-    var matches_1 = __webpack_require__(8);
-    exports.addMatchingCardsToResults = function(cardNumber, cardConfiguration, results) {
-        var i, patternLength;
-        for (i = 0; i < cardConfiguration.patterns.length; i++) {
-            var pattern = cardConfiguration.patterns[i];
-            if (matches_1.matches(cardNumber, pattern)) {
-                var clonedCardConfiguration = clone_1.clone(cardConfiguration);
-                patternLength = Array.isArray(pattern) ? String(pattern[0]).length : String(pattern).length;
-                cardNumber.length >= patternLength && (clonedCardConfiguration.matchStrength = patternLength);
-                results.push(clonedCardConfiguration);
-                break;
-            }
-        }
-    };
-}, function(module, exports, __webpack_require__) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    exports.matches = void 0;
-    exports.matches = function(cardNumber, pattern) {
-        return Array.isArray(pattern) ? function(cardNumber, min, max) {
-            var maxLengthToCheck = String(min).length;
-            var substr = cardNumber.substr(0, maxLengthToCheck);
-            var integerRepresentationOfCardNumber = parseInt(substr, 10);
-            min = parseInt(String(min).substr(0, substr.length), 10);
-            max = parseInt(String(max).substr(0, substr.length), 10);
-            return integerRepresentationOfCardNumber >= min && integerRepresentationOfCardNumber <= max;
-        }(cardNumber, pattern[0], pattern[1]) : function(cardNumber, pattern) {
-            return (pattern = String(pattern)).substring(0, cardNumber.length) === cardNumber.substring(0, pattern.length);
-        }(cardNumber, pattern);
-    };
-}, function(module, exports, __webpack_require__) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    exports.isValidInputType = void 0;
-    exports.isValidInputType = function(cardNumber) {
-        return "string" == typeof cardNumber || cardNumber instanceof String;
-    };
-}, function(module, exports, __webpack_require__) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    exports.findBestMatch = void 0;
-    exports.findBestMatch = function(results) {
-        return function(results) {
-            var numberOfResultsWithMaxStrengthProperty = results.filter((function(result) {
-                return result.matchStrength;
-            })).length;
-            return numberOfResultsWithMaxStrengthProperty > 0 && numberOfResultsWithMaxStrengthProperty === results.length;
-        }(results) ? results.reduce((function(bestMatch, result) {
-            return bestMatch ? Number(bestMatch.matchStrength) < Number(result.matchStrength) ? result : bestMatch : result;
-        })) : null;
-    };
-}, function(module, exports, __webpack_require__) {
     "undefined" != typeof self && self, module.exports = function(E) {
         var N = {};
         function S(R) {
@@ -3751,9 +3583,9 @@ window.smartCard = function(modules) {
         })), S.d(N, "VAULT", (function() {
             return A;
         })), S.d(N, "CURRENCY", (function() {
-            return r;
-        })), S.d(N, "SDK_PATH", (function() {
             return F;
+        })), S.d(N, "SDK_PATH", (function() {
+            return r;
         })), S.d(N, "SDK_SETTINGS", (function() {
             return H;
         })), S.d(N, "SDK_QUERY_KEYS", (function() {
@@ -3767,15 +3599,15 @@ window.smartCard = function(modules) {
         })), S.d(N, "UNKNOWN", (function() {
             return O;
         })), S.d(N, "PROTOCOL", (function() {
-            return i;
-        })), S.d(N, "PAGE_TYPES", (function() {
-            return M;
-        })), S.d(N, "MERCHANT_ID_MAX", (function() {
             return Z;
+        })), S.d(N, "PAGE_TYPES", (function() {
+            return i;
+        })), S.d(N, "MERCHANT_ID_MAX", (function() {
+            return M;
         })), S.d(N, "PLATFORM", (function() {
-            return h;
-        })), S.d(N, "TYPES", (function() {
             return k;
+        })), S.d(N, "TYPES", (function() {
+            return g;
         }));
         var R = {
             AD: "AD",
@@ -4017,8 +3849,7 @@ window.smartCard = function(modules) {
             TL: "tl",
             TR: "tr",
             VI: "vi",
-            ZH: "zh",
-            ZH_HANT: "zh_Hant"
+            ZH: "zh"
         }, T = {
             AD: [ t.EN, t.FR, t.ES, t.ZH ],
             AE: [ t.EN, t.FR, t.ES, t.ZH, t.AR ],
@@ -4063,7 +3894,7 @@ window.smartCard = function(modules) {
             CR: [ t.ES, t.EN, t.FR, t.ZH ],
             CV: [ t.EN, t.FR, t.ES, t.ZH ],
             CY: [ t.EN ],
-            CZ: [ t.CS, t.EN ],
+            CZ: [ t.CS, t.EN, t.FR, t.ES, t.ZH ],
             DE: [ t.DE, t.EN ],
             DJ: [ t.FR, t.EN, t.ES, t.ZH ],
             DK: [ t.DA, t.EN ],
@@ -4071,12 +3902,12 @@ window.smartCard = function(modules) {
             DO: [ t.ES, t.EN, t.FR, t.ZH ],
             DZ: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
             EC: [ t.ES, t.EN, t.FR, t.ZH ],
-            EE: [ t.ET, t.EN, t.RU ],
+            EE: [ t.ET, t.EN, t.RU, t.FR, t.ES, t.ZH ],
             EG: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
             ER: [ t.EN, t.FR, t.ES, t.ZH ],
             ES: [ t.ES, t.EN ],
             ET: [ t.EN, t.FR, t.ES, t.ZH ],
-            FI: [ t.FI, t.EN ],
+            FI: [ t.FI, t.EN, t.FR, t.ES, t.ZH ],
             FJ: [ t.EN, t.FR, t.ES, t.ZH ],
             FK: [ t.EN, t.FR, t.ES, t.ZH ],
             FM: [ t.EN ],
@@ -4092,14 +3923,14 @@ window.smartCard = function(modules) {
             GM: [ t.EN, t.FR, t.ES, t.ZH ],
             GN: [ t.FR, t.EN, t.ES, t.ZH ],
             GP: [ t.EN, t.FR, t.ES, t.ZH ],
-            GR: [ t.EL, t.EN ],
+            GR: [ t.EL, t.EN, t.FR, t.ES, t.ZH ],
             GT: [ t.ES, t.EN, t.FR, t.ZH ],
             GW: [ t.EN, t.FR, t.ES, t.ZH ],
             GY: [ t.EN, t.FR, t.ES, t.ZH ],
-            HK: [ t.EN, t.ZH_HANT, t.ZH ],
+            HK: [ t.EN, t.ZH ],
             HN: [ t.ES, t.EN, t.FR, t.ZH ],
             HR: [ t.EN ],
-            HU: [ t.HU, t.EN ],
+            HU: [ t.HU, t.EN, t.FR, t.ES, t.ZH ],
             ID: [ t.ID, t.EN ],
             IE: [ t.EN, t.FR, t.ES, t.ZH ],
             IL: [ t.HE, t.EN ],
@@ -4124,9 +3955,9 @@ window.smartCard = function(modules) {
             LI: [ t.EN, t.FR, t.ES, t.ZH ],
             LK: [ t.SI, t.EN ],
             LS: [ t.EN, t.FR, t.ES, t.ZH ],
-            LT: [ t.LT, t.EN, t.RU, t.ZH ],
+            LT: [ t.LT, t.EN, t.RU, t.FR, t.ES, t.ZH ],
             LU: [ t.EN, t.DE, t.FR, t.ES, t.ZH ],
-            LV: [ t.LV, t.EN, t.RU ],
+            LV: [ t.LV, t.EN, t.RU, t.FR, t.ES, t.ZH ],
             MA: [ t.AR, t.EN, t.FR, t.ES, t.ZH ],
             MC: [ t.FR, t.EN ],
             MD: [ t.EN ],
@@ -4172,7 +4003,7 @@ window.smartCard = function(modules) {
             PY: [ t.ES, t.EN ],
             QA: [ t.EN, t.FR, t.ES, t.ZH, t.AR ],
             RE: [ t.EN, t.FR, t.ES, t.ZH ],
-            RO: [ t.RO, t.EN ],
+            RO: [ t.RO, t.EN, t.FR, t.ES, t.ZH ],
             RS: [ t.EN, t.FR, t.ES, t.ZH ],
             RU: [ t.RU, t.EN ],
             RW: [ t.FR, t.EN, t.ES, t.ZH ],
@@ -4182,9 +4013,9 @@ window.smartCard = function(modules) {
             SE: [ t.SV, t.EN ],
             SG: [ t.EN ],
             SH: [ t.EN, t.FR, t.ES, t.ZH ],
-            SI: [ t.SL, t.EN ],
+            SI: [ t.SL, t.EN, t.FR, t.ES, t.ZH ],
             SJ: [ t.EN, t.FR, t.ES, t.ZH ],
-            SK: [ t.SK, t.EN ],
+            SK: [ t.SK, t.EN, t.FR, t.ES, t.ZH ],
             SL: [ t.EN, t.FR, t.ES, t.ZH ],
             SM: [ t.EN, t.FR, t.ES, t.ZH ],
             SN: [ t.FR, t.EN, t.ES, t.ZH ],
@@ -4204,7 +4035,7 @@ window.smartCard = function(modules) {
             TR: [ t.TR, t.EN ],
             TT: [ t.EN, t.FR, t.ES, t.ZH ],
             TV: [ t.EN, t.FR, t.ES, t.ZH ],
-            TW: [ t.ZH_HANT, t.ZH, t.EN ],
+            TW: [ t.ZH, t.EN ],
             TZ: [ t.EN, t.FR, t.ES, t.ZH ],
             UA: [ t.EN, t.RU, t.FR, t.ES, t.ZH ],
             UG: [ t.EN, t.FR, t.ES, t.ZH ],
@@ -4235,7 +4066,7 @@ window.smartCard = function(modules) {
         }, A = {
             TRUE: !0,
             FALSE: !1
-        }, r = {
+        }, F = {
             AED: "AED",
             ALL: "ALL",
             ANG: "ANG",
@@ -4338,7 +4169,7 @@ window.smartCard = function(modules) {
             XAF: "XAF",
             XCD: "XCD",
             YER: "YER"
-        }, F = "/sdk/js", H = {
+        }, r = "/sdk/js", H = {
             NAMESPACE: "data-namespace",
             CLIENT_TOKEN: "data-client-token",
             MERCHANT_ID: "data-merchant-id",
@@ -4383,10 +4214,10 @@ window.smartCard = function(modules) {
         }, o = {
             TRUE: "true",
             FALSE: "false"
-        }, O = "unknown", i = {
+        }, O = "unknown", Z = {
             HTTP: "http",
             HTTPS: "https"
-        }, M = {
+        }, i = {
             HOME: "home",
             PRODUCT: "product",
             CART: "cart",
@@ -4395,7 +4226,7 @@ window.smartCard = function(modules) {
             SEARCH_RESULTS: "search-results",
             PRODUCT_DETAILS: "product-details",
             MINI_CART: "mini-cart"
-        }, Z = 10, C = R.US, u = r.USD, a = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = _.BUTTONS, G = I.FALSE, B = {
+        }, M = 10, C = R.US, u = F.USD, a = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = _.BUTTONS, G = I.FALSE, B = {
             LOCAL: "local",
             STAGE: "stage",
             SANDBOX: "sandbox",
@@ -4463,8 +4294,7 @@ window.smartCard = function(modules) {
             PAY_NOW: "pay_now",
             STICKINESS_ID: "stickiness_id",
             TIMESTAMP: "t",
-            OPTION_SELECTED: "optsel",
-            USER_IDENTITY_METHOD: "user_identity_method"
+            OPTION_SELECTED: "optsel"
         }, p = {
             COMMIT: "commit",
             CONTINUE: "continue"
@@ -4521,10 +4351,10 @@ window.smartCard = function(modules) {
             PAY_IN_4: "payIn4",
             PAYLATER: "paylater",
             CREDIT: "credit"
-        }, h = {
+        }, k = {
             DESKTOP: "desktop",
             MOBILE: "mobile"
-        }, k = !0;
+        }, g = !0;
     } ]);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -4562,7 +4392,7 @@ window.smartCard = function(modules) {
             return target;
         }).apply(this, arguments);
     }
-    var n, l, preact_module_u, preact_module_t, preact_module_r, preact_module_o, e = {}, c = [], s = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
+    var n, l, preact_module_u, preact_module_t, preact_module_o, preact_module_r, e = {}, c = [], s = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
     function preact_module_a(n, l) {
         for (var u in l) n[u] = l[u];
         return n;
@@ -4572,18 +4402,18 @@ window.smartCard = function(modules) {
         l && l.removeChild(n);
     }
     function v(l, u, i) {
-        var t, r, o, f = {};
-        for (o in u) "key" == o ? t = u[o] : "ref" == o ? r = u[o] : f[o] = u[o];
+        var t, o, r, f = {};
+        for (r in u) "key" == r ? t = u[r] : "ref" == r ? o = u[r] : f[r] = u[r];
         if (arguments.length > 2 && (f.children = arguments.length > 3 ? n.call(arguments, 2) : i), 
-        "function" == typeof l && null != l.defaultProps) for (o in l.defaultProps) void 0 === f[o] && (f[o] = l.defaultProps[o]);
-        return y(l, f, t, r, null);
+        "function" == typeof l && null != l.defaultProps) for (r in l.defaultProps) void 0 === f[r] && (f[r] = l.defaultProps[r]);
+        return y(l, f, t, o, null);
     }
-    function y(n, i, t, r, o) {
+    function y(n, i, t, o, r) {
         var f = {
             type: n,
             props: i,
             key: t,
-            ref: r,
+            ref: o,
             __k: null,
             __: null,
             __b: 0,
@@ -4592,9 +4422,9 @@ window.smartCard = function(modules) {
             __c: null,
             __h: null,
             constructor: void 0,
-            __v: null == o ? ++preact_module_u : o
+            __v: null == r ? ++preact_module_u : r
         };
-        return null == o && null != l.vnode && l.vnode(f), f;
+        return null != l.vnode && l.vnode(f), f;
     }
     function d(n) {
         return n.children;
@@ -4618,19 +4448,19 @@ window.smartCard = function(modules) {
         }
     }
     function m(n) {
-        (!n.__d && (n.__d = !0) && preact_module_t.push(n) && !g.__r++ || preact_module_o !== l.debounceRendering) && ((preact_module_o = l.debounceRendering) || preact_module_r)(g);
+        (!n.__d && (n.__d = !0) && preact_module_t.push(n) && !g.__r++ || preact_module_r !== l.debounceRendering) && ((preact_module_r = l.debounceRendering) || preact_module_o)(g);
     }
     function g() {
         for (var n; g.__r = preact_module_t.length; ) n = preact_module_t.sort((function(n, l) {
             return n.__v.__b - l.__v.__b;
         })), preact_module_t = [], n.some((function(n) {
-            var l, u, i, t, r, o;
-            n.__d && (r = (t = (l = n).__v).__e, (o = l.__P) && (u = [], (i = preact_module_a({}, t)).__v = t.__v + 1, 
-            j(o, t, i, l.__n, void 0 !== o.ownerSVGElement, null != t.__h ? [ r ] : null, u, null == r ? k(t) : r, t.__h), 
-            z(u, t), t.__e != r && b(t)));
+            var l, u, i, t, o, r;
+            n.__d && (o = (t = (l = n).__v).__e, (r = l.__P) && (u = [], (i = preact_module_a({}, t)).__v = t.__v + 1, 
+            j(r, t, i, l.__n, void 0 !== r.ownerSVGElement, null != t.__h ? [ o ] : null, u, null == o ? k(t) : o, t.__h), 
+            z(u, t), t.__e != o && b(t)));
         }));
     }
-    function w(n, l, u, i, t, r, o, f, s, a) {
+    function w(n, l, u, i, t, o, r, f, s, a) {
         var h, v, p, _, b, m, g, w = i && i.__k || c, A = w.length;
         for (u.__k = [], h = 0; h < l.length; h++) if (null != (_ = u.__k[h] = null == (_ = l[h]) || "boolean" == typeof _ ? null : "string" == typeof _ || "number" == typeof _ || "bigint" == typeof _ ? y(null, _, null, null, _) : Array.isArray(_) ? y(d, {
             children: _
@@ -4642,39 +4472,40 @@ window.smartCard = function(modules) {
                 }
                 p = null;
             }
-            j(n, _, p = p || e, t, r, o, f, s, a), b = _.__e, (v = _.ref) && p.ref != v && (g || (g = []), 
+            j(n, _, p = p || e, t, o, r, f, s, a), b = _.__e, (v = _.ref) && p.ref != v && (g || (g = []), 
             p.ref && g.push(p.ref, null, _), g.push(v, _.__c || b, _)), null != b ? (null == m && (m = b), 
-            "function" == typeof _.type && _.__k === p.__k ? _.__d = s = x(_, s, n) : s = P(n, _, p, w, b, s), 
-            "function" == typeof u.type && (u.__d = s)) : s && p.__e == s && s.parentNode != n && (s = k(p));
+            "function" == typeof _.type && null != _.__k && _.__k === p.__k ? _.__d = s = x(_, s, n) : s = P(n, _, p, w, b, s), 
+            a || "option" !== u.type ? "function" == typeof u.type && (u.__d = s) : n.value = "") : s && p.__e == s && s.parentNode != n && (s = k(p));
         }
         for (u.__e = m, h = A; h--; ) null != w[h] && ("function" == typeof u.type && null != w[h].__e && w[h].__e == u.__d && (u.__d = k(i, h + 1)), 
         N(w[h], w[h]));
         if (g) for (h = 0; h < g.length; h++) M(g[h], g[++h], g[++h]);
     }
     function x(n, l, u) {
-        for (var i, t = n.__k, r = 0; t && r < t.length; r++) (i = t[r]) && (i.__ = n, l = "function" == typeof i.type ? x(i, l, u) : P(u, i, i, t, i.__e, l));
+        var i, t;
+        for (i = 0; i < n.__k.length; i++) (t = n.__k[i]) && (t.__ = n, l = "function" == typeof t.type ? x(t, l, u) : P(u, t, t, n.__k, t.__e, l));
         return l;
     }
-    function P(n, l, u, i, t, r) {
-        var o, f, e;
-        if (void 0 !== l.__d) o = l.__d, l.__d = void 0; else if (null == u || t != r || null == t.parentNode) n: if (null == r || r.parentNode !== n) n.appendChild(t), 
-        o = null; else {
-            for (f = r, e = 0; (f = f.nextSibling) && e < i.length; e += 2) if (f == t) break n;
-            n.insertBefore(t, r), o = r;
+    function P(n, l, u, i, t, o) {
+        var r, f, e;
+        if (void 0 !== l.__d) r = l.__d, l.__d = void 0; else if (null == u || t != o || null == t.parentNode) n: if (null == o || o.parentNode !== n) n.appendChild(t), 
+        r = null; else {
+            for (f = o, e = 0; (f = f.nextSibling) && e < i.length; e += 2) if (f == t) break n;
+            n.insertBefore(t, o), r = o;
         }
-        return void 0 !== o ? o : t.nextSibling;
+        return void 0 !== r ? r : t.nextSibling;
     }
     function $(n, l, u) {
         "-" === l[0] ? n.setProperty(l, u) : n[l] = null == u ? "" : "number" != typeof u || s.test(l) ? u : u + "px";
     }
     function H(n, l, u, i, t) {
-        var r;
+        var o;
         n: if ("style" === l) if ("string" == typeof u) n.style.cssText = u; else {
             if ("string" == typeof i && (n.style.cssText = i = ""), i) for (l in i) u && l in u || $(n.style, l, "");
             if (u) for (l in u) i && u[l] === i[l] || $(n.style, l, u[l]);
-        } else if ("o" === l[0] && "n" === l[1]) r = l !== (l = l.replace(/Capture$/, "")), 
+        } else if ("o" === l[0] && "n" === l[1]) o = l !== (l = l.replace(/Capture$/, "")), 
         l = l.toLowerCase() in n ? l.toLowerCase().slice(2) : l.slice(2), n.l || (n.l = {}), 
-        n.l[l + r] = u, u ? i || n.addEventListener(l, r ? T : I, r) : n.removeEventListener(l, r ? T : I, r); else if ("dangerouslySetInnerHTML" !== l) {
+        n.l[l + o] = u, u ? i || n.addEventListener(l, o ? T : I, o) : n.removeEventListener(l, o ? T : I, o); else if ("dangerouslySetInnerHTML" !== l) {
             if (t) l = l.replace(/xlink[H:h]/, "h").replace(/sName$/, "s"); else if ("href" !== l && "list" !== l && "form" !== l && "tabIndex" !== l && "download" !== l && l in n) try {
                 n[l] = null == u ? "" : u;
                 break n;
@@ -4688,10 +4519,10 @@ window.smartCard = function(modules) {
     function T(n) {
         this.l[n.type + !0](l.event ? l.event(n) : n);
     }
-    function j(n, u, i, t, r, o, f, e, c) {
+    function j(n, u, i, t, o, r, f, e, c) {
         var s, h, v, y, p, k, b, m, g, x, A, P = u.type;
         if (void 0 !== u.constructor) return null;
-        null != i.__h && (c = i.__h, e = u.__e = i.__e, u.__h = null, o = [ e ]), (s = l.__b) && s(u);
+        null != i.__h && (c = i.__h, e = u.__e = i.__e, u.__h = null, r = [ e ]), (s = l.__b) && s(u);
         try {
             n: if ("function" == typeof P) {
                 if (m = u.props, g = (s = P.contextType) && t[s.__c], x = s ? g ? g.props.value : s.__ : t, 
@@ -4717,13 +4548,13 @@ window.smartCard = function(modules) {
                 h.context = x, h.props = m, h.state = h.__s, (s = l.__r) && s(u), h.__d = !1, h.__v = u, 
                 h.__P = n, s = h.render(h.props, h.state, h.context), h.state = h.__s, null != h.getChildContext && (t = preact_module_a(preact_module_a({}, t), h.getChildContext())), 
                 v || null == h.getSnapshotBeforeUpdate || (k = h.getSnapshotBeforeUpdate(y, p)), 
-                A = null != s && s.type === d && null == s.key ? s.props.children : s, w(n, Array.isArray(A) ? A : [ A ], u, i, t, r, o, f, e, c), 
+                A = null != s && s.type === d && null == s.key ? s.props.children : s, w(n, Array.isArray(A) ? A : [ A ], u, i, t, o, r, f, e, c), 
                 h.base = u.__e, u.__h = null, h.__h.length && f.push(h), b && (h.__E = h.__ = null), 
                 h.__e = !1;
-            } else null == o && u.__v === i.__v ? (u.__k = i.__k, u.__e = i.__e) : u.__e = L(i.__e, u, i, t, r, o, f, c);
+            } else null == r && u.__v === i.__v ? (u.__k = i.__k, u.__e = i.__e) : u.__e = L(i.__e, u, i, t, o, r, f, c);
             (s = l.diffed) && s(u);
         } catch (n) {
-            u.__v = null, (c || null != o) && (u.__e = e, u.__h = !!c, o[o.indexOf(e)] = null), 
+            u.__v = null, (c || null != r) && (u.__e = e, u.__h = !!c, r[r.indexOf(e)] = null), 
             l.__e(n, u, i);
         }
     }
@@ -4738,29 +4569,29 @@ window.smartCard = function(modules) {
             }
         }));
     }
-    function L(l, u, i, t, r, o, f, c) {
+    function L(l, u, i, t, o, r, f, c) {
         var s, a, v, y = i.props, p = u.props, d = u.type, _ = 0;
-        if ("svg" === d && (r = !0), null != o) for (;_ < o.length; _++) if ((s = o[_]) && (s === l || (d ? s.localName == d : 3 == s.nodeType))) {
-            l = s, o[_] = null;
+        if ("svg" === d && (o = !0), null != r) for (;_ < r.length; _++) if ((s = r[_]) && (s === l || (d ? s.localName == d : 3 == s.nodeType))) {
+            l = s, r[_] = null;
             break;
         }
         if (null == l) {
             if (null === d) return document.createTextNode(p);
-            l = r ? document.createElementNS("http://www.w3.org/2000/svg", d) : document.createElement(d, p.is && p), 
-            o = null, c = !1;
+            l = o ? document.createElementNS("http://www.w3.org/2000/svg", d) : document.createElement(d, p.is && p), 
+            r = null, c = !1;
         }
         if (null === d) y === p || c && l.data === p || (l.data = p); else {
-            if (o = o && n.call(l.childNodes), a = (y = i.props || e).dangerouslySetInnerHTML, 
+            if (r = r && n.call(l.childNodes), a = (y = i.props || e).dangerouslySetInnerHTML, 
             v = p.dangerouslySetInnerHTML, !c) {
-                if (null != o) for (y = {}, _ = 0; _ < l.attributes.length; _++) y[l.attributes[_].name] = l.attributes[_].value;
+                if (null != r) for (y = {}, _ = 0; _ < l.attributes.length; _++) y[l.attributes[_].name] = l.attributes[_].value;
                 (v || a) && (v && (a && v.__html == a.__html || v.__html === l.innerHTML) || (l.innerHTML = v && v.__html || ""));
             }
             if (function(n, l, u, i, t) {
-                var r;
-                for (r in u) "children" === r || "key" === r || r in l || H(n, r, null, u[r], i);
-                for (r in l) t && "function" != typeof l[r] || "children" === r || "key" === r || "value" === r || "checked" === r || u[r] === l[r] || H(n, r, l[r], u[r], i);
-            }(l, p, y, r, c), v) u.__k = []; else if (_ = u.props.children, w(l, Array.isArray(_) ? _ : [ _ ], u, i, t, r && "foreignObject" !== d, o, f, o ? o[0] : i.__k && k(i, 0), c), 
-            null != o) for (_ = o.length; _--; ) null != o[_] && h(o[_]);
+                var o;
+                for (o in u) "children" === o || "key" === o || o in l || H(n, o, null, u[o], i);
+                for (o in l) t && "function" != typeof l[o] || "children" === o || "key" === o || "value" === o || "checked" === o || u[o] === l[o] || H(n, o, l[o], u[o], i);
+            }(l, p, y, o, c), v) u.__k = []; else if (_ = u.props.children, w(l, Array.isArray(_) ? _ : [ _ ], u, i, t, o && "foreignObject" !== d, r, f, r ? r[0] : i.__k && k(i, 0), c), 
+            null != r) for (_ = r.length; _--; ) null != r[_] && h(r[_]);
             c || ("value" in p && void 0 !== (_ = p.value) && (_ !== l.value || "progress" === d && !_) && H(l, "value", _, y.value, !1), 
             "checked" in p && void 0 !== (_ = p.checked) && _ !== l.checked && H(l, "checked", _, y.checked, !1));
         }
@@ -4774,7 +4605,7 @@ window.smartCard = function(modules) {
         }
     }
     function N(n, u, i) {
-        var t, r;
+        var t, o;
         if (l.unmount && l.unmount(n), (t = n.ref) && (t.current && t.current !== n.__e || M(t, null, u)), 
         null != (t = n.__c)) {
             if (t.componentWillUnmount) try {
@@ -4784,7 +4615,7 @@ window.smartCard = function(modules) {
             }
             t.base = t.__P = null;
         }
-        if (t = n.__k) for (r = 0; r < t.length; r++) t[r] && N(t[r], u, "function" != typeof n.type);
+        if (t = n.__k) for (o = 0; o < t.length; o++) t[o] && N(t[o], u, "function" != typeof n.type);
         i || null == n.__e || h(n.__e), n.__e = n.__d = void 0;
     }
     function O(n, l, u) {
@@ -4808,7 +4639,7 @@ window.smartCard = function(modules) {
         null != n && this.__v && (l && this.__h.push(l), m(this));
     }, _.prototype.forceUpdate = function(n) {
         this.__v && (this.__e = !0, n && this.__h.push(n), m(this));
-    }, _.prototype.render = d, preact_module_t = [], preact_module_r = "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, 
+    }, _.prototype.render = d, preact_module_t = [], preact_module_o = "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, 
     g.__r = 0;
     var hooks_module_t, hooks_module_u, hooks_module_r, hooks_module_o = 0, hooks_module_i = [], hooks_module_c = l.__b, hooks_module_f = l.__r, hooks_module_e = l.diffed, hooks_module_a = l.__c, hooks_module_v = l.unmount;
     function hooks_module_m(t, r) {
@@ -4865,7 +4696,7 @@ window.smartCard = function(modules) {
                 clearTimeout(r), hooks_module_b && cancelAnimationFrame(t), setTimeout(n);
             }, r = setTimeout(u, 100);
             hooks_module_b && (t = requestAnimationFrame(u));
-        })(hooks_module_x)), hooks_module_u = null;
+        })(hooks_module_x)), hooks_module_u = void 0;
     }, l.__c = function(t, u) {
         u.some((function(t) {
             try {
@@ -5054,9 +4885,8 @@ window.smartCard = function(modules) {
                         }
                     }
                     if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
-                        var promiseResult = _result2;
-                        promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
-                        promiseResult.errorHandled = !0;
+                        _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error);
+                        _result2.errorHandled = !0;
                     } else utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
                 }
                 handlers.length = 0;
@@ -5107,10 +4937,6 @@ window.smartCard = function(modules) {
             if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
             return Promise.resolve(this);
         };
-        _proto.lazy = function() {
-            this.errorHandled = !0;
-            return this;
-        };
         ZalgoPromise.resolve = function(value) {
             return value instanceof ZalgoPromise ? value : utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
                 return value.then(resolve, reject);
@@ -5125,7 +4951,7 @@ window.smartCard = function(modules) {
         ZalgoPromise.all = function(promises) {
             var promise = new ZalgoPromise;
             var count = promises.length;
-            var results = [].slice();
+            var results = [];
             if (!count) {
                 promise.resolve(results);
                 return promise;
@@ -5928,237 +5754,26 @@ window.smartCard = function(modules) {
     var LSAT_UPGRADE_EXCLUDED_MERCHANTS = [ "AQipcJ1uXz50maKgYx49lKUB8MlSOXP573M6cpsFpHqDZOqnopsJpfYY7bQC_9CtQJsEhGlk8HLs2oZz", "Aco-yrRKihknb5vDBbDOdtYywjYMEPaM7mQg6kev8VDAz01lLA88J4oAUnF4UV9F_InqkqX7K62_jOjx", "AeAiB9K2rRsTXsFKZt4FMAQ8a6VEu4hijducis3a8NcIjV2J_c5I2H2PYhT3qCOwxT8P4l17skqgBlmg", "AXKrWRqEvxiDoUIZQaD1tFi2QhtmhWve3yTDBi58bxWjieYJ9j73My-yJmM7hP00JvOXu4YD6L2eaI5O", "AfRTnXv_QcuVyalbUxThtgk1xTygygsdevlBUTz36dDgD6XZNHp3Ym99a-mjMaokXyTTiI8VJ9mRgaFB", "AejlsIlg_KjKjmLKqxJqFIAwn3ZP02emx41Z2It4IfirQ-nNgZgzWk1CU-Q1QDbYUXjWoYJZ4dq1S2pK", "AQXD7-m_2yMo-5AxJ1fQaPeEWYDE7NZ9XrLzEXeiPLTHDu9vfe_T0foF8BoX8K5cMfXuRDysUEmhw-8Z" ];
     var AUTO_FLUSH_LEVEL = [ "warn", "error" ];
     var LOG_LEVEL_PRIORITY = [ "error", "warn", "info", "debug" ];
-    var sendBeacon = function(_ref2) {
-        var _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win, url = _ref2.url, data = _ref2.data, _ref2$useBlob = _ref2.useBlob, useBlob = void 0 === _ref2$useBlob || _ref2$useBlob;
-        try {
-            var json = JSON.stringify(data);
-            if (!win.navigator.sendBeacon) throw new Error("No sendBeacon available");
-            if (useBlob) {
-                var blob = new Blob([ json ], {
+    function httpTransport(_ref) {
+        var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+        return promise_ZalgoPromise.try((function() {
+            var hasHeaders = headers && Object.keys(headers).length;
+            if (window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob) try {
+                var blob = new Blob([ JSON.stringify(json) ], {
                     type: "application/json"
                 });
-                return win.navigator.sendBeacon(url, blob);
-            }
-            return win.navigator.sendBeacon(url, json);
-        } catch (e) {
-            return !1;
-        }
-    };
-    var extendIfDefined = function(target, source) {
-        for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
-    };
-    function Logger(_ref) {
-        var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "warn" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
-            void 0 === httpWin && (httpWin = window);
-            var win = isSameDomain(httpWin) ? function(win) {
-                if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
-                return win;
-            }(httpWin) : window;
-            return function(_ref) {
-                var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-                return promise_ZalgoPromise.try((function() {
-                    var beaconResult = !1;
-                    (function(_ref) {
-                        var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
-                        var hasHeaders = headers && Object.keys(headers).length;
-                        return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
-                    })({
-                        headers: headers,
-                        enableSendBeacon: enableSendBeacon
-                    }) && (beaconResult = function(url) {
-                        return "https://api2.amplitude.com/2/httpapi" === url;
-                    }(url) ? sendBeacon({
-                        win: win,
-                        url: url,
-                        data: json,
-                        useBlob: !1
-                    }) : sendBeacon({
-                        win: win,
-                        url: url,
-                        data: json,
-                        useBlob: !0
-                    }));
-                    return beaconResult || request({
-                        win: win,
-                        url: url,
-                        method: method,
-                        headers: headers,
-                        json: json
-                    });
-                })).then(src_util_noop);
-            };
-        }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-        var events = [];
-        var tracking = [];
-        var payloadBuilders = [];
-        var metaBuilders = [];
-        var trackingBuilders = [];
-        var headerBuilders = [];
-        function print(level, event, payload) {
-            if (dom_isBrowser() && window.console && window.console.log && !(LOG_LEVEL_PRIORITY.indexOf(level) > LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
-                var args = [ event ];
-                args.push(payload);
-                (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
-                try {
-                    window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
-                } catch (err) {}
-            }
-        }
-        function immediateFlush() {
-            return promise_ZalgoPromise.try((function() {
-                if (dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
-                    var meta = {};
-                    for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) extendIfDefined(meta, (0, metaBuilders[_i2])(meta));
-                    var headers = {};
-                    for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) extendIfDefined(headers, (0, 
-                    headerBuilders[_i4])(headers));
-                    var res;
-                    url && (res = transport({
-                        method: "POST",
-                        url: url,
-                        headers: headers,
-                        json: {
-                            events: events,
-                            meta: meta,
-                            tracking: tracking
-                        },
-                        enableSendBeacon: enableSendBeacon
-                    }).catch(src_util_noop));
-                    amplitudeApiKey && transport({
-                        method: "POST",
-                        url: "https://api2.amplitude.com/2/httpapi",
-                        headers: {},
-                        json: {
-                            api_key: amplitudeApiKey,
-                            events: tracking.map((function(payload) {
-                                return _extends({
-                                    event_type: payload.transition_name || "event",
-                                    event_properties: payload
-                                }, payload);
-                            }))
-                        },
-                        enableSendBeacon: enableSendBeacon
-                    }).catch(src_util_noop);
-                    events = [];
-                    tracking = [];
-                    return promise_ZalgoPromise.resolve(res).then(src_util_noop);
-                }
-            }));
-        }
-        var flush = function(method, delay) {
-            void 0 === delay && (delay = 50);
-            var promise;
-            var timeout;
-            return setFunctionName((function() {
-                timeout && clearTimeout(timeout);
-                var localPromise = promise = promise || new promise_ZalgoPromise;
-                timeout = setTimeout((function() {
-                    promise = null;
-                    timeout = null;
-                    promise_ZalgoPromise.try(method).then((function(result) {
-                        localPromise.resolve(result);
-                    }), (function(err) {
-                        localPromise.reject(err);
-                    }));
-                }), delay);
-                return localPromise;
-            }), getFunctionName(method) + "::promiseDebounced");
-        }(immediateFlush);
-        function log(level, event, payload) {
-            void 0 === payload && (payload = {});
-            if (!dom_isBrowser()) return logger;
-            prefix && (event = prefix + "_" + event);
-            var logPayload = _extends({}, objFilter(payload), {
-                timestamp: Date.now().toString()
+                return window.navigator.sendBeacon(url, blob);
+            } catch (e) {}
+            return request({
+                url: url,
+                method: method,
+                headers: headers,
+                json: json
             });
-            for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) extendIfDefined(logPayload, (0, 
-            payloadBuilders[_i6])(logPayload));
-            !function(level, event, payload) {
-                events.push({
-                    level: level,
-                    event: event,
-                    payload: payload
-                });
-                -1 !== AUTO_FLUSH_LEVEL.indexOf(level) && flush();
-            }(level, event, logPayload);
-            print(level, event, logPayload);
-            return logger;
-        }
-        function addBuilder(builders, builder) {
-            builders.push(builder);
-            return logger;
-        }
-        dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
-            setTimeout((function() {
-                method();
-                loop();
-            }), time);
-        }());
-        var method, time;
-        if ("object" == typeof window) {
-            window.addEventListener("beforeunload", (function() {
-                immediateFlush();
-            }));
-            window.addEventListener("unload", (function() {
-                immediateFlush();
-            }));
-            window.addEventListener("pagehide", (function() {
-                immediateFlush();
-            }));
-        }
-        var logger = {
-            debug: function(event, payload) {
-                return log("debug", event, payload);
-            },
-            info: function(event, payload) {
-                return log("info", event, payload);
-            },
-            warn: function(event, payload) {
-                return log("warn", event, payload);
-            },
-            error: function(event, payload) {
-                return log("error", event, payload);
-            },
-            track: function(payload) {
-                void 0 === payload && (payload = {});
-                if (!dom_isBrowser()) return logger;
-                var trackingPayload = objFilter(payload);
-                for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) extendIfDefined(trackingPayload, (0, 
-                trackingBuilders[_i8])(trackingPayload));
-                print("debug", "track", trackingPayload);
-                tracking.push(trackingPayload);
-                return logger;
-            },
-            flush: flush,
-            immediateFlush: immediateFlush,
-            addPayloadBuilder: function(builder) {
-                return addBuilder(payloadBuilders, builder);
-            },
-            addMetaBuilder: function(builder) {
-                return addBuilder(metaBuilders, builder);
-            },
-            addTrackingBuilder: function(builder) {
-                return addBuilder(trackingBuilders, builder);
-            },
-            addHeaderBuilder: function(builder) {
-                return addBuilder(headerBuilders, builder);
-            },
-            setTransport: function(newTransport) {
-                transport = newTransport;
-                return logger;
-            },
-            configure: function(opts) {
-                opts.url && (url = opts.url);
-                opts.prefix && (prefix = opts.prefix);
-                opts.logLevel && (logLevel = opts.logLevel);
-                opts.transport && (transport = opts.transport);
-                opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
-                opts.flushInterval && (flushInterval = opts.flushInterval);
-                opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
-                return logger;
-            }
-        };
-        return logger;
+        })).then(src_util_noop);
+    }
+    function extendIfDefined(target, source) {
+        for (var key in source) source.hasOwnProperty(key) && source[key] && !target[key] && (target[key] = source[key]);
     }
     var _FUNDING_SKIP_LOGIN, _AMPLITUDE_API_KEY;
     (_FUNDING_SKIP_LOGIN = {}).paypal = "paypal", _FUNDING_SKIP_LOGIN.paylater = "paypal", 
@@ -6168,7 +5783,178 @@ window.smartCard = function(modules) {
     _AMPLITUDE_API_KEY.production = "ce423f79daba95faeb0694186170605c";
     function getLogger() {
         return inlineMemoize(getLogger, (function() {
-            return Logger({
+            return function(_ref2) {
+                var url = _ref2.url, prefix = _ref2.prefix, _ref2$logLevel = _ref2.logLevel, logLevel = void 0 === _ref2$logLevel ? "warn" : _ref2$logLevel, _ref2$transport = _ref2.transport, transport = void 0 === _ref2$transport ? httpTransport : _ref2$transport, amplitudeApiKey = _ref2.amplitudeApiKey, _ref2$flushInterval = _ref2.flushInterval, flushInterval = void 0 === _ref2$flushInterval ? 6e4 : _ref2$flushInterval, _ref2$enableSendBeaco = _ref2.enableSendBeacon, enableSendBeacon = void 0 !== _ref2$enableSendBeaco && _ref2$enableSendBeaco;
+                var events = [];
+                var tracking = [];
+                var payloadBuilders = [];
+                var metaBuilders = [];
+                var trackingBuilders = [];
+                var headerBuilders = [];
+                function print(level, event, payload) {
+                    if (dom_isBrowser() && window.console && window.console.log && !(LOG_LEVEL_PRIORITY.indexOf(level) > LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
+                        var args = [ event ];
+                        args.push(payload);
+                        (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
+                        try {
+                            window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
+                        } catch (err) {}
+                    }
+                }
+                function immediateFlush() {
+                    return promise_ZalgoPromise.try((function() {
+                        if (dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
+                            var meta = {};
+                            for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) extendIfDefined(meta, (0, metaBuilders[_i2])(meta));
+                            var headers = {};
+                            for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) extendIfDefined(headers, (0, 
+                            headerBuilders[_i4])(headers));
+                            var res;
+                            url && (res = transport({
+                                method: "POST",
+                                url: url,
+                                headers: headers,
+                                json: {
+                                    events: events,
+                                    meta: meta,
+                                    tracking: tracking
+                                },
+                                enableSendBeacon: enableSendBeacon
+                            }).catch(src_util_noop));
+                            amplitudeApiKey && transport({
+                                method: "POST",
+                                url: "https://api2.amplitude.com/2/httpapi",
+                                headers: {
+                                    "content-type": "application/json"
+                                },
+                                json: {
+                                    api_key: amplitudeApiKey,
+                                    events: tracking.map((function(payload) {
+                                        return _extends({
+                                            event_type: payload.transition_name || "event",
+                                            event_properties: payload
+                                        }, payload);
+                                    }))
+                                }
+                            }).catch(src_util_noop);
+                            events = [];
+                            tracking = [];
+                            return promise_ZalgoPromise.resolve(res).then(src_util_noop);
+                        }
+                    }));
+                }
+                var flush = function(method, delay) {
+                    void 0 === delay && (delay = 50);
+                    var promise;
+                    var timeout;
+                    return setFunctionName((function() {
+                        timeout && clearTimeout(timeout);
+                        var localPromise = promise = promise || new promise_ZalgoPromise;
+                        timeout = setTimeout((function() {
+                            promise = null;
+                            timeout = null;
+                            promise_ZalgoPromise.try(method).then((function(result) {
+                                localPromise.resolve(result);
+                            }), (function(err) {
+                                localPromise.reject(err);
+                            }));
+                        }), delay);
+                        return localPromise;
+                    }), getFunctionName(method) + "::promiseDebounced");
+                }(immediateFlush);
+                function log(level, event, payload) {
+                    void 0 === payload && (payload = {});
+                    if (!dom_isBrowser()) return logger;
+                    prefix && (event = prefix + "_" + event);
+                    var logPayload = _extends({}, objFilter(payload), {
+                        timestamp: Date.now().toString()
+                    });
+                    for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) extendIfDefined(logPayload, (0, 
+                    payloadBuilders[_i6])(logPayload));
+                    !function(level, event, payload) {
+                        events.push({
+                            level: level,
+                            event: event,
+                            payload: payload
+                        });
+                        -1 !== AUTO_FLUSH_LEVEL.indexOf(level) && flush();
+                    }(level, event, logPayload);
+                    print(level, event, logPayload);
+                    return logger;
+                }
+                function addBuilder(builders, builder) {
+                    builders.push(builder);
+                    return logger;
+                }
+                dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
+                    setTimeout((function() {
+                        method();
+                        loop();
+                    }), time);
+                }());
+                var method, time;
+                if ("object" == typeof window) {
+                    window.addEventListener("beforeunload", (function() {
+                        immediateFlush();
+                    }));
+                    window.addEventListener("unload", (function() {
+                        immediateFlush();
+                    }));
+                }
+                var logger = {
+                    debug: function(event, payload) {
+                        return log("debug", event, payload);
+                    },
+                    info: function(event, payload) {
+                        return log("info", event, payload);
+                    },
+                    warn: function(event, payload) {
+                        return log("warn", event, payload);
+                    },
+                    error: function(event, payload) {
+                        return log("error", event, payload);
+                    },
+                    track: function(payload) {
+                        void 0 === payload && (payload = {});
+                        if (!dom_isBrowser()) return logger;
+                        var trackingPayload = objFilter(payload);
+                        for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) extendIfDefined(trackingPayload, (0, 
+                        trackingBuilders[_i8])(trackingPayload));
+                        print("debug", "track", trackingPayload);
+                        tracking.push(trackingPayload);
+                        return logger;
+                    },
+                    flush: flush,
+                    immediateFlush: immediateFlush,
+                    addPayloadBuilder: function(builder) {
+                        return addBuilder(payloadBuilders, builder);
+                    },
+                    addMetaBuilder: function(builder) {
+                        return addBuilder(metaBuilders, builder);
+                    },
+                    addTrackingBuilder: function(builder) {
+                        return addBuilder(trackingBuilders, builder);
+                    },
+                    addHeaderBuilder: function(builder) {
+                        return addBuilder(headerBuilders, builder);
+                    },
+                    setTransport: function(newTransport) {
+                        transport = newTransport;
+                        return logger;
+                    },
+                    configure: function(opts) {
+                        opts.url && (url = opts.url);
+                        opts.prefix && (prefix = opts.prefix);
+                        opts.logLevel && (logLevel = opts.logLevel);
+                        opts.transport && (transport = opts.transport);
+                        opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
+                        opts.flushInterval && (flushInterval = opts.flushInterval);
+                        opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
+                        return logger;
+                    }
+                };
+                return logger;
+            }({
                 url: "/xoplatform/logger/api/logger",
                 enableSendBeacon: !0
             });
@@ -6180,7 +5966,7 @@ window.smartCard = function(modules) {
     function promiseNoop() {
         return promise_ZalgoPromise.resolve();
     }
-    function util_getBody() {
+    function getBody() {
         var body = document.body;
         if (!body) throw new Error("Document body not found");
         return body;
@@ -6209,9 +5995,9 @@ window.smartCard = function(modules) {
         });
     }
     var belter = __webpack_require__(1);
-    var dist = __webpack_require__(0);
-    var dist_default = __webpack_require__.n(dist);
-    var luhn_10 = __webpack_require__(4);
+    var credit_card_type = __webpack_require__(0);
+    var credit_card_type_default = __webpack_require__.n(credit_card_type);
+    var luhn_10 = __webpack_require__(3);
     var luhn_10_default = __webpack_require__.n(luhn_10);
     var _CARD_FIELD_TYPE_TO_F, _VALIDATOR_TO_TYPE_MA;
     var CARD_FIELD_TYPE_TO_FRAME_NAME = ((_CARD_FIELD_TYPE_TO_F = {}).single = "card-field", 
@@ -6263,12 +6049,12 @@ window.smartCard = function(modules) {
         textShadow: "text-shadow",
         transition: "transition"
     };
-    var VALIDATOR_TO_TYPE_MAP = ((_VALIDATOR_TO_TYPE_MA = {})[dist.types.AMERICAN_EXPRESS] = "AMEX", 
-    _VALIDATOR_TO_TYPE_MA[dist.types.DINERS_CLUB] = "DINERS", _VALIDATOR_TO_TYPE_MA[dist.types.DISCOVER] = "DISCOVER", 
-    _VALIDATOR_TO_TYPE_MA[dist.types.ELO] = "ELO", _VALIDATOR_TO_TYPE_MA[dist.types.HIPER] = "HIPER", 
-    _VALIDATOR_TO_TYPE_MA[dist.types.HIPERCARD] = "HIPERCARD", _VALIDATOR_TO_TYPE_MA[dist.types.JCB] = "JCB", 
-    _VALIDATOR_TO_TYPE_MA[dist.types.MASTERCARD] = "MASTER_CARD", _VALIDATOR_TO_TYPE_MA[dist.types.MAESTRO] = "MAESTRO", 
-    _VALIDATOR_TO_TYPE_MA[dist.types.UNIONPAY] = "CHINA_UNION_PAY", _VALIDATOR_TO_TYPE_MA[dist.types.VISA] = "VISA", 
+    var VALIDATOR_TO_TYPE_MAP = ((_VALIDATOR_TO_TYPE_MA = {})[credit_card_type.types.AMERICAN_EXPRESS] = "AMEX", 
+    _VALIDATOR_TO_TYPE_MA[credit_card_type.types.DINERS_CLUB] = "DINERS", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.DISCOVER] = "DISCOVER", 
+    _VALIDATOR_TO_TYPE_MA[credit_card_type.types.ELO] = "ELO", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.HIPER] = "HIPER", 
+    _VALIDATOR_TO_TYPE_MA[credit_card_type.types.HIPERCARD] = "HIPERCARD", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.JCB] = "JCB", 
+    _VALIDATOR_TO_TYPE_MA[credit_card_type.types.MASTERCARD] = "MASTER_CARD", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.MAESTRO] = "MAESTRO", 
+    _VALIDATOR_TO_TYPE_MA[credit_card_type.types.UNIONPAY] = "CHINA_UNION_PAY", _VALIDATOR_TO_TYPE_MA[credit_card_type.types.VISA] = "VISA", 
     _VALIDATOR_TO_TYPE_MA["cb-nationale"] = "CB_NATIONALE", _VALIDATOR_TO_TYPE_MA.cetelem = "CETELEM", 
     _VALIDATOR_TO_TYPE_MA.cofidis = "COFIDIS", _VALIDATOR_TO_TYPE_MA.cofinoga = "COFINOGA", 
     _VALIDATOR_TO_TYPE_MA);
@@ -6305,7 +6091,7 @@ window.smartCard = function(modules) {
             width: "20vw"
         }
     };
-    dist_default.a.addCard({
+    credit_card_type_default.a.addCard({
         code: {
             name: "CVV",
             size: 3
@@ -6316,7 +6102,7 @@ window.smartCard = function(modules) {
         patterns: [],
         type: "cb-nationale"
     });
-    dist_default.a.addCard({
+    credit_card_type_default.a.addCard({
         code: {
             name: "CVV",
             size: 3
@@ -6327,7 +6113,7 @@ window.smartCard = function(modules) {
         patterns: [],
         type: "cetelem"
     });
-    dist_default.a.addCard({
+    credit_card_type_default.a.addCard({
         code: {
             name: "",
             size: 0
@@ -6338,7 +6124,7 @@ window.smartCard = function(modules) {
         patterns: [],
         type: "cofinoga"
     });
-    dist_default.a.addCard({
+    credit_card_type_default.a.addCard({
         code: {
             name: "",
             size: 0
@@ -6387,7 +6173,7 @@ window.smartCard = function(modules) {
     }
     function detectCardType(number) {
         var _creditCardType;
-        var cardType = null == (_creditCardType = dist_default()(number)) ? void 0 : _creditCardType[0];
+        var cardType = null == (_creditCardType = credit_card_type_default()(number)) ? void 0 : _creditCardType[0];
         return cardType ? _extends({}, cardType, {
             type: VALIDATOR_TO_TYPE_MAP[cardType.type]
         }) : DEFAULT_CARD_TYPE;
@@ -6803,7 +6589,7 @@ window.smartCard = function(modules) {
             }));
             window.fnCallback = resolve;
             setTimeout(resolve, timeout);
-            var body = util_getBody();
+            var body = getBody();
             body.appendChild(configScript);
             body.appendChild(fraudnetScript);
         }));
@@ -8586,8 +8372,8 @@ window.smartCard = function(modules) {
             props: getCardProps({
                 facilitatorAccessToken: _ref3.facilitatorAccessToken
             })
-        }), i = util_getBody(), l.__ && l.__(u, i), o = !1 ? null : i.__k, f = [], j(i, u = i.__k = v(d, null, [ u ]), o || e, e, void 0 !== i.ownerSVGElement, o ? null : i.firstChild ? n.call(i.childNodes) : null, f, o ? o.__e : i.firstChild, !1), 
+        }), i = getBody(), l.__ && l.__(u, i), r = !1 ? null : i.__k, f = [], j(i, u = i.__k = v(d, null, [ u ]), r || e, e, void 0 !== i.ownerSVGElement, r ? null : i.firstChild ? n.call(i.childNodes) : null, f, r ? r.__e : i.firstChild, !1), 
         z(f, u);
-        var u, i, o, f;
+        var u, i, r, f;
     }
 } ]);

@@ -218,9 +218,8 @@
                             }
                         }
                         if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
-                            var promiseResult = _result2;
-                            promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
-                            promiseResult.errorHandled = !0;
+                            _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error);
+                            _result2.errorHandled = !0;
                         } else utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
                     }
                     handlers.length = 0;
@@ -271,10 +270,6 @@
                 if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
                 return Promise.resolve(this);
             };
-            _proto.lazy = function() {
-                this.errorHandled = !0;
-                return this;
-            };
             ZalgoPromise.resolve = function(value) {
                 return value instanceof ZalgoPromise ? value : utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
                     return value.then(resolve, reject);
@@ -289,7 +284,7 @@
             ZalgoPromise.all = function(promises) {
                 var promise = new ZalgoPromise;
                 var count = promises.length;
-                var results = [].slice();
+                var results = [];
                 if (!count) {
                     promise.resolve(results);
                     return promise;
@@ -835,18 +830,18 @@
         function setupNativeFallback(_ref) {
             var _ref$parentDomain = _ref.parentDomain, parentDomain = void 0 === _ref$parentDomain ? window.location.origin : _ref$parentDomain;
             if (!window.opener) throw new Error("Expected window to have opener");
-            var clean = (tasks = [], cleaned = !1, cleaner = {
+            var clean = (tasks = [], cleaned = !1, {
                 set: function(name, item) {
                     if (!cleaned) {
                         (void 0)[name] = item;
-                        cleaner.register((function() {
+                        this.register((function() {
                             delete (void 0)[name];
                         }));
                     }
                     return item;
                 },
                 register: function(method) {
-                    var task = function(method) {
+                    cleaned ? method(cleanErr) : tasks.push(function(method) {
                         var called = !1;
                         return setFunctionName((function() {
                             if (!called) {
@@ -856,14 +851,7 @@
                         }), getFunctionName(method) + "::once");
                     }((function() {
                         return method(cleanErr);
-                    }));
-                    cleaned ? method(cleanErr) : tasks.push(task);
-                    return {
-                        cancel: function() {
-                            var index = tasks.indexOf(task);
-                            -1 !== index && tasks.splice(index, 1);
-                        }
-                    };
+                    })));
                 },
                 all: function(err) {
                     cleanErr = err;
@@ -876,7 +864,7 @@
                     return promise_ZalgoPromise.all(results).then(src_util_noop);
                 }
             });
-            var tasks, cleaned, cleanErr, cleaner;
+            var tasks, cleaned, cleanErr;
             var postRobot = function() {
                 var paypal = function() {
                     if (!window.paypal) throw new Error("paypal not found");
@@ -1010,28 +998,7 @@
         var Fragment = function(props, children) {
             return children;
         };
-        var _ELEMENT_DEFAULT_XML_, _ATTRIBUTE_DEFAULT_XM, _ADD_CHILDREN;
-        var ELEMENT_DEFAULT_XML_NAMESPACE = ((_ELEMENT_DEFAULT_XML_ = {}).svg = "http://www.w3.org/2000/svg", 
-        _ELEMENT_DEFAULT_XML_);
-        var ATTRIBUTE_DEFAULT_XML_NAMESPACE = ((_ATTRIBUTE_DEFAULT_XM = {})["xlink:href"] = "http://www.w3.org/1999/xlink", 
-        _ATTRIBUTE_DEFAULT_XM);
-        function createTextElement(doc, node) {
-            return doc.createTextNode(node.text);
-        }
-        function addProps(el, node) {
-            var props = node.props;
-            for (var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++) {
-                var prop = _Object$keys2[_i4];
-                var val = props[prop];
-                if (null != val && "el" !== prop && "innerHTML" !== prop) if (prop.match(/^on[A-Z][a-z]/) && "function" == typeof val) el.addEventListener(prop.slice(2).toLowerCase(), val); else if ("string" == typeof val || "number" == typeof val) {
-                    var xmlNamespace = ATTRIBUTE_DEFAULT_XML_NAMESPACE[prop];
-                    xmlNamespace ? el.setAttributeNS(xmlNamespace, prop, val.toString()) : el.setAttribute(prop, val.toString());
-                } else "boolean" == typeof val && !0 === val && el.setAttribute(prop, "");
-            }
-            "iframe" !== el.tagName.toLowerCase() || props.id || el.setAttribute("id", "jsx-iframe-" + "xxxxxxxxxx".replace(/./g, (function() {
-                return "0123456789abcdef".charAt(Math.floor(Math.random() * "0123456789abcdef".length));
-            })));
-        }
+        var _ADD_CHILDREN;
         var ADD_CHILDREN = ((_ADD_CHILDREN = {}).iframe = function(el, node) {
             var firstChild = node.children[0];
             if (1 !== node.children.length || !firstChild || "element" !== firstChild.type || "html" !== firstChild.name) throw new Error("Expected only single html element node as child of iframe element");
@@ -1046,31 +1013,46 @@
                     var _opts$doc = opts.doc, doc = void 0 === _opts$doc ? document : _opts$doc;
                     return function domRenderer(node) {
                         if ("component" === node.type) return node.renderComponent(domRenderer);
-                        if ("text" === node.type) return createTextElement(doc, node);
+                        if ("text" === node.type) return function(doc, node) {
+                            return doc.createTextNode(node.text);
+                        }(doc, node);
                         if ("element" === node.type) {
-                            var xmlNamespace = ELEMENT_DEFAULT_XML_NAMESPACE[node.name.toLowerCase()];
-                            if (xmlNamespace) return function xmlNamespaceDomRenderer(node, xmlNamespace) {
-                                if ("component" === node.type) return node.renderComponent((function(childNode) {
-                                    return xmlNamespaceDomRenderer(childNode, xmlNamespace);
-                                }));
-                                if ("text" === node.type) return createTextElement(doc, node);
-                                if ("element" === node.type) {
-                                    var el = function(doc, node, xmlNamespace) {
-                                        return doc.createElementNS(xmlNamespace, node.name);
-                                    }(doc, node, xmlNamespace);
-                                    addProps(el, node);
-                                    addChildren(el, node, doc, (function(childNode) {
-                                        return xmlNamespaceDomRenderer(childNode, xmlNamespace);
-                                    }));
-                                    return el;
-                                }
-                                throw new TypeError("Unhandleable node");
-                            }(node, xmlNamespace);
                             var el = function(doc, node) {
                                 return node.props.el ? node.props.el : doc.createElement(node.name);
                             }(doc, node);
-                            addProps(el, node);
-                            addChildren(el, node, doc, domRenderer);
+                            !function(el, node) {
+                                var props = node.props;
+                                for (var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++) {
+                                    var prop = _Object$keys2[_i4];
+                                    var val = props[prop];
+                                    null != val && "el" !== prop && "innerHTML" !== prop && (prop.match(/^on[A-Z][a-z]/) && "function" == typeof val ? el.addEventListener(prop.slice(2).toLowerCase(), val) : "string" == typeof val || "number" == typeof val ? el.setAttribute(prop, val.toString()) : "boolean" == typeof val && !0 === val && el.setAttribute(prop, ""));
+                                }
+                                "iframe" !== el.tagName.toLowerCase() || props.id || el.setAttribute("id", "jsx-iframe-" + "xxxxxxxxxx".replace(/./g, (function() {
+                                    return "0123456789abcdef".charAt(Math.floor(Math.random() * "0123456789abcdef".length));
+                                })));
+                            }(el, node);
+                            !function(el, node, doc, renderer) {
+                                if (node.props.hasOwnProperty("innerHTML")) {
+                                    if (node.children.length) throw new Error("Expected no children to be passed when innerHTML prop is set");
+                                    var html = node.props.innerHTML;
+                                    if ("string" != typeof html) throw new TypeError("innerHTML prop must be string");
+                                    if ("script" === node.name) el.text = html; else {
+                                        el.innerHTML = html;
+                                        !function(el, doc) {
+                                            void 0 === doc && (doc = window.document);
+                                            for (var _i2 = 0, _el$querySelectorAll2 = el.querySelectorAll("script"); _i2 < _el$querySelectorAll2.length; _i2++) {
+                                                var script = _el$querySelectorAll2[_i2];
+                                                var parentNode = script.parentNode;
+                                                if (parentNode) {
+                                                    var newScript = doc.createElement("script");
+                                                    newScript.text = script.textContent;
+                                                    parentNode.replaceChild(newScript, script);
+                                                }
+                                            }
+                                        }(el, doc);
+                                    }
+                                } else (ADD_CHILDREN[node.name] || ADD_CHILDREN.default)(el, node, renderer);
+                            }(el, node, doc, domRenderer);
                             return el;
                         }
                         throw new TypeError("Unhandleable node");
@@ -1087,28 +1069,6 @@
         }, _ADD_CHILDREN.default = function(el, node, renderer) {
             for (var _i6 = 0, _node$renderChildren2 = node.renderChildren(renderer); _i6 < _node$renderChildren2.length; _i6++) el.appendChild(_node$renderChildren2[_i6]);
         }, _ADD_CHILDREN);
-        function addChildren(el, node, doc, renderer) {
-            if (node.props.hasOwnProperty("innerHTML")) {
-                if (node.children.length) throw new Error("Expected no children to be passed when innerHTML prop is set");
-                var html = node.props.innerHTML;
-                if ("string" != typeof html) throw new TypeError("innerHTML prop must be string");
-                if ("script" === node.name) el.text = html; else {
-                    el.innerHTML = html;
-                    !function(el, doc) {
-                        void 0 === doc && (doc = window.document);
-                        for (var _i2 = 0, _el$querySelectorAll2 = el.querySelectorAll("script"); _i2 < _el$querySelectorAll2.length; _i2++) {
-                            var script = _el$querySelectorAll2[_i2];
-                            var parentNode = script.parentNode;
-                            if (parentNode) {
-                                var newScript = doc.createElement("script");
-                                newScript.text = script.textContent;
-                                parentNode.replaceChild(newScript, script);
-                            }
-                        }
-                    }(el, doc);
-                }
-            } else (ADD_CHILDREN[node.name] || ADD_CHILDREN.default)(el, node, renderer);
-        }
         function Spinner(_ref) {
             return node_node("div", {
                 class: "preloader spinner"
