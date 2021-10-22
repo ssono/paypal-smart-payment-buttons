@@ -116,8 +116,8 @@ export type PersonalizationOptions = {|
     tagline? : boolean | string,
     personalizationEnabled : boolean,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    layout?: string,
-    buttonSize?: string
+    layout? : string,
+    buttonSize? : string
 |};
 
 function getDefaultPersonalization() : Personalization {
@@ -151,8 +151,6 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
     let { logger, clientID, locale, buyerCountry, buttonSessionID, currency, intent, commit,
         vault, label, period, tagline, personalizationEnabled, renderedButtons, layout, buttonSize } = personalizationOptions;
 
-    console.log('PersonalizationOptions: ', personalizationOptions);
-
     if (!personalizationEnabled) {
         return getDefaultPersonalization();
     }
@@ -185,9 +183,9 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
         buttonSize
     };
 
-    // Fix enum checking errors on graphql by only sending truthy variables
+    // Fix enum checking errors for strings on graphql by only sending truthy variables
     for (const key of Object.keys(personalizationVariables)) {
-        if (!personalizationVariables[key]) {
+        if (personalizationVariables[key] === '') {
             delete personalizationVariables[key];
         }
     }
@@ -196,7 +194,7 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
         const result = await gqlBatch({
             query:     PERSONALIZATION_QUERY,
             variables: personalizationVariables,
-            timeout: 1000000
+            timeout:   PERSONALIZATION_TIMEOUT
         });
 
         const personalization = result.checkoutCustomization;

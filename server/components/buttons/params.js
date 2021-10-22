@@ -56,7 +56,7 @@ type Style = {|
     label : string,
     period : ?number,
     tagline? : boolean | string,
-    layout?: string
+    layout? : string
 |};
 
 type ButtonParams = {|
