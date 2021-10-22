@@ -53,6 +53,7 @@ const PERSONALIZATION_QUERY = `
         $taglineEnabled: Boolean,
         $renderedButtons: [FundingButtonType]
         $layout: ButtonLayouts
+        $buttonSize: ButtonSizes
     ) {
         checkoutCustomization(
             clientId: $clientID,
@@ -72,6 +73,7 @@ const PERSONALIZATION_QUERY = `
             taglineEnabled: $taglineEnabled,
             renderedButtons: $renderedButtons
             layout: $layout
+            buttonSize: $buttonSize
         ) {
             tagline {
                 text
@@ -114,7 +116,8 @@ export type PersonalizationOptions = {|
     tagline? : boolean | string,
     personalizationEnabled : boolean,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    layout?: string
+    layout?: string,
+    buttonSize?: string
 |};
 
 function getDefaultPersonalization() : Personalization {
@@ -146,7 +149,9 @@ function contentToJSX(content : string) : ComponentFunctionType<PersonalizationC
 
 export async function resolvePersonalization(req : ExpressRequest, gqlBatch : GraphQLBatchCall, personalizationOptions : PersonalizationOptions) : Promise<Personalization> {
     let { logger, clientID, locale, buyerCountry, buttonSessionID, currency, intent, commit,
-        vault, label, period, tagline, personalizationEnabled, renderedButtons, layout } = personalizationOptions;
+        vault, label, period, tagline, personalizationEnabled, renderedButtons, layout, buttonSize } = personalizationOptions;
+
+    console.log('PersonalizationOptions: ', personalizationOptions);
 
     if (!personalizationEnabled) {
         return getDefaultPersonalization();
@@ -176,7 +181,8 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
         period,
         taglineEnabled,
         renderedButtons,
-        layout
+        layout,
+        buttonSize
     };
 
     // Fix enum checking errors on graphql by only sending truthy variables

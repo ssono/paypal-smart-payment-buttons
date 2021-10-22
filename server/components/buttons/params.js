@@ -48,7 +48,8 @@ type ButtonInputParams = {|
     branded? : boolean,
     fundingSource : $Values<typeof FUNDING>,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    allowBillingPayments? : boolean
+    allowBillingPayments? : boolean,
+    buttonSize? : string
 |};
 
 type Style = {|
@@ -90,7 +91,8 @@ type ButtonParams = {|
     branded : ?boolean,
     fundingSource : $Values<typeof FUNDING>,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    allowBillingPayments : ?boolean
+    allowBillingPayments : ?boolean,
+    buttonSize? : string
 |};
 
 function getCookieString(req : ExpressRequest) : string {
@@ -327,7 +329,8 @@ export function getButtonParams(params : ButtonInputParams, req : ExpressRequest
         userIDToken,
         debug = false,
         onShippingChange = false,
-        platform = PLATFORM.DESKTOP
+        platform = PLATFORM.DESKTOP,
+        buttonSize = ''
     } = params;
 
     const locale = getLocale(params);
@@ -378,7 +381,8 @@ export function getButtonParams(params : ButtonInputParams, req : ExpressRequest
         cookies,
         paymentMethodToken,
         branded,
-        allowBillingPayments
+        allowBillingPayments,
+        buttonSize
     };
 }
 
