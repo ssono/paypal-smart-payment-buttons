@@ -99,6 +99,9 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
             return el.getAttribute(DATA_ATTRIBUTES.PAY_NOW);
         }).some(Boolean);
 
+        const dataExperimentTag = querySelectorAll(`[${ DATA_ATTRIBUTES.DESIGN_EXPERIMENT }]`)[0];
+        const buttonDesignExperiment = dataExperimentTag && dataExperimentTag.getAttribute(DATA_ATTRIBUTES.DESIGN_EXPERIMENT);
+
         const { layout, color, shape, label, tagline = true } = style;
 
         let native_device = 'non_native';
@@ -141,7 +144,8 @@ export function setupButtonLogger({ env, sessionID, buttonSessionID, clientID, p
             [FPTI_BUTTON_KEY.BUTTON_WIDTH]:             window.innerWidth,
             [FPTI_BUTTON_KEY.BUTTON_TYPE]:              FPTI_BUTTON_TYPE.IFRAME,
             [FPTI_BUTTON_KEY.BUTTON_TAGLINE_ENABLED]:   tagline ? '1' : '0',
-            [FPTI_CUSTOM_KEY.SHIPPING_CALLBACK_PASSED]: onShippingChange ? '1' : '0'
+            [FPTI_CUSTOM_KEY.SHIPPING_CALLBACK_PASSED]: onShippingChange ? '1' : '0',
+            [FPTI_CUSTOM_KEY.BUTTON_DESIGN_EXPERIMENT]: buttonDesignExperiment || ''
         });
 
         logger.flush();

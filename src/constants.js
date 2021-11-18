@@ -38,7 +38,8 @@ export const DATA_ATTRIBUTES = {
     NONCE:             'data-nonce',
     RENDER_VERSION:    'data-render-version',
     CLIENT_VERSION:    'data-client-version',
-    PAY_NOW:           'data-pay-now'
+    PAY_NOW:           'data-pay-now',
+    DESIGN_EXPERIMENT: 'data-design-experiment'
 };
 
 export const CLASS = {
@@ -198,7 +199,8 @@ export const FPTI_CUSTOM_KEY = {
     TRANSITION_REASON:          ('transition_reason' : 'transition_reason'),
     SHIPPING_CALLBACK_PASSED:   ('shipping_callback_passed' : 'shipping_callback_passed'),
     SHIPPING_CALLBACK_INVOKED:  ('shipping_callback_invoked' : 'shipping_callback_invoked'),
-    DESKTOP_EXIT_SURVEY_REASON: ('desktop_exit_survey_reason' : 'desktop_exit_survey_reason')
+    DESKTOP_EXIT_SURVEY_REASON: ('desktop_exit_survey_reason' : 'desktop_exit_survey_reason'),
+    BUTTON_DESIGN_EXPERIMENT:   ('button_design_experiment' : 'button_design_experiment')
 };
 
 export const FPTI_BUTTON_KEY = {

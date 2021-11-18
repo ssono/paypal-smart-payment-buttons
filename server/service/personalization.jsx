@@ -89,7 +89,7 @@ const PERSONALIZATION_QUERY = `
                     click
                 }
             }
-            buttonAnimation {
+            buttonDesign {
                 id
                 text
                 tracking {
@@ -183,7 +183,7 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
         buttonSize
     };
 
-    // Fix enum checking errors for strings on graphql by only sending truthy variables
+    // Fix enum checking errors for strings on graphql by only sending truthy variables. remove empty string vals
     for (const key of Object.keys(personalizationVariables)) {
         if (personalizationVariables[key] === '') {
             delete personalizationVariables[key];
