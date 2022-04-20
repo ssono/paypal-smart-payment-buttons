@@ -9,6 +9,7 @@ import { createOrderID, billingTokenToOrderID, subscriptionIdToCartId, createPay
 import { FPTI_STATE, FPTI_TRANSITION, FPTI_CONTEXT_TYPE } from '../constants';
 import { getLogger, isEmailAddress } from '../lib';
 import { ENABLE_PAYMENT_API } from '../config';
+import { cacheInitialData } from '../service-worker/initialData';
 
 import type { CreateSubscription } from './createSubscription';
 import type { CreateBillingAgreement } from './createBillingAgreement';
@@ -178,7 +179,11 @@ export function getCreateOrder({ createOrder, intent, currency, merchantID, part
             } else if (createSubscription) {
                 return createSubscription().then(subscriptionIdToCartId);
             } else if (createOrder) {
-                return createOrder(data, actions);
+                return createOrder(data, actions)
+                    .then(orderId => {
+                        cacheInitialData(orderId);
+                        return orderId;
+                    });
             } else {
                 return actions.order.create({
                     purchase_units: [
