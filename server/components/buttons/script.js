@@ -118,3 +118,8 @@ export async function getSmartPaymentButtonsClientScript({ logBuffer, cache, deb
 
     return { script, version };
 }
+
+export const getRegisterServiceWorkerScript = function () : {|script : ?string|} {
+    const script = readFileSync(`${ ROOT }/dist/register-sw.min.js`).toString();
+    return { script };
+};
