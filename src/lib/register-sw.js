@@ -8,49 +8,47 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
-const PROD_CHECKOUTWEB_CDN_DUMBLEDORE = 'https://www.paypalobjects.com/checkoutweb';
-const DEFAULT_DIR = 'release';
-const DUMBLEDORE_APP = 'dumbledore';
-const RELEASE_CONFIG_FILE_NAME = 'release-config.json';
-// LOCAL const SW_URL = 'https://localhost.paypal.com:8443/checkoutweb/public/dumbledore-service-worker.js?';
-const SW_URL = 'https://www.te-alm-67911662205054295092259.qa.paypal.com/checkoutweb/public/dumbledore-service-worker.js?';
-const SW_SCOPE = '/checkoutweb';
-const GET_SW_LOGS_EVENT_NAME = 'GET_SW_LOGS';
-const GET_SW_LOGS_RESPONSE_EVENT_NAME = 'GET_SW_LOGS_RESPONSE';
-const LOGS_CHANNEL_NAME = 'logs-channel';
-let requestLogsId;
+
+import { stringifyError } from '@krakenjs/belter/src';
+
+import { SERVICE_WORKER } from '../constants';
+
+import { getLogger } from './logger';
+
+const {
+    PROD_CHECKOUTWEB_CDN_DUMBLEDORE,
+    DEFAULT_DIR,
+    DUMBLEDORE_APP,
+    RELEASE_CONFIG_FILE_NAME,
+    SW_URL,
+    SW_SCOPE,
+    GET_SW_LOGS_EVENT_NAME,
+    LOGS_CHANNEL_NAME,
+    GET_SW_LOGS_RESPONSE_EVENT_NAME
+} = SERVICE_WORKER;
+const LOG_PREFIX = 'SERVICE_WORKER_';
+
 const isLocalhost = Boolean(
-    [ 'localhost', '[::1]', 'localhost.paypal.com' ].includes(window.location.hostname) ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
-    // eslint-disable-next-line security/detect-unsafe-regex
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+    [ 'localhost', '[::1]', 'localhost.paypal.com' ].includes(window.location.hostname)
 );
 
 // eslint-disable-next-line compat/compat
 const broadcast = new BroadcastChannel(LOGS_CHANNEL_NAME);
 
-const postSwLogs = function (swLogs) {
-    // eslint-disable-next-line no-console
-    console.log('SW logs received', swLogs);
-};
-
-// eslint-disable-next-line unicorn/prefer-add-event-listener
-broadcast.onmessage = (event) => {
+// Listen SW flush logs event
+broadcast.addEventListener('message', (event : Event) => {
     // $FlowFixMe
-    const { payload = false, eventName, requestId } = event.data;
-    if (payload && requestId === requestLogsId) {
+    const { payload = false, eventName } = event.data;
+    if (payload) {
         if (eventName === GET_SW_LOGS_RESPONSE_EVENT_NAME) {
-            postSwLogs(payload);
+            // eslint-disable-next-line no-console
+            console.log('sw logs', payload);
         }
     }
-};
+});
 
-// Listen to the response
 const requestSwLogs = () => {
-    requestLogsId = Date.now();
     broadcast.postMessage({
-        requestId: requestLogsId,
-
         type: GET_SW_LOGS_EVENT_NAME
     });
 };
@@ -89,15 +87,15 @@ function registerValidSW(swUrl) {
                             if (state === 'activated') {
                                 requestSwLogs();
                             }
-                            // logger.cal.info(`REGISTERING_SERVICE_WORKER_STATUS: ${installingWorker.state}`);
+                            getLogger().info(`${ LOG_PREFIX }REGISTERING: ${ installingWorker.state }`).flush();
                         });
                     }
                 });
             })
-            .catch((error) => {
-                // logger.cal.info(`ERROR_REGISTERING_SERVICE_WORKER`);
+            .catch((err) => {
+                getLogger().error(`${ LOG_PREFIX }ERROR_REGISTERING`, { err: stringifyError(err) }).flush();
                 // eslint-disable-next-line no-console
-                console.error('Error during service worker registration:', error);
+                console.error('Error during service worker registration:', err);
             });
     }
 }
@@ -161,32 +159,36 @@ function getCurrentRelease() : Promise<any> {
     }));
 }
 
-function init() {
+export function registerServiceWorker() {
     // eslint-disable-next-line compat/compat
     const clientUrl = new URL(window.location.href);
     const smokeHash = clientUrl.searchParams.get('smokeHash');
     const userDir = clientUrl.searchParams.get('userDir');
-    const enableServiceWorker = window.enableServiceWorker;
-    // eslint-disable-next-line no-console
-    console.log(`service worker eligibility: ${ enableServiceWorker }`);
-    if (enableServiceWorker) {
-        if ('serviceWorker' in navigator) {
-            listenButtonClick();
-            const releaseHashHandler = function (release) {
-                if (release && release.current) {
-                    register(release.current);
-                }
-            };
-            if (smokeHash && userDir) {
-                register(smokeHash, userDir);
-            } else {
-                getCurrentRelease()
-                    .then(releaseHashHandler);
+    if ('serviceWorker' in navigator) {
+        listenButtonClick();
+        const releaseHashHandler = function (release) {
+            if (release && release.current) {
+                register(release.current);
             }
+        };
+        if (smokeHash && userDir) {
+            register(smokeHash, userDir);
         } else {
-            // logger.cal.info('SERVICE_WORKER_NOT_SUPPORTED');
+            getCurrentRelease()
+                .then(releaseHashHandler)
+                .catch((err) => {
+                    getLogger().error(`${ LOG_PREFIX }ERROR_FETCHING_RELEASE_CONFIG`, { err: stringifyError(err) }).flush();
+                });
         }
+    } else {
+        getLogger().info(`${ LOG_PREFIX }NOT_SUPPORTED`).flush();
     }
 }
 
-init();
+export function unregisterServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker?.ready.then((registration) => {
+            registration.unregister();
+        });
+    }
+}

@@ -167,7 +167,8 @@ type ServiceDataOptions = {|
     sdkMeta : string,
     content : ContentType,
     eligibility : {|
-        cardFields : boolean
+        cardFields : boolean,
+        isServiceWorkerEligible : boolean
     |},
     cookies : string,
     personalization : PersonalizationType

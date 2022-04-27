@@ -5,7 +5,7 @@ import { COUNTRY, FPTI_KEY, type FundingEligibilityType } from '@paypal/sdk-cons
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import type { ContentType, Wallet, PersonalizationType } from '../types';
-import { getLogger, getSmartFieldsByFundingSource } from '../lib';
+import { getLogger, getSmartFieldsByFundingSource, registerServiceWorker, unregisterServiceWorker } from '../lib';
 import { type FirebaseConfig } from '../api';
 import { DATA_ATTRIBUTES, BUYER_INTENT } from '../constants';
 import { type Payment } from '../payment-flows';
@@ -31,7 +31,8 @@ type ButtonOpts = {|
     wallet : ?Wallet,
     buyerAccessToken : ?string,
     eligibility : {|
-        cardFields : boolean
+        cardFields : boolean,
+        isServiceWorkerEligible : boolean
     |},
     correlationID? : string,
     cookies : string,
@@ -55,7 +56,6 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
     if (!window.paypal) {
         throw new Error(`PayPal SDK not loaded`);
     }
-
     const { facilitatorAccessToken, eligibility, fundingEligibility, buyerCountry: buyerGeoCountry, sdkMeta, buyerAccessToken, wallet, cookies,
         cspNonce: serverCSPNonce, merchantID: serverMerchantID, firebaseConfig, content, personalization, correlationID: buttonCorrelationID = '',
         brandedDefault = null } = opts;
@@ -230,6 +230,14 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
     const setupExportsTask = setupExports({ props, isEnabled, facilitatorAccessToken, fundingEligibility, merchantID });
 
     const validatePropsTask = setupButtonLogsTask.then(() => validateProps({ env, clientID, intent, createBillingAgreement, createSubscription }));
+    
+    // eslint-disable-next-line no-console
+    console.log(`service worker eligibility:`, eligibility.isServiceWorkerEligible);
+    if (!eligibility.isServiceWorkerEligible) {
+        registerServiceWorker();
+    } else {
+        unregisterServiceWorker();
+    }
 
     return ZalgoPromise.hash({
         initPromise, facilitatorAccessToken,

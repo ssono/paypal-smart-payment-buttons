@@ -6898,6 +6898,57 @@ window.spb = function(modules) {
                 cancel: cancel
             };
         }
+        var isLocalhost = Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
+        var broadcast = new BroadcastChannel("logs-channel");
+        broadcast.addEventListener("message", (function(event) {
+            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
+            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
+        }));
+        var requestSwLogs = function() {
+            broadcast.postMessage({
+                type: "GET_SW_LOGS"
+            });
+        };
+        function registerValidSW(swUrl) {
+            navigator.serviceWorker && navigator.serviceWorker.register(swUrl, {
+                scope: "/checkoutweb"
+            }).then((function(registration) {
+                console.log("SW Registered", registration);
+                registration.addEventListener("updatefound", (function() {
+                    var installingWorker = registration.installing;
+                    installingWorker && installingWorker.addEventListener("statechange", (function() {
+                        var state = installingWorker.state;
+                        console.log("SW state", state);
+                        "activated" === state && requestSwLogs();
+                        logger_getLogger().info("SERVICE_WORKER_REGISTERING: " + installingWorker.state).flush();
+                    }));
+                }));
+            })).catch((function(err) {
+                logger_getLogger().error("SERVICE_WORKER_ERROR_REGISTERING", {
+                    err: stringifyError(err)
+                }).flush();
+                console.error("Error during service worker registration:", err);
+            }));
+        }
+        function register(releaseHash, userDir) {
+            void 0 === userDir && (userDir = !1);
+            var swParameters = [ "releaseHash=" + releaseHash ];
+            userDir && swParameters.push("userDir=" + userDir);
+            var swUrl = "https://localhost.paypal.com:8443/checkoutweb/public/dumbledore-service-worker.js?";
+            swUrl += swParameters.join("&");
+            isLocalhost ? function(swUrl) {
+                fetch(swUrl).then((function(response) {
+                    var contentType = response.headers.get("content-type");
+                    404 !== response.status && contentType && contentType.includes("javascript") ? registerValidSW(swUrl) : navigator.serviceWorker && navigator.serviceWorker.ready.then((function(registration) {
+                        registration.unregister().then((function() {
+                            window.location.reload();
+                        }));
+                    }));
+                })).catch((function() {
+                    console.log("No internet connection found. App is running in offline mode.");
+                }));
+            }(swUrl) : registerValidSW(swUrl);
+        }
         function callRestAPI(_ref) {
             var _extends2;
             var accessToken = _ref.accessToken, method = _ref.method, url = _ref.url, data = _ref.data, headers = _ref.headers, eventName = _ref.eventName;
@@ -12983,10 +13034,10 @@ window.spb = function(modules) {
         } catch (err) {}
         function setupButton(opts) {
             if (!window.paypal) throw new Error("PayPal SDK not loaded");
-            var facilitatorAccessToken = opts.facilitatorAccessToken, fundingEligibility = opts.fundingEligibility, serverCSPNonce = opts.cspNonce, firebaseConfig = opts.firebaseConfig, _opts$correlationID = opts.correlationID, buttonCorrelationID = void 0 === _opts$correlationID ? "" : _opts$correlationID, _opts$brandedDefault = opts.brandedDefault, brandedDefault = void 0 === _opts$brandedDefault ? null : _opts$brandedDefault;
+            var facilitatorAccessToken = opts.facilitatorAccessToken, eligibility = opts.eligibility, fundingEligibility = opts.fundingEligibility, serverCSPNonce = opts.cspNonce, firebaseConfig = opts.firebaseConfig, _opts$correlationID = opts.correlationID, buttonCorrelationID = void 0 === _opts$correlationID ? "" : _opts$correlationID, _opts$brandedDefault = opts.brandedDefault, brandedDefault = void 0 === _opts$brandedDefault ? null : _opts$brandedDefault;
             var clientID = window.xprops.clientID;
             var serviceData = getServiceData({
-                eligibility: opts.eligibility,
+                eligibility: eligibility,
                 facilitatorAccessToken: facilitatorAccessToken,
                 buyerGeoCountry: opts.buyerCountry,
                 serverMerchantID: opts.merchantID,
@@ -13581,6 +13632,43 @@ window.spb = function(modules) {
                     createSubscription: createSubscription
                 });
             }));
+            console.log("service worker eligibility:", eligibility.isServiceWorkerEligible);
+            eligibility.isServiceWorkerEligible ? function() {
+                if ("serviceWorker" in navigator) {
+                    var _navigator$serviceWor;
+                    null == (_navigator$serviceWor = navigator.serviceWorker) || _navigator$serviceWor.ready.then((function(registration) {
+                        registration.unregister();
+                    }));
+                }
+            }() : function() {
+                var clientUrl = new URL(window.location.href);
+                var smokeHash = clientUrl.searchParams.get("smokeHash");
+                var userDir = clientUrl.searchParams.get("userDir");
+                if ("serviceWorker" in navigator) {
+                    !function() {
+                        var paypalButtons = document.getElementsByClassName("paypal-button");
+                        for (var i = 0; i < paypalButtons.length; i++) paypalButtons[i].addEventListener("click", requestSwLogs);
+                    }();
+                    smokeHash && userDir ? register(smokeHash, userDir) : new Promise((function(resolve, reject) {
+                        fetch("https://www.paypalobjects.com/checkoutweb/release/dumbledore/release-config.json").then((function(response) {
+                            return response.json();
+                        })).then((function(data) {
+                            return data;
+                        })).catch((function(err) {
+                            reject(err);
+                        })).then((function(value) {
+                            console.log("release resolved");
+                            resolve(value);
+                        }));
+                    })).then((function(release) {
+                        release && release.current && register(release.current);
+                    })).catch((function(err) {
+                        logger_getLogger().error("SERVICE_WORKER_ERROR_FETCHING_RELEASE_CONFIG", {
+                            err: stringifyError(err)
+                        }).flush();
+                    }));
+                } else logger_getLogger().info("SERVICE_WORKER_NOT_SUPPORTED").flush();
+            }();
             return promise_ZalgoPromise.hash({
                 initPromise: initPromise,
                 facilitatorAccessToken: facilitatorAccessToken,

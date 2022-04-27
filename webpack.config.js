@@ -216,15 +216,6 @@ export const WEBPACK_CONFIG_TEST : WebpackConfig = getWebpackConfig({
     }
 });
 
-export const WEBPACK_CONFIG_SERVICE_WORKER_MIN : WebpackConfig = getSmartWebpackConfig({
-    modulename:    'serviceWorker',
-    entry:         'src/service-worker/register-sw.js',
-    filename:      'register-sw',
-    minify:        true,
-    libraryTarget: 'umd'
-});
-
-
 export default [
     WEBPACK_CONFIG_BUTTONS,
     WEBPACK_CONFIG_BUTTONS_MIN,
@@ -237,6 +228,5 @@ export default [
     WEBPACK_CONFIG_NATIVE_FALLBACK,
     WEBPACK_CONFIG_NATIVE_FALLBACK_MIN,
     WEBPACK_CONFIG_CARD,
-    WEBPACK_CONFIG_CARD_MIN,
-    WEBPACK_CONFIG_SERVICE_WORKER_MIN
+    WEBPACK_CONFIG_CARD_MIN
 ];

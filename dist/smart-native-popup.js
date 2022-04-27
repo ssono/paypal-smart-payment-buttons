@@ -4798,6 +4798,11 @@
             if (!window.paypal) throw new Error("paypal not found");
             return window.paypal;
         }
+        Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
+        new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
+            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
+            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
+        }));
         var belter = __webpack_require__(0);
         function isAndroidAppInstalled(appId) {
             return window.navigator && window.navigator.getInstalledRelatedApps ? window.navigator.getInstalledRelatedApps().then((function(apps) {

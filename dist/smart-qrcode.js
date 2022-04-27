@@ -2165,6 +2165,11 @@
             document.body && (nonce = document.body.getAttribute("data-nonce") || "");
             return nonce;
         }
+        Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
+        new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
+            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
+            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
+        }));
         function _renderChildren(children, renderer) {
             var result = [];
             for (var _i2 = 0; _i2 < children.length; _i2++) {

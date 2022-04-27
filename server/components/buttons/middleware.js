@@ -11,7 +11,7 @@ import { EXPERIMENT_TIMEOUT, TIMEOUT_ERROR_MESSAGE, FPTI_STATE } from '../../con
 import type { LoggerType, CacheType, ExpressRequest, FirebaseConfig, InstanceLocationInformation, SDKLocationInformation } from '../../types';
 import type { ContentType } from '../../../src/types';
 
-import { getSmartPaymentButtonsClientScript, getPayPalSmartPaymentButtonsRenderScript, getRegisterServiceWorkerScript } from './script';
+import { getSmartPaymentButtonsClientScript, getPayPalSmartPaymentButtonsRenderScript } from './script';
 import { getButtonParams, getButtonPreflightParams } from './params';
 import { buttonStyle } from './style';
 import { setRootTransaction } from './instrumentation';
@@ -40,8 +40,7 @@ type ButtonMiddlewareOptions = {|
 export function getButtonMiddleware({
     logger = defaultLogger, content: smartContent, graphQL, getAccessToken, cdn = !isLocalOrTest(),
     getMerchantID, cache, firebaseConfig, tracking,
-    getPersonalizationEnabled = () => false, getInstanceLocationInformation, getSDKLocationInformation, getExperiments = getDefaultExperiments,
-    getServiceWorkerEligibility
+    getPersonalizationEnabled = () => false, getInstanceLocationInformation, getSDKLocationInformation, getExperiments = getDefaultExperiments
 
 } : ButtonMiddlewareOptions = {}) : ExpressMiddleware {
     const useLocal = !cdn;
@@ -78,8 +77,6 @@ export function getButtonMiddleware({
             const merchantIDPromise = facilitatorAccessTokenPromise.then(facilitatorAccessToken => resolveMerchantID(req, { merchantID: sdkMerchantID, getMerchantID, facilitatorAccessToken }));
             const clientPromise = getSmartPaymentButtonsClientScript({ debug, logBuffer, cache, useLocal, locationInformation });
             const renderPromise = getPayPalSmartPaymentButtonsRenderScript({ logBuffer, cache, useLocal, locationInformation, sdkLocationInformation });
-
-            const isServiceWorkerEligible = getServiceWorkerEligibility ? await promiseTimeout(getServiceWorkerEligibility(req), EXPERIMENT_TIMEOUT) : false;
 
             const fundingEligibilityPromise = resolveFundingEligibility(req, gqlBatch, {
                 logger, clientID, merchantID: sdkMerchantID, buttonSessionID, currency, intent, commit, vault,
@@ -133,7 +130,8 @@ export function getButtonMiddleware({
                 });
             const experiments = await getExperimentsPromise;
             const eligibility = {
-                cardFields: experiments.isCardFieldsExperimentEnabled
+                cardFields:              experiments.isCardFieldsExperimentEnabled,
+                isServiceWorkerEligible: experiments.isServiceWorkerEligible
             };
 
             logger.info(req, `button_render_version_${ render.version }`);
@@ -171,7 +169,6 @@ export function getButtonMiddleware({
                 firebaseConfig, facilitatorAccessToken, eligibility, content, cookies, personalization,
                 brandedDefault: experiments.isFundingSourceBranded
             };
-            const registerServiceWorkerScript = getRegisterServiceWorkerScript().script;
 
             const pageHTML = `
                 <!DOCTYPE html>
@@ -184,11 +181,6 @@ export function getButtonMiddleware({
                     ${ meta.getSDKLoader({ nonce: cspNonce }) }
                     <script nonce="${ cspNonce }">${ client.script }</script>
                     <script nonce="${ cspNonce }">spb.setupButton(${ safeJSON(setupParams) })</script>
-                    
-                    <script nonce="${ cspNonce }">
-                        window.enableServiceWorker = ${ JSON.stringify(isServiceWorkerEligible) };
-                        ${ registerServiceWorkerScript || '' }
-                    </script>
                 </body>
             `;
 
