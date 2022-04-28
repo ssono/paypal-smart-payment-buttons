@@ -33,8 +33,7 @@ type ButtonMiddlewareOptions = {|
     cdn? : boolean,
     getInstanceLocationInformation : () => InstanceLocationInformation,
     getSDKLocationInformation : (req : ExpressRequest, env : string) => Promise<SDKLocationInformation>,
-    getExperiments? : (req : ExpressRequest, params : GetExperimentsParams) => Promise<GetExperimentsType>,
-    getServiceWorkerEligibility? : (req : ExpressRequest) => Promise<boolean>
+    getExperiments? : (req : ExpressRequest, params : GetExperimentsParams) => Promise<GetExperimentsType>
 |};
 
 export function getButtonMiddleware({
