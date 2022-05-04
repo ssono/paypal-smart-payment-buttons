@@ -861,11 +861,6 @@
         (_AMPLITUDE_API_KEY = {}).test = "a23fb4dfae56daf7c3212303b53a8527", _AMPLITUDE_API_KEY.local = "a23fb4dfae56daf7c3212303b53a8527", 
         _AMPLITUDE_API_KEY.stage = "a23fb4dfae56daf7c3212303b53a8527", _AMPLITUDE_API_KEY.sandbox = "a23fb4dfae56daf7c3212303b53a8527", 
         _AMPLITUDE_API_KEY.production = "ce423f79daba95faeb0694186170605c";
-        Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
-        new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
-            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
-            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
-        }));
         function setupNativeFallback(_ref) {
             var _ref$parentDomain = _ref.parentDomain, parentDomain = void 0 === _ref$parentDomain ? window.location.origin : _ref$parentDomain;
             if (!window.opener) throw new Error("Expected window to have opener");

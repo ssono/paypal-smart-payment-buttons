@@ -4046,7 +4046,7 @@ window.smartCard = function(modules) {
     }([ function(E, N, S) {
         "use strict";
         S.r(N), S.d(N, "DEFAULT_COUNTRY", (function() {
-            return Z;
+            return C;
         })), S.d(N, "DEFAULT_CURRENCY", (function() {
             return a;
         })), S.d(N, "DEFAULT_INTENT", (function() {
@@ -4054,17 +4054,17 @@ window.smartCard = function(modules) {
         })), S.d(N, "DEFAULT_COMMIT", (function() {
             return L;
         })), S.d(N, "DEFAULT_SALE_COMMIT", (function() {
-            return P;
-        })), S.d(N, "DEFAULT_NONSALE_COMMIT", (function() {
             return d;
+        })), S.d(N, "DEFAULT_NONSALE_COMMIT", (function() {
+            return P;
         })), S.d(N, "DEFAULT_VAULT", (function() {
             return c;
         })), S.d(N, "DEFAULT_COMPONENTS", (function() {
             return U;
         })), S.d(N, "DEFAULT_DEBUG", (function() {
-            return s;
-        })), S.d(N, "ENV", (function() {
             return G;
+        })), S.d(N, "ENV", (function() {
+            return s;
         })), S.d(N, "MOBILE_ENV", (function() {
             return B;
         })), S.d(N, "ERROR_CODE", (function() {
@@ -4072,9 +4072,9 @@ window.smartCard = function(modules) {
         })), S.d(N, "FPTI_KEY", (function() {
             return p;
         })), S.d(N, "FPTI_USER_ACTION", (function() {
-            return l;
-        })), S.d(N, "FPTI_DATA_SOURCE", (function() {
             return f;
+        })), S.d(N, "FPTI_DATA_SOURCE", (function() {
+            return l;
         })), S.d(N, "FPTI_FEED", (function() {
             return Y;
         })), S.d(N, "FPTI_SDK_NAME", (function() {
@@ -4094,9 +4094,9 @@ window.smartCard = function(modules) {
         })), S.d(N, "LANG", (function() {
             return t;
         })), S.d(N, "COUNTRY_LANGS", (function() {
-            return e;
-        })), S.d(N, "INTENT", (function() {
             return T;
+        })), S.d(N, "INTENT", (function() {
+            return e;
         })), S.d(N, "COMMIT", (function() {
             return n;
         })), S.d(N, "VAULT", (function() {
@@ -4104,9 +4104,9 @@ window.smartCard = function(modules) {
         })), S.d(N, "CURRENCY", (function() {
             return r;
         })), S.d(N, "SDK_PATH", (function() {
-            return _;
-        })), S.d(N, "SDK_SETTINGS", (function() {
             return F;
+        })), S.d(N, "SDK_SETTINGS", (function() {
+            return _;
         })), S.d(N, "SDK_QUERY_KEYS", (function() {
             return D;
         })), S.d(N, "COMPONENTS", (function() {
@@ -4116,13 +4116,13 @@ window.smartCard = function(modules) {
         })), S.d(N, "QUERY_BOOL", (function() {
             return o;
         })), S.d(N, "UNKNOWN", (function() {
-            return i;
-        })), S.d(N, "PROTOCOL", (function() {
             return O;
+        })), S.d(N, "PROTOCOL", (function() {
+            return i;
         })), S.d(N, "PAGE_TYPES", (function() {
             return M;
         })), S.d(N, "MERCHANT_ID_MAX", (function() {
-            return C;
+            return Z;
         })), S.d(N, "PLATFORM", (function() {
             return h;
         })), S.d(N, "TYPES", (function() {
@@ -4370,7 +4370,7 @@ window.smartCard = function(modules) {
             VI: "vi",
             ZH: "zh",
             ZH_HANT: "zh_Hant"
-        }, e = {
+        }, T = {
             AD: [ t.EN, t.FR, t.ES, t.ZH ],
             AE: [ t.EN, t.FR, t.ES, t.ZH, t.AR ],
             AG: [ t.EN, t.FR, t.ES, t.ZH ],
@@ -4574,7 +4574,7 @@ window.smartCard = function(modules) {
             ZA: [ t.EN, t.FR, t.ES, t.ZH ],
             ZM: [ t.EN, t.FR, t.ES, t.ZH ],
             ZW: [ t.EN ]
-        }, T = {
+        }, e = {
             CAPTURE: "capture",
             AUTHORIZE: "authorize",
             ORDER: "order",
@@ -4689,7 +4689,7 @@ window.smartCard = function(modules) {
             XAF: "XAF",
             XCD: "XCD",
             YER: "YER"
-        }, _ = "/sdk/js", F = {
+        }, F = "/sdk/js", _ = {
             NAMESPACE: "data-namespace",
             CLIENT_TOKEN: "data-client-token",
             MERCHANT_ID: "data-merchant-id",
@@ -4735,7 +4735,7 @@ window.smartCard = function(modules) {
         }, o = {
             TRUE: "true",
             FALSE: "false"
-        }, i = "unknown", O = {
+        }, O = "unknown", i = {
             HTTP: "http",
             HTTPS: "https"
         }, M = {
@@ -4747,7 +4747,7 @@ window.smartCard = function(modules) {
             SEARCH_RESULTS: "search-results",
             PRODUCT_DETAILS: "product-details",
             MINI_CART: "mini-cart"
-        }, C = 10, Z = R.US, a = r.USD, u = T.CAPTURE, L = n.TRUE, P = n.TRUE, d = n.TRUE, c = A.FALSE, U = H.BUTTONS, s = I.FALSE, G = {
+        }, Z = 10, C = R.US, a = r.USD, u = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = H.BUTTONS, G = I.FALSE, s = {
             LOCAL: "local",
             STAGE: "stage",
             SANDBOX: "sandbox",
@@ -4762,7 +4762,6 @@ window.smartCard = function(modules) {
             FEED: "feed_name",
             STATE: "state_name",
             TRANSITION: "transition_name",
-            PAGE: "page_name",
             BUTTON_TYPE: "button_type",
             SESSION_UID: "page_session_id",
             BUTTON_SESSION_UID: "button_session_id",
@@ -4818,14 +4817,11 @@ window.smartCard = function(modules) {
             TIMESTAMP: "t",
             OPTION_SELECTED: "optsel",
             USER_IDENTITY_METHOD: "user_identity_method",
-            FIELDS_COMPONENT_SESSION_ID: "fields_component_session_id",
-            CPL_COMP_METRICS: "cpl_comp_metrics",
-            CPL_CHUNK_METRICS: "cpl_chunk_metrics",
-            CPL_QUERY_METRICS: "cpl_query_metrics"
-        }, l = {
+            FIELDS_COMPONENT_SESSION_ID: "fields_component_session_id"
+        }, f = {
             COMMIT: "commit",
             CONTINUE: "continue"
-        }, f = {
+        }, l = {
             PAYMENTS_SDK: "checkout"
         }, Y = {
             PAYMENTS_SDK: "payments_sdk"
@@ -6602,15 +6598,9 @@ window.smartCard = function(modules) {
     }
     function getSDKStorage() {
         return getStorage({
-            name: "paypal",
-            lifetime: 36e5
+            name: "paypal"
         });
     }
-    Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
-    new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
-        var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
-        payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
-    }));
     var belter = __webpack_require__(1);
     var dist = __webpack_require__(0);
     var dist_default = __webpack_require__.n(dist);

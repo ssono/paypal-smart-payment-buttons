@@ -803,10 +803,6 @@ window.spb = function(modules) {
         } catch (err) {}
         return !1;
     }
-    function assertSameDomain(win) {
-        if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
-        return win;
-    }
     var iframeWindows = [];
     var iframeFrames = [];
     function isWindowClosed(win, allowMock) {
@@ -1079,17 +1075,6 @@ window.spb = function(modules) {
             return _setPrototypeOf(Wrapper, Class);
         })(Class);
     }
-    function getFunctionName(fn) {
-        return fn.name || fn.__name__ || fn.displayName || "anonymous";
-    }
-    function setFunctionName(fn, name) {
-        try {
-            delete fn.name;
-            fn.name = name;
-        } catch (err) {}
-        fn.__name__ = fn.displayName = name;
-        return fn;
-    }
     function uniqueID() {
         var chars = "0123456789abcdef";
         return "uid_" + "xxxxxxxxxx".replace(/./g, (function() {
@@ -1173,7 +1158,15 @@ window.spb = function(modules) {
             simpleCache = null;
             thisCache = null;
         };
-        return setFunctionName(memoizedFunction, (options.name || getFunctionName(method)) + "::memoized");
+        return function(fn, name) {
+            try {
+                delete fn.name;
+                fn.name = name;
+            } catch (err) {}
+            fn.__name__ = fn.displayName = name;
+            return fn;
+        }(memoizedFunction, (options.name || (fn = method).name || fn.__name__ || fn.displayName || "anonymous") + "::memoized");
+        var fn;
     }
     memoize.clear = function() {
         memoizeGlobalIndexValidFrom = memoizeGlobalIndex;
@@ -1185,12 +1178,6 @@ window.spb = function(modules) {
         for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
         return result;
     }));
-    function objFilter(obj, filter) {
-        void 0 === filter && (filter = Boolean);
-        var result = {};
-        for (var key in obj) obj.hasOwnProperty(key) && filter(obj[key], key) && (result[key] = obj[key]);
-        return result;
-    }
     function arrayFrom(item) {
         return [].slice.call(item);
     }
@@ -1224,9 +1211,6 @@ window.spb = function(modules) {
             }), 10);
         }));
     }));
-    function dom_isBrowser() {
-        return "undefined" != typeof window && void 0 !== window.location;
-    }
     var dom_PopupOpenError = function(_ExtendableError) {
         _inheritsLoose(PopupOpenError, _ExtendableError);
         function PopupOpenError() {
@@ -1286,1124 +1270,17 @@ window.spb = function(modules) {
         script.setAttribute("data-uid-auto", uid);
         return uid;
     }));
-    var http_headerBuilders = [];
-    var AUTO_FLUSH_LEVEL = [ "warn", "error" ];
-    var LOG_LEVEL_PRIORITY = [ "error", "warn", "info", "debug" ];
-    var sendBeacon = function(_ref2) {
-        var _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win, url = _ref2.url, data = _ref2.data, _ref2$useBlob = _ref2.useBlob, useBlob = void 0 === _ref2$useBlob || _ref2$useBlob;
-        try {
-            var json = JSON.stringify(data);
-            if (!win.navigator.sendBeacon) throw new Error("No sendBeacon available");
-            if (useBlob) {
-                var blob = new Blob([ json ], {
-                    type: "application/json"
-                });
-                return win.navigator.sendBeacon(url, blob);
-            }
-            return win.navigator.sendBeacon(url, json);
-        } catch (e) {
-            return !1;
-        }
-    };
-    var extendIfDefined = function(target, source) {
-        for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
-    };
     var _FUNDING_SKIP_LOGIN, _AMPLITUDE_API_KEY;
     (_FUNDING_SKIP_LOGIN = {}).paypal = "paypal", _FUNDING_SKIP_LOGIN.paylater = "paypal", 
     _FUNDING_SKIP_LOGIN.credit = "paypal";
     (_AMPLITUDE_API_KEY = {}).test = "a23fb4dfae56daf7c3212303b53a8527", _AMPLITUDE_API_KEY.local = "a23fb4dfae56daf7c3212303b53a8527", 
     _AMPLITUDE_API_KEY.stage = "a23fb4dfae56daf7c3212303b53a8527", _AMPLITUDE_API_KEY.sandbox = "a23fb4dfae56daf7c3212303b53a8527", 
     _AMPLITUDE_API_KEY.production = "ce423f79daba95faeb0694186170605c";
-    function getLogger() {
-        return function(method, logic, args) {
-            void 0 === args && (args = []);
-            var cache = method.__inline_memoize_cache__ = method.__inline_memoize_cache__ || {};
-            var key = serializeArgs(args);
-            return cache.hasOwnProperty(key) ? cache[key] : cache[key] = function() {
-                return function(_ref) {
-                    var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "warn" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
-                        void 0 === httpWin && (httpWin = window);
-                        var win = isSameDomain(httpWin) ? assertSameDomain(httpWin) : window;
-                        return function(_ref) {
-                            var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-                            return promise_ZalgoPromise.try((function() {
-                                var beaconResult = !1;
-                                (function(_ref) {
-                                    var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
-                                    var hasHeaders = headers && Object.keys(headers).length;
-                                    return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
-                                })({
-                                    headers: headers,
-                                    enableSendBeacon: enableSendBeacon
-                                }) && (beaconResult = function(url) {
-                                    return "https://api2.amplitude.com/2/httpapi" === url;
-                                }(url) ? sendBeacon({
-                                    win: win,
-                                    url: url,
-                                    data: json,
-                                    useBlob: !1
-                                }) : sendBeacon({
-                                    win: win,
-                                    url: url,
-                                    data: json,
-                                    useBlob: !0
-                                }));
-                                return beaconResult || function(_ref) {
-                                    var url = _ref.url, _ref$method = _ref.method, method = void 0 === _ref$method ? "get" : _ref$method, _ref$headers = _ref.headers, headers = void 0 === _ref$headers ? {} : _ref$headers, json = _ref.json, data = _ref.data, body = _ref.body, _ref$win = _ref.win, win = void 0 === _ref$win ? window : _ref$win, _ref$timeout = _ref.timeout, timeout = void 0 === _ref$timeout ? 0 : _ref$timeout;
-                                    return new promise_ZalgoPromise((function(resolve, reject) {
-                                        if (json && data || json && body || data && json) throw new Error("Only options.json or options.data or options.body should be passed");
-                                        var normalizedHeaders = {};
-                                        for (var _i4 = 0, _Object$keys2 = Object.keys(headers); _i4 < _Object$keys2.length; _i4++) {
-                                            var _key2 = _Object$keys2[_i4];
-                                            normalizedHeaders[_key2.toLowerCase()] = headers[_key2];
-                                        }
-                                        json ? normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/json" : (data || body) && (normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/x-www-form-urlencoded; charset=utf-8");
-                                        normalizedHeaders.accept = normalizedHeaders.accept || "application/json";
-                                        for (var _i6 = 0; _i6 < http_headerBuilders.length; _i6++) {
-                                            var builtHeaders = (0, http_headerBuilders[_i6])();
-                                            for (var _i8 = 0, _Object$keys4 = Object.keys(builtHeaders); _i8 < _Object$keys4.length; _i8++) {
-                                                var _key3 = _Object$keys4[_i8];
-                                                normalizedHeaders[_key3.toLowerCase()] = builtHeaders[_key3];
-                                            }
-                                        }
-                                        var xhr = new win.XMLHttpRequest;
-                                        xhr.addEventListener("load", (function() {
-                                            var responseHeaders = function(rawHeaders) {
-                                                void 0 === rawHeaders && (rawHeaders = "");
-                                                var result = {};
-                                                for (var _i2 = 0, _rawHeaders$trim$spli2 = rawHeaders.trim().split("\n"); _i2 < _rawHeaders$trim$spli2.length; _i2++) {
-                                                    var _line$split = _rawHeaders$trim$spli2[_i2].split(":"), _key = _line$split[0], values = _line$split.slice(1);
-                                                    result[_key.toLowerCase()] = values.join(":").trim();
-                                                }
-                                                return result;
-                                            }(this.getAllResponseHeaders());
-                                            if (!this.status) return reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: no response status code."));
-                                            var contentType = responseHeaders["content-type"];
-                                            var isJSON = contentType && (0 === contentType.indexOf("application/json") || 0 === contentType.indexOf("text/json"));
-                                            var responseBody = this.responseText;
-                                            try {
-                                                responseBody = JSON.parse(responseBody);
-                                            } catch (err) {
-                                                if (isJSON) return reject(new Error("Invalid json: " + this.responseText + "."));
-                                            }
-                                            return resolve({
-                                                status: this.status,
-                                                headers: responseHeaders,
-                                                body: responseBody
-                                            });
-                                        }), !1);
-                                        xhr.addEventListener("error", (function(evt) {
-                                            reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: " + evt.toString() + "."));
-                                        }), !1);
-                                        xhr.open(method, url, !0);
-                                        for (var _key4 in normalizedHeaders) normalizedHeaders.hasOwnProperty(_key4) && xhr.setRequestHeader(_key4, normalizedHeaders[_key4]);
-                                        json ? body = JSON.stringify(json) : data && (body = Object.keys(data).map((function(key) {
-                                            return encodeURIComponent(key) + "=" + (data ? encodeURIComponent(data[key]) : "");
-                                        })).join("&"));
-                                        xhr.timeout = timeout;
-                                        xhr.ontimeout = function() {
-                                            reject(new Error("Request to " + method.toLowerCase() + " " + url + " has timed out"));
-                                        };
-                                        xhr.send(body);
-                                    }));
-                                }({
-                                    win: win,
-                                    url: url,
-                                    method: method,
-                                    headers: headers,
-                                    json: json
-                                });
-                            })).then(src_util_noop);
-                        };
-                    }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-                    var events = [];
-                    var tracking = [];
-                    var payloadBuilders = [];
-                    var metaBuilders = [];
-                    var trackingBuilders = [];
-                    var headerBuilders = [];
-                    function print(level, event, payload) {
-                        if (dom_isBrowser() && window.console && window.console.log && !(LOG_LEVEL_PRIORITY.indexOf(level) > LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
-                            var args = [ event ];
-                            args.push(payload);
-                            (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
-                            try {
-                                window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
-                            } catch (err) {}
-                        }
-                    }
-                    function immediateFlush() {
-                        return promise_ZalgoPromise.try((function() {
-                            if (dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
-                                var meta = {};
-                                for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) extendIfDefined(meta, (0, metaBuilders[_i2])(meta));
-                                var headers = {};
-                                for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) extendIfDefined(headers, (0, 
-                                headerBuilders[_i4])(headers));
-                                var res;
-                                url && (res = transport({
-                                    method: "POST",
-                                    url: url,
-                                    headers: headers,
-                                    json: {
-                                        events: events,
-                                        meta: meta,
-                                        tracking: tracking
-                                    },
-                                    enableSendBeacon: enableSendBeacon
-                                }).catch(src_util_noop));
-                                amplitudeApiKey && transport({
-                                    method: "POST",
-                                    url: "https://api2.amplitude.com/2/httpapi",
-                                    headers: {},
-                                    json: {
-                                        api_key: amplitudeApiKey,
-                                        events: tracking.map((function(payload) {
-                                            return _extends({
-                                                event_type: payload.transition_name || "event",
-                                                event_properties: payload
-                                            }, payload);
-                                        }))
-                                    },
-                                    enableSendBeacon: enableSendBeacon
-                                }).catch(src_util_noop);
-                                events = [];
-                                tracking = [];
-                                return promise_ZalgoPromise.resolve(res).then(src_util_noop);
-                            }
-                        }));
-                    }
-                    var flush = function(method, delay) {
-                        void 0 === delay && (delay = 50);
-                        var promise;
-                        var timeout;
-                        return setFunctionName((function() {
-                            timeout && clearTimeout(timeout);
-                            var localPromise = promise = promise || new promise_ZalgoPromise;
-                            timeout = setTimeout((function() {
-                                promise = null;
-                                timeout = null;
-                                promise_ZalgoPromise.try(method).then((function(result) {
-                                    localPromise.resolve(result);
-                                }), (function(err) {
-                                    localPromise.reject(err);
-                                }));
-                            }), delay);
-                            return localPromise;
-                        }), getFunctionName(method) + "::promiseDebounced");
-                    }(immediateFlush);
-                    function log(level, event, payload) {
-                        void 0 === payload && (payload = {});
-                        if (!dom_isBrowser()) return logger;
-                        prefix && (event = prefix + "_" + event);
-                        var logPayload = _extends({}, objFilter(payload), {
-                            timestamp: Date.now().toString()
-                        });
-                        for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) extendIfDefined(logPayload, (0, 
-                        payloadBuilders[_i6])(logPayload));
-                        !function(level, event, payload) {
-                            events.push({
-                                level: level,
-                                event: event,
-                                payload: payload
-                            });
-                            -1 !== AUTO_FLUSH_LEVEL.indexOf(level) && flush();
-                        }(level, event, logPayload);
-                        print(level, event, logPayload);
-                        return logger;
-                    }
-                    function addBuilder(builders, builder) {
-                        builders.push(builder);
-                        return logger;
-                    }
-                    dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
-                        setTimeout((function() {
-                            method();
-                            loop();
-                        }), time);
-                    }());
-                    var method, time;
-                    if ("object" == typeof window) {
-                        window.addEventListener("beforeunload", (function() {
-                            immediateFlush();
-                        }));
-                        window.addEventListener("unload", (function() {
-                            immediateFlush();
-                        }));
-                        window.addEventListener("pagehide", (function() {
-                            immediateFlush();
-                        }));
-                    }
-                    var logger = {
-                        debug: function(event, payload) {
-                            return log("debug", event, payload);
-                        },
-                        info: function(event, payload) {
-                            return log("info", event, payload);
-                        },
-                        warn: function(event, payload) {
-                            return log("warn", event, payload);
-                        },
-                        error: function(event, payload) {
-                            return log("error", event, payload);
-                        },
-                        track: function(payload) {
-                            void 0 === payload && (payload = {});
-                            if (!dom_isBrowser()) return logger;
-                            var trackingPayload = objFilter(payload);
-                            for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) extendIfDefined(trackingPayload, (0, 
-                            trackingBuilders[_i8])(trackingPayload));
-                            print("debug", "track", trackingPayload);
-                            tracking.push(trackingPayload);
-                            return logger;
-                        },
-                        flush: flush,
-                        immediateFlush: immediateFlush,
-                        addPayloadBuilder: function(builder) {
-                            return addBuilder(payloadBuilders, builder);
-                        },
-                        addMetaBuilder: function(builder) {
-                            return addBuilder(metaBuilders, builder);
-                        },
-                        addTrackingBuilder: function(builder) {
-                            return addBuilder(trackingBuilders, builder);
-                        },
-                        addHeaderBuilder: function(builder) {
-                            return addBuilder(headerBuilders, builder);
-                        },
-                        setTransport: function(newTransport) {
-                            transport = newTransport;
-                            return logger;
-                        },
-                        configure: function(opts) {
-                            opts.url && (url = opts.url);
-                            opts.prefix && (prefix = opts.prefix);
-                            opts.logLevel && (logLevel = opts.logLevel);
-                            opts.transport && (transport = opts.transport);
-                            opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
-                            opts.flushInterval && (flushInterval = opts.flushInterval);
-                            opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
-                            return logger;
-                        }
-                    };
-                    return logger;
-                }({
-                    url: "/xoplatform/logger/api/logger",
-                    enableSendBeacon: !0
-                });
-            }.apply(void 0, args);
-        }(getLogger);
-    }
     function getNonce() {
         var nonce = "";
         document.body && (nonce = document.body.getAttribute("data-nonce") || "");
         return nonce;
     }
-    Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
-    new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
-        var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
-        payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
-    }));
-    function src_utils_isPromise(item) {
-        try {
-            if (!item) return !1;
-            if ("undefined" != typeof Promise && item instanceof Promise) return !0;
-            if ("undefined" != typeof window && "function" == typeof window.Window && item instanceof window.Window) return !1;
-            if ("undefined" != typeof window && "function" == typeof window.constructor && item instanceof window.constructor) return !1;
-            var _toString = {}.toString;
-            if (_toString) {
-                var name = _toString.call(item);
-                if ("[object Window]" === name || "[object global]" === name || "[object DOMWindow]" === name) return !1;
-            }
-            if ("function" == typeof item.then) return !0;
-        } catch (err) {
-            return !1;
-        }
-        return !1;
-    }
-    var exceptions_dispatchedErrors = [];
-    var exceptions_possiblyUnhandledPromiseHandlers = [];
-    var flush_activeCount = 0;
-    var flush_flushPromise;
-    function flush_flushActive() {
-        if (!flush_activeCount && flush_flushPromise) {
-            var promise = flush_flushPromise;
-            flush_flushPromise = null;
-            promise.resolve();
-        }
-    }
-    function flush_startActive() {
-        flush_activeCount += 1;
-    }
-    function flush_endActive() {
-        flush_activeCount -= 1;
-        flush_flushActive();
-    }
-    var src_promise_ZalgoPromise = function() {
-        function ZalgoPromise(handler) {
-            var _this = this;
-            this.resolved = void 0;
-            this.rejected = void 0;
-            this.errorHandled = void 0;
-            this.value = void 0;
-            this.error = void 0;
-            this.handlers = void 0;
-            this.dispatching = void 0;
-            this.stack = void 0;
-            this.resolved = !1;
-            this.rejected = !1;
-            this.errorHandled = !1;
-            this.handlers = [];
-            if (handler) {
-                var _result;
-                var _error;
-                var resolved = !1;
-                var rejected = !1;
-                var isAsync = !1;
-                flush_startActive();
-                try {
-                    handler((function(res) {
-                        if (isAsync) _this.resolve(res); else {
-                            resolved = !0;
-                            _result = res;
-                        }
-                    }), (function(err) {
-                        if (isAsync) _this.reject(err); else {
-                            rejected = !0;
-                            _error = err;
-                        }
-                    }));
-                } catch (err) {
-                    flush_endActive();
-                    this.reject(err);
-                    return;
-                }
-                flush_endActive();
-                isAsync = !0;
-                resolved ? this.resolve(_result) : rejected && this.reject(_error);
-            }
-        }
-        var _proto = ZalgoPromise.prototype;
-        _proto.resolve = function(result) {
-            if (this.resolved || this.rejected) return this;
-            if (src_utils_isPromise(result)) throw new Error("Can not resolve promise with another promise");
-            this.resolved = !0;
-            this.value = result;
-            this.dispatch();
-            return this;
-        };
-        _proto.reject = function(error) {
-            var _this2 = this;
-            if (this.resolved || this.rejected) return this;
-            if (src_utils_isPromise(error)) throw new Error("Can not reject promise with another promise");
-            if (!error) {
-                var _err = error && "function" == typeof error.toString ? error.toString() : {}.toString.call(error);
-                error = new Error("Expected reject to be called with Error, got " + _err);
-            }
-            this.rejected = !0;
-            this.error = error;
-            this.errorHandled || setTimeout((function() {
-                _this2.errorHandled || function(err, promise) {
-                    if (-1 === exceptions_dispatchedErrors.indexOf(err)) {
-                        exceptions_dispatchedErrors.push(err);
-                        setTimeout((function() {
-                            throw err;
-                        }), 1);
-                        for (var j = 0; j < exceptions_possiblyUnhandledPromiseHandlers.length; j++) exceptions_possiblyUnhandledPromiseHandlers[j](err, promise);
-                    }
-                }(error, _this2);
-            }), 1);
-            this.dispatch();
-            return this;
-        };
-        _proto.asyncReject = function(error) {
-            this.errorHandled = !0;
-            this.reject(error);
-            return this;
-        };
-        _proto.dispatch = function() {
-            var resolved = this.resolved, rejected = this.rejected, handlers = this.handlers;
-            if (!this.dispatching && (resolved || rejected)) {
-                this.dispatching = !0;
-                flush_startActive();
-                var chain = function(firstPromise, secondPromise) {
-                    return firstPromise.then((function(res) {
-                        secondPromise.resolve(res);
-                    }), (function(err) {
-                        secondPromise.reject(err);
-                    }));
-                };
-                for (var i = 0; i < handlers.length; i++) {
-                    var _handlers$i = handlers[i], onSuccess = _handlers$i.onSuccess, onError = _handlers$i.onError, promise = _handlers$i.promise;
-                    var _result2 = void 0;
-                    if (resolved) try {
-                        _result2 = onSuccess ? onSuccess(this.value) : this.value;
-                    } catch (err) {
-                        promise.reject(err);
-                        continue;
-                    } else if (rejected) {
-                        if (!onError) {
-                            promise.reject(this.error);
-                            continue;
-                        }
-                        try {
-                            _result2 = onError(this.error);
-                        } catch (err) {
-                            promise.reject(err);
-                            continue;
-                        }
-                    }
-                    if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
-                        var promiseResult = _result2;
-                        promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
-                        promiseResult.errorHandled = !0;
-                    } else src_utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
-                }
-                handlers.length = 0;
-                this.dispatching = !1;
-                flush_endActive();
-            }
-        };
-        _proto.then = function(onSuccess, onError) {
-            if (onSuccess && "function" != typeof onSuccess && !onSuccess.call) throw new Error("Promise.then expected a function for success handler");
-            if (onError && "function" != typeof onError && !onError.call) throw new Error("Promise.then expected a function for error handler");
-            var promise = new ZalgoPromise;
-            this.handlers.push({
-                promise: promise,
-                onSuccess: onSuccess,
-                onError: onError
-            });
-            this.errorHandled = !0;
-            this.dispatch();
-            return promise;
-        };
-        _proto.catch = function(onError) {
-            return this.then(void 0, onError);
-        };
-        _proto.finally = function(onFinally) {
-            if (onFinally && "function" != typeof onFinally && !onFinally.call) throw new Error("Promise.finally expected a function");
-            return this.then((function(result) {
-                return ZalgoPromise.try(onFinally).then((function() {
-                    return result;
-                }));
-            }), (function(err) {
-                return ZalgoPromise.try(onFinally).then((function() {
-                    throw err;
-                }));
-            }));
-        };
-        _proto.timeout = function(time, err) {
-            var _this3 = this;
-            if (this.resolved || this.rejected) return this;
-            var timeout = setTimeout((function() {
-                _this3.resolved || _this3.rejected || _this3.reject(err || new Error("Promise timed out after " + time + "ms"));
-            }), time);
-            return this.then((function(result) {
-                clearTimeout(timeout);
-                return result;
-            }));
-        };
-        _proto.toPromise = function() {
-            if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
-            return Promise.resolve(this);
-        };
-        _proto.lazy = function() {
-            this.errorHandled = !0;
-            return this;
-        };
-        ZalgoPromise.resolve = function(value) {
-            return value instanceof ZalgoPromise ? value : src_utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
-                return value.then(resolve, reject);
-            })) : (new ZalgoPromise).resolve(value);
-        };
-        ZalgoPromise.reject = function(error) {
-            return (new ZalgoPromise).reject(error);
-        };
-        ZalgoPromise.asyncReject = function(error) {
-            return (new ZalgoPromise).asyncReject(error);
-        };
-        ZalgoPromise.all = function(promises) {
-            var promise = new ZalgoPromise;
-            var count = promises.length;
-            var results = [].slice();
-            if (!count) {
-                promise.resolve(results);
-                return promise;
-            }
-            var chain = function(i, firstPromise, secondPromise) {
-                return firstPromise.then((function(res) {
-                    results[i] = res;
-                    0 == (count -= 1) && promise.resolve(results);
-                }), (function(err) {
-                    secondPromise.reject(err);
-                }));
-            };
-            for (var i = 0; i < promises.length; i++) {
-                var prom = promises[i];
-                if (prom instanceof ZalgoPromise) {
-                    if (prom.resolved) {
-                        results[i] = prom.value;
-                        count -= 1;
-                        continue;
-                    }
-                } else if (!src_utils_isPromise(prom)) {
-                    results[i] = prom;
-                    count -= 1;
-                    continue;
-                }
-                chain(i, ZalgoPromise.resolve(prom), promise);
-            }
-            0 === count && promise.resolve(results);
-            return promise;
-        };
-        ZalgoPromise.hash = function(promises) {
-            var result = {};
-            var awaitPromises = [];
-            var _loop = function(key) {
-                if (promises.hasOwnProperty(key)) {
-                    var value = promises[key];
-                    src_utils_isPromise(value) ? awaitPromises.push(value.then((function(res) {
-                        result[key] = res;
-                    }))) : result[key] = value;
-                }
-            };
-            for (var key in promises) _loop(key);
-            return ZalgoPromise.all(awaitPromises).then((function() {
-                return result;
-            }));
-        };
-        ZalgoPromise.map = function(items, method) {
-            return ZalgoPromise.all(items.map(method));
-        };
-        ZalgoPromise.onPossiblyUnhandledException = function(handler) {
-            return function(handler) {
-                exceptions_possiblyUnhandledPromiseHandlers.push(handler);
-                return {
-                    cancel: function() {
-                        exceptions_possiblyUnhandledPromiseHandlers.splice(exceptions_possiblyUnhandledPromiseHandlers.indexOf(handler), 1);
-                    }
-                };
-            }(handler);
-        };
-        ZalgoPromise.try = function(method, context, args) {
-            if (method && "function" != typeof method && !method.call) throw new Error("Promise.try expected a function");
-            var result;
-            flush_startActive();
-            try {
-                result = method.apply(context, args || []);
-            } catch (err) {
-                flush_endActive();
-                return ZalgoPromise.reject(err);
-            }
-            flush_endActive();
-            return ZalgoPromise.resolve(result);
-        };
-        ZalgoPromise.delay = function(_delay) {
-            return new ZalgoPromise((function(resolve) {
-                setTimeout(resolve, _delay);
-            }));
-        };
-        ZalgoPromise.isPromise = function(value) {
-            return !!(value && value instanceof ZalgoPromise) || src_utils_isPromise(value);
-        };
-        ZalgoPromise.flush = function() {
-            return function(Zalgo) {
-                var promise = flush_flushPromise = flush_flushPromise || new Zalgo;
-                flush_flushActive();
-                return promise;
-            }(ZalgoPromise);
-        };
-        return ZalgoPromise;
-    }();
-    function utils_getActualProtocol(win) {
-        void 0 === win && (win = window);
-        return win.location.protocol;
-    }
-    function utils_getProtocol(win) {
-        void 0 === win && (win = window);
-        if (win.mockDomain) {
-            var protocol = win.mockDomain.split("//")[0];
-            if (protocol) return protocol;
-        }
-        return utils_getActualProtocol(win);
-    }
-    function utils_isAboutProtocol(win) {
-        void 0 === win && (win = window);
-        return "about:" === utils_getProtocol(win);
-    }
-    function utils_canReadFromWindow(win) {
-        try {
-            return !0;
-        } catch (err) {}
-        return !1;
-    }
-    function utils_getActualDomain(win) {
-        void 0 === win && (win = window);
-        var location = win.location;
-        if (!location) throw new Error("Can not read window location");
-        var protocol = utils_getActualProtocol(win);
-        if (!protocol) throw new Error("Can not read window protocol");
-        if ("file:" === protocol) return "file://";
-        if ("about:" === protocol) {
-            var parent = function(win) {
-                void 0 === win && (win = window);
-                if (win) try {
-                    if (win.parent && win.parent !== win) return win.parent;
-                } catch (err) {}
-            }(win);
-            return parent && utils_canReadFromWindow() ? utils_getActualDomain(parent) : "about://";
-        }
-        var host = location.host;
-        if (!host) throw new Error("Can not read window host");
-        return protocol + "//" + host;
-    }
-    function utils_getDomain(win) {
-        void 0 === win && (win = window);
-        var domain = utils_getActualDomain(win);
-        return domain && win.mockDomain && 0 === win.mockDomain.indexOf("mock:") ? win.mockDomain : domain;
-    }
-    var utils_iframeWindows = [];
-    var utils_iframeFrames = [];
-    function utils_isWindowClosed(win, allowMock) {
-        void 0 === allowMock && (allowMock = !0);
-        try {
-            if (win === window) return !1;
-        } catch (err) {
-            return !0;
-        }
-        try {
-            if (!win) return !0;
-        } catch (err) {
-            return !0;
-        }
-        try {
-            if (win.closed) return !0;
-        } catch (err) {
-            return !err || "Call was rejected by callee.\r\n" !== err.message;
-        }
-        if (allowMock && function(win) {
-            if (!function(win) {
-                try {
-                    if (win === window) return !0;
-                } catch (err) {}
-                try {
-                    var desc = Object.getOwnPropertyDescriptor(win, "location");
-                    if (desc && !1 === desc.enumerable) return !1;
-                } catch (err) {}
-                try {
-                    if (utils_isAboutProtocol(win) && utils_canReadFromWindow()) return !0;
-                } catch (err) {}
-                try {
-                    if (function(win) {
-                        void 0 === win && (win = window);
-                        return "mock:" === utils_getProtocol(win);
-                    }(win) && utils_canReadFromWindow()) return !0;
-                } catch (err) {}
-                try {
-                    if (utils_getActualDomain(win) === utils_getActualDomain(window)) return !0;
-                } catch (err) {}
-                return !1;
-            }(win)) return !1;
-            try {
-                if (win === window) return !0;
-                if (utils_isAboutProtocol(win) && utils_canReadFromWindow()) return !0;
-                if (utils_getDomain(window) === utils_getDomain(win)) return !0;
-            } catch (err) {}
-            return !1;
-        }(win)) try {
-            if (win.mockclosed) return !0;
-        } catch (err) {}
-        try {
-            if (!win.parent || !win.top) return !0;
-        } catch (err) {}
-        var iframeIndex = function(collection, item) {
-            for (var i = 0; i < collection.length; i++) try {
-                if (collection[i] === item) return i;
-            } catch (err) {}
-            return -1;
-        }(utils_iframeWindows, win);
-        if (-1 !== iframeIndex) {
-            var frame = utils_iframeFrames[iframeIndex];
-            if (frame && function(frame) {
-                if (!frame.contentWindow) return !0;
-                if (!frame.parentNode) return !0;
-                var doc = frame.ownerDocument;
-                if (doc && doc.documentElement && !doc.documentElement.contains(frame)) {
-                    var parent = frame;
-                    for (;parent.parentNode && parent.parentNode !== parent; ) parent = parent.parentNode;
-                    if (!parent.host || !doc.documentElement.contains(parent.host)) return !0;
-                }
-                return !1;
-            }(frame)) return !0;
-        }
-        return !1;
-    }
-    function utils_isWindow(obj) {
-        try {
-            if (obj === window) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if ("[object Window]" === {}.toString.call(obj)) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if (window.Window && obj instanceof window.Window) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if (obj && obj.self === obj) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if (obj && obj.parent === obj) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if (obj && obj.top === obj) return !0;
-        } catch (err) {
-            if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
-        }
-        try {
-            if (obj && "__unlikely_value__" === obj.__cross_domain_utils_window_check__) return !1;
-        } catch (err) {
-            return !0;
-        }
-        try {
-            if ("postMessage" in obj && "self" in obj && "location" in obj) return !0;
-        } catch (err) {}
-        return !1;
-    }
-    function src_util_safeIndexOf(collection, item) {
-        for (var i = 0; i < collection.length; i++) try {
-            if (collection[i] === item) return i;
-        } catch (err) {}
-        return -1;
-    }
-    var src_weakmap_CrossDomainSafeWeakMap = function() {
-        function CrossDomainSafeWeakMap() {
-            this.name = void 0;
-            this.weakmap = void 0;
-            this.keys = void 0;
-            this.values = void 0;
-            this.name = "__weakmap_" + (1e9 * Math.random() >>> 0) + "__";
-            if (function() {
-                if ("undefined" == typeof WeakMap) return !1;
-                if (void 0 === Object.freeze) return !1;
-                try {
-                    var testWeakMap = new WeakMap;
-                    var testKey = {};
-                    Object.freeze(testKey);
-                    testWeakMap.set(testKey, "__testvalue__");
-                    return "__testvalue__" === testWeakMap.get(testKey);
-                } catch (err) {
-                    return !1;
-                }
-            }()) try {
-                this.weakmap = new WeakMap;
-            } catch (err) {}
-            this.keys = [];
-            this.values = [];
-        }
-        var _proto = CrossDomainSafeWeakMap.prototype;
-        _proto._cleanupClosedWindows = function() {
-            var weakmap = this.weakmap;
-            var keys = this.keys;
-            for (var i = 0; i < keys.length; i++) {
-                var value = keys[i];
-                if (utils_isWindow(value) && utils_isWindowClosed(value)) {
-                    if (weakmap) try {
-                        weakmap.delete(value);
-                    } catch (err) {}
-                    keys.splice(i, 1);
-                    this.values.splice(i, 1);
-                    i -= 1;
-                }
-            }
-        };
-        _proto.isSafeToReadWrite = function(key) {
-            return !utils_isWindow(key);
-        };
-        _proto.set = function(key, value) {
-            if (!key) throw new Error("WeakMap expected key");
-            var weakmap = this.weakmap;
-            if (weakmap) try {
-                weakmap.set(key, value);
-            } catch (err) {
-                delete this.weakmap;
-            }
-            if (this.isSafeToReadWrite(key)) try {
-                var name = this.name;
-                var entry = key[name];
-                entry && entry[0] === key ? entry[1] = value : Object.defineProperty(key, name, {
-                    value: [ key, value ],
-                    writable: !0
-                });
-                return;
-            } catch (err) {}
-            this._cleanupClosedWindows();
-            var keys = this.keys;
-            var values = this.values;
-            var index = src_util_safeIndexOf(keys, key);
-            if (-1 === index) {
-                keys.push(key);
-                values.push(value);
-            } else values[index] = value;
-        };
-        _proto.get = function(key) {
-            if (!key) throw new Error("WeakMap expected key");
-            var weakmap = this.weakmap;
-            if (weakmap) try {
-                if (weakmap.has(key)) return weakmap.get(key);
-            } catch (err) {
-                delete this.weakmap;
-            }
-            if (this.isSafeToReadWrite(key)) try {
-                var entry = key[this.name];
-                return entry && entry[0] === key ? entry[1] : void 0;
-            } catch (err) {}
-            this._cleanupClosedWindows();
-            var index = src_util_safeIndexOf(this.keys, key);
-            if (-1 !== index) return this.values[index];
-        };
-        _proto.delete = function(key) {
-            if (!key) throw new Error("WeakMap expected key");
-            var weakmap = this.weakmap;
-            if (weakmap) try {
-                weakmap.delete(key);
-            } catch (err) {
-                delete this.weakmap;
-            }
-            if (this.isSafeToReadWrite(key)) try {
-                var entry = key[this.name];
-                entry && entry[0] === key && (entry[0] = entry[1] = void 0);
-            } catch (err) {}
-            this._cleanupClosedWindows();
-            var keys = this.keys;
-            var index = src_util_safeIndexOf(keys, key);
-            if (-1 !== index) {
-                keys.splice(index, 1);
-                this.values.splice(index, 1);
-            }
-        };
-        _proto.has = function(key) {
-            if (!key) throw new Error("WeakMap expected key");
-            var weakmap = this.weakmap;
-            if (weakmap) try {
-                if (weakmap.has(key)) return !0;
-            } catch (err) {
-                delete this.weakmap;
-            }
-            if (this.isSafeToReadWrite(key)) try {
-                var entry = key[this.name];
-                return !(!entry || entry[0] !== key);
-            } catch (err) {}
-            this._cleanupClosedWindows();
-            return -1 !== src_util_safeIndexOf(this.keys, key);
-        };
-        _proto.getOrSet = function(key, getter) {
-            if (this.has(key)) return this.get(key);
-            var value = getter();
-            this.set(key, value);
-            return value;
-        };
-        return CrossDomainSafeWeakMap;
-    }();
-    function util_uniqueID() {
-        var chars = "0123456789abcdef";
-        return "uid_" + "xxxxxxxxxx".replace(/./g, (function() {
-            return chars.charAt(Math.floor(Math.random() * chars.length));
-        })) + "_" + function(str) {
-            if ("function" == typeof btoa) return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (function(m, p1) {
-                return String.fromCharCode(parseInt(p1, 16));
-            }))).replace(/[=]/g, "");
-            if ("undefined" != typeof Buffer) return Buffer.from(str, "utf8").toString("base64").replace(/[=]/g, "");
-            throw new Error("Can not find window.btoa or Buffer");
-        }((new Date).toISOString().slice(11, 19).replace("T", ".")).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
-    }
-    var util_objectIDs;
-    function util_serializeArgs(args) {
-        try {
-            return JSON.stringify([].slice.call(args), (function(subkey, val) {
-                return "function" == typeof val ? "memoize[" + function(obj) {
-                    util_objectIDs = util_objectIDs || new src_weakmap_CrossDomainSafeWeakMap;
-                    if (null == obj || "object" != typeof obj && "function" != typeof obj) throw new Error("Invalid object");
-                    var uid = util_objectIDs.get(obj);
-                    if (!uid) {
-                        uid = typeof obj + ":" + util_uniqueID();
-                        util_objectIDs.set(obj, uid);
-                    }
-                    return uid;
-                }(val) + "]" : function(element) {
-                    var passed = !1;
-                    try {
-                        (element instanceof window.Element || null !== element && "object" == typeof element && 1 === element.nodeType && "object" == typeof element.style && "object" == typeof element.ownerDocument) && (passed = !0);
-                    } catch (_) {}
-                    return passed;
-                }(val) ? {} : val;
-            }));
-        } catch (err) {
-            throw new Error("Arguments not serializable -- can not be used to memoize");
-        }
-    }
-    function util_getEmptyObject() {
-        return {};
-    }
-    var util_memoizeGlobalIndex = 0;
-    var util_memoizeGlobalIndexValidFrom = 0;
-    function util_memoize(method, options) {
-        void 0 === options && (options = {});
-        var _options$thisNamespac = options.thisNamespace, thisNamespace = void 0 !== _options$thisNamespac && _options$thisNamespac, cacheTime = options.time;
-        var simpleCache;
-        var thisCache;
-        var memoizeIndex = util_memoizeGlobalIndex;
-        util_memoizeGlobalIndex += 1;
-        var memoizedFunction = function() {
-            for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-            if (memoizeIndex < util_memoizeGlobalIndexValidFrom) {
-                simpleCache = null;
-                thisCache = null;
-                memoizeIndex = util_memoizeGlobalIndex;
-                util_memoizeGlobalIndex += 1;
-            }
-            var cache;
-            cache = thisNamespace ? (thisCache = thisCache || new src_weakmap_CrossDomainSafeWeakMap).getOrSet(this, util_getEmptyObject) : simpleCache = simpleCache || {};
-            var cacheKey;
-            try {
-                cacheKey = util_serializeArgs(args);
-            } catch (_unused) {
-                return method.apply(this, arguments);
-            }
-            var cacheResult = cache[cacheKey];
-            if (cacheResult && cacheTime && Date.now() - cacheResult.time < cacheTime) {
-                delete cache[cacheKey];
-                cacheResult = null;
-            }
-            if (cacheResult) return cacheResult.value;
-            var time = Date.now();
-            var value = method.apply(this, arguments);
-            cache[cacheKey] = {
-                time: time,
-                value: value
-            };
-            return value;
-        };
-        memoizedFunction.reset = function() {
-            simpleCache = null;
-            thisCache = null;
-        };
-        return function(fn, name) {
-            try {
-                delete fn.name;
-                fn.name = name;
-            } catch (err) {}
-            fn.__name__ = fn.displayName = name;
-            return fn;
-        }(memoizedFunction, (options.name || (fn = method).name || fn.__name__ || fn.displayName || "anonymous") + "::memoized");
-        var fn;
-    }
-    util_memoize.clear = function() {
-        util_memoizeGlobalIndexValidFrom = util_memoizeGlobalIndex;
-    };
-    function util_stringifyError(err, level) {
-        void 0 === level && (level = 1);
-        if (level >= 3) return "stringifyError stack overflow";
-        try {
-            if (!err) return "<unknown error: " + {}.toString.call(err) + ">";
-            if ("string" == typeof err) return err;
-            if (err instanceof Error) {
-                var stack = err && err.stack;
-                var message = err && err.message;
-                if (stack && message) return -1 !== stack.indexOf(message) ? stack : message + "\n" + stack;
-                if (stack) return stack;
-                if (message) return message;
-            }
-            return err && err.toString && "function" == typeof err.toString ? err.toString() : {}.toString.call(err);
-        } catch (newErr) {
-            return "Error while stringifying error: " + util_stringifyError(newErr, level + 1);
-        }
-    }
-    util_memoize((function(obj) {
-        if (Object.values) return Object.values(obj);
-        var result = [];
-        for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
-        return result;
-    }));
-    Error;
-    function dom_isDocumentReady() {
-        return Boolean(document.body) && "complete" === document.readyState;
-    }
-    function dom_isDocumentInteractive() {
-        return Boolean(document.body) && "interactive" === document.readyState;
-    }
-    util_memoize((function() {
-        return new src_promise_ZalgoPromise((function(resolve) {
-            if (dom_isDocumentReady() || dom_isDocumentInteractive()) return resolve();
-            var interval = setInterval((function() {
-                if (dom_isDocumentReady() || dom_isDocumentInteractive()) {
-                    clearInterval(interval);
-                    return resolve();
-                }
-            }), 10);
-        }));
-    }));
-    var dom_currentScript = "undefined" != typeof document ? document.currentScript : null;
-    var dom_getCurrentScript = util_memoize((function() {
-        if (dom_currentScript) return dom_currentScript;
-        if (dom_currentScript = function() {
-            try {
-                var stack = function() {
-                    try {
-                        throw new Error("_");
-                    } catch (err) {
-                        return err.stack || "";
-                    }
-                }();
-                var stackDetails = /.*at [^(]*\((.*):(.+):(.+)\)$/gi.exec(stack);
-                var scriptLocation = stackDetails && stackDetails[1];
-                if (!scriptLocation) return;
-                for (var _i22 = 0, _Array$prototype$slic2 = [].slice.call(document.getElementsByTagName("script")).reverse(); _i22 < _Array$prototype$slic2.length; _i22++) {
-                    var script = _Array$prototype$slic2[_i22];
-                    if (script.src && script.src === scriptLocation) return script;
-                }
-            } catch (err) {}
-        }()) return dom_currentScript;
-        throw new Error("Can not determine current script");
-    }));
-    var dom_currentUID = util_uniqueID();
-    util_memoize((function() {
-        var script;
-        try {
-            script = dom_getCurrentScript();
-        } catch (err) {
-            return dom_currentUID;
-        }
-        var uid = script.getAttribute("data-uid");
-        if (uid && "string" == typeof uid) return uid;
-        if ((uid = script.getAttribute("data-uid-auto")) && "string" == typeof uid) return uid;
-        if (script.src) {
-            var hashedString = function(str) {
-                var hash = "";
-                for (var i = 0; i < str.length; i++) {
-                    var total = str[i].charCodeAt(0) * i;
-                    str[i + 1] && (total += str[i + 1].charCodeAt(0) * (i - 1));
-                    hash += String.fromCharCode(97 + Math.abs(total) % 26);
-                }
-                return hash;
-            }(JSON.stringify({
-                src: script.src,
-                dataset: script.dataset
-            }));
-            uid = "uid_" + hashedString.slice(hashedString.length - 30);
-        } else uid = util_uniqueID();
-        script.setAttribute("data-uid-auto", uid);
-        return uid;
-    }));
     function _renderChildren(children, renderer) {
         var result = [];
         for (var _i2 = 0; _i2 < children.length; _i2++) {
@@ -2673,73 +1550,70 @@ window.spb = function(modules) {
                 onClick: function() {
                     return function(choice) {
                         var win;
-                        if (choice.popup) try {
-                            win = function(_ref) {
-                                var _ref$closeOnUnload = _ref.closeOnUnload;
-                                var win = assertSameDomain(function(url, options) {
-                                    var _options$closeOnUnloa = (options = options || {}).closeOnUnload, closeOnUnload = void 0 === _options$closeOnUnloa ? 1 : _options$closeOnUnloa, _options$name = options.name, name = void 0 === _options$name ? "" : _options$name, width = options.width, height = options.height;
-                                    var top = 0;
-                                    var left = 0;
-                                    width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
-                                    height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
-                                    delete options.closeOnUnload;
-                                    delete options.name;
-                                    width && height && (options = _extends({
-                                        top: top,
-                                        left: left,
-                                        width: width,
-                                        height: height,
-                                        status: 1,
-                                        toolbar: 0,
-                                        menubar: 0,
-                                        resizable: 1,
-                                        scrollbars: 1
-                                    }, options));
-                                    var params = Object.keys(options).map((function(key) {
-                                        if (null != options[key]) return key + "=" + ("string" == typeof (item = options[key]) ? item : item && item.toString && "function" == typeof item.toString ? item.toString() : {}.toString.call(item));
-                                        var item;
-                                    })).filter(Boolean).join(",");
-                                    var win;
-                                    try {
-                                        win = window.open("", name, params);
-                                    } catch (err) {
-                                        throw new dom_PopupOpenError("Can not open popup window - " + (err.stack || err.message));
-                                    }
-                                    if (isWindowClosed(win)) {
-                                        var err;
-                                        throw new dom_PopupOpenError("Can not open popup window - blocked");
-                                    }
-                                    closeOnUnload && window.addEventListener("unload", (function() {
-                                        return win.close();
-                                    }));
-                                    return win;
-                                }(0, {
-                                    width: _ref.width,
-                                    height: _ref.height,
-                                    closeOnUnload: void 0 === _ref$closeOnUnload ? 1 : _ref$closeOnUnload
-                                }));
-                                var doc = win.document;
-                                !function(win, el) {
-                                    var tag = el.tagName.toLowerCase();
-                                    if ("html" !== tag) throw new Error("Expected element to be html, got " + tag);
-                                    var documentElement = win.document.documentElement;
-                                    for (var _i6 = 0, _arrayFrom2 = arrayFrom(documentElement.children); _i6 < _arrayFrom2.length; _i6++) documentElement.removeChild(_arrayFrom2[_i6]);
-                                    for (var _i8 = 0, _arrayFrom4 = arrayFrom(el.children); _i8 < _arrayFrom4.length; _i8++) documentElement.appendChild(_arrayFrom4[_i8]);
-                                }(win, node_node(SpinnerPage, {
-                                    nonce: getNonce()
-                                }).render(dom({
-                                    doc: doc
-                                })));
+                        choice.popup && (win = function(_ref) {
+                            var _ref$closeOnUnload = _ref.closeOnUnload;
+                            var win = function(win) {
+                                if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
                                 return win;
-                            }({
-                                width: choice.popup.width,
-                                height: choice.popup.height
-                            });
-                        } catch (err) {
-                            getLogger().warn("menu_popup_open_error", {
-                                err: util_stringifyError(err)
-                            });
-                        }
+                            }(function(url, options) {
+                                var _options$closeOnUnloa = (options = options || {}).closeOnUnload, closeOnUnload = void 0 === _options$closeOnUnloa ? 1 : _options$closeOnUnloa, _options$name = options.name, name = void 0 === _options$name ? "" : _options$name, width = options.width, height = options.height;
+                                var top = 0;
+                                var left = 0;
+                                width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
+                                height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
+                                delete options.closeOnUnload;
+                                delete options.name;
+                                width && height && (options = _extends({
+                                    top: top,
+                                    left: left,
+                                    width: width,
+                                    height: height,
+                                    status: 1,
+                                    toolbar: 0,
+                                    menubar: 0,
+                                    resizable: 1,
+                                    scrollbars: 1
+                                }, options));
+                                var params = Object.keys(options).map((function(key) {
+                                    if (null != options[key]) return key + "=" + ("string" == typeof (item = options[key]) ? item : item && item.toString && "function" == typeof item.toString ? item.toString() : {}.toString.call(item));
+                                    var item;
+                                })).filter(Boolean).join(",");
+                                var win;
+                                try {
+                                    win = window.open("", name, params);
+                                } catch (err) {
+                                    throw new dom_PopupOpenError("Can not open popup window - " + (err.stack || err.message));
+                                }
+                                if (isWindowClosed(win)) {
+                                    var err;
+                                    throw new dom_PopupOpenError("Can not open popup window - blocked");
+                                }
+                                closeOnUnload && window.addEventListener("unload", (function() {
+                                    return win.close();
+                                }));
+                                return win;
+                            }(0, {
+                                width: _ref.width,
+                                height: _ref.height,
+                                closeOnUnload: void 0 === _ref$closeOnUnload ? 1 : _ref$closeOnUnload
+                            }));
+                            var doc = win.document;
+                            !function(win, el) {
+                                var tag = el.tagName.toLowerCase();
+                                if ("html" !== tag) throw new Error("Expected element to be html, got " + tag);
+                                var documentElement = win.document.documentElement;
+                                for (var _i6 = 0, _arrayFrom2 = arrayFrom(documentElement.children); _i6 < _arrayFrom2.length; _i6++) documentElement.removeChild(_arrayFrom2[_i6]);
+                                for (var _i8 = 0, _arrayFrom4 = arrayFrom(el.children); _i8 < _arrayFrom4.length; _i8++) documentElement.appendChild(_arrayFrom4[_i8]);
+                            }(win, node_node(SpinnerPage, {
+                                nonce: getNonce()
+                            }).render(dom({
+                                doc: doc
+                            })));
+                            return win;
+                        }({
+                            width: choice.popup.width,
+                            height: choice.popup.height
+                        }));
                         return choice.onSelect({
                             win: win
                         });
@@ -2749,7 +1623,7 @@ window.spb = function(modules) {
         }))));
     }
     function Page(_ref) {
-        var cspNonce = _ref.cspNonce, _ref$pageVisible = _ref.pageVisible, pageVisible = void 0 !== _ref$pageVisible && _ref$pageVisible;
+        var cspNonce = _ref.cspNonce;
         var _useXProps = function() {
             var _useState = hooks_module_m(window.xprops), xprops = _useState[0], setXProps = _useState[1];
             hooks_module_y((function() {
@@ -2760,7 +1634,7 @@ window.spb = function(modules) {
             return _extends({}, xprops);
         }(), choices = _useXProps.choices, onChoose = _useXProps.onChoose, verticalOffset = _useXProps.verticalOffset, hide = _useXProps.hide, _useXProps$onBlur = _useXProps.onBlur, onBlur = void 0 === _useXProps$onBlur ? src_util_noop : _useXProps$onBlur, _useXProps$onFocus = _useXProps.onFocus, onFocus = void 0 === _useXProps$onFocus ? src_util_noop : _useXProps$onFocus, _useXProps$onFocusFai = _useXProps.onFocusFail, onFocusFail = void 0 === _useXProps$onFocusFai ? src_util_noop : _useXProps$onFocusFai;
         var _useState = hooks_module_m(!1), opaque = _useState[0], setOpaque = _useState[1];
-        var _useState2 = hooks_module_m(pageVisible), visible = _useState2[0], setVisible = _useState2[1];
+        var _useState2 = hooks_module_m(!1), visible = _useState2[0], setVisible = _useState2[1];
         hooks_module_y((function() {
             var hasChoices = Boolean(choices && choices.length);
             setOpaque(hasChoices);
@@ -2792,10 +1666,8 @@ window.spb = function(modules) {
         }) : null);
     }
     function setupMenu(_ref3) {
-        var _ref3$pageVisible = _ref3.pageVisible;
         u = v(Page, {
-            cspNonce: _ref3.cspNonce,
-            pageVisible: void 0 !== _ref3$pageVisible && _ref3$pageVisible
+            cspNonce: _ref3.cspNonce
         }), i = function() {
             var body = document.body;
             if (!body) throw new Error("Document body not found");

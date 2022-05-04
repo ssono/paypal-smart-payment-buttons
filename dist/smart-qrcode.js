@@ -2165,11 +2165,6 @@
             document.body && (nonce = document.body.getAttribute("data-nonce") || "");
             return nonce;
         }
-        Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
-        new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
-            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
-            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
-        }));
         function _renderChildren(children, renderer) {
             var result = [];
             for (var _i2 = 0; _i2 < children.length; _i2++) {
@@ -3159,7 +3154,7 @@
             logger.addTrackingBuilder((function() {
                 var _ref2;
                 return (_ref2 = {}).state_name = "smart_button", _ref2.context_type = "EC-Token", 
-                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.96", 
+                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.95", 
                 _ref2.user_id = buttonSessionID, _ref2;
             }));
             (function() {

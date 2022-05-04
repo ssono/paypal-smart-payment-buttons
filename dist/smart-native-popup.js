@@ -4798,11 +4798,6 @@
             if (!window.paypal) throw new Error("paypal not found");
             return window.paypal;
         }
-        Boolean([ "localhost", "[::1]", "localhost.paypal.com" ].includes(window.location.hostname));
-        new BroadcastChannel("logs-channel").addEventListener("message", (function(event) {
-            var _event$data = event.data, _event$data$payload = _event$data.payload, payload = void 0 !== _event$data$payload && _event$data$payload;
-            payload && "GET_SW_LOGS_RESPONSE" === _event$data.eventName && console.log("sw logs", payload);
-        }));
         var belter = __webpack_require__(0);
         function isAndroidAppInstalled(appId) {
             return window.navigator && window.navigator.getInstalledRelatedApps ? window.navigator.getInstalledRelatedApps().then((function(apps) {
@@ -4893,7 +4888,7 @@
                 logger.addTrackingBuilder((function() {
                     var _ref3;
                     return (_ref3 = {}).state_name = "smart_button", _ref3.context_type = "button_session_id", 
-                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.96", 
+                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.95", 
                     _ref3.user_id = buttonSessionID, _ref3.time = Date.now().toString(), _ref3;
                 }));
                 (function() {
@@ -5185,8 +5180,7 @@
             replaceHash("loaded");
             handleHash();
             var stickinessID = getStorage({
-                name: "paypal",
-                lifetime: 36e5
+                name: "paypal"
             }).getID();
             var pageUrl = window.location.href.split("#")[0] + "#close";
             appInstalledPromise.then((function(app) {
