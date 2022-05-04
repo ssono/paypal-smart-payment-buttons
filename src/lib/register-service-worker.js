@@ -28,28 +28,29 @@ const {
 } = SERVICE_WORKER;
 const LOG_PREFIX = 'SERVICE_WORKER_';
 
-const isLocalhost = Boolean(
-    [ 'localhost', '[::1]', 'localhost.paypal.com' ].includes(window.location.hostname)
-);
-
-// eslint-disable-next-line compat/compat
-const broadcast = new BroadcastChannel(LOGS_CHANNEL_NAME);
-
-// Listen SW flush logs event
-broadcast.addEventListener('message', (event : Event) => {
-    // $FlowFixMe
-    const { payload = false, eventName } = event.data;
-    if (payload) {
-        if (eventName === GET_SW_LOGS_RESPONSE_EVENT_NAME) {
-            // eslint-disable-next-line no-console
-            console.log('sw logs', payload);
-        }
-    }
-});
+let broadcastChannel = {};
 
 const requestSwLogs = () => {
-    broadcast.postMessage({
+    broadcastChannel.postMessage({
         type: GET_SW_LOGS_EVENT_NAME
+    });
+};
+
+const startBroadCastChannel = () => {
+    // eslint-disable-next-line compat/compat
+    broadcastChannel = new BroadcastChannel(LOGS_CHANNEL_NAME);
+};
+
+const listenBroadCastChannelEvents = () => {
+    // Listen SW flush logs event
+    broadcastChannel.addEventListener('message', (event : Event) => {
+        // $FlowFixMe
+        const { payload = [], eventName } = event.data;
+        if (payload && eventName === GET_SW_LOGS_RESPONSE_EVENT_NAME) {
+            getLogger().info(`${ LOG_PREFIX }LOGS`, {
+                logs: JSON.stringify(payload)
+            }).flush();
+        }
     });
 };
 
@@ -61,7 +62,7 @@ function listenButtonClick() {
 }
 
 // eslint-disable-next-line promise/no-native, no-restricted-globals, flowtype/no-weak-types
-function fetchFile(url) : Promise<any> {
+export function fetchFile(url : string) : Promise<any> {
     // eslint-disable-next-line compat/compat
     return fetch(url)
         .then((response) => response.json())
@@ -70,20 +71,17 @@ function fetchFile(url) : Promise<any> {
         });
 }
 
-function registerValidSW(swUrl) {
+function startRegistration(swUrl) {
     if (navigator.serviceWorker) {
         navigator.serviceWorker
             .register(swUrl, { scope: SW_SCOPE })
             .then((registration) => {
-                // eslint-disable-next-line no-console
-                console.log('SW Registered', registration);
+                getLogger().info(`${ LOG_PREFIX }REGISTERED`).flush();
                 registration.addEventListener('updatefound', () => {
                     const installingWorker = registration.installing;
                     if (installingWorker) {
                         installingWorker.addEventListener('statechange', () => {
                             const state = installingWorker.state;
-                            // eslint-disable-next-line no-console
-                            console.log('SW state', state);
                             if (state === 'activated') {
                                 requestSwLogs();
                             }
@@ -94,39 +92,9 @@ function registerValidSW(swUrl) {
             })
             .catch((err) => {
                 getLogger().error(`${ LOG_PREFIX }ERROR_REGISTERING`, { err: stringifyError(err) }).flush();
-                // eslint-disable-next-line no-console
-                console.error('Error during service worker registration:', err);
             });
     }
 }
-
-function checkValidServiceWorker(swUrl) {
-    // Check if the service worker can be found. If it can't reload the page.
-    // eslint-disable-next-line compat/compat
-    fetch(swUrl)
-        .then((response) => {
-            // Ensure service worker exists, and that we really are getting a JS file.
-            const contentType = response.headers.get('content-type');
-            if (response.status === 404 || !(contentType && contentType.includes('javascript'))) {
-                // No service worker found. Probably a different app. Reload the page.
-                if (navigator.serviceWorker) {
-                    navigator.serviceWorker.ready.then((registration) => {
-                        registration.unregister().then(() => {
-                            window.location.reload();
-                        });
-                    });
-                }
-            } else {
-                // Service worker found. Proceed as normal.
-                registerValidSW(swUrl);
-            }
-        })
-        .catch(() => {
-            // eslint-disable-next-line no-console
-            console.log('No internet connection found. App is running in offline mode.');
-        });
-}
-
 
 function register(releaseHash, userDir = false) {
     const swParameters = [ `releaseHash=${ releaseHash }` ];
@@ -135,12 +103,7 @@ function register(releaseHash, userDir = false) {
     }
     let swUrl = SW_URL;
     swUrl += swParameters.join('&');
-    if (isLocalhost) {
-        checkValidServiceWorker(swUrl);
-    } else {
-        // Is not local host. Just register service worker
-        registerValidSW(swUrl);
-    }
+    startRegistration(swUrl);
 }
 
 // eslint-disable-next-line promise/no-native, no-restricted-globals, flowtype/no-weak-types
@@ -152,8 +115,7 @@ function getCurrentRelease() : Promise<any> {
                 reject(err);
             })
             .then((value) => {
-                // eslint-disable-next-line no-console
-                console.log('release resolved');
+                getLogger().info(`${ LOG_PREFIX }RELEASE_CONFIG_RESOLVED`).flush();
                 resolve(value);
             });
     }));
@@ -164,24 +126,30 @@ export function registerServiceWorker() {
     const clientUrl = new URL(window.location.href);
     const smokeHash = clientUrl.searchParams.get('smokeHash');
     const userDir = clientUrl.searchParams.get('userDir');
-    if ('serviceWorker' in navigator) {
-        listenButtonClick();
-        const releaseHashHandler = function (release) {
-            if (release && release.current) {
-                register(release.current);
+    try {
+        if ('serviceWorker' in navigator) {
+            listenButtonClick();
+            startBroadCastChannel();
+            listenBroadCastChannelEvents();
+            const releaseHashHandler = function (release) {
+                if (release && release.current) {
+                    register(release.current);
+                }
+            };
+            if (smokeHash && userDir) {
+                register(smokeHash, userDir);
+            } else {
+                getCurrentRelease()
+                    .then(releaseHashHandler)
+                    .catch((err) => {
+                        getLogger().error(`${ LOG_PREFIX }ERROR_FETCHING_RELEASE_CONFIG`, { err: stringifyError(err) }).flush();
+                    });
             }
-        };
-        if (smokeHash && userDir) {
-            register(smokeHash, userDir);
         } else {
-            getCurrentRelease()
-                .then(releaseHashHandler)
-                .catch((err) => {
-                    getLogger().error(`${ LOG_PREFIX }ERROR_FETCHING_RELEASE_CONFIG`, { err: stringifyError(err) }).flush();
-                });
+            getLogger().info(`${ LOG_PREFIX }NOT_SUPPORTED`).flush();
         }
-    } else {
-        getLogger().info(`${ LOG_PREFIX }NOT_SUPPORTED`).flush();
+    } catch (err) {
+        getLogger().error(`${ LOG_PREFIX }ERROR_DURING_INITIALIZATION`, { err: stringifyError(err) }).flush();
     }
 }
 
