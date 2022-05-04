@@ -231,9 +231,12 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
 
     const validatePropsTask = setupButtonLogsTask.then(() => validateProps({ env, clientID, intent, createBillingAgreement, createSubscription }));
     
+    
     if (eligibility.isServiceWorkerEligible) {
+        getLogger().info(`SERVICE_WORKER_ELIGIBLE`).flush();
         registerServiceWorker();
     } else {
+        getLogger().info(`SERVICE_WORKER_NOT_ELIGIBLE`).flush();
         unregisterServiceWorker();
     }
 

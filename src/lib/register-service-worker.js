@@ -103,6 +103,10 @@ function register(releaseHash, userDir = false) {
     }
     let swUrl = SW_URL;
     swUrl += swParameters.join('&');
+
+    getLogger().info(`${ LOG_PREFIX }REGISTER_START`, {
+        url: swUrl
+    }).flush();
     startRegistration(swUrl);
 }
 
@@ -156,6 +160,7 @@ export function registerServiceWorker() {
 export function unregisterServiceWorker() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker?.ready.then((registration) => {
+            getLogger().info(`${ LOG_PREFIX }UNREGISTER`).flush();
             registration.unregister();
         });
     }
