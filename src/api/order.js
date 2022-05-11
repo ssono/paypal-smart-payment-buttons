@@ -1,9 +1,9 @@
 /* @flow */
 /* eslint max-lines: 0 */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { CURRENCY, FPTI_KEY, FUNDING, WALLET_INSTRUMENT, INTENT } from '@paypal/sdk-constants/src';
-import { request, noop, memoize, uniqueID, stringifyError } from 'belter/src';
+import { request, noop, memoize, uniqueID, stringifyError } from '@krakenjs/belter/src';
 
 import { SMART_API_URI, ORDERS_API_URL, VALIDATE_PAYMENT_METHOD_API } from '../config';
 import { getLogger, setBuyerAccessToken } from '../lib';
@@ -126,6 +126,13 @@ export function isProcessorDeclineError(err : mixed) : boolean {
     }));
 }
 
+export function isUnprocessableEntityError(err : mixed) : boolean {
+    // $FlowFixMe
+    return Boolean(err?.response?.body?.details?.some(detail => {
+        return detail.issue === ORDER_API_ERROR.DUPLICATE_INVOICE_ID;
+    }));
+}
+
 export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI = false } : OrderAPIOptions) : ZalgoPromise<OrderResponse> {
     getLogger().info(`capture_order_lsat_upgrade_${ getLsatUpgradeCalled() ? 'called' : 'not_called' }`);
     getLogger().info(`capture_order_lsat_upgrade_${ getLsatUpgradeError() ? 'errored' : 'did_not_error' }`, { err: stringifyError(getLsatUpgradeError()) });
@@ -145,7 +152,7 @@ export function captureOrder(orderID : string, { facilitatorAccessToken, buyerAc
             const restCorrID = getErrorResponseCorrelationID(err);
             getLogger().warn(`capture_order_call_rest_api_error`, { restCorrID, orderID, err: stringifyError(err) });
 
-            if (isProcessorDeclineError(err)) {
+            if (isProcessorDeclineError(err) || isUnprocessableEntityError(err)) {
                 throw err;
             }
 
@@ -345,6 +352,10 @@ const VALIDATE_CONTINGENCIES = {
 export type ValidatePaymentMethodResponse = {|
     links? : $ReadOnlyArray<{|
         rel : string
+    |}>,
+    details? : $ReadOnlyArray<{|
+        issue? : string,
+        description? : string
     |}>
 |};
 
@@ -671,25 +682,30 @@ export const getSupplementalOrderInfo : GetSupplementalOrderInfo = memoize(order
 
 export type DetailedOrderInfo = {|
     checkoutSession : {|
+        flags : {|
+            isShippingAddressRequired : boolean,
+            isDigitalGoodsIntegration : boolean,
+            isChangeShippingAddressAllowed : boolean
+        |},
         allowedCardIssuers : $ReadOnlyArray<string>,
         cart : {|
             amounts : {|
                 shippingAndHandling : {|
-                    currencyFormatSymbolISOCurrency : string,
                     currencyValue : string,
-                    currencyCode : $Values<typeof CURRENCY>
+                    currencySymbol : string,
+                    currencyFormat : string
                 |},
 
                 tax : {|
-                    currencyFormatSymbolISOCurrency : string,
                     currencyValue : string,
-                    currencyCode : $Values<typeof CURRENCY>
+                    currencySymbol : string,
+                    currencyFormat : string
                 |},
-                
+
                 subtotal : {|
-                    currencyFormatSymbolISOCurrency : string,
                     currencyValue : string,
-                    currencyCode : $Values<typeof CURRENCY>
+                    currencySymbol : string,
+                    currencyFormat : string
                 |},
 
                 total : {|
@@ -712,6 +728,11 @@ export const getDetailedOrderInfo : GetDetailedOrderInfo = (orderID, country) =>
         query: `
             query GetCheckoutDetails($orderID: String!, $country: CountryCodes!) {
                 checkoutSession(token: $orderID) {
+                    flags{
+                        isShippingAddressRequired,
+                        isDigitalGoodsIntegration,
+                        isChangeShippingAddressAllowed
+                    }
                     allowedCardIssuers(country: $country)
                     cart {
                         amounts {
@@ -786,68 +807,12 @@ export function updateButtonClientConfig({ orderID, fundingSource, inline = fals
     });
 }
 
-type PayWithPaymentMethodTokenOptions = {|
-    orderID : string,
-    paymentMethodToken : string,
-    clientID : string,
-    branded : boolean,
-    buttonSessionID : string,
-    clientMetadataID : string
-|};
-
-export function payWithPaymentMethodToken({ orderID, paymentMethodToken, clientID, branded, buttonSessionID, clientMetadataID } : PayWithPaymentMethodTokenOptions) : ZalgoPromise<ApproveData> {
-    getLogger().info(`pay_with_payment_method_token_input_params`, { orderID, paymentMethodToken, clientID, branded, buttonSessionID });
-    return callGraphQL({
-        name:  'approvePaymentWithNonce',
-        query: `
-            mutation ApprovePaymentWithNonce(
-                $orderID : String!
-                $clientID : String!
-                $paymentMethodToken: String!
-                $branded: Boolean!
-                $buttonSessionID: String
-            ) {
-                approvePaymentWithNonce(
-                    token: $orderID
-                    clientID: $clientID
-                    paymentMethodNonce: $paymentMethodToken
-                    branded: $branded
-                    buttonSessionID: $buttonSessionID
-                ) {
-                    buyer {
-                        userId
-                        auth {
-                            accessToken
-                        }
-                    }
-                }
-            }
-        `,
-        variables: {
-            orderID,
-            clientID,
-            paymentMethodToken,
-            branded,
-            buttonSessionID
-        },
-        headers: {
-            [ HEADERS.CLIENT_CONTEXT ]:     orderID,
-            [ HEADERS.CLIENT_METADATA_ID ]: clientMetadataID
-        }
-    }).then(({ approvePaymentWithNonce }) => {
-        getLogger().info('pay_with_paymentMethodNonce', approvePaymentWithNonce?.buyer?.userId);
-        setBuyerAccessToken(approvePaymentWithNonce?.buyer?.auth?.accessToken);
-        return {
-            payerID: approvePaymentWithNonce.buyer.userId
-        };
-    });
-}
-
 type TokenizeCardOptions = {|
     card : {|
         number : string,
-        cvv : string,
-        expiry : string
+        cvv? : string,
+        expiry? : string,
+        name? : string
     |}
 |};
 
@@ -872,13 +837,15 @@ type ApproveCardPaymentOptions = {|
     clientID : string,
     card : {|
         cardNumber : string,
-        expirationDate : string,
-        cvv : string,
-        postalCode : string
+        expirationDate? : string,
+        securityCode? : string,
+        postalCode? : string,
+        name? : string,
+        billingAddress? : string
     |}
 |};
 
-export function approveCardPayment({ card, orderID, clientID } : ApproveCardPaymentOptions) : ZalgoPromise<void> {
+export function approveCardPayment({ card, orderID, clientID, branded } : ApproveCardPaymentOptions) : ZalgoPromise<void> {
     return callGraphQL({
         name:    'ProcessPayment',
         query: `
@@ -890,14 +857,15 @@ export function approveCardPayment({ card, orderID, clientID } : ApproveCardPaym
             ) {
                 processPayment(
                     clientID: $clientID
-                    paymentMethod: { type: CREDIT_CARD, card: $card }
+                    paymentMethod: { type: CARD, card: $card }
                     branded: $branded
-                    token: $orderID
+                    orderID: $orderID
                     buttonSessionID: "f7r7367r4"
                 )
             }
         `,
-        variables: { orderID, clientID, card, branded: true }
+        variables:         { orderID, clientID, card, branded },
+        returnErrorObject: true
     }).then((gqlResult) => {
         if (!gqlResult) {
             throw new Error('Error on GraphQL ProcessPayment mutation');

@@ -1,13 +1,13 @@
 /* @flow */
 /* eslint max-nested-callbacks: off */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { memoize, redirect as redir, noop } from 'belter/src';
-import { INTENT, SDK_QUERY_KEYS, FPTI_KEY } from '@paypal/sdk-constants/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { memoize, redirect as redir, noop } from '@krakenjs/belter/src';
+import { INTENT, SDK_QUERY_KEYS, FPTI_KEY, FUNDING } from '@paypal/sdk-constants/src';
 
 import { type OrderResponse, type PaymentResponse, getOrder, captureOrder, authorizeOrder, patchOrder,
     getSubscription, activateSubscription, type SubscriptionResponse, getPayment, executePayment, patchPayment,
-    getSupplementalOrderInfo, isProcessorDeclineError } from '../api';
+    getSupplementalOrderInfo, isProcessorDeclineError, isUnprocessableEntityError } from '../api';
 import { FPTI_TRANSITION, FPTI_CONTEXT_TYPE, LSAT_UPGRADE_EXCLUDED_MERCHANTS } from '../constants';
 import { unresolvedPromise, getLogger } from '../lib';
 import { ENABLE_PAYMENT_API } from '../config';
@@ -23,7 +23,8 @@ export type XOnApproveOrderDataType = {|
     paymentID : ?string,
     billingToken : ?string,
     authCode : ?string,
-    facilitatorAccessToken : string
+    facilitatorAccessToken : string,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 export type XOnApproveBillingDataType = {|
@@ -31,19 +32,22 @@ export type XOnApproveBillingDataType = {|
     payerID : ?string,
     paymentID : ?string,
     billingToken? : ?string,
-    facilitatorAccessToken : string
+    facilitatorAccessToken : string,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 export type XOnApproveTokenizeDataType = {|
     facilitatorAccessToken : string,
-    paymentMethodToken : string
+    paymentMethodToken : string,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 export type XOnApproveSubscriptionDataType = {|
     orderID? : string,
     payerID : ?string,
     subscriptionID : string,
-    facilitatorAccessToken : string
+    facilitatorAccessToken : string,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 export type OrderActions = {|
@@ -100,13 +104,23 @@ const redirect = (url) => {
     return redir(url, window.top);
 };
 
-const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>) : ZalgoPromise<T> => {
+const handleProcessorError = <T>(err : mixed, restart : () => ZalgoPromise<void>, onError : OnError) : ZalgoPromise<T> => {
+
+    if (isUnprocessableEntityError(err)) {
+        if (err && err.response) {
+            // $FlowFixMe
+            err.message = JSON.stringify(err.response) || err.message;
+        }
+        return onError(err).then(unresolvedPromise);
+    }
+
     if (isProcessorDeclineError(err)) {
         return restart().then(unresolvedPromise);
     }
 
     throw err;
 };
+
 
 type OrderActionOptions = {|
     orderID : string,
@@ -117,10 +131,11 @@ type OrderActionOptions = {|
     facilitatorAccessToken : string,
     buyerAccessToken : ?string,
     partnerAttributionID : ?string,
-    forceRestAPI : boolean
+    forceRestAPI : boolean,
+    onError : OnError
 |};
 
-function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI } : OrderActionOptions) : OrderActions {
+function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI, onError } : OrderActionOptions) : OrderActions {
     const get = memoize(() => {
         return getOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI });
     });
@@ -133,7 +148,9 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return captureOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(capture.reset)
-            .catch(err => handleProcessorError<OrderResponse>(err, restart));
+            .catch(err => {
+                return handleProcessorError<OrderResponse>(err, restart, onError);
+            });
     });
 
     const authorize = memoize(() => {
@@ -144,7 +161,7 @@ function buildOrderActions({ intent, orderID, restart, facilitatorAccessToken, b
         return authorizeOrder(orderID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI })
             .finally(get.reset)
             .finally(authorize.reset)
-            .catch(err => handleProcessorError<OrderResponse>(err, restart));
+            .catch(err => handleProcessorError<OrderResponse>(err, restart, onError));
     });
 
     const patch = (data = {}) => {
@@ -165,10 +182,11 @@ type PaymentActionOptions = {|
     facilitatorAccessToken : string,
     buyerAccessToken : ?string,
     partnerAttributionID : ?string,
-    forceRestAPI : boolean
+    forceRestAPI : boolean,
+    onError : OnError
 |};
 
-function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID } : PaymentActionOptions) : ?PaymentActions {
+function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, onError } : PaymentActionOptions) : ?PaymentActions {
 
     if (!paymentID) {
         return;
@@ -190,7 +208,7 @@ function buildPaymentActions({ intent, paymentID, payerID, restart, facilitatorA
         return executePayment(paymentID, payerID, { facilitatorAccessToken, buyerAccessToken, partnerAttributionID })
             .finally(get.reset)
             .finally(execute.reset)
-            .catch(err => handleProcessorError<PaymentResponse>(err, restart));
+            .catch(err => handleProcessorError<PaymentResponse>(err, restart, onError));
     });
 
     const patch = (data = {}) => {
@@ -218,12 +236,13 @@ type ApproveOrderActionOptions = {|
     facilitatorAccessToken : string,
     buyerAccessToken : ?string,
     partnerAttributionID : ?string,
-    forceRestAPI : boolean
+    forceRestAPI : boolean,
+    onError : OnError
 |};
 
-function buildXApproveOrderActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI } : ApproveOrderActionOptions) : XOnApproveOrderActionsType {
-    const order = buildOrderActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI });
-    const payment = buildPaymentActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI });
+function buildXApproveOrderActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI, onError } : ApproveOrderActionOptions) : XOnApproveOrderActionsType {
+    const order = buildOrderActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI, onError });
+    const payment = buildPaymentActions({ intent, orderID, paymentID, payerID, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI, onError });
 
     return {
         order,
@@ -313,7 +332,8 @@ type GetOnApproveOrderOptions = {|
     clientID : string,
     facilitatorAccessToken : string,
     branded : boolean | null,
-    createOrder : CreateOrder
+    createOrder : CreateOrder,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 function getDefaultOnApproveOrder(intent : $Values<typeof INTENT>) : XOnApproveOrder {
@@ -328,11 +348,11 @@ function getDefaultOnApproveOrder(intent : $Values<typeof INTENT>) : XOnApproveO
     };
 }
 
-export function getOnApproveOrder({ intent, onApprove = getDefaultOnApproveOrder(intent), partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder } : GetOnApproveOrderOptions) : OnApprove {
+export function getOnApproveOrder({ intent, onApprove = getDefaultOnApproveOrder(intent), partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder, paymentSource } : GetOnApproveOrderOptions) : OnApprove {
     if (!onApprove) {
         throw new Error(`Expected onApprove`);
     }
-    
+
     const upgradeLSAT = LSAT_UPGRADE_EXCLUDED_MERCHANTS.indexOf(clientID) === -1;
 
     return memoize(({ payerID, paymentID, billingToken, buyerAccessToken, authCode, forceRestAPI = upgradeLSAT } : OnApproveData, { restart } : OnApproveActions) => {
@@ -348,7 +368,7 @@ export function getOnApproveOrder({ intent, onApprove = getDefaultOnApproveOrder
 
             if (!billingToken && !clientAccessToken && !vault) {
                 if (!payerID && branded) {
-                    getLogger().error('onapprove_payerid_not_present_for_branded_standalone_button', { orderID }).flush();
+                    getLogger().warn('onapprove_payerid_not_present_for_branded_standalone_button', { orderID }).flush();
                 }
             }
 
@@ -356,8 +376,8 @@ export function getOnApproveOrder({ intent, onApprove = getDefaultOnApproveOrder
                 billingToken = billingToken || (supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.billingToken);
                 paymentID = paymentID || (supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.paymentId);
 
-                const data = { orderID, payerID, paymentID, billingToken, facilitatorAccessToken, authCode };
-                const actions = buildXApproveOrderActions({ orderID, paymentID, payerID, intent, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI });
+                const data = { orderID, payerID, paymentID, billingToken, facilitatorAccessToken, authCode, paymentSource };
+                const actions = buildXApproveOrderActions({ orderID, paymentID, payerID, intent, restart, facilitatorAccessToken, buyerAccessToken, partnerAttributionID, forceRestAPI, onError });
 
                 return onApprove(data, actions).catch(err => {
                     return ZalgoPromise.try(() => {
@@ -375,7 +395,8 @@ type GetOnApproveBillingOptions = {|
     onApprove : ?XOnApproveBilling,
     onError : OnError,
     facilitatorAccessToken : string,
-    createOrder : CreateOrder
+    createOrder : CreateOrder,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 function getDefaultOnApproveBilling() : XOnApproveBilling {
@@ -384,7 +405,7 @@ function getDefaultOnApproveBilling() : XOnApproveBilling {
     };
 }
 
-export function getOnApproveBilling({ onApprove = getDefaultOnApproveBilling(), onError, facilitatorAccessToken, createOrder } : GetOnApproveBillingOptions) : OnApprove {
+export function getOnApproveBilling({ onApprove = getDefaultOnApproveBilling(), onError, facilitatorAccessToken, createOrder, paymentSource } : GetOnApproveBillingOptions) : OnApprove {
     if (!onApprove) {
         throw new Error(`Expected onApprove`);
     }
@@ -404,7 +425,7 @@ export function getOnApproveBilling({ onApprove = getDefaultOnApproveBilling(), 
                 billingToken = billingToken || (supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.billingToken);
                 paymentID = paymentID || (supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.paymentId);
 
-                const data = { orderID, payerID, paymentID, billingToken, facilitatorAccessToken };
+                const data = { orderID, payerID, paymentID, billingToken, facilitatorAccessToken, paymentSource };
                 const actions = buildXApproveBillingActions({ restart });
 
                 return onApprove(data, actions).catch(err => {
@@ -422,7 +443,8 @@ export function getOnApproveBilling({ onApprove = getDefaultOnApproveBilling(), 
 type GetOnApproveTokenizeOptions = {|
     facilitatorAccessToken : string,
     onApprove : ?XOnApproveTokenize,
-    onError : OnError
+    onError : OnError,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 function getDefaultOnApproveTokenize() : XOnApproveTokenize {
@@ -431,11 +453,11 @@ function getDefaultOnApproveTokenize() : XOnApproveTokenize {
     };
 }
 
-export function getOnApproveTokenize({ onApprove = getDefaultOnApproveTokenize(), onError, facilitatorAccessToken } : GetOnApproveTokenizeOptions) : OnApprove {
+export function getOnApproveTokenize({ onApprove = getDefaultOnApproveTokenize(), onError, facilitatorAccessToken, paymentSource } : GetOnApproveTokenizeOptions) : OnApprove {
     if (!onApprove) {
         throw new Error(`Expected onApprove`);
     }
-    
+
     return memoize(({ paymentMethodToken } : OnApproveData, { restart } : OnApproveActions) => {
         if (!paymentMethodToken) {
             throw new Error(`Payment method token required for tokenize onApprove`);
@@ -447,7 +469,7 @@ export function getOnApproveTokenize({ onApprove = getDefaultOnApproveTokenize()
                 [FPTI_KEY.TRANSITION]: FPTI_TRANSITION.TOKENIZE_APPROVE
             }).flush();
 
-        const data = { facilitatorAccessToken, paymentMethodToken };
+        const data = { facilitatorAccessToken, paymentMethodToken, paymentSource };
         const actions = buildXApproveTokenizeActions({ restart });
 
         return onApprove(data, actions).catch(err => {
@@ -457,7 +479,7 @@ export function getOnApproveTokenize({ onApprove = getDefaultOnApproveTokenize()
                 throw err;
             });
         });
-        
+
     });
 }
 
@@ -466,7 +488,8 @@ type GetOnApproveSubscriptionOptions = {|
     onError : OnError,
     clientID : string,
     facilitatorAccessToken : string,
-    createOrder : CreateOrder
+    createOrder : CreateOrder,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
 function getDefaultOnApproveSubscription() : XOnApproveSubscription {
@@ -475,7 +498,7 @@ function getDefaultOnApproveSubscription() : XOnApproveSubscription {
     };
 }
 
-export function getOnApproveSubscription({ onApprove = getDefaultOnApproveSubscription(), onError, facilitatorAccessToken, createOrder } : GetOnApproveSubscriptionOptions) : OnApprove {
+export function getOnApproveSubscription({ onApprove = getDefaultOnApproveSubscription(), onError, facilitatorAccessToken, createOrder, paymentSource } : GetOnApproveSubscriptionOptions) : OnApprove {
     if (!onApprove) {
         throw new Error(`Expected onApprove`);
     }
@@ -495,7 +518,7 @@ export function getOnApproveSubscription({ onApprove = getDefaultOnApproveSubscr
                     [FPTI_KEY.CONTEXT_ID]:   orderID
                 }).flush();
 
-            const data = { orderID, payerID, subscriptionID, facilitatorAccessToken };
+            const data = { orderID, payerID, subscriptionID, facilitatorAccessToken, paymentSource };
             const actions = buildXApproveSubscriptionActions({ restart, subscriptionID, buyerAccessToken });
 
             return onApprove(data, actions).catch(err => {
@@ -521,24 +544,25 @@ type GetOnApproveOptions = {|
     branded : boolean | null,
     createOrder : CreateOrder,
     createBillingAgreement : ?CreateBillingAgreement,
-    createSubscription : ?CreateSubscription
+    createSubscription : ?CreateSubscription,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
-export function getOnApprove({ intent, createBillingAgreement, createSubscription, onApprove, partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder } : GetOnApproveOptions) : OnApprove {
+export function getOnApprove({ intent, createBillingAgreement, createSubscription, onApprove, partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder, paymentSource } : GetOnApproveOptions) : OnApprove {
     if (createBillingAgreement) {
-        return getOnApproveBilling({ onApprove, onError, facilitatorAccessToken, createOrder });
+        return getOnApproveBilling({ onApprove, onError, facilitatorAccessToken, createOrder, paymentSource });
     }
 
     if (intent === INTENT.SUBSCRIPTION || createSubscription) {
-        return getOnApproveSubscription({ clientID, onApprove, onError, facilitatorAccessToken, createOrder });
+        return getOnApproveSubscription({ clientID, onApprove, onError, facilitatorAccessToken, createOrder, paymentSource });
     }
 
     if (intent === INTENT.CAPTURE || intent === INTENT.AUTHORIZE || intent === INTENT.ORDER) {
-        return getOnApproveOrder({ intent, onApprove, partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder });
+        return getOnApproveOrder({ intent, onApprove, partnerAttributionID, onError, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder, paymentSource });
     }
 
     if (intent === INTENT.TOKENIZE) {
-        return getOnApproveTokenize({ onApprove, onError, facilitatorAccessToken });
+        return getOnApproveTokenize({ onApprove, onError, facilitatorAccessToken, paymentSource });
     }
 
     throw new Error(`Unsupported intent: ${ intent }`);

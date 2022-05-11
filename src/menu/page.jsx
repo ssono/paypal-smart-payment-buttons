@@ -3,8 +3,8 @@
 
 import { h, render, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { noop } from 'belter/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { noop } from '@krakenjs/belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { getBody } from '../lib';
 
@@ -14,13 +14,14 @@ import { useXProps } from './hooks';
 const FADE_TIME = 150;
 
 type PageProps = {|
-    cspNonce : string
+    cspNonce : string,
+    pageVisible? : boolean
 |};
 
-function Page({ cspNonce } : PageProps) : mixed {
+function Page({ cspNonce, pageVisible = false } : PageProps) : mixed {
     const { choices, onChoose, verticalOffset, hide, onBlur = noop, onFocus = noop, onFocusFail = noop } = useXProps();
     const [ opaque, setOpaque ] = useState(false);
-    const [ visible, setVisible ] = useState(false);
+    const [ visible, setVisible ] = useState(pageVisible);
 
     useEffect(() => {
         const hasChoices = Boolean(choices && choices.length);
@@ -68,13 +69,13 @@ function Page({ cspNonce } : PageProps) : mixed {
             {
                 (choices && visible)
                     ? <Menu
-                        choices={ choices }
-                        onChoose={ onChooseHandler }
-                        onBlur={ onBlurHandler }
-                        onFocus={ onFocus }
-                        onFocusFail={ onFocusFail }
-                        cspNonce={ cspNonce }
-                        verticalOffset={ verticalOffset } />
+                            choices={ choices }
+                            onChoose={ onChooseHandler }
+                            onBlur={ onBlurHandler }
+                            onFocus={ onFocus }
+                            onFocusFail={ onFocusFail }
+                            cspNonce={ cspNonce }
+                            verticalOffset={ verticalOffset } />
                     : null
             }
         </Fragment>
@@ -82,10 +83,10 @@ function Page({ cspNonce } : PageProps) : mixed {
 }
 
 type SetupOptions = {|
-    cspNonce : string
+    cspNonce : string,
+    pageVisible? : boolean
 |};
 
-export function setupMenu({ cspNonce } : SetupOptions) {
-    render(<Page cspNonce={ cspNonce } />, getBody());
+export function setupMenu({ cspNonce, pageVisible = false } : SetupOptions) {
+    render(<Page cspNonce={ cspNonce } pageVisible={ pageVisible } />, getBody());
 }
- 

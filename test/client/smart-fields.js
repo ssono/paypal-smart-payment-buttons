@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint  max-nested-callbacks: off */
 /* eslint  max-lines: off */
-import { wrapPromise } from 'belter/src';
+import { wrapPromise } from '@krakenjs/belter/src';
 import { FUNDING } from '@paypal/sdk-constants';
 
 import type { SmartFields } from '../../src/types';
@@ -868,6 +868,36 @@ describe('smart-fields', () => {
             return await wrapPromise(async ({ expect }) => {
     
                 const fundingSource = FUNDING.VERKKOPANKKI;
+    
+                const smartFieldsIfrm = renderSmartFieldsMock({
+                    fundingSource,
+                    isValid:       expect('isValid', () => false)
+                });
+    
+                const fundingEligibility = {
+                    [fundingSource]: {
+                        eligible: true
+                    }
+                };
+    
+                createButtonHTML({ fundingEligibility });
+    
+                await mockSetupButton({
+                    merchantID:         [ 'XYZ12345' ],
+                    fundingEligibility
+                });
+    
+                await clickButton(fundingSource);
+    
+                smartFieldsIfrm.done();
+    
+            });
+        });
+
+        it('should not call confirm if invalid', async () => {
+            return await wrapPromise(async ({ expect }) => {
+    
+                const fundingSource = FUNDING.MULTIBANCO;
     
                 const smartFieldsIfrm = renderSmartFieldsMock({
                     fundingSource,

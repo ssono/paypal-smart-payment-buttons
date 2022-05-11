@@ -1,16 +1,16 @@
 /* @flow */
 /* eslint max-lines: off, max-nested-callbacks: off */
 
-import { cleanup, memoize, stringifyError, stringifyErrorMessage, noop } from 'belter/src';
+import { cleanup, memoize, stringifyError, stringifyErrorMessage, noop } from '@krakenjs/belter/src';
 import { FPTI_KEY, FUNDING } from '@paypal/sdk-constants/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { getDetailedOrderInfo, approveApplePayPayment, getApplePayMerchantSession } from '../../api';
 import { getLogger, promiseNoop, unresolvedPromise } from '../../lib';
 import { FPTI_CUSTOM_KEY, FPTI_STATE, FPTI_TRANSITION } from '../../constants';
-import type { ApplePayPaymentContact, ApplePayShippingMethod, ApplePayShippingMethodUpdate, ApplePayShippingContactUpdate, PaymentFlow, PaymentFlowInstance, IsEligibleOptions, IsPaymentEligibleOptions, InitOptions } from '../types';
+import type { ApplePayLineItem, ApplePayPaymentContact, ApplePayShippingMethod, ApplePayShippingMethodUpdate, ApplePayShippingContactUpdate, PaymentFlow, PaymentFlowInstance, IsEligibleOptions, IsPaymentEligibleOptions, InitOptions } from '../types';
 
-import { createApplePayRequest, isJSON, validateShippingContact } from './utils';
+import { createApplePayRequest, isJSON, validateShippingContact, isZeroAmount } from './utils';
 
 const SUPPORTED_VERSION = 4;
 
@@ -75,6 +75,36 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
         });
     }
 
+    // eslint-disable-next-line flowtype/no-mutable-array
+    function updateNewLineItems({ subtotal, tax, shipping, shippingLabel, shippingIdentifier } : {| subtotal : string, tax : string, shipping : string, shippingLabel : ?string, shippingIdentifier : ?string |}) : Array<ApplePayLineItem> {
+        const newLineItems = [];
+
+        if (subtotal && !isZeroAmount(subtotal)) {
+            newLineItems.push({
+                label:  'Subtotal',
+                amount: subtotal
+            });
+        }
+        
+        if (tax && !isZeroAmount(tax)) {
+            newLineItems.push({
+                label:  'Sales Tax',
+                amount: tax
+            });
+        }
+
+        const isPickup = shippingIdentifier === 'PICKUP';
+
+        if ((shipping && !isZeroAmount(shipping)) || isPickup) {
+            newLineItems.push({
+                label:  shippingLabel || 'Shipping',
+                amount: shipping
+            });
+        }
+
+        return newLineItems;
+    }
+
     function initApplePaySession() : ZalgoPromise<void> {
         let currentTotalAmount;
         let currentSubtotalAmount;
@@ -84,27 +114,25 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
         let currentShippingMethod;
 
         const onShippingChangeCallback = <T>({ orderID, shippingContact, shippingMethod = null } : {| orderID : string, shippingContact : ApplePayPaymentContact, shippingMethod? : ?ApplePayShippingMethod |}) : ZalgoPromise<T> => {
+
             if (!onShippingChange) {
                 const update = {
                     newTotal: {
                         label:  'Total',
                         amount: currentTotalAmount
                     },
-                    newLineItems: [
-                        {
-                            label:  'Subtotal',
-                            amount: currentSubtotalAmount
-                        },
-                        {
-                            label:  'Sales Tax',
-                            amount: currentTaxAmount
-                        },
-                        {
-                            label:  currentShippingMethod?.label || 'Shipping',
-                            amount: currentShippingAmount
-                        }
-                    ]
+                    newLineItems: []
                 };
+
+                update.newLineItems = updateNewLineItems(
+                    {
+                        shipping:           currentShippingAmount,
+                        subtotal:           currentSubtotalAmount,
+                        tax:                currentTaxAmount,
+                        shippingLabel:      currentShippingMethod?.label,
+                        shippingIdentifier: currentShippingMethod?.identifier
+                    }
+                );
 
                 // $FlowFixMe
                 return ZalgoPromise.resolve(update);
@@ -119,21 +147,17 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
                         label:  'Total',
                         amount: currentTotalAmount
                     },
-                    newLineItems: [
-                        {
-                            label:  'Subtotal',
-                            amount: currentSubtotalAmount
-                        },
-                        {
-                            label:  'Sales Tax',
-                            amount: currentTaxAmount
-                        },
-                        {
-                            label:  currentShippingMethod?.label || 'Shipping',
-                            amount: currentShippingAmount
-                        }
-                    ]
+                    newLineItems: []
                 };
+                update.newLineItems = updateNewLineItems(
+                    {
+                        shipping:           currentShippingAmount,
+                        subtotal:           currentSubtotalAmount,
+                        tax:                currentTaxAmount,
+                        shippingLabel:      currentShippingMethod?.label,
+                        shippingIdentifier: currentShippingMethod?.identifier
+                    }
+                );
 
                 // $FlowFixMe
                 return ZalgoPromise.resolve(update);
@@ -217,21 +241,17 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
                                 label:  'Total',
                                 amount: updatedTotalValue
                             },
-                            newLineItems: [
-                                {
-                                    label:  'Subtotal',
-                                    amount: currentSubtotalAmount
-                                },
-                                {
-                                    label:  'Sales Tax',
-                                    amount: currentTaxAmount
-                                },
-                                {
-                                    label:  currentShippingMethod?.label || 'Shipping',
-                                    amount: currentShippingAmount
-                                }
-                            ]
+                            newLineItems: []
                         };
+                        update.newLineItems = updateNewLineItems(
+                            {
+                                shipping:           currentShippingAmount,
+                                subtotal:           currentSubtotalAmount,
+                                tax:                currentTaxAmount,
+                                shippingLabel:      currentShippingMethod?.label,
+                                shippingIdentifier: currentShippingMethod?.identifier
+                            }
+                        );
 
                         // $FlowFixMe
                         return ZalgoPromise.resolve(update);
@@ -330,27 +350,15 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
                                 },
                                 newLineItems: []
                             };
-
-                            if (subtotalValue && subtotalValue.length) {
-                                update.newLineItems.push({
-                                    label:  'Subtotal',
-                                    amount: currentSubtotalAmount
-                                });
-                            }
-                    
-                            if (taxValue && taxValue.length) {
-                                update.newLineItems.push({
-                                    label:  'Sales Tax',
-                                    amount: currentTaxAmount
-                                });
-                            }
-
-                            if (shippingValue && shippingValue.length) {
-                                update.newLineItems.push({
-                                    label:  currentShippingMethod?.label || 'Shipping',
-                                    amount: currentShippingAmount
-                                });
-                            }
+                            update.newLineItems = updateNewLineItems(
+                                {
+                                    shipping:           currentShippingAmount,
+                                    subtotal:           currentSubtotalAmount,
+                                    tax:                currentTaxAmount,
+                                    shippingLabel:      currentShippingMethod?.label,
+                                    shippingIdentifier: currentShippingMethod?.identifier
+                                }
+                            );
 
                             completePaymentMethodSelection(update);
                         }
@@ -372,27 +380,16 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
                                         },
                                         newLineItems: []
                                     };
+                                    update.newLineItems = updateNewLineItems(
+                                        {
+                                            shipping:           currentShippingAmount,
+                                            subtotal:           currentSubtotalAmount,
+                                            tax:                currentTaxAmount,
+                                            shippingLabel:      shippingMethod?.label,
+                                            shippingIdentifier: currentShippingMethod?.identifier
+                                        }
+                                    );
 
-                                    if (subtotalValue && subtotalValue.length) {
-                                        update.newLineItems.push({
-                                            label:  'Subtotal',
-                                            amount: currentSubtotalAmount
-                                        });
-                                    }
-                                    
-                                    if (taxValue && taxValue.length) {
-                                        update.newLineItems.push({
-                                            label:  'Sales Tax',
-                                            amount: currentTaxAmount
-                                        });
-                                    }
-
-                                    if (shippingValue && shippingValue.length) {
-                                        update.newLineItems.push({
-                                            label:  currentShippingMethod?.label || 'Shipping',
-                                            amount: currentShippingAmount
-                                        });
-                                    }
                                     completeShippingMethodSelection(update);
                                 });
                         }
@@ -418,8 +415,13 @@ function initApplePay({ props, payment, serviceData } : InitOptions) : PaymentFl
                             }
                             
                             // For some reason country code comes back as lowercase from Apple
-                            applePayPayment.shippingContact.countryCode = applePayPayment.shippingContact.countryCode.toUpperCase();
-                            applePayPayment.billingContact.countryCode = applePayPayment.billingContact.countryCode.toUpperCase();
+                            if (applePayPayment.shippingContact && applePayPayment.shippingContact.countryCode) {
+                                applePayPayment.shippingContact.countryCode = applePayPayment.shippingContact.countryCode.toUpperCase();
+                            }
+
+                            if (applePayPayment.billingContact && applePayPayment.billingContact.countryCode) {
+                                applePayPayment.billingContact.countryCode = applePayPayment.billingContact.countryCode.toUpperCase();
+                            }
 
                             // call graphQL mutation passing in token, billingContact and shippingContact
                             approveApplePayPayment(orderID, clientID, applePayPayment)

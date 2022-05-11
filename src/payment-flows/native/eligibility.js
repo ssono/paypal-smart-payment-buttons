@@ -1,10 +1,10 @@
 /* @flow */
 
-import type { ZalgoPromise } from 'zalgo-promise/src';
+import type { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { ENV, FUNDING, PLATFORM } from '@paypal/sdk-constants/src';
-import { supportsPopups, isIos, isAndroid } from 'belter/src';
-import type { CrossDomainWindowType } from 'cross-domain-utils/src';
-import type { ProxyWindow } from 'post-robot/src';
+import { supportsPopups, isIos, isAndroid } from '@krakenjs/belter/src';
+import type { CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
+import type { ProxyWindow } from '@krakenjs/post-robot/src';
 
 import { type NativeEligibility, getNativeEligibility } from '../../api';
 import { enableAmplitude, getStorageState, isIOSSafari, isAndroidChrome, toProxyWindow } from '../../lib';
@@ -135,11 +135,17 @@ export function canUseNativeQRCode({ fundingSource, win } : {| fundingSource : ?
 }
 
 export function isNativeEligible({ props, config, serviceData } : IsEligibleOptions) : boolean {
-    const { clientID, fundingSource, onShippingChange, createBillingAgreement, createSubscription, env } = props;
+    const { clientID, fundingSource, onShippingChange, createBillingAgreement, createSubscription, env, platform } = props;
     const { firebase: firebaseConfig } = config;
-    const { merchantID } = serviceData;
+    const { cookies, merchantID, fundingEligibility } = serviceData;
+    const isVenmoEligible = fundingEligibility?.venmo?.eligible;
 
     if (!firebaseConfig) {
+        return false;
+    }
+
+    // If Desktop and venmo not eligible, native payment flow is not eligible
+    if (platform && platform === PLATFORM.DESKTOP && !isVenmoEligible) {
         return false;
     }
 
@@ -147,11 +153,15 @@ export function isNativeEligible({ props, config, serviceData } : IsEligibleOpti
         return false;
     }
 
+    if (isNativeOptOut()) {
+        return false;
+    }
+    
     if (isNativeOptedIn({ props })) {
         return true;
     }
 
-    if (isNativeOptOut()) {
+    if (!cookies && fundingSource === FUNDING.PAYPAL) {
         return false;
     }
 

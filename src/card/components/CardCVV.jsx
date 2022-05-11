@@ -9,6 +9,7 @@ import type { CardType, CardCvvChangeEvent, CardNavigation, FieldValidity, Input
 
 type CardCvvProps = {|
     name : string,
+    autocomplete? : string,
     ref : () => void,
     type : string,
     state? : InputState,
@@ -29,6 +30,7 @@ type CardCvvProps = {|
 export function CardCVV(
     {
         name = 'cvv',
+        autocomplete = 'cc-csc',
         navigation = defaultNavigation,
         allowNavigation = false,
         state,
@@ -46,7 +48,7 @@ export function CardCVV(
     } : CardCvvProps
 ) : mixed {
     const [ inputState, setInputState ] : [ InputState, (InputState | InputState => InputState) => InputState ] = useState({ ...defaultInputState, ...state });
-    const { inputValue, keyStrokeCount, isValid, isPossibleValid } = inputState;
+    const { inputValue, keyStrokeCount, isValid, isPotentiallyValid } = inputState;
 
     useEffect(() => {
         const validity = checkCVV(inputValue, cardType);
@@ -55,12 +57,12 @@ export function CardCVV(
 
     useEffect(() => {
         if (typeof onValidityChange === 'function') {
-            onValidityChange({ isValid, isPossibleValid });
+            onValidityChange({ isValid, isPotentiallyValid });
         }
         if (allowNavigation && inputValue && isValid) {
             navigation.next();
         }
-    }, [ isValid, isPossibleValid ]);
+    }, [ isValid, isPotentiallyValid ]);
 
     const setCvvValue : (InputEvent) => void = (event : InputEvent) : void => {
         const { value : rawValue } = event.target;
@@ -87,7 +89,7 @@ export function CardCVV(
             onFocus(event);
         }
         if (!isValid) {
-            setInputState({ ...inputState, isPossibleValid: true });
+            setInputState(newState => ({ ...newState, isPotentiallyValid: true }));
         }
     };
 
@@ -96,13 +98,14 @@ export function CardCVV(
             onBlur(event);
         }
         if (!isValid) {
-            setInputState({ ...inputState, isPossibleValid: false });
+            setInputState(newState => ({ ...newState, isPotentiallyValid: false }));
         }
     };
 
     return (
         <input
             name={ name }
+            autocomplete={ autocomplete }
             inputmode='numeric'
             ref={ ref }
             type={ type }

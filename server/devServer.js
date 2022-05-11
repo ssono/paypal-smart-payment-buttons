@@ -5,7 +5,7 @@ import { randomBytes } from 'crypto';
 import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import { noop } from 'belter';
+import { noop } from '@krakenjs/belter';
 import { FUNDING } from '@paypal/sdk-constants';
 
 import { WEBPACK_CONFIG_BUTTONS_LOCAL_DEBUG } from '../webpack.config';
@@ -229,7 +229,6 @@ const getMerchantID = () => {
 };
 
 const getPersonalizationEnabled = () => true;
-const isFundingSourceBranded = () => Promise.resolve(true);
 
 const getInstanceLocationInformation = () => {
     return {
@@ -281,7 +280,6 @@ const buttonMiddleware = getButtonMiddleware({
     content,
     tracking,
     getPersonalizationEnabled,
-    isFundingSourceBranded,
     getInstanceLocationInformation,
     getSDKLocationInformation
 });

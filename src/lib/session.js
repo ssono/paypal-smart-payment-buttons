@@ -1,11 +1,13 @@
 /* @flow */
 
-import { hashStr, getStorage, type Storage } from 'belter/src';
+import { hashStr, getStorage, type Storage } from '@krakenjs/belter/src';
 import getBrowserFingerprint from 'get-browser-fingerprint';
 
 function getSDKStorage() : Storage {
+    const STORAGE_LIFETIME_1_HOUR = 60 * 60 * 1000;
     return getStorage({
-        name: 'paypal'
+        name:     'paypal',
+        lifetime: STORAGE_LIFETIME_1_HOUR
     });
 }
 

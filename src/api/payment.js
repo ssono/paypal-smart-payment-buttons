@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { ZalgoPromise } from 'zalgo-promise/src';
+import type { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FPTI_KEY } from '@paypal/sdk-constants/src';
 
 import { PAYMENTS_API_URL } from '../config';
@@ -139,7 +139,7 @@ export function approveApplePayPayment(orderID : string, clientID : string, appl
                 $orderID: String!
                 $clientID : String!
                 $billingContact: ApplePayPaymentContact!
-                $shippingContact: ApplePayPaymentContact!
+                $shippingContact: ApplePayPaymentContact
             ) {
                 approveApplePayPayment(
                     token: $token

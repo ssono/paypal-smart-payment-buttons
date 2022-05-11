@@ -1,7 +1,7 @@
 /* @flow */
 
 import { FUNDING } from '@paypal/sdk-constants';
-import { wrapPromise } from 'belter/src';
+import { wrapPromise } from '@krakenjs/belter/src';
 
 import { promiseNoop } from '../../src/lib';
 
@@ -273,6 +273,34 @@ describe('funding source cases', () => {
 
             const fundingEligibility = {
                 trustly: {
+                    eligible: true
+                }
+            };
+
+            createButtonHTML({ fundingEligibility });
+
+            await mockSetupButton({ merchantID: [ 'XYZ12345' ], fundingEligibility });
+
+            await clickButton(fundingSource);
+        });
+    });
+
+    it('should render a button, click the button, and render checkout with trustly funding source', async () => {
+        return await wrapPromise(async ({ expect }) => {
+            const fundingSource = FUNDING.MULTIBANCO;
+
+            mockFunction(window.paypal, 'Checkout', expect('Checkout', ({ args: [ props ] }) => {
+                if (props.fundingSource !== fundingSource) {
+                    throw new Error(`Expected fundingSource to be ${ fundingSource }, got ${ props.fundingSource }`);
+                }
+
+                return {
+                    renderTo: promiseNoop
+                };
+            }));
+
+            const fundingEligibility = {
+                multibanco: {
                     eligible: true
                 }
             };

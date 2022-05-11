@@ -203,6 +203,9 @@ export async function graphQL(req : ExpressRequest, payload : $ReadOnlyArray<{| 
                     },
                     mercadopago: {
                         eligible: false
+                    },
+                    multibanco: {
+                        eligible: false
                     }
                 }
             };
@@ -234,10 +237,6 @@ export function transportRiskData() : Promise<void> {
 
 export function getPersonalizationEnabled() : boolean {
     return true;
-}
-
-export function isFundingSourceBranded() : Promise<boolean> {
-    return Promise.resolve(true);
 }
 
 export function getInstanceLocationInformation() : InstanceLocationInformation {

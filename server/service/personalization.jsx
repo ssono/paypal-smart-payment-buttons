@@ -2,8 +2,9 @@
 /** @jsx node */
 
 import { COUNTRY, CURRENCY, INTENT, COMMIT, VAULT, FUNDING, FPTI_KEY } from '@paypal/sdk-constants';
-import type { ComponentFunctionType } from 'jsx-pragmatic/src';
-import { node } from 'jsx-pragmatic';
+import type { FundingEligibilityType } from '@paypal/sdk-constants/src/types';
+import type { ComponentFunctionType } from '@krakenjs/jsx-pragmatic/src';
+import { node } from '@krakenjs/jsx-pragmatic';
 import { LOGO_COLOR, PPLogo, PayPalLogo } from '@paypal/sdk-logos';
 
 import { PERSONALIZATION_TIMEOUT, TIMEOUT_ERROR_MESSAGE, FPTI_STATE } from '../config';
@@ -52,6 +53,9 @@ const PERSONALIZATION_QUERY = `
         $period: String,
         $taglineEnabled: Boolean,
         $renderedButtons: [FundingButtonType]
+        $layout: ButtonLayouts
+        $buttonSize: ButtonSizes,
+        $creditRiskVerified: Boolean
     ) {
         checkoutCustomization(
             clientId: $clientID,
@@ -70,6 +74,9 @@ const PERSONALIZATION_QUERY = `
             installmentPeriod: $period,
             taglineEnabled: $taglineEnabled,
             renderedButtons: $renderedButtons
+            layout: $layout
+            buttonSize: $buttonSize,
+            creditRiskVerified: $creditRiskVerified
         ) {
             tagline {
                 text
@@ -79,6 +86,14 @@ const PERSONALIZATION_QUERY = `
                 }
             }
             buttonText {
+                text
+                tracking {
+                    impression
+                    click
+                }
+            }
+            buttonDesign {
+                id
                 text
                 tracking {
                     impression
@@ -103,7 +118,10 @@ export type PersonalizationOptions = {|
     period : ?number,
     tagline? : boolean | string,
     personalizationEnabled : boolean,
-    renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>
+    renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
+    layout? : string,
+    buttonSize? : string,
+    fundingEligibility : FundingEligibilityType
 |};
 
 function getDefaultPersonalization() : Personalization {
@@ -134,8 +152,8 @@ function contentToJSX(content : string) : ComponentFunctionType<PersonalizationC
 }
 
 export async function resolvePersonalization(req : ExpressRequest, gqlBatch : GraphQLBatchCall, personalizationOptions : PersonalizationOptions) : Promise<Personalization> {
-    let { logger, clientID, locale, buyerCountry, buttonSessionID, currency, intent, commit,
-        vault, label, period, tagline, personalizationEnabled, renderedButtons } = personalizationOptions;
+    let { logger, clientID, locale, buyerCountry, buttonSessionID, currency, intent, commit, vault, label,
+        period, tagline, personalizationEnabled, renderedButtons, layout, buttonSize, fundingEligibility } = personalizationOptions;
 
     if (!personalizationEnabled) {
         return getDefaultPersonalization();
@@ -144,19 +162,45 @@ export async function resolvePersonalization(req : ExpressRequest, gqlBatch : Gr
     const ip = req.ip;
     const cookies = req.get('cookie') || '';
     const userAgent = req.get('user-agent') || '';
+    const creditRiskVerified = fundingEligibility && fundingEligibility.credit?.eligible;
 
     intent = intent ? intent.toUpperCase() : intent;
     label = label ? label.toUpperCase() : label;
 
     const taglineEnabled = tagline === true || tagline === 'true';
+    const personalizationVariables = {
+        clientID,
+        locale,
+        buyerCountry,
+        currency,
+        intent,
+        commit,
+        vault,
+        ip,
+        cookies,
+        userAgent,
+        buttonSessionID,
+        label,
+        period,
+        taglineEnabled,
+        renderedButtons,
+        layout,
+        buttonSize,
+        creditRiskVerified
+    };
+
+    // Fix enum checking errors for strings on graphql by only sending truthy variables
+    for (const key of Object.keys(personalizationVariables)) {
+        if (personalizationVariables[key] === '') {
+            delete personalizationVariables[key];
+        }
+    }
+
     try {
         const result = await gqlBatch({
             query:     PERSONALIZATION_QUERY,
-            variables: {
-                clientID, locale, buyerCountry, currency, intent, commit, vault, ip, cookies, userAgent,
-                buttonSessionID, label, period, taglineEnabled, renderedButtons
-            },
-            timeout: PERSONALIZATION_TIMEOUT
+            variables: personalizationVariables,
+            timeout:   PERSONALIZATION_TIMEOUT
         });
 
         const personalization = result.checkoutCustomization;

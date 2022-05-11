@@ -1,8 +1,8 @@
 /* @flow */
 
-import { onClick as onElementClick, querySelectorAll, noop, stringifyErrorMessage, stringifyError, preventClickFocus } from 'belter/src';
+import { onClick as onElementClick, querySelectorAll, noop, stringifyErrorMessage, stringifyError, preventClickFocus } from '@krakenjs/belter/src';
 import { COUNTRY, FPTI_KEY, type FundingEligibilityType } from '@paypal/sdk-constants/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import type { ContentType, Wallet, PersonalizationType } from '../types';
 import { getLogger, getSmartFieldsByFundingSource } from '../lib';
@@ -67,7 +67,7 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
         sdkMeta, buyerAccessToken, wallet, content, personalization });
     const { merchantID, buyerCountry } = serviceData;
 
-    const props = getButtonProps({ facilitatorAccessToken, brandedDefault });
+    const props = getButtonProps({ facilitatorAccessToken, brandedDefault, paymentSource: null });
     const { env, sessionID, partnerAttributionID, commit, sdkCorrelationID, locale, onShippingChange,
         buttonSessionID, merchantDomain, onInit, getPrerenderDetails, rememberFunding, getQueriedEligibleFunding,
         style, fundingSource, intent, createBillingAgreement, createSubscription, stickinessID } = props;
@@ -163,7 +163,8 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
             event.preventDefault();
             event.stopPropagation();
 
-            const paymentProps = getButtonProps({ facilitatorAccessToken, brandedDefault });
+            const paymentProps = getButtonProps({ facilitatorAccessToken, brandedDefault, paymentSource: paymentFundingSource });
+
             const payPromise = initiatePayment({ payment, props: paymentProps });
             const { onError } = paymentProps;
 
@@ -204,7 +205,7 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
                 throw new Error(`Can not find button element`);
             }
 
-            const paymentProps = getButtonProps({ facilitatorAccessToken, brandedDefault });
+            const paymentProps = getButtonProps({ facilitatorAccessToken, brandedDefault, paymentSource: paymentFundingSource });
             const payment = { win, button, fundingSource: paymentFundingSource, card, buyerIntent: BUYER_INTENT.PAY };
             const payPromise = initiatePayment({ payment, props: paymentProps });
             const { onError } = paymentProps;
@@ -226,7 +227,7 @@ export function setupButton(opts : ButtonOpts) : ZalgoPromise<void> {
         stickinessID, buttonCorrelationID, locale, merchantID, buttonSessionID, merchantDomain,
         fundingSource, getQueriedEligibleFunding, buyerCountry, onShippingChange });
     const setupPaymentFlowsTask = setupPaymentFlows({ props, config, serviceData, components });
-    const setupExportsTask = setupExports({ props, isEnabled, facilitatorAccessToken });
+    const setupExportsTask = setupExports({ props, isEnabled, facilitatorAccessToken, fundingEligibility, merchantID });
 
     const validatePropsTask = setupButtonLogsTask.then(() => validateProps({ env, clientID, intent, createBillingAgreement, createSubscription }));
 

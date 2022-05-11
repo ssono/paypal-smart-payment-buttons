@@ -1,10 +1,10 @@
 /* @flow */
 /* eslint require-await: off, max-lines: off, max-nested-callbacks: off */
 
-import { wrapPromise, parseQuery, uniqueID, noop } from 'belter/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { wrapPromise, parseQuery, uniqueID, noop } from '@krakenjs/belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FUNDING, PLATFORM } from '@paypal/sdk-constants/src';
-import { isWindowClosed } from 'cross-domain-utils/src';
+import { isWindowClosed } from '@krakenjs/cross-domain-utils/src';
 
 import { promiseNoop } from '../../src/lib';
 
@@ -129,6 +129,7 @@ const sendRedirectMessage = ({ mockWindow, expect, redirect = true, url = EXPECT
     return mockWindow.send({
         name:   'awaitRedirect',
         data:   {
+            app:      null,
             redirect: true,
             pageUrl:  `${ window.location.href }#${ hash }`
         }
@@ -252,7 +253,8 @@ const setupNativeButton = () => {
         eligibility: {
             cardFields: false,
             native:     true
-        }
+        },
+        cookies: 's@paypal.com'
     });
 };
 

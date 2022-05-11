@@ -50,7 +50,7 @@ function QRCard({
     svgString : string
 |}) : mixed {
 
-    const { state, errorText, setState, close } = useXProps();
+    const { state, errorText, setState, close, onCancel: cancel } = useXProps();
     const survey = useSurvey();
     const isError = () => {
         return state === QRCODE_STATE.ERROR;
@@ -66,7 +66,7 @@ function QRCard({
 
     const onCloseClick = () => {
         if (state !== QRCODE_STATE.DEFAULT) {
-            close();
+            cancel();
         } else if (survey.isEnabled) {
             logger.info(`VenmoDesktopPay_qrcode_survey`).track({
                 [FPTI_KEY.STATE]:                               FPTI_STATE.BUTTON,
@@ -75,10 +75,18 @@ function QRCard({
                 [FPTI_KEY.TRANSITION]:                          `${ FPTI_TRANSITION.QR_SURVEY }`,
                 [FPTI_CUSTOM_KEY.DESKTOP_EXIT_SURVEY_REASON]:   survey.reason
             }).flush();
-            close();
-        } else {
-            survey.enable();
+            cancel();
         }
+
+        /**
+         * Survey will be reused in the future.  Supressing the enablement on the close button.
+         *
+         *  } else {
+         *       survey.enable();
+         *  }
+         */
+
+        return cancel();
     };
 
     const errorMessage = (
@@ -109,9 +117,10 @@ function QRCard({
     );
 
     const displaySurvey = survey.isEnabled && state === QRCODE_STATE.DEFAULT;
+    const displayEscapePath = !survey.isEnabled && state === QRCODE_STATE.DEFAULT;
 
     const content = displaySurvey ? surveyElement : frontView;
-    const escapePathFooter = !survey.isEnabled && (
+    const escapePathFooter = displayEscapePath && (
         <p className="escape-path">Don&apos;t have the app? Pay with <span className="escape-path__link" onClick={ () => handleClick(FUNDING.PAYPAL) }>PayPal</span> or <span className="escape-path__link" onClick={ () => handleClick(FUNDING.CARD) }>Credit/Debit card</span></p>
     );
 

@@ -3,7 +3,7 @@
 import { join, dirname } from 'path';
 import { readFileSync } from 'fs';
 
-import { noop } from 'belter';
+import { noop } from '@krakenjs/belter';
 import { ENV } from '@paypal/sdk-constants';
 
 import type { CacheType, InstanceLocationInformation, SDKLocationInformation } from '../../types';
@@ -118,3 +118,8 @@ export async function getSmartPaymentButtonsClientScript({ logBuffer, cache, deb
 
     return { script, version };
 }
+
+export const getRegisterServiceWorkerScript = function () : {|script : ?string|} {
+    const script = readFileSync(`${ ROOT }/dist/register-sw.min.js`).toString();
+    return { script };
+};

@@ -1,7 +1,8 @@
 /* @flow */
 
+// eslint-disable-next-line import/no-commonjs
 module.exports = {
-    'extends': require.resolve('grumbler-scripts/config/.eslintrc-browser'),
+    'extends': require.resolve('@krakenjs/grumbler-scripts/config/.eslintrc-browser'),
 
     'rules': {
         'react/display-name': 'off',
@@ -20,7 +21,10 @@ module.exports = {
         'files': ['**/*.test.js'],
         'env': {
           'jest': true
+        },
+        'globals': {
+            'JestMockFn': false
         }
     }],
-    'ignorePatterns': ['node-qrcode.js']    
+    'ignorePatterns': ['node-qrcode.js']
 };

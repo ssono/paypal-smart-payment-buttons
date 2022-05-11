@@ -1,12 +1,12 @@
 /* @flow */
 
-import { noop, stringifyError } from 'belter/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { noop, stringifyError } from '@krakenjs/belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FPTI_KEY } from '@paypal/sdk-constants/src';
 
-import { applepay, checkout, cardField, cardForm, native, brandedVaultCard, vaultCapture, walletCapture, popupBridge, type Payment, type PaymentFlow } from '../payment-flows';
+import { applepay, checkout, cardField, cardForm, native, vaultCapture, walletCapture, popupBridge, type Payment, type PaymentFlow } from '../payment-flows';
 import { getLogger, sendBeacon } from '../lib';
-import { FPTI_TRANSITION, BUYER_INTENT, FPTI_CONTEXT_TYPE, FPTI_CUSTOM_KEY } from '../constants';
+import { AMPLITUDE_KEY, FPTI_TRANSITION, BUYER_INTENT, FPTI_CONTEXT_TYPE, FPTI_CUSTOM_KEY } from '../constants';
 import { updateButtonClientConfig } from '../api';
 import { getConfirmOrder } from '../props/confirmOrder';
 import { enableVaultSetup } from '../middleware';
@@ -17,7 +17,6 @@ import { validateOrder } from './validation';
 import { showButtonSmartMenu } from './menu';
 
 const PAYMENT_FLOWS : $ReadOnlyArray<PaymentFlow> = [
-    brandedVaultCard,
     vaultCapture,
     walletCapture,
     cardField,
@@ -74,7 +73,7 @@ export function initiatePaymentFlow({ payment, serviceData, config, components, 
     return ZalgoPromise.try(() => {
         const { merchantID, personalization, fundingEligibility, buyerCountry } = serviceData;
         const { clientID, onClick, createOrder, env, vault, partnerAttributionID, userExperienceFlow, buttonSessionID, intent, currency,
-            clientAccessToken, createBillingAgreement, createSubscription, commit, disableFunding, disableCard, userIDToken, enableNativeCheckout  } = props;
+            clientAccessToken, createBillingAgreement, createSubscription, commit, disableFunding, disableCard, userIDToken, enableNativeCheckout } = props;
         
         sendPersonalizationBeacons(personalization);
 
@@ -94,10 +93,12 @@ export function initiatePaymentFlow({ payment, serviceData, config, components, 
             .info(`button_click_instrument_${ instrumentType || 'default' }`)
             .addTrackingBuilder(() => {
                 return {
-                    [FPTI_KEY.CHOSEN_FUNDING]: fundingSource,
-                    [FPTI_KEY.CONTEXT_TYPE]:   FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID,
-                    [FPTI_KEY.CONTEXT_ID]:     buttonSessionID,
-                    [FPTI_KEY.TOKEN]:          null
+                    [FPTI_KEY.CHOSEN_FUNDING]:     fundingSource,
+                    [FPTI_KEY.CONTEXT_TYPE]:       FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID,
+                    [FPTI_KEY.CONTEXT_ID]:         buttonSessionID,
+                    [FPTI_KEY.BUTTON_SESSION_UID]: buttonSessionID,
+                    [AMPLITUDE_KEY.USER_ID]:       buttonSessionID,
+                    [FPTI_KEY.TOKEN]:              null
                 };
             })
             .track({
@@ -107,6 +108,18 @@ export function initiatePaymentFlow({ payment, serviceData, config, components, 
                 [FPTI_KEY.IS_VAULT]:        instrumentType ? '1' : '0',
                 [FPTI_CUSTOM_KEY.INFO_MSG]: enableNativeCheckout ? 'tester' : ''
             }).flush();
+
+        const loggingPromise =  ZalgoPromise.try(() => {
+            return window.xprops.sessionState.get(`__confirm_${ fundingSource }_payload__`).then(confirmPayload => {
+                const fieldsSessionID = confirmPayload ? confirmPayload.payment_source[fundingSource].metadata.fieldsSessionID : '';
+                getLogger()
+                    .addTrackingBuilder(() => {
+                        return {
+                            [FPTI_KEY.FIELDS_COMPONENT_SESSION_ID]: fieldsSessionID
+                        };
+                    });
+            });
+        });
 
         const clickPromise = click ? ZalgoPromise.try(click) : ZalgoPromise.resolve();
         clickPromise.catch(noop);
@@ -170,6 +183,7 @@ export function initiatePaymentFlow({ payment, serviceData, config, components, 
             });
 
             return ZalgoPromise.all([
+                loggingPromise,
                 updateClientConfigPromise,
                 clickPromise,
                 vaultPromise,

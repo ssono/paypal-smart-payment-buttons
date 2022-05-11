@@ -1,9 +1,9 @@
 /* @flow */
 
 
-import { extendUrl, isDevice } from 'belter/src';
+import { extendUrl, isDevice } from '@krakenjs/belter/src';
 import { COUNTRY, ENV, FUNDING } from '@paypal/sdk-constants/src';
-import { getDomain } from 'cross-domain-utils/src';
+import { getDomain } from '@krakenjs/cross-domain-utils/src';
 
 import { WEB_CHECKOUT_URI } from '../../config';
 import { createExperiment, isIOSSafari } from '../../lib';
@@ -19,7 +19,7 @@ import { NATIVE_DOMAIN, HISTORY_NATIVE_POPUP_DOMAIN, MOBILE_NATIVE_POPUP_DOMAIN,
 export function getNativeDomain({ props } : {| props : ButtonProps |}) : string {
     const { env } = props;
 
-    if (env === ENV.LOCAL || (env === ENV.SANDBOX && isNativeOptedIn({ props }) && !(window.xprops && window.xprops.useCorrectNativeSandboxDomain))) {
+    if ((env === ENV.SANDBOX && isNativeOptedIn({ props }) && !(window.xprops && window.xprops.useCorrectNativeSandboxDomain))) {
         return 'https://www.paypal.com';
     }
 

@@ -1,10 +1,10 @@
 /* @flow */
 
-import { noop, type CleanupType } from 'belter/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { noop, type CleanupType } from '@krakenjs/belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FPTI_KEY, FUNDING, PLATFORM } from '@paypal/sdk-constants/src';
-import { type CrossDomainWindowType } from 'cross-domain-utils/src';
-import { type ProxyWindow } from 'post-robot/src';
+import { type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
+import { type ProxyWindow } from '@krakenjs/post-robot/src';
 
 import { getNativeEligibility } from '../../api';
 import { getLogger, getStorageID } from '../../lib';
@@ -206,12 +206,23 @@ export function initNativeQRCode({ props, serviceData, config, components, payme
                 return createOrder().then((orderID) => {
                     const url = getNativeUrl({ props, serviceData, config, fundingSource, sessionUID, orderID, stickinessID, pageUrl });
 
+                    const cancelModal = () => {
+                        return ZalgoPromise.try(() => {
+                            return onCancel();
+                        }).then(() => {
+                            // eslint-disable-next-line no-use-before-define
+                            qrCodeComponentInstance.close();
+                            return onDestroy();
+                        });
+                    };
+
                     const qrCodeComponentInstance = QRCode({
                         cspNonce:     config.cspNonce,
                         qrPath:       url,
                         state:        QRCODE_STATE.DEFAULT,
                         orderID,
                         onClose:      onQRClose,
+                        onCancel:     cancelModal,
                         onEscapePath
                     });
 
@@ -224,6 +235,7 @@ export function initNativeQRCode({ props, serviceData, config, components, payme
                             qrPath:       url,
                             orderID,
                             onClose:      onQRClose,
+                            onCancel:     cancelModal,
                             onEscapePath,
                             ...newState
                         });
@@ -256,11 +268,12 @@ export function initNativeQRCode({ props, serviceData, config, components, payme
                     };
 
                     const onCancelQR = () => {
-                        return updateQRCodeComponentState({
-                            state:     QRCODE_STATE.ERROR,
-                            errorText: 'The authorization was canceled'
-                        }).then(() => {
+                        return ZalgoPromise.try(() => {
                             return onCancel();
+                        }).then(() => {
+                            return closeQRCode('onCancel');
+                        }).then(() => {
+                            return { buttonSessionID };
                         });
                     };
 

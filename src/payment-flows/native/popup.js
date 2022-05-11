@@ -1,10 +1,10 @@
 /* @flow */
 
-import { stringifyError, noop, once, popup, type CleanupType } from 'belter/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { stringifyError, noop, once, popup, type CleanupType } from '@krakenjs/belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FPTI_KEY, FUNDING } from '@paypal/sdk-constants/src';
-import { type CrossDomainWindowType } from 'cross-domain-utils/src';
-import type { ProxyWindow } from 'post-robot/src';
+import { type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
+import type { ProxyWindow } from '@krakenjs/post-robot/src';
 
 import { getNativeEligibility, onLsatUpgradeCalled } from '../../api';
 import { getLogger, isAndroidChrome, unresolvedPromise, getStorageState, toProxyWindow, postRobotOnceProxy, onCloseProxyWindow } from '../../lib';
@@ -30,22 +30,60 @@ const POST_MESSAGE = {
 };
 
 type AppDetect = {|
+    id? : string,
     installed : boolean,
-    [ string ] : string
+    version? : string
 |};
 
 function logDetectedApp(app : AppDetect) {
     if (app) {
+        let logMessage = 'native_app';
         Object.keys(app).forEach(key => {
-            getLogger().info(`native_app_${ app.installed ? 'installed' : 'not_installed' }_${ key }`, { [key]: app[key] })
-                .track({
-                    [FPTI_KEY.STATE]:           FPTI_STATE.BUTTON,
-                    [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_APP_INSTALLED,
-                    [FPTI_CUSTOM_KEY.INFO_MSG]: `native_app_${ app.installed ? 'installed' : 'not_installed' }_${ key }: ${ app[key].toString() }`
-                })
-                .flush();
+            logMessage += `_${ String(app[key]) }`;
         });
+
+        getLogger().info(logMessage)
+            .track({
+                [FPTI_KEY.STATE]:           FPTI_STATE.BUTTON,
+                [FPTI_KEY.TRANSITION]:      FPTI_TRANSITION.NATIVE_APP_INSTALLED,
+                [FPTI_CUSTOM_KEY.INFO_MSG]: logMessage
+            })
+            .flush();
     }
+}
+
+type AppEligibleOptions = {|
+    fundingSource : $Values<typeof FUNDING>,
+    appDetect : AppDetect
+|};
+
+function versionIsEligible({ version } : {| version : ?string |}) : boolean {
+    if (!version) {
+        return false;
+    }
+
+    const num = version.split('.');
+    const v = parseInt(num.join(''), 10);
+
+    return v > 850;
+}
+
+function isDetectedAppEligible({ fundingSource, appDetect } : AppEligibleOptions) : boolean {
+    if (appDetect === null) {
+        return true;
+    }
+
+    if (fundingSource === FUNDING.PAYPAL) {
+        if (appDetect.installed && versionIsEligible({ version: appDetect?.version })) {
+            return true;
+        } else {
+            return false;
+        }
+    } else if (fundingSource === FUNDING.VENMO) {
+        return true;
+    }
+
+    return true;
 }
 
 type EligibilityOptions = {|
@@ -57,7 +95,6 @@ type EligibilityOptions = {|
     stickinessID : string,
     appDetect : AppDetect
 |};
-
 function getEligibility({ fundingSource, props, serviceData, sfvc, validatePromise, stickinessID, appDetect } : EligibilityOptions) : ZalgoPromise<boolean> {
     const { createOrder, onShippingChange, vault, platform, clientID, currency, buttonSessionID, enableFunding, merchantDomain } = props;
     const { buyerCountry, cookies, merchantID } = serviceData;
@@ -68,15 +105,15 @@ function getEligibility({ fundingSource, props, serviceData, sfvc, validatePromi
             return false;
         }
 
-        if (appDetect && !appDetect.installed) {
-            return false;
-        }
-
         if (isNativeOptedIn({ props })) {
             return true;
         }
 
-        if (sfvc) {
+        if (!isDetectedAppEligible({ fundingSource, appDetect })) {
+            return false;
+        }
+
+        if (sfvc && fundingSource !== FUNDING.VENMO) {
             return false;
         }
 

@@ -29,6 +29,8 @@ import './applepay';
 import './applepay-utils';
 import './exports';
 import './card-fields';
+import './data';
+import './menu';
 
 beforeEach(() => {
     setupMocks();

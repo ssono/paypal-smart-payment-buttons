@@ -5,12 +5,13 @@
 .*/node_modules/eslint-plugin-compat
 .*/node_modules/jsonlint
 .*/node_modules/flowgen
+.*/node_modules/resolve
 .*/dist/module
 [include]
 [libs]
 flow-typed
-node_modules/grumbler-scripts/declarations.js
-node_modules/post-robot/src/declarations.js
+node_modules/@krakenjs/grumbler-scripts/declarations.js
+node_modules/@krakenjs/post-robot/src/declarations.js
 src/declarations.js
 test/declarations.js
 [options]

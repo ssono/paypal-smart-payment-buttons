@@ -52,7 +52,8 @@ export const PREFER = {
 
 export const ORDER_API_ERROR = {
     INSTRUMENT_DECLINED:   'INSTRUMENT_DECLINED',
-    PAYER_ACTION_REQUIRED: 'PAYER_ACTION_REQUIRED'
+    PAYER_ACTION_REQUIRED: 'PAYER_ACTION_REQUIRED',
+    DUPLICATE_INVOICE_ID:  'DUPLICATE_INVOICE_ID'
 };
 
 export const CONTEXT = {
@@ -144,9 +145,9 @@ export const FPTI_TRANSITION = {
     NATIVE_POPUP_CLOSED:                    ('popup_closed' : 'popup_closed'),
     NATIVE_POPUP_HASHCHANGE:                ('popup_hashchange' : 'popup_hashchange'),
     NATIVE_POPUP_NO_OPENER:                 ('popup_no_opener' : 'popup_no_opener'),
-    NATIVE_POPUP_ANDROID_PAYPAL_APP_ERROR:  ('native_popup_android_paypal_app_installed_error' : 'native_popup_android_paypal_app_installed_error'),
-    NATIVE_POPUP_ANDROID_VENMO_APP_ERROR:   ('native_popup_android_venmo_app_installed_error' : 'native_popup_android_venmo_app_installed_error'),
+    NATIVE_POPUP_ANDROID_APP_ERROR:         ('native_popup_android_app_installed_error' : 'native_popup_android_app_installed_error'),
     NATIVE_POPUP_FALLBACK:                  ('popup_fallback' : 'popup_fallback'),
+    NATIVE_FALLBACK_RETRY_VENMO_APP_SWITCH: ('native_fallback_retry_venmo_app_switch', 'native_fallback_retry_venmo_app_switch'),
     NATIVE_POPUP_SHOWN:                     ('popup_shown' : 'popup_shown'),
     NATIVE_ON_APPROVE:                      ('native_onapprove' : 'native_onapprove'),
     NATIVE_ON_APPROVE_ERROR:                ('native_onapprove_error' : 'native_onapprove_error'),
@@ -233,7 +234,8 @@ export const FRAME_NAME = {
     CARD_FIELD:        'card-field',
     CARD_NUMBER_FIELD: 'card-number-field',
     CARD_CVV_FIELD:    'card-cvv-field',
-    CARD_EXPIRY_FIELD: 'card-expiry-field'
+    CARD_EXPIRY_FIELD: 'card-expiry-field',
+    CARD_NAME_FIELD:   'card-name-field'
 };
 
 export const AMPLITUDE_KEY = {
@@ -290,5 +292,6 @@ export const APM_LIST = [
     FUNDING.OXXO,
     FUNDING.BOLETO,
     FUNDING.WECHATPAY,
-    FUNDING.MERCADOPAGO
+    FUNDING.MERCADOPAGO,
+    FUNDING.MULTIBANCO
 ];

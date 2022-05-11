@@ -2,6 +2,8 @@
 
 import { COUNTRY, FUNDING, CARD, INTENT, type FundingEligibilityType } from '@paypal/sdk-constants/src';
 import type { InstallmentsFlowType } from '@paypal/installments/src/types';
+import type { CustomStyle } from '@paypal/checkout-components/src/types';
+import { EXPERIENCE } from '@paypal/checkout-components/src/constants/button';
 
 import type { ContentType, ProxyWindow, Wallet, CheckoutFlowType, CardFormFlowType,
     ThreeDomainSecureFlowType, MenuFlowType, PersonalizationType, QRCodeType } from '../types';
@@ -23,7 +25,8 @@ export type ButtonStyle = {|
     color : string,
     shape : string,
     label : string,
-    tagline : boolean | void
+    tagline : boolean | void,
+    custom? : CustomStyle
 |};
 
 export type ButtonXProps = {|
@@ -37,16 +40,18 @@ export type ButtonProps = {|
     ...Props,
 
     style : ButtonStyle,
+    inlinexo : boolean,
     buttonSessionID : string
 |};
 
-export function getButtonProps({ facilitatorAccessToken, brandedDefault } : {| facilitatorAccessToken : string, brandedDefault : boolean | null |}) : ButtonProps {
+export function getButtonProps({ facilitatorAccessToken, brandedDefault, paymentSource } : {| facilitatorAccessToken : string, brandedDefault : boolean | null, paymentSource : $Values<typeof FUNDING> | null |}) : ButtonProps {
     const xprops : ButtonXProps = window.xprops;
 
     let {
         buttonSessionID,
         style,
         branded,
+        experience,
         intent
     } = xprops;
 
@@ -97,10 +102,11 @@ export function getButtonProps({ facilitatorAccessToken, brandedDefault } : {| f
     }
 
     return {
-        ...getProps({ facilitatorAccessToken, branded }),
+        ...getProps({ facilitatorAccessToken, branded, paymentSource }),
         style,
         buttonSessionID,
-        branded
+        branded,
+        inlinexo: experience === EXPERIENCE.INLINE
     };
 }
 

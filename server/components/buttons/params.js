@@ -2,9 +2,10 @@
 /* eslint max-depth: off */
 
 import type { FundingEligibilityType } from '@paypal/sdk-constants/src/types';
+import type { CustomStyle } from '@paypal/checkout-components/src/types';
 import { ENV, COUNTRY, CURRENCY, INTENT, COMMIT, VAULT, CARD, FUNDING, DEFAULT_COUNTRY,
     COUNTRY_LANGS, PLATFORM, FUNDING_PRODUCTS, SDK_QUERY_KEYS, ERROR_CODE } from '@paypal/sdk-constants';
-import { values, constHas } from 'belter';
+import { values, constHas } from '@krakenjs/belter';
 
 import { HTTP_HEADER } from '../../config';
 import type { ExpressRequest, ExpressResponse, LocaleType, RiskData } from '../../types';
@@ -15,7 +16,9 @@ import { SPB_QUERY_KEYS } from './constants';
 type StyleType = {|
     label? : string,
     period? : ?number,
-    tagline? : boolean | string
+    tagline? : boolean | string,
+    layout? : string,
+    custom? : CustomStyle
 |};
 
 type ButtonInputParams = {|
@@ -47,13 +50,16 @@ type ButtonInputParams = {|
     branded? : boolean,
     fundingSource : $Values<typeof FUNDING>,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    allowBillingPayments? : boolean
+    allowBillingPayments? : boolean,
+    buttonSize? : string
 |};
 
 type Style = {|
     label : string,
     period : ?number,
-    tagline? : boolean | string
+    tagline? : boolean | string,
+    layout? : string,
+    custom? : CustomStyle
 |};
 
 type ButtonParams = {|
@@ -88,7 +94,8 @@ type ButtonParams = {|
     branded : ?boolean,
     fundingSource : $Values<typeof FUNDING>,
     renderedButtons : $ReadOnlyArray<$Values<typeof FUNDING>>,
-    allowBillingPayments : ?boolean
+    allowBillingPayments : ?boolean,
+    buttonSize? : string
 |};
 
 function getCookieString(req : ExpressRequest) : string {
@@ -297,10 +304,12 @@ function getStyle(params : ButtonInputParams) : Style {
     const {
         label = 'paypal',
         period,
-        tagline
+        tagline,
+        layout = '',
+        custom
     } = params.style || {};
 
-    return { label, period, tagline };
+    return { custom, label, period, tagline, layout };
 }
 
 export function getButtonParams(params : ButtonInputParams, req : ExpressRequest, res : ExpressResponse) : ButtonParams {
@@ -324,7 +333,8 @@ export function getButtonParams(params : ButtonInputParams, req : ExpressRequest
         userIDToken,
         debug = false,
         onShippingChange = false,
-        platform = PLATFORM.DESKTOP
+        platform = PLATFORM.DESKTOP,
+        buttonSize = ''
     } = params;
 
     const locale = getLocale(params);
@@ -375,7 +385,8 @@ export function getButtonParams(params : ButtonInputParams, req : ExpressRequest
         cookies,
         paymentMethodToken,
         branded,
-        allowBillingPayments
+        allowBillingPayments,
+        buttonSize
     };
 }
 

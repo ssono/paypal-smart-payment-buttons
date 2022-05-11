@@ -1,8 +1,9 @@
 /* @flow */
 
-import type { CrossDomainWindowType } from 'cross-domain-utils/src';
+import type { CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import { ENV, INTENT, COUNTRY, FUNDING, CARD, PLATFORM, CURRENCY } from '@paypal/sdk-constants/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { EXPERIENCE } from '@paypal/checkout-components/src/constants/button';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import type { LocaleType, ProxyWindow, Wallet, ConnectOptions } from '../types';
 import type { XApplePaySessionConfigRequest } from '../payment-flows/types';
@@ -41,6 +42,7 @@ export type XProps = {|
     sessionID : string,
     clientID : string,
     partnerAttributionID : ?string,
+    merchantRequestedPopupsDisabled : ?boolean,
     sdkCorrelationID : string,
     platform : $Values<typeof PLATFORM>,
     merchantID : $ReadOnlyArray<string>,
@@ -64,6 +66,7 @@ export type XProps = {|
     enableThreeDomainSecure : boolean,
     enableNativeCheckout : boolean | void,
     enableVaultInstallments : boolean,
+    experience : $Values<typeof EXPERIENCE>,
     getParentDomain : () => string,
     getPageUrl : GetPageURL,
     getParent : () => CrossDomainWindowType,
@@ -72,6 +75,7 @@ export type XProps = {|
     disableFunding : ?$ReadOnlyArray<$Values<typeof FUNDING>>,
     enableFunding : ?$ReadOnlyArray<$Values<typeof FUNDING>>,
     disableCard : ?$ReadOnlyArray<$Values<typeof CARD>>,
+    disableAutocomplete? : boolean,
     getQueriedEligibleFunding? : GetQueriedEligibleFunding,
     storageID? : string,
     stageHost : ?string,
@@ -105,6 +109,7 @@ export type Props = {|
     sessionID : string,
     clientID : string,
     partnerAttributionID : ?string,
+    merchantRequestedPopupsDisabled : ?boolean,
     clientMetadataID : ?string,
     sdkCorrelationID : string,
     platform : $Values<typeof PLATFORM>,
@@ -123,6 +128,7 @@ export type Props = {|
     enableThreeDomainSecure : boolean,
     enableNativeCheckout : boolean,
     enableVaultInstallments : boolean,
+    experience : string,
     merchantDomain : string,
     getPageUrl : GetPageURL,
     getParent : () => CrossDomainWindowType,
@@ -131,6 +137,7 @@ export type Props = {|
     disableFunding : $ReadOnlyArray<$Values<typeof FUNDING>>,
     enableFunding : $ReadOnlyArray<$Values<typeof FUNDING>>,
     disableCard : ?$ReadOnlyArray<$Values<typeof CARD>>,
+    disableAutocomplete? : boolean,
     getQueriedEligibleFunding : GetQueriedEligibleFunding,
 
     stageHost : ?string,
@@ -165,7 +172,7 @@ export type Props = {|
     allowBillingPayments : boolean
 |};
 
-export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAccessToken : string, branded : boolean | null |}) : Props {
+export function getProps({ facilitatorAccessToken, branded, paymentSource } : {| facilitatorAccessToken : string, branded : boolean | null, paymentSource : $Values<typeof FUNDING> | null |}) : Props {
     const xprops : XProps = window.xprops;
 
     let {
@@ -178,6 +185,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         sessionID,
         clientID,
         partnerAttributionID,
+        merchantRequestedPopupsDisabled,
         clientMetadataID,
         sdkCorrelationID,
         getParentDomain,
@@ -188,6 +196,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         enableThreeDomainSecure,
         enableVaultInstallments,
         enableNativeCheckout = false,
+        experience = '',
         remember: rememberFunding,
         stageHost,
         apiStageHost,
@@ -202,6 +211,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         enableFunding,
         disableFunding,
         disableCard,
+        disableAutocomplete,
         wallet,
         paymentMethodNonce,
         paymentMethodToken = paymentMethodNonce,
@@ -224,13 +234,13 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         ? storageID
         : getStorageID();
 
-    const createBillingAgreement = getCreateBillingAgreement({ createBillingAgreement: xprops.createBillingAgreement });
-    const createSubscription = getCreateSubscription({ createSubscription: xprops.createSubscription, partnerAttributionID, merchantID, clientID }, { facilitatorAccessToken });
+    const createBillingAgreement = getCreateBillingAgreement({ createBillingAgreement: xprops.createBillingAgreement, paymentSource });
+    const createSubscription = getCreateSubscription({ createSubscription: xprops.createSubscription, partnerAttributionID, merchantID, clientID, paymentSource }, { facilitatorAccessToken });
 
-    const createOrder = getCreateOrder({ createOrder: xprops.createOrder, currency, intent, merchantID, partnerAttributionID }, { facilitatorAccessToken, createBillingAgreement, createSubscription });
+    const createOrder = getCreateOrder({ createOrder: xprops.createOrder, currency, intent, merchantID, partnerAttributionID, paymentSource }, { facilitatorAccessToken, createBillingAgreement, createSubscription });
 
     const onError = getOnError({ onError: xprops.onError });
-    const onApprove = getOnApprove({ onApprove: xprops.onApprove, createBillingAgreement, createSubscription, intent, onError, partnerAttributionID, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder });
+    const onApprove = getOnApprove({ onApprove: xprops.onApprove, createBillingAgreement, createSubscription, intent, onError, partnerAttributionID, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder, paymentSource });
     const onCancel = getOnCancel({ onCancel: xprops.onCancel, onError }, { createOrder });
     const onShippingChange = getOnShippingChange({ onShippingChange: xprops.onShippingChange, partnerAttributionID, clientID }, { facilitatorAccessToken, createOrder });
     const onAuth = getOnAuth({ facilitatorAccessToken, createOrder, createSubscription, clientID });
@@ -255,6 +265,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         currency,
         intent,
         wallet,
+        merchantRequestedPopupsDisabled,
 
         getPopupBridge,
         getPrerenderDetails,
@@ -266,6 +277,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         enableFunding,
         disableFunding,
         disableCard,
+        disableAutocomplete,
         getQueriedEligibleFunding,
 
         amount,
@@ -274,6 +286,7 @@ export function getProps({ facilitatorAccessToken, branded } : {| facilitatorAcc
         enableThreeDomainSecure,
         enableNativeCheckout,
         enableVaultInstallments,
+        experience,
 
         onClick,
         onInit,

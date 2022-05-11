@@ -76,6 +76,7 @@ function buildFundingEligibilityQuery(basicFundingEligibility : FundingEligibili
 
     const getPayLaterProductsQuery = () => {
         return {
+            payIn3:   getPayLaterProductQuery(),
             payIn4:   getPayLaterProductQuery(),
             paylater: getPayLaterProductQuery()
         };
@@ -126,7 +127,9 @@ function buildFundingEligibilityQuery(basicFundingEligibility : FundingEligibili
         [ FUNDING.OXXO ]:        getBasicFundingEligibilityQuery(),
         [ FUNDING.MAXIMA ]:      getBasicFundingEligibilityQuery(),
         [ FUNDING.BOLETO ]:      getBasicFundingEligibilityQuery(),
-        [ FUNDING.MERCADOPAGO ]: getBasicFundingEligibilityQuery()
+        [ FUNDING.MERCADOPAGO ]: getBasicFundingEligibilityQuery(),
+        [ FUNDING.MULTIBANCO ]:  getBasicFundingEligibilityQuery()
+
     };
 
     return buildQuery({

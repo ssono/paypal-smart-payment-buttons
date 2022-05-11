@@ -1,19 +1,22 @@
 /* @flow */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { memoize, getQueryParam, stringifyError } from 'belter/src';
-import { FPTI_KEY, SDK_QUERY_KEYS, INTENT, CURRENCY } from '@paypal/sdk-constants/src';
-import { getDomain } from 'cross-domain-utils/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { memoize, getQueryParam, stringifyError } from '@krakenjs/belter/src';
+import { FPTI_KEY, SDK_QUERY_KEYS, INTENT, CURRENCY, FUNDING } from '@paypal/sdk-constants/src';
+import { getDomain } from '@krakenjs/cross-domain-utils/src';
 
 import { createOrderID, billingTokenToOrderID, subscriptionIdToCartId, createPaymentToken } from '../api';
 import { FPTI_STATE, FPTI_TRANSITION, FPTI_CONTEXT_TYPE } from '../constants';
 import { getLogger, isEmailAddress } from '../lib';
 import { ENABLE_PAYMENT_API } from '../config';
+import { cacheInitialData } from '../service-worker/initialData';
 
 import type { CreateSubscription } from './createSubscription';
 import type { CreateBillingAgreement } from './createBillingAgreement';
 
-export type XCreateOrderDataType = {||};
+export type XCreateOrderDataType = {|
+    paymentSource : $Values<typeof FUNDING> | null
+|};
 
 type OrderActions = {|
     create : (Object) => ZalgoPromise<string>
@@ -32,9 +35,8 @@ export type XCreateOrder = (XCreateOrderDataType, XCreateOrderActionsType) => Za
 
 export type CreateOrder = () => ZalgoPromise<string>;
 
-export function buildXCreateOrderData() : XCreateOrderDataType {
-    // $FlowFixMe
-    return {};
+export function buildXCreateOrderData({ paymentSource } : {| paymentSource : $Values<typeof FUNDING> | null |}) : XCreateOrderDataType {
+    return { paymentSource };
 }
 
 type OrderOptions = {|
@@ -47,22 +49,22 @@ type OrderOptions = {|
 
 export function buildOrderActions({ facilitatorAccessToken, intent, currency, merchantID, partnerAttributionID } : OrderOptions) : OrderActions {
     const create = (data) => {
-    
+
         let order : Object = { ...data };
-    
+
         if (order.intent && order.intent.toLowerCase() !== intent) {
             throw new Error(`Unexpected intent: ${ order.intent } passed to order.create. Please ensure you are passing /sdk/js?${ SDK_QUERY_KEYS.INTENT }=${ order.intent.toLowerCase() } in the paypal script tag.`);
         }
 
         order = { ...order, intent: intent.toUpperCase() };
-    
+
         order.purchase_units = order.purchase_units.map(unit => {
             if (unit.amount.currency_code && unit.amount.currency_code !== currency) {
                 throw new Error(`Unexpected currency: ${ unit.amount.currency_code } passed to order.create. Please ensure you are passing /sdk/js?${ SDK_QUERY_KEYS.CURRENCY }=${ unit.amount.currency_code } in the paypal script tag.`);
             }
 
             let payee = unit.payee;
-    
+
             if (merchantID && merchantID.length === 1 && merchantID[0]) {
                 const payeeID = merchantID[0];
 
@@ -78,10 +80,10 @@ export function buildOrderActions({ facilitatorAccessToken, intent, currency, me
                     };
                 }
             }
-    
+
             return { ...unit, payee, amount: { ...unit.amount, currency_code: currency } };
         });
-    
+
         order.application_context = order.application_context || {};
 
         return createOrderID(order, { facilitatorAccessToken, partnerAttributionID, forceRestAPI: false });
@@ -155,11 +157,12 @@ type CreateOrderXProps = {|
     intent : $Values<typeof INTENT>,
     currency : $Values<typeof CURRENCY>,
     merchantID : $ReadOnlyArray<string>,
-    partnerAttributionID : ?string
+    partnerAttributionID : ?string,
+    paymentSource : $Values<typeof FUNDING> | null
 |};
 
-export function getCreateOrder({ createOrder, intent, currency, merchantID, partnerAttributionID } : CreateOrderXProps, { facilitatorAccessToken, createBillingAgreement, createSubscription } : {| facilitatorAccessToken : string, createBillingAgreement? : ?CreateBillingAgreement, createSubscription? : ?CreateSubscription |}) : CreateOrder {
-    const data = buildXCreateOrderData();
+export function getCreateOrder({ createOrder, intent, currency, merchantID, partnerAttributionID, paymentSource } : CreateOrderXProps, { facilitatorAccessToken, createBillingAgreement, createSubscription } : {| facilitatorAccessToken : string, createBillingAgreement? : ?CreateBillingAgreement, createSubscription? : ?CreateSubscription |}) : CreateOrder {
+    const data = buildXCreateOrderData({ paymentSource });
     const actions = buildXCreateOrderActions({ facilitatorAccessToken, intent, currency, merchantID, partnerAttributionID });
 
     return memoize(() => {
@@ -176,7 +179,11 @@ export function getCreateOrder({ createOrder, intent, currency, merchantID, part
             } else if (createSubscription) {
                 return createSubscription().then(subscriptionIdToCartId);
             } else if (createOrder) {
-                return createOrder(data, actions);
+                return createOrder(data, actions)
+                    .then(orderId => {
+                        cacheInitialData(orderId);
+                        return orderId;
+                    });
             } else {
                 return actions.order.create({
                     purchase_units: [
@@ -197,7 +204,7 @@ export function getCreateOrder({ createOrder, intent, currency, merchantID, part
             if (!orderID || typeof orderID !== 'string') {
                 throw new Error(`Expected an order id to be passed`);
             }
-    
+
             if (orderID.indexOf('PAY-') === 0 || orderID.indexOf('PAYID-') === 0) {
                 throw new Error(`Do not pass PAY-XXX or PAYID-XXX directly into createOrder. Pass the EC-XXX token instead`);
             }
@@ -226,7 +233,7 @@ export function getCreateOrder({ createOrder, intent, currency, merchantID, part
                     [FPTI_KEY.RESPONSE_DURATION]:  duration.toString()
                 })
                 .flush();
-    
+
             return orderID;
         });
     });

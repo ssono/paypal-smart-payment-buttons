@@ -57,6 +57,3334 @@ window.spb = function(modules) {
     __webpack_require__.p = "";
     return __webpack_require__(__webpack_require__.s = "./src/button/index.js");
 }({
+    "./node_modules/@krakenjs/belter/dist/belter.js": function(module, exports, __webpack_require__) {
+        "undefined" != typeof self && self, module.exports = function(modules) {
+            var installedModules = {};
+            function __webpack_require__(moduleId) {
+                if (installedModules[moduleId]) return installedModules[moduleId].exports;
+                var module = installedModules[moduleId] = {
+                    i: moduleId,
+                    l: !1,
+                    exports: {}
+                };
+                modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+                module.l = !0;
+                return module.exports;
+            }
+            __webpack_require__.m = modules;
+            __webpack_require__.c = installedModules;
+            __webpack_require__.d = function(exports, name, getter) {
+                __webpack_require__.o(exports, name) || Object.defineProperty(exports, name, {
+                    enumerable: !0,
+                    get: getter
+                });
+            };
+            __webpack_require__.r = function(exports) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(exports, Symbol.toStringTag, {
+                    value: "Module"
+                });
+                Object.defineProperty(exports, "__esModule", {
+                    value: !0
+                });
+            };
+            __webpack_require__.t = function(value, mode) {
+                1 & mode && (value = __webpack_require__(value));
+                if (8 & mode) return value;
+                if (4 & mode && "object" == typeof value && value && value.__esModule) return value;
+                var ns = Object.create(null);
+                __webpack_require__.r(ns);
+                Object.defineProperty(ns, "default", {
+                    enumerable: !0,
+                    value: value
+                });
+                if (2 & mode && "string" != typeof value) for (var key in value) __webpack_require__.d(ns, key, function(key) {
+                    return value[key];
+                }.bind(null, key));
+                return ns;
+            };
+            __webpack_require__.n = function(module) {
+                var getter = module && module.__esModule ? function() {
+                    return module.default;
+                } : function() {
+                    return module;
+                };
+                __webpack_require__.d(getter, "a", getter);
+                return getter;
+            };
+            __webpack_require__.o = function(object, property) {
+                return {}.hasOwnProperty.call(object, property);
+            };
+            __webpack_require__.p = "";
+            return __webpack_require__(__webpack_require__.s = 0);
+        }([ function(module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            __webpack_require__.d(__webpack_exports__, "getUserAgent", (function() {
+                return getUserAgent;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isDevice", (function() {
+                return isDevice;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isTablet", (function() {
+                return isTablet;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isWebView", (function() {
+                return isWebView;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isStandAlone", (function() {
+                return isStandAlone;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isFacebookWebView", (function() {
+                return isFacebookWebView;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isFirefox", (function() {
+                return isFirefox;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isFirefoxIOS", (function() {
+                return isFirefoxIOS;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isEdgeIOS", (function() {
+                return isEdgeIOS;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isOperaMini", (function() {
+                return isOperaMini;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isAndroid", (function() {
+                return isAndroid;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIos", (function() {
+                return isIos;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIOS14", (function() {
+                return isIOS14;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isGoogleSearchApp", (function() {
+                return isGoogleSearchApp;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isQQBrowser", (function() {
+                return isQQBrowser;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIosWebview", (function() {
+                return isIosWebview;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isSFVC", (function() {
+                return isSFVC;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isSFVCorSafari", (function() {
+                return isSFVCorSafari;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isAndroidWebview", (function() {
+                return isAndroidWebview;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIE", (function() {
+                return device_isIE;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIECompHeader", (function() {
+                return isIECompHeader;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isElectron", (function() {
+                return isElectron;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isIEIntranet", (function() {
+                return isIEIntranet;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isMacOsCna", (function() {
+                return isMacOsCna;
+            }));
+            __webpack_require__.d(__webpack_exports__, "supportsPopups", (function() {
+                return supportsPopups;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isChrome", (function() {
+                return isChrome;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isSafari", (function() {
+                return isSafari;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isApplePaySupported", (function() {
+                return isApplePaySupported;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getBody", (function() {
+                return getBody;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isDocumentReady", (function() {
+                return isDocumentReady;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isDocumentInteractive", (function() {
+                return isDocumentInteractive;
+            }));
+            __webpack_require__.d(__webpack_exports__, "urlEncode", (function() {
+                return urlEncode;
+            }));
+            __webpack_require__.d(__webpack_exports__, "waitForWindowReady", (function() {
+                return waitForWindowReady;
+            }));
+            __webpack_require__.d(__webpack_exports__, "waitForDocumentReady", (function() {
+                return waitForDocumentReady;
+            }));
+            __webpack_require__.d(__webpack_exports__, "waitForDocumentBody", (function() {
+                return waitForDocumentBody;
+            }));
+            __webpack_require__.d(__webpack_exports__, "parseQuery", (function() {
+                return parseQuery;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getQueryParam", (function() {
+                return getQueryParam;
+            }));
+            __webpack_require__.d(__webpack_exports__, "urlWillRedirectPage", (function() {
+                return urlWillRedirectPage;
+            }));
+            __webpack_require__.d(__webpack_exports__, "formatQuery", (function() {
+                return formatQuery;
+            }));
+            __webpack_require__.d(__webpack_exports__, "extendQuery", (function() {
+                return extendQuery;
+            }));
+            __webpack_require__.d(__webpack_exports__, "extendUrl", (function() {
+                return extendUrl;
+            }));
+            __webpack_require__.d(__webpack_exports__, "redirect", (function() {
+                return redirect;
+            }));
+            __webpack_require__.d(__webpack_exports__, "hasMetaViewPort", (function() {
+                return hasMetaViewPort;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isElementVisible", (function() {
+                return isElementVisible;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getPerformance", (function() {
+                return getPerformance;
+            }));
+            __webpack_require__.d(__webpack_exports__, "enablePerformance", (function() {
+                return enablePerformance;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getPageRenderTime", (function() {
+                return getPageRenderTime;
+            }));
+            __webpack_require__.d(__webpack_exports__, "htmlEncode", (function() {
+                return htmlEncode;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isBrowser", (function() {
+                return dom_isBrowser;
+            }));
+            __webpack_require__.d(__webpack_exports__, "querySelectorAll", (function() {
+                return querySelectorAll;
+            }));
+            __webpack_require__.d(__webpack_exports__, "onClick", (function() {
+                return onClick;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getScript", (function() {
+                return getScript;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isLocalStorageEnabled", (function() {
+                return isLocalStorageEnabled;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getBrowserLocales", (function() {
+                return getBrowserLocales;
+            }));
+            __webpack_require__.d(__webpack_exports__, "appendChild", (function() {
+                return appendChild;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getElementSafe", (function() {
+                return getElementSafe;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getElement", (function() {
+                return getElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "elementReady", (function() {
+                return elementReady;
+            }));
+            __webpack_require__.d(__webpack_exports__, "PopupOpenError", (function() {
+                return dom_PopupOpenError;
+            }));
+            __webpack_require__.d(__webpack_exports__, "popup", (function() {
+                return popup;
+            }));
+            __webpack_require__.d(__webpack_exports__, "writeToWindow", (function() {
+                return writeToWindow;
+            }));
+            __webpack_require__.d(__webpack_exports__, "writeElementToWindow", (function() {
+                return writeElementToWindow;
+            }));
+            __webpack_require__.d(__webpack_exports__, "setStyle", (function() {
+                return setStyle;
+            }));
+            __webpack_require__.d(__webpack_exports__, "awaitFrameLoad", (function() {
+                return awaitFrameLoad;
+            }));
+            __webpack_require__.d(__webpack_exports__, "awaitFrameWindow", (function() {
+                return awaitFrameWindow;
+            }));
+            __webpack_require__.d(__webpack_exports__, "createElement", (function() {
+                return createElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "iframe", (function() {
+                return iframe;
+            }));
+            __webpack_require__.d(__webpack_exports__, "addEventListener", (function() {
+                return addEventListener;
+            }));
+            __webpack_require__.d(__webpack_exports__, "bindEvents", (function() {
+                return bindEvents;
+            }));
+            __webpack_require__.d(__webpack_exports__, "setVendorCSS", (function() {
+                return setVendorCSS;
+            }));
+            __webpack_require__.d(__webpack_exports__, "animate", (function() {
+                return animate;
+            }));
+            __webpack_require__.d(__webpack_exports__, "makeElementVisible", (function() {
+                return makeElementVisible;
+            }));
+            __webpack_require__.d(__webpack_exports__, "makeElementInvisible", (function() {
+                return makeElementInvisible;
+            }));
+            __webpack_require__.d(__webpack_exports__, "showElement", (function() {
+                return showElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "hideElement", (function() {
+                return hideElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "destroyElement", (function() {
+                return destroyElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "showAndAnimate", (function() {
+                return showAndAnimate;
+            }));
+            __webpack_require__.d(__webpack_exports__, "animateAndHide", (function() {
+                return animateAndHide;
+            }));
+            __webpack_require__.d(__webpack_exports__, "addClass", (function() {
+                return addClass;
+            }));
+            __webpack_require__.d(__webpack_exports__, "removeClass", (function() {
+                return removeClass;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isElementClosed", (function() {
+                return isElementClosed;
+            }));
+            __webpack_require__.d(__webpack_exports__, "watchElementForClose", (function() {
+                return watchElementForClose;
+            }));
+            __webpack_require__.d(__webpack_exports__, "fixScripts", (function() {
+                return fixScripts;
+            }));
+            __webpack_require__.d(__webpack_exports__, "onResize", (function() {
+                return onResize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getResourceLoadTime", (function() {
+                return getResourceLoadTime;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isShadowElement", (function() {
+                return isShadowElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getShadowRoot", (function() {
+                return getShadowRoot;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getShadowHost", (function() {
+                return getShadowHost;
+            }));
+            __webpack_require__.d(__webpack_exports__, "insertShadowSlot", (function() {
+                return insertShadowSlot;
+            }));
+            __webpack_require__.d(__webpack_exports__, "preventClickFocus", (function() {
+                return preventClickFocus;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getStackTrace", (function() {
+                return getStackTrace;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getCurrentScript", (function() {
+                return getCurrentScript;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getCurrentScriptUID", (function() {
+                return getCurrentScriptUID;
+            }));
+            __webpack_require__.d(__webpack_exports__, "submitForm", (function() {
+                return submitForm;
+            }));
+            __webpack_require__.d(__webpack_exports__, "experiment", (function() {
+                return experiment;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getGlobalNameSpace", (function() {
+                return getGlobalNameSpace;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getStorage", (function() {
+                return getStorage;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isElement", (function() {
+                return isElement;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getFunctionName", (function() {
+                return getFunctionName;
+            }));
+            __webpack_require__.d(__webpack_exports__, "setFunctionName", (function() {
+                return setFunctionName;
+            }));
+            __webpack_require__.d(__webpack_exports__, "base64encode", (function() {
+                return base64encode;
+            }));
+            __webpack_require__.d(__webpack_exports__, "base64decode", (function() {
+                return base64decode;
+            }));
+            __webpack_require__.d(__webpack_exports__, "uniqueID", (function() {
+                return uniqueID;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getGlobal", (function() {
+                return getGlobal;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getObjectID", (function() {
+                return getObjectID;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getEmptyObject", (function() {
+                return getEmptyObject;
+            }));
+            __webpack_require__.d(__webpack_exports__, "memoize", (function() {
+                return memoize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "promiseIdentity", (function() {
+                return promiseIdentity;
+            }));
+            __webpack_require__.d(__webpack_exports__, "memoizePromise", (function() {
+                return memoizePromise;
+            }));
+            __webpack_require__.d(__webpack_exports__, "promisify", (function() {
+                return promisify;
+            }));
+            __webpack_require__.d(__webpack_exports__, "inlineMemoize", (function() {
+                return inlineMemoize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "noop", (function() {
+                return src_util_noop;
+            }));
+            __webpack_require__.d(__webpack_exports__, "once", (function() {
+                return once;
+            }));
+            __webpack_require__.d(__webpack_exports__, "hashStr", (function() {
+                return hashStr;
+            }));
+            __webpack_require__.d(__webpack_exports__, "strHashStr", (function() {
+                return strHashStr;
+            }));
+            __webpack_require__.d(__webpack_exports__, "match", (function() {
+                return match;
+            }));
+            __webpack_require__.d(__webpack_exports__, "awaitKey", (function() {
+                return awaitKey;
+            }));
+            __webpack_require__.d(__webpack_exports__, "stringifyError", (function() {
+                return stringifyError;
+            }));
+            __webpack_require__.d(__webpack_exports__, "stringifyErrorMessage", (function() {
+                return stringifyErrorMessage;
+            }));
+            __webpack_require__.d(__webpack_exports__, "stringify", (function() {
+                return stringify;
+            }));
+            __webpack_require__.d(__webpack_exports__, "domainMatches", (function() {
+                return domainMatches;
+            }));
+            __webpack_require__.d(__webpack_exports__, "patchMethod", (function() {
+                return patchMethod;
+            }));
+            __webpack_require__.d(__webpack_exports__, "extend", (function() {
+                return extend;
+            }));
+            __webpack_require__.d(__webpack_exports__, "values", (function() {
+                return util_values;
+            }));
+            __webpack_require__.d(__webpack_exports__, "memoizedValues", (function() {
+                return memoizedValues;
+            }));
+            __webpack_require__.d(__webpack_exports__, "perc", (function() {
+                return perc;
+            }));
+            __webpack_require__.d(__webpack_exports__, "min", (function() {
+                return min;
+            }));
+            __webpack_require__.d(__webpack_exports__, "max", (function() {
+                return max;
+            }));
+            __webpack_require__.d(__webpack_exports__, "roundUp", (function() {
+                return roundUp;
+            }));
+            __webpack_require__.d(__webpack_exports__, "regexMap", (function() {
+                return regexMap;
+            }));
+            __webpack_require__.d(__webpack_exports__, "svgToBase64", (function() {
+                return svgToBase64;
+            }));
+            __webpack_require__.d(__webpack_exports__, "objFilter", (function() {
+                return objFilter;
+            }));
+            __webpack_require__.d(__webpack_exports__, "identity", (function() {
+                return identity;
+            }));
+            __webpack_require__.d(__webpack_exports__, "regexTokenize", (function() {
+                return regexTokenize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "promiseDebounce", (function() {
+                return promiseDebounce;
+            }));
+            __webpack_require__.d(__webpack_exports__, "safeInterval", (function() {
+                return safeInterval;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isInteger", (function() {
+                return isInteger;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isFloat", (function() {
+                return isFloat;
+            }));
+            __webpack_require__.d(__webpack_exports__, "serializePrimitive", (function() {
+                return serializePrimitive;
+            }));
+            __webpack_require__.d(__webpack_exports__, "deserializePrimitive", (function() {
+                return deserializePrimitive;
+            }));
+            __webpack_require__.d(__webpack_exports__, "dotify", (function() {
+                return dotify;
+            }));
+            __webpack_require__.d(__webpack_exports__, "undotify", (function() {
+                return undotify;
+            }));
+            __webpack_require__.d(__webpack_exports__, "eventEmitter", (function() {
+                return eventEmitter;
+            }));
+            __webpack_require__.d(__webpack_exports__, "camelToDasherize", (function() {
+                return camelToDasherize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "dasherizeToCamel", (function() {
+                return dasherizeToCamel;
+            }));
+            __webpack_require__.d(__webpack_exports__, "capitalizeFirstLetter", (function() {
+                return capitalizeFirstLetter;
+            }));
+            __webpack_require__.d(__webpack_exports__, "get", (function() {
+                return util_get;
+            }));
+            __webpack_require__.d(__webpack_exports__, "safeTimeout", (function() {
+                return safeTimeout;
+            }));
+            __webpack_require__.d(__webpack_exports__, "defineLazyProp", (function() {
+                return defineLazyProp;
+            }));
+            __webpack_require__.d(__webpack_exports__, "arrayFrom", (function() {
+                return arrayFrom;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isObject", (function() {
+                return isObject;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isObjectObject", (function() {
+                return isObjectObject;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isPlainObject", (function() {
+                return isPlainObject;
+            }));
+            __webpack_require__.d(__webpack_exports__, "replaceObject", (function() {
+                return replaceObject;
+            }));
+            __webpack_require__.d(__webpack_exports__, "copyProp", (function() {
+                return copyProp;
+            }));
+            __webpack_require__.d(__webpack_exports__, "regex", (function() {
+                return regex;
+            }));
+            __webpack_require__.d(__webpack_exports__, "regexAll", (function() {
+                return regexAll;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isDefined", (function() {
+                return isDefined;
+            }));
+            __webpack_require__.d(__webpack_exports__, "cycle", (function() {
+                return cycle;
+            }));
+            __webpack_require__.d(__webpack_exports__, "debounce", (function() {
+                return debounce;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isRegex", (function() {
+                return util_isRegex;
+            }));
+            __webpack_require__.d(__webpack_exports__, "weakMapMemoize", (function() {
+                return util_weakMapMemoize;
+            }));
+            __webpack_require__.d(__webpack_exports__, "weakMapMemoizePromise", (function() {
+                return util_weakMapMemoizePromise;
+            }));
+            __webpack_require__.d(__webpack_exports__, "getOrSet", (function() {
+                return getOrSet;
+            }));
+            __webpack_require__.d(__webpack_exports__, "cleanup", (function() {
+                return cleanup;
+            }));
+            __webpack_require__.d(__webpack_exports__, "tryCatch", (function() {
+                return tryCatch;
+            }));
+            __webpack_require__.d(__webpack_exports__, "removeFromArray", (function() {
+                return removeFromArray;
+            }));
+            __webpack_require__.d(__webpack_exports__, "assertExists", (function() {
+                return assertExists;
+            }));
+            __webpack_require__.d(__webpack_exports__, "unique", (function() {
+                return unique;
+            }));
+            __webpack_require__.d(__webpack_exports__, "constHas", (function() {
+                return constHas;
+            }));
+            __webpack_require__.d(__webpack_exports__, "dedupeErrors", (function() {
+                return dedupeErrors;
+            }));
+            __webpack_require__.d(__webpack_exports__, "ExtendableError", (function() {
+                return util_ExtendableError;
+            }));
+            __webpack_require__.d(__webpack_exports__, "request", (function() {
+                return request;
+            }));
+            __webpack_require__.d(__webpack_exports__, "addHeaderBuilder", (function() {
+                return addHeaderBuilder;
+            }));
+            __webpack_require__.d(__webpack_exports__, "TYPES", (function() {
+                return types_TYPES;
+            }));
+            __webpack_require__.d(__webpack_exports__, "memoized", (function() {
+                return memoized;
+            }));
+            __webpack_require__.d(__webpack_exports__, "promise", (function() {
+                return decorators_promise;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isPerc", (function() {
+                return isPerc;
+            }));
+            __webpack_require__.d(__webpack_exports__, "isPx", (function() {
+                return isPx;
+            }));
+            __webpack_require__.d(__webpack_exports__, "toNum", (function() {
+                return toNum;
+            }));
+            __webpack_require__.d(__webpack_exports__, "toPx", (function() {
+                return toPx;
+            }));
+            __webpack_require__.d(__webpack_exports__, "toCSS", (function() {
+                return toCSS;
+            }));
+            __webpack_require__.d(__webpack_exports__, "percOf", (function() {
+                return percOf;
+            }));
+            __webpack_require__.d(__webpack_exports__, "normalizeDimension", (function() {
+                return normalizeDimension;
+            }));
+            __webpack_require__.d(__webpack_exports__, "wrapPromise", (function() {
+                return wrapPromise;
+            }));
+            __webpack_require__.d(__webpack_exports__, "KEY_CODES", (function() {
+                return KEY_CODES;
+            }));
+            __webpack_require__.d(__webpack_exports__, "ATTRIBUTES", (function() {
+                return ATTRIBUTES;
+            }));
+            __webpack_require__.d(__webpack_exports__, "UID_HASH_LENGTH", (function() {
+                return UID_HASH_LENGTH;
+            }));
+            __webpack_require__.d(__webpack_exports__, "sfvcScreens", (function() {
+                return sfvcScreens;
+            }));
+            var sfvcScreens = {
+                926: {
+                    device: "iPhone 12/13 Pro Max",
+                    textSizeHeights: [ 752, 748, 744, 738 ],
+                    textSizeHeightsNoTabs: [ 860, 858, 856, 854 ],
+                    zoomHeight: {
+                        1.15: [ 752, 747, 744, 738 ],
+                        1.25: [ 753, 748, 744, 738 ],
+                        1.5: [ 752, 749, 744, 738 ],
+                        1.75: [ 753, 747, 744, 739 ],
+                        2: [ 752, 748, 744 ],
+                        2.5: [ 753, 748 ],
+                        3: [ 753, 744 ]
+                    },
+                    maybeSafari: {
+                        2: [ 738 ],
+                        2.5: [ 745, 738 ],
+                        3: [ 747, 738 ]
+                    }
+                },
+                896: {
+                    device: "iPhone XS Max, iPhone 11 Pro Max, iPhone XR, iPhone 11",
+                    textSizeHeights: [ 721, 717, 713, 707 ],
+                    textSizeHeightsNoTabs: [ 829, 827, 825, 823 ],
+                    zoomHeight: {
+                        1.15: [ 721, 716, 713, 707 ],
+                        1.25: [ 721, 718, 713, 708 ],
+                        1.5: [ 722, 717, 713 ],
+                        1.75: [ 721, 718, 712, 707 ],
+                        2: [ 722, 718, 714, 708 ],
+                        2.5: [ 720, 718, 713, 708 ],
+                        3: [ 720, 717, 708 ]
+                    },
+                    maybeSafari: {
+                        1.5: [ 707 ],
+                        3: [ 714 ]
+                    }
+                },
+                844: {
+                    device: "iPhone 12, iPhone 12 Pro",
+                    textSizeHeights: [ 670, 666, 662, 656 ],
+                    textSizeHeightsNoTabs: [ 778, 776, 774, 772 ],
+                    zoomHeight: {
+                        1.15: [ 670, 666, 662 ],
+                        1.25: [ 670, 666, 663, 656 ],
+                        1.5: [ 671, 666, 662 ],
+                        1.75: [ 670, 667, 662, 656 ],
+                        2: [ 670, 666, 662 ],
+                        2.5: [ 670, 663 ],
+                        3: [ 669, 666, 663, 657 ]
+                    },
+                    maybeSafari: {
+                        1.15: [ 656 ],
+                        1.5: [ 656 ],
+                        2: [ 656 ],
+                        2.5: [ 665, 655 ],
+                        3: [ 663 ]
+                    }
+                },
+                812: {
+                    device: "iPhone X, iPhone XS, iPhone 11 Pro, iPhone 12 Mini",
+                    textSizeHeights: [ 641, 637, 633, 627 ],
+                    textSizeHeightsNoTabs: [ 749, 747, 745, 743 ],
+                    zoomHeight: {
+                        1.15: [ 641, 637, 633, 627 ],
+                        1.25: [ 641, 638, 633, 628 ],
+                        1.5: [ 641, 638, 633, 627 ],
+                        1.75: [ 641, 637, 634 ],
+                        2: [ 642, 638, 634, 628 ],
+                        2.5: [ 640, 638, 633, 628 ],
+                        3: [ 642, 633 ]
+                    },
+                    maybeSafari: {
+                        1.75: [ 627 ],
+                        3: [ 636, 627 ]
+                    }
+                },
+                736: {
+                    device: "iPhone 6 Plus, iPhone 6S Plus, iPhone 7 Plus, iPhone 8 Plus",
+                    textSizeHeights: [ 628, 624, 620, 614 ],
+                    textSizeHeightsNoTabs: [ 736, 734, 732, 730 ],
+                    zoomHeight: {
+                        1.15: [ 628, 624, 620, 614 ],
+                        1.25: [ 628, 624, 620, 614 ],
+                        1.5: [ 629, 624, 620 ],
+                        1.75: [ 628, 625, 620, 614 ],
+                        2: [ 628, 624, 620 ],
+                        2.5: [ 628, 625, 620, 615 ],
+                        3: [ 627, 624, 615 ]
+                    },
+                    maybeSafari: {
+                        1.5: [ 614 ],
+                        2: [ 614 ],
+                        3: [ 621 ]
+                    }
+                },
+                667: {
+                    device: "iPhone 6, iPhone 6S, iPhone 7, iPhone 8,  iPhone SE2",
+                    textSizeHeights: [ 559, 555, 551, 545 ],
+                    textSizeHeightsNoTabs: [ 667, 665, 663, 661 ],
+                    zoomHeight: {
+                        1.15: [ 559, 555, 551, 545 ],
+                        1.25: [ 559, 555, 551, 545 ],
+                        1.5: [ 560, 555, 551 ],
+                        1.75: [ 558, 555, 551 ],
+                        2: [ 560, 556, 552, 546 ],
+                        2.5: [ 560, 555, 550 ],
+                        3: [ 558, 555, 546 ]
+                    },
+                    maybeSafari: {
+                        1.5: [ 545 ],
+                        1.75: [ 544 ],
+                        2.5: [ 545 ],
+                        3: [ 552 ]
+                    }
+                }
+            };
+            function getUserAgent() {
+                return window.navigator.mockUserAgent || window.navigator.userAgent;
+            }
+            var TABLET_PATTERN = /ip(a|ro)d|silk|xoom|playbook|tablet|kindle|Nexus 7|GT-P10|SC-01C|SHW-M180S|SM-T320|SGH-T849|SCH-I800|SHW-M180L|SPH-P100|SGH-I987|zt180|HTC( Flyer|_Flyer)|Sprint ATP51|ViewPad7|pandigital(sprnova|nova)|Ideos S7|Dell Streak 7|Advent Vega|A101IT|A70BHT|MID7015|Next2|nook|FOLIO|MB511.*RUTEM|Mac OS.*Silk/i;
+            function isDevice(userAgent) {
+                void 0 === userAgent && (userAgent = getUserAgent());
+                return !!userAgent.match(/Android|webOS|iPhone|iPad|iPod|bada|Symbian|Palm|CriOS|BlackBerry|IEMobile|WindowsMobile|Opera Mini/i);
+            }
+            function isTablet(userAgent) {
+                void 0 === userAgent && (userAgent = getUserAgent());
+                return TABLET_PATTERN.test(userAgent);
+            }
+            function isWebView() {
+                var userAgent = getUserAgent();
+                return /(iPhone|iPod|iPad|Macintosh).*AppleWebKit(?!.*Safari)|.*WKWebView/i.test(userAgent) || /\bwv\b/.test(userAgent) || /Android.*Version\/(\d)\.(\d)/i.test(userAgent);
+            }
+            function isStandAlone() {
+                return !0 === window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+            }
+            function isFacebookWebView(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /FBAN/.test(ua) || /FBAV/.test(ua);
+            }
+            function isFirefox(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /Firefox/i.test(ua);
+            }
+            function isFirefoxIOS(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /FxiOS/i.test(ua);
+            }
+            function isEdgeIOS(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /EdgiOS/i.test(ua);
+            }
+            function isOperaMini(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /Opera Mini/i.test(ua);
+            }
+            function isAndroid(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /Android/.test(ua);
+            }
+            function isIos(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /iPhone|iPod|iPad/.test(ua);
+            }
+            function isIOS14(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /iPhone.*OS.*(1)?(?:(1)[0-4]| [0-9])_/.test(ua);
+            }
+            function isGoogleSearchApp(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /\bGSA\b/.test(ua);
+            }
+            function isQQBrowser(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /QQBrowser/.test(ua);
+            }
+            function isIosWebview(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return !!isIos(ua) && (!!isGoogleSearchApp(ua) || /.+AppleWebKit(?!.*Safari)|.*WKWebView/.test(ua));
+            }
+            function isSFVC(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                if (isIos(ua)) {
+                    var height = window.innerHeight;
+                    var scale = Math.round(window.screen.width / window.innerWidth * 100) / 100;
+                    var computedHeight = Math.round(height * scale);
+                    var device = null;
+                    if (isIOS14(ua)) device = sfvcScreens[window.outerHeight]; else {
+                        if (1 !== scale) return !0;
+                        device = sfvcScreens[window.outerHeight];
+                    }
+                    return !device || (scale > 1 && device.zoomHeight && device.zoomHeight[scale] ? -1 !== device.zoomHeight[scale].indexOf(computedHeight) : -1 !== device.textSizeHeights.indexOf(computedHeight) || -1 !== device.textSizeHeightsNoTabs.indexOf(computedHeight));
+                }
+                return !1;
+            }
+            function isSFVCorSafari(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                if (isIos(ua)) {
+                    var sfvc = isSFVC(ua);
+                    var device = isIOS14(ua) ? sfvcScreens[window.outerHeight] : null;
+                    if (!device) return !1;
+                    var height = window.innerHeight;
+                    var scale = Math.round(window.screen.width / window.innerWidth * 100) / 100;
+                    var computedHeight = Math.round(height * scale);
+                    var possibleSafariSizes = device.maybeSafari;
+                    var maybeSafari = !1;
+                    scale > 1 && possibleSafariSizes[scale] && -1 !== possibleSafariSizes[scale].indexOf(computedHeight) && (maybeSafari = !0);
+                    return sfvc || maybeSafari;
+                }
+                return !1;
+            }
+            function isAndroidWebview(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return !!isAndroid(ua) && /Version\/[\d.]+/.test(ua) && !isOperaMini(ua);
+            }
+            function device_isIE() {
+                return !!window.document.documentMode || Boolean(window.navigator && window.navigator.userAgent && /Edge|MSIE|rv:11/i.test(window.navigator.userAgent));
+            }
+            function isIECompHeader() {
+                var mHttp = window.document.querySelector('meta[http-equiv="X-UA-Compatible"]');
+                var mContent = window.document.querySelector('meta[content="IE=edge"]');
+                return !(!mHttp || !mContent);
+            }
+            function isElectron() {
+                return !("undefined" == typeof process || !process.versions || !process.versions.electron);
+            }
+            function isIEIntranet() {
+                if (window.document.documentMode) try {
+                    var status = window.status;
+                    window.status = "testIntranetMode";
+                    if ("testIntranetMode" === window.status) {
+                        window.status = status;
+                        return !0;
+                    }
+                    return !1;
+                } catch (err) {
+                    return !1;
+                }
+                return !1;
+            }
+            function isMacOsCna() {
+                var userAgent = getUserAgent();
+                return /Macintosh.*AppleWebKit(?!.*Safari)/i.test(userAgent);
+            }
+            function supportsPopups(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return !(isIosWebview(ua) || isAndroidWebview(ua) || isOperaMini(ua) || isFirefoxIOS(ua) || isEdgeIOS(ua) || isFacebookWebView(ua) || isQQBrowser(ua) || isElectron() || isMacOsCna() || isStandAlone());
+            }
+            function isChrome(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /Chrome|Chromium|CriOS/.test(ua) && !/SamsungBrowser|Silk|EdgA/.test(ua);
+            }
+            function isSafari(ua) {
+                void 0 === ua && (ua = getUserAgent());
+                return /Safari/.test(ua) && !isChrome(ua) && !/Silk|FxiOS|EdgiOS/.test(ua);
+            }
+            function isApplePaySupported() {
+                try {
+                    if (window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) return !0;
+                } catch (e) {
+                    return !1;
+                }
+                return !1;
+            }
+            function _setPrototypeOf(o, p) {
+                return (_setPrototypeOf = Object.setPrototypeOf || function(o, p) {
+                    o.__proto__ = p;
+                    return o;
+                })(o, p);
+            }
+            function _inheritsLoose(subClass, superClass) {
+                subClass.prototype = Object.create(superClass.prototype);
+                subClass.prototype.constructor = subClass;
+                _setPrototypeOf(subClass, superClass);
+            }
+            function _extends() {
+                return (_extends = Object.assign || function(target) {
+                    for (var i = 1; i < arguments.length; i++) {
+                        var source = arguments[i];
+                        for (var key in source) ({}).hasOwnProperty.call(source, key) && (target[key] = source[key]);
+                    }
+                    return target;
+                }).apply(this, arguments);
+            }
+            function utils_isPromise(item) {
+                try {
+                    if (!item) return !1;
+                    if ("undefined" != typeof Promise && item instanceof Promise) return !0;
+                    if ("undefined" != typeof window && "function" == typeof window.Window && item instanceof window.Window) return !1;
+                    if ("undefined" != typeof window && "function" == typeof window.constructor && item instanceof window.constructor) return !1;
+                    var _toString = {}.toString;
+                    if (_toString) {
+                        var name = _toString.call(item);
+                        if ("[object Window]" === name || "[object global]" === name || "[object DOMWindow]" === name) return !1;
+                    }
+                    if ("function" == typeof item.then) return !0;
+                } catch (err) {
+                    return !1;
+                }
+                return !1;
+            }
+            var dispatchedErrors = [];
+            var possiblyUnhandledPromiseHandlers = [];
+            var activeCount = 0;
+            var flushPromise;
+            function flushActive() {
+                if (!activeCount && flushPromise) {
+                    var promise = flushPromise;
+                    flushPromise = null;
+                    promise.resolve();
+                }
+            }
+            function startActive() {
+                activeCount += 1;
+            }
+            function endActive() {
+                activeCount -= 1;
+                flushActive();
+            }
+            var promise_ZalgoPromise = function() {
+                function ZalgoPromise(handler) {
+                    var _this = this;
+                    this.resolved = void 0;
+                    this.rejected = void 0;
+                    this.errorHandled = void 0;
+                    this.value = void 0;
+                    this.error = void 0;
+                    this.handlers = void 0;
+                    this.dispatching = void 0;
+                    this.stack = void 0;
+                    this.resolved = !1;
+                    this.rejected = !1;
+                    this.errorHandled = !1;
+                    this.handlers = [];
+                    if (handler) {
+                        var _result;
+                        var _error;
+                        var resolved = !1;
+                        var rejected = !1;
+                        var isAsync = !1;
+                        startActive();
+                        try {
+                            handler((function(res) {
+                                if (isAsync) _this.resolve(res); else {
+                                    resolved = !0;
+                                    _result = res;
+                                }
+                            }), (function(err) {
+                                if (isAsync) _this.reject(err); else {
+                                    rejected = !0;
+                                    _error = err;
+                                }
+                            }));
+                        } catch (err) {
+                            endActive();
+                            this.reject(err);
+                            return;
+                        }
+                        endActive();
+                        isAsync = !0;
+                        resolved ? this.resolve(_result) : rejected && this.reject(_error);
+                    }
+                }
+                var _proto = ZalgoPromise.prototype;
+                _proto.resolve = function(result) {
+                    if (this.resolved || this.rejected) return this;
+                    if (utils_isPromise(result)) throw new Error("Can not resolve promise with another promise");
+                    this.resolved = !0;
+                    this.value = result;
+                    this.dispatch();
+                    return this;
+                };
+                _proto.reject = function(error) {
+                    var _this2 = this;
+                    if (this.resolved || this.rejected) return this;
+                    if (utils_isPromise(error)) throw new Error("Can not reject promise with another promise");
+                    if (!error) {
+                        var _err = error && "function" == typeof error.toString ? error.toString() : {}.toString.call(error);
+                        error = new Error("Expected reject to be called with Error, got " + _err);
+                    }
+                    this.rejected = !0;
+                    this.error = error;
+                    this.errorHandled || setTimeout((function() {
+                        _this2.errorHandled || function(err, promise) {
+                            if (-1 === dispatchedErrors.indexOf(err)) {
+                                dispatchedErrors.push(err);
+                                setTimeout((function() {
+                                    throw err;
+                                }), 1);
+                                for (var j = 0; j < possiblyUnhandledPromiseHandlers.length; j++) possiblyUnhandledPromiseHandlers[j](err, promise);
+                            }
+                        }(error, _this2);
+                    }), 1);
+                    this.dispatch();
+                    return this;
+                };
+                _proto.asyncReject = function(error) {
+                    this.errorHandled = !0;
+                    this.reject(error);
+                    return this;
+                };
+                _proto.dispatch = function() {
+                    var resolved = this.resolved, rejected = this.rejected, handlers = this.handlers;
+                    if (!this.dispatching && (resolved || rejected)) {
+                        this.dispatching = !0;
+                        startActive();
+                        var chain = function(firstPromise, secondPromise) {
+                            return firstPromise.then((function(res) {
+                                secondPromise.resolve(res);
+                            }), (function(err) {
+                                secondPromise.reject(err);
+                            }));
+                        };
+                        for (var i = 0; i < handlers.length; i++) {
+                            var _handlers$i = handlers[i], onSuccess = _handlers$i.onSuccess, onError = _handlers$i.onError, promise = _handlers$i.promise;
+                            var _result2 = void 0;
+                            if (resolved) try {
+                                _result2 = onSuccess ? onSuccess(this.value) : this.value;
+                            } catch (err) {
+                                promise.reject(err);
+                                continue;
+                            } else if (rejected) {
+                                if (!onError) {
+                                    promise.reject(this.error);
+                                    continue;
+                                }
+                                try {
+                                    _result2 = onError(this.error);
+                                } catch (err) {
+                                    promise.reject(err);
+                                    continue;
+                                }
+                            }
+                            if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
+                                var promiseResult = _result2;
+                                promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
+                                promiseResult.errorHandled = !0;
+                            } else utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
+                        }
+                        handlers.length = 0;
+                        this.dispatching = !1;
+                        endActive();
+                    }
+                };
+                _proto.then = function(onSuccess, onError) {
+                    if (onSuccess && "function" != typeof onSuccess && !onSuccess.call) throw new Error("Promise.then expected a function for success handler");
+                    if (onError && "function" != typeof onError && !onError.call) throw new Error("Promise.then expected a function for error handler");
+                    var promise = new ZalgoPromise;
+                    this.handlers.push({
+                        promise: promise,
+                        onSuccess: onSuccess,
+                        onError: onError
+                    });
+                    this.errorHandled = !0;
+                    this.dispatch();
+                    return promise;
+                };
+                _proto.catch = function(onError) {
+                    return this.then(void 0, onError);
+                };
+                _proto.finally = function(onFinally) {
+                    if (onFinally && "function" != typeof onFinally && !onFinally.call) throw new Error("Promise.finally expected a function");
+                    return this.then((function(result) {
+                        return ZalgoPromise.try(onFinally).then((function() {
+                            return result;
+                        }));
+                    }), (function(err) {
+                        return ZalgoPromise.try(onFinally).then((function() {
+                            throw err;
+                        }));
+                    }));
+                };
+                _proto.timeout = function(time, err) {
+                    var _this3 = this;
+                    if (this.resolved || this.rejected) return this;
+                    var timeout = setTimeout((function() {
+                        _this3.resolved || _this3.rejected || _this3.reject(err || new Error("Promise timed out after " + time + "ms"));
+                    }), time);
+                    return this.then((function(result) {
+                        clearTimeout(timeout);
+                        return result;
+                    }));
+                };
+                _proto.toPromise = function() {
+                    if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
+                    return Promise.resolve(this);
+                };
+                _proto.lazy = function() {
+                    this.errorHandled = !0;
+                    return this;
+                };
+                ZalgoPromise.resolve = function(value) {
+                    return value instanceof ZalgoPromise ? value : utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
+                        return value.then(resolve, reject);
+                    })) : (new ZalgoPromise).resolve(value);
+                };
+                ZalgoPromise.reject = function(error) {
+                    return (new ZalgoPromise).reject(error);
+                };
+                ZalgoPromise.asyncReject = function(error) {
+                    return (new ZalgoPromise).asyncReject(error);
+                };
+                ZalgoPromise.all = function(promises) {
+                    var promise = new ZalgoPromise;
+                    var count = promises.length;
+                    var results = [].slice();
+                    if (!count) {
+                        promise.resolve(results);
+                        return promise;
+                    }
+                    var chain = function(i, firstPromise, secondPromise) {
+                        return firstPromise.then((function(res) {
+                            results[i] = res;
+                            0 == (count -= 1) && promise.resolve(results);
+                        }), (function(err) {
+                            secondPromise.reject(err);
+                        }));
+                    };
+                    for (var i = 0; i < promises.length; i++) {
+                        var prom = promises[i];
+                        if (prom instanceof ZalgoPromise) {
+                            if (prom.resolved) {
+                                results[i] = prom.value;
+                                count -= 1;
+                                continue;
+                            }
+                        } else if (!utils_isPromise(prom)) {
+                            results[i] = prom;
+                            count -= 1;
+                            continue;
+                        }
+                        chain(i, ZalgoPromise.resolve(prom), promise);
+                    }
+                    0 === count && promise.resolve(results);
+                    return promise;
+                };
+                ZalgoPromise.hash = function(promises) {
+                    var result = {};
+                    var awaitPromises = [];
+                    var _loop = function(key) {
+                        if (promises.hasOwnProperty(key)) {
+                            var value = promises[key];
+                            utils_isPromise(value) ? awaitPromises.push(value.then((function(res) {
+                                result[key] = res;
+                            }))) : result[key] = value;
+                        }
+                    };
+                    for (var key in promises) _loop(key);
+                    return ZalgoPromise.all(awaitPromises).then((function() {
+                        return result;
+                    }));
+                };
+                ZalgoPromise.map = function(items, method) {
+                    return ZalgoPromise.all(items.map(method));
+                };
+                ZalgoPromise.onPossiblyUnhandledException = function(handler) {
+                    return function(handler) {
+                        possiblyUnhandledPromiseHandlers.push(handler);
+                        return {
+                            cancel: function() {
+                                possiblyUnhandledPromiseHandlers.splice(possiblyUnhandledPromiseHandlers.indexOf(handler), 1);
+                            }
+                        };
+                    }(handler);
+                };
+                ZalgoPromise.try = function(method, context, args) {
+                    if (method && "function" != typeof method && !method.call) throw new Error("Promise.try expected a function");
+                    var result;
+                    startActive();
+                    try {
+                        result = method.apply(context, args || []);
+                    } catch (err) {
+                        endActive();
+                        return ZalgoPromise.reject(err);
+                    }
+                    endActive();
+                    return ZalgoPromise.resolve(result);
+                };
+                ZalgoPromise.delay = function(_delay) {
+                    return new ZalgoPromise((function(resolve) {
+                        setTimeout(resolve, _delay);
+                    }));
+                };
+                ZalgoPromise.isPromise = function(value) {
+                    return !!(value && value instanceof ZalgoPromise) || utils_isPromise(value);
+                };
+                ZalgoPromise.flush = function() {
+                    return function(Zalgo) {
+                        var promise = flushPromise = flushPromise || new Zalgo;
+                        flushActive();
+                        return promise;
+                    }(ZalgoPromise);
+                };
+                return ZalgoPromise;
+            }();
+            var IE_WIN_ACCESS_ERROR = "Call was rejected by callee.\r\n";
+            function getActualProtocol(win) {
+                void 0 === win && (win = window);
+                return win.location.protocol;
+            }
+            function getProtocol(win) {
+                void 0 === win && (win = window);
+                if (win.mockDomain) {
+                    var protocol = win.mockDomain.split("//")[0];
+                    if (protocol) return protocol;
+                }
+                return getActualProtocol(win);
+            }
+            function isAboutProtocol(win) {
+                void 0 === win && (win = window);
+                return "about:" === getProtocol(win);
+            }
+            function canReadFromWindow(win) {
+                try {
+                    return !0;
+                } catch (err) {}
+                return !1;
+            }
+            function getActualDomain(win) {
+                void 0 === win && (win = window);
+                var location = win.location;
+                if (!location) throw new Error("Can not read window location");
+                var protocol = getActualProtocol(win);
+                if (!protocol) throw new Error("Can not read window protocol");
+                if ("file:" === protocol) return "file://";
+                if ("about:" === protocol) {
+                    var parent = function(win) {
+                        void 0 === win && (win = window);
+                        if (win) try {
+                            if (win.parent && win.parent !== win) return win.parent;
+                        } catch (err) {}
+                    }(win);
+                    return parent && canReadFromWindow() ? getActualDomain(parent) : "about://";
+                }
+                var host = location.host;
+                if (!host) throw new Error("Can not read window host");
+                return protocol + "//" + host;
+            }
+            function getDomain(win) {
+                void 0 === win && (win = window);
+                var domain = getActualDomain(win);
+                return domain && win.mockDomain && 0 === win.mockDomain.indexOf("mock:") ? win.mockDomain : domain;
+            }
+            function isSameDomain(win) {
+                if (!function(win) {
+                    try {
+                        if (win === window) return !0;
+                    } catch (err) {}
+                    try {
+                        var desc = Object.getOwnPropertyDescriptor(win, "location");
+                        if (desc && !1 === desc.enumerable) return !1;
+                    } catch (err) {}
+                    try {
+                        if (isAboutProtocol(win) && canReadFromWindow()) return !0;
+                    } catch (err) {}
+                    try {
+                        if (function(win) {
+                            void 0 === win && (win = window);
+                            return "mock:" === getProtocol(win);
+                        }(win) && canReadFromWindow()) return !0;
+                    } catch (err) {}
+                    try {
+                        if (getActualDomain(win) === getActualDomain(window)) return !0;
+                    } catch (err) {}
+                    return !1;
+                }(win)) return !1;
+                try {
+                    if (win === window) return !0;
+                    if (isAboutProtocol(win) && canReadFromWindow()) return !0;
+                    if (getDomain(window) === getDomain(win)) return !0;
+                } catch (err) {}
+                return !1;
+            }
+            var iframeWindows = [];
+            var iframeFrames = [];
+            function isWindowClosed(win, allowMock) {
+                void 0 === allowMock && (allowMock = !0);
+                try {
+                    if (win === window) return !1;
+                } catch (err) {
+                    return !0;
+                }
+                try {
+                    if (!win) return !0;
+                } catch (err) {
+                    return !0;
+                }
+                try {
+                    if (win.closed) return !0;
+                } catch (err) {
+                    return !err || err.message !== IE_WIN_ACCESS_ERROR;
+                }
+                if (allowMock && isSameDomain(win)) try {
+                    if (win.mockclosed) return !0;
+                } catch (err) {}
+                try {
+                    if (!win.parent || !win.top) return !0;
+                } catch (err) {}
+                var iframeIndex = function(collection, item) {
+                    for (var i = 0; i < collection.length; i++) try {
+                        if (collection[i] === item) return i;
+                    } catch (err) {}
+                    return -1;
+                }(iframeWindows, win);
+                if (-1 !== iframeIndex) {
+                    var frame = iframeFrames[iframeIndex];
+                    if (frame && function(frame) {
+                        if (!frame.contentWindow) return !0;
+                        if (!frame.parentNode) return !0;
+                        var doc = frame.ownerDocument;
+                        if (doc && doc.documentElement && !doc.documentElement.contains(frame)) {
+                            var parent = frame;
+                            for (;parent.parentNode && parent.parentNode !== parent; ) parent = parent.parentNode;
+                            if (!parent.host || !doc.documentElement.contains(parent.host)) return !0;
+                        }
+                        return !1;
+                    }(frame)) return !0;
+                }
+                return !1;
+            }
+            function isWindow(obj) {
+                try {
+                    if (obj === window) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if ("[object Window]" === {}.toString.call(obj)) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (window.Window && obj instanceof window.Window) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.self === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.parent === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.top === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && "__unlikely_value__" === obj.__cross_domain_utils_window_check__) return !1;
+                } catch (err) {
+                    return !0;
+                }
+                try {
+                    if ("postMessage" in obj && "self" in obj && "location" in obj) return !0;
+                } catch (err) {}
+                return !1;
+            }
+            function util_safeIndexOf(collection, item) {
+                for (var i = 0; i < collection.length; i++) try {
+                    if (collection[i] === item) return i;
+                } catch (err) {}
+                return -1;
+            }
+            var weakmap_CrossDomainSafeWeakMap = function() {
+                function CrossDomainSafeWeakMap() {
+                    this.name = void 0;
+                    this.weakmap = void 0;
+                    this.keys = void 0;
+                    this.values = void 0;
+                    this.name = "__weakmap_" + (1e9 * Math.random() >>> 0) + "__";
+                    if (function() {
+                        if ("undefined" == typeof WeakMap) return !1;
+                        if (void 0 === Object.freeze) return !1;
+                        try {
+                            var testWeakMap = new WeakMap;
+                            var testKey = {};
+                            Object.freeze(testKey);
+                            testWeakMap.set(testKey, "__testvalue__");
+                            return "__testvalue__" === testWeakMap.get(testKey);
+                        } catch (err) {
+                            return !1;
+                        }
+                    }()) try {
+                        this.weakmap = new WeakMap;
+                    } catch (err) {}
+                    this.keys = [];
+                    this.values = [];
+                }
+                var _proto = CrossDomainSafeWeakMap.prototype;
+                _proto._cleanupClosedWindows = function() {
+                    var weakmap = this.weakmap;
+                    var keys = this.keys;
+                    for (var i = 0; i < keys.length; i++) {
+                        var value = keys[i];
+                        if (isWindow(value) && isWindowClosed(value)) {
+                            if (weakmap) try {
+                                weakmap.delete(value);
+                            } catch (err) {}
+                            keys.splice(i, 1);
+                            this.values.splice(i, 1);
+                            i -= 1;
+                        }
+                    }
+                };
+                _proto.isSafeToReadWrite = function(key) {
+                    return !isWindow(key);
+                };
+                _proto.set = function(key, value) {
+                    if (!key) throw new Error("WeakMap expected key");
+                    var weakmap = this.weakmap;
+                    if (weakmap) try {
+                        weakmap.set(key, value);
+                    } catch (err) {
+                        delete this.weakmap;
+                    }
+                    if (this.isSafeToReadWrite(key)) try {
+                        var name = this.name;
+                        var entry = key[name];
+                        entry && entry[0] === key ? entry[1] = value : Object.defineProperty(key, name, {
+                            value: [ key, value ],
+                            writable: !0
+                        });
+                        return;
+                    } catch (err) {}
+                    this._cleanupClosedWindows();
+                    var keys = this.keys;
+                    var values = this.values;
+                    var index = util_safeIndexOf(keys, key);
+                    if (-1 === index) {
+                        keys.push(key);
+                        values.push(value);
+                    } else values[index] = value;
+                };
+                _proto.get = function(key) {
+                    if (!key) throw new Error("WeakMap expected key");
+                    var weakmap = this.weakmap;
+                    if (weakmap) try {
+                        if (weakmap.has(key)) return weakmap.get(key);
+                    } catch (err) {
+                        delete this.weakmap;
+                    }
+                    if (this.isSafeToReadWrite(key)) try {
+                        var entry = key[this.name];
+                        return entry && entry[0] === key ? entry[1] : void 0;
+                    } catch (err) {}
+                    this._cleanupClosedWindows();
+                    var index = util_safeIndexOf(this.keys, key);
+                    if (-1 !== index) return this.values[index];
+                };
+                _proto.delete = function(key) {
+                    if (!key) throw new Error("WeakMap expected key");
+                    var weakmap = this.weakmap;
+                    if (weakmap) try {
+                        weakmap.delete(key);
+                    } catch (err) {
+                        delete this.weakmap;
+                    }
+                    if (this.isSafeToReadWrite(key)) try {
+                        var entry = key[this.name];
+                        entry && entry[0] === key && (entry[0] = entry[1] = void 0);
+                    } catch (err) {}
+                    this._cleanupClosedWindows();
+                    var keys = this.keys;
+                    var index = util_safeIndexOf(keys, key);
+                    if (-1 !== index) {
+                        keys.splice(index, 1);
+                        this.values.splice(index, 1);
+                    }
+                };
+                _proto.has = function(key) {
+                    if (!key) throw new Error("WeakMap expected key");
+                    var weakmap = this.weakmap;
+                    if (weakmap) try {
+                        if (weakmap.has(key)) return !0;
+                    } catch (err) {
+                        delete this.weakmap;
+                    }
+                    if (this.isSafeToReadWrite(key)) try {
+                        var entry = key[this.name];
+                        return !(!entry || entry[0] !== key);
+                    } catch (err) {}
+                    this._cleanupClosedWindows();
+                    return -1 !== util_safeIndexOf(this.keys, key);
+                };
+                _proto.getOrSet = function(key, getter) {
+                    if (this.has(key)) return this.get(key);
+                    var value = getter();
+                    this.set(key, value);
+                    return value;
+                };
+                return CrossDomainSafeWeakMap;
+            }();
+            function _getPrototypeOf(o) {
+                return (_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function(o) {
+                    return o.__proto__ || Object.getPrototypeOf(o);
+                })(o);
+            }
+            function _isNativeReflectConstruct() {
+                if ("undefined" == typeof Reflect || !Reflect.construct) return !1;
+                if (Reflect.construct.sham) return !1;
+                if ("function" == typeof Proxy) return !0;
+                try {
+                    Date.prototype.toString.call(Reflect.construct(Date, [], (function() {})));
+                    return !0;
+                } catch (e) {
+                    return !1;
+                }
+            }
+            function construct_construct(Parent, args, Class) {
+                return (construct_construct = _isNativeReflectConstruct() ? Reflect.construct : function(Parent, args, Class) {
+                    var a = [ null ];
+                    a.push.apply(a, args);
+                    var instance = new (Function.bind.apply(Parent, a));
+                    Class && _setPrototypeOf(instance, Class.prototype);
+                    return instance;
+                }).apply(null, arguments);
+            }
+            function wrapNativeSuper_wrapNativeSuper(Class) {
+                var _cache = "function" == typeof Map ? new Map : void 0;
+                return (wrapNativeSuper_wrapNativeSuper = function(Class) {
+                    if (null === Class || !(fn = Class, -1 !== Function.toString.call(fn).indexOf("[native code]"))) return Class;
+                    var fn;
+                    if ("function" != typeof Class) throw new TypeError("Super expression must either be null or a function");
+                    if (void 0 !== _cache) {
+                        if (_cache.has(Class)) return _cache.get(Class);
+                        _cache.set(Class, Wrapper);
+                    }
+                    function Wrapper() {
+                        return construct_construct(Class, arguments, _getPrototypeOf(this).constructor);
+                    }
+                    Wrapper.prototype = Object.create(Class.prototype, {
+                        constructor: {
+                            value: Wrapper,
+                            enumerable: !1,
+                            writable: !0,
+                            configurable: !0
+                        }
+                    });
+                    return _setPrototypeOf(Wrapper, Class);
+                })(Class);
+            }
+            function isElement(element) {
+                var passed = !1;
+                try {
+                    (element instanceof window.Element || null !== element && "object" == typeof element && 1 === element.nodeType && "object" == typeof element.style && "object" == typeof element.ownerDocument) && (passed = !0);
+                } catch (_) {}
+                return passed;
+            }
+            function getFunctionName(fn) {
+                return fn.name || fn.__name__ || fn.displayName || "anonymous";
+            }
+            function setFunctionName(fn, name) {
+                try {
+                    delete fn.name;
+                    fn.name = name;
+                } catch (err) {}
+                fn.__name__ = fn.displayName = name;
+                return fn;
+            }
+            function base64encode(str) {
+                if ("function" == typeof btoa) return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (function(m, p1) {
+                    return String.fromCharCode(parseInt(p1, 16));
+                }))).replace(/[=]/g, "");
+                if ("undefined" != typeof Buffer) return Buffer.from(str, "utf8").toString("base64").replace(/[=]/g, "");
+                throw new Error("Can not find window.btoa or Buffer");
+            }
+            function base64decode(str) {
+                if ("function" == typeof atob) return decodeURIComponent([].map.call(atob(str), (function(c) {
+                    return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                })).join(""));
+                if ("undefined" != typeof Buffer) return Buffer.from(str, "base64").toString("utf8");
+                throw new Error("Can not find window.atob or Buffer");
+            }
+            function uniqueID() {
+                var chars = "0123456789abcdef";
+                return "uid_" + "xxxxxxxxxx".replace(/./g, (function() {
+                    return chars.charAt(Math.floor(Math.random() * chars.length));
+                })) + "_" + base64encode((new Date).toISOString().slice(11, 19).replace("T", ".")).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+            }
+            function getGlobal() {
+                if ("undefined" != typeof window) return window;
+                if ("undefined" != typeof window) return window;
+                if ("undefined" != typeof window) return window;
+                throw new Error("No global found");
+            }
+            var objectIDs;
+            function getObjectID(obj) {
+                objectIDs = objectIDs || new weakmap_CrossDomainSafeWeakMap;
+                if (null == obj || "object" != typeof obj && "function" != typeof obj) throw new Error("Invalid object");
+                var uid = objectIDs.get(obj);
+                if (!uid) {
+                    uid = typeof obj + ":" + uniqueID();
+                    objectIDs.set(obj, uid);
+                }
+                return uid;
+            }
+            function serializeArgs(args) {
+                try {
+                    return JSON.stringify([].slice.call(args), (function(subkey, val) {
+                        return "function" == typeof val ? "memoize[" + getObjectID(val) + "]" : isElement(val) ? {} : val;
+                    }));
+                } catch (err) {
+                    throw new Error("Arguments not serializable -- can not be used to memoize");
+                }
+            }
+            function getEmptyObject() {
+                return {};
+            }
+            var memoizeGlobalIndex = 0;
+            var memoizeGlobalIndexValidFrom = 0;
+            function memoize(method, options) {
+                void 0 === options && (options = {});
+                var _options$thisNamespac = options.thisNamespace, thisNamespace = void 0 !== _options$thisNamespac && _options$thisNamespac, cacheTime = options.time;
+                var simpleCache;
+                var thisCache;
+                var memoizeIndex = memoizeGlobalIndex;
+                memoizeGlobalIndex += 1;
+                var memoizedFunction = function() {
+                    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+                    if (memoizeIndex < memoizeGlobalIndexValidFrom) {
+                        simpleCache = null;
+                        thisCache = null;
+                        memoizeIndex = memoizeGlobalIndex;
+                        memoizeGlobalIndex += 1;
+                    }
+                    var cache;
+                    cache = thisNamespace ? (thisCache = thisCache || new weakmap_CrossDomainSafeWeakMap).getOrSet(this, getEmptyObject) : simpleCache = simpleCache || {};
+                    var cacheKey;
+                    try {
+                        cacheKey = serializeArgs(args);
+                    } catch (_unused) {
+                        return method.apply(this, arguments);
+                    }
+                    var cacheResult = cache[cacheKey];
+                    if (cacheResult && cacheTime && Date.now() - cacheResult.time < cacheTime) {
+                        delete cache[cacheKey];
+                        cacheResult = null;
+                    }
+                    if (cacheResult) return cacheResult.value;
+                    var time = Date.now();
+                    var value = method.apply(this, arguments);
+                    cache[cacheKey] = {
+                        time: time,
+                        value: value
+                    };
+                    return value;
+                };
+                memoizedFunction.reset = function() {
+                    simpleCache = null;
+                    thisCache = null;
+                };
+                return setFunctionName(memoizedFunction, (options.name || getFunctionName(method)) + "::memoized");
+            }
+            memoize.clear = function() {
+                memoizeGlobalIndexValidFrom = memoizeGlobalIndex;
+            };
+            function promiseIdentity(item) {
+                return promise_ZalgoPromise.resolve(item);
+            }
+            function memoizePromise(method) {
+                var cache = {};
+                function memoizedPromiseFunction() {
+                    var _arguments = arguments, _this = this;
+                    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
+                    var key = serializeArgs(args);
+                    if (cache.hasOwnProperty(key)) return cache[key];
+                    cache[key] = promise_ZalgoPromise.try((function() {
+                        return method.apply(_this, _arguments);
+                    })).finally((function() {
+                        delete cache[key];
+                    }));
+                    return cache[key];
+                }
+                memoizedPromiseFunction.reset = function() {
+                    cache = {};
+                };
+                return setFunctionName(memoizedPromiseFunction, getFunctionName(method) + "::promiseMemoized");
+            }
+            function promisify(method, options) {
+                void 0 === options && (options = {});
+                function promisifiedFunction() {
+                    return promise_ZalgoPromise.try(method, this, arguments);
+                }
+                options.name && (promisifiedFunction.displayName = options.name + ":promisified");
+                return setFunctionName(promisifiedFunction, getFunctionName(method) + "::promisified");
+            }
+            function inlineMemoize(method, logic, args) {
+                void 0 === args && (args = []);
+                var cache = method.__inline_memoize_cache__ = method.__inline_memoize_cache__ || {};
+                var key = serializeArgs(args);
+                return cache.hasOwnProperty(key) ? cache[key] : cache[key] = logic.apply(void 0, args);
+            }
+            function src_util_noop() {}
+            function once(method) {
+                var called = !1;
+                return setFunctionName((function() {
+                    if (!called) {
+                        called = !0;
+                        return method.apply(this, arguments);
+                    }
+                }), getFunctionName(method) + "::once");
+            }
+            function hashStr(str) {
+                var hash = 0;
+                for (var i = 0; i < str.length; i++) hash += str[i].charCodeAt(0) * Math.pow(i % 10 + 1, 5);
+                return Math.floor(Math.pow(Math.sqrt(hash), 5));
+            }
+            function strHashStr(str) {
+                var hash = "";
+                for (var i = 0; i < str.length; i++) {
+                    var total = str[i].charCodeAt(0) * i;
+                    str[i + 1] && (total += str[i + 1].charCodeAt(0) * (i - 1));
+                    hash += String.fromCharCode(97 + Math.abs(total) % 26);
+                }
+                return hash;
+            }
+            function match(str, pattern) {
+                var regmatch = str.match(pattern);
+                if (regmatch) return regmatch[1];
+            }
+            function awaitKey(obj, key) {
+                return new promise_ZalgoPromise((function(resolve) {
+                    var value = obj[key];
+                    if (value) return resolve(value);
+                    delete obj[key];
+                    Object.defineProperty(obj, key, {
+                        configurable: !0,
+                        set: function(item) {
+                            (value = item) && resolve(value);
+                        },
+                        get: function() {
+                            return value;
+                        }
+                    });
+                }));
+            }
+            function stringifyError(err, level) {
+                void 0 === level && (level = 1);
+                if (level >= 3) return "stringifyError stack overflow";
+                try {
+                    if (!err) return "<unknown error: " + {}.toString.call(err) + ">";
+                    if ("string" == typeof err) return err;
+                    if (err instanceof Error) {
+                        var stack = err && err.stack;
+                        var message = err && err.message;
+                        if (stack && message) return -1 !== stack.indexOf(message) ? stack : message + "\n" + stack;
+                        if (stack) return stack;
+                        if (message) return message;
+                    }
+                    return err && err.toString && "function" == typeof err.toString ? err.toString() : {}.toString.call(err);
+                } catch (newErr) {
+                    return "Error while stringifying error: " + stringifyError(newErr, level + 1);
+                }
+            }
+            function stringifyErrorMessage(err) {
+                var defaultMessage = "<unknown error: " + {}.toString.call(err) + ">";
+                return err ? err instanceof Error ? err.message || defaultMessage : "string" == typeof err.message && err.message || defaultMessage : defaultMessage;
+            }
+            function stringify(item) {
+                return "string" == typeof item ? item : item && item.toString && "function" == typeof item.toString ? item.toString() : {}.toString.call(item);
+            }
+            function domainMatches(hostname, domain) {
+                var index = (hostname = hostname.split("://")[1]).indexOf(domain);
+                return -1 !== index && hostname.slice(index) === domain;
+            }
+            function patchMethod(obj, name, handler) {
+                var original = obj[name];
+                obj[name] = function() {
+                    var _arguments2 = arguments, _this2 = this;
+                    return handler({
+                        context: this,
+                        args: [].slice.call(arguments),
+                        original: original,
+                        callOriginal: function() {
+                            return original.apply(_this2, _arguments2);
+                        }
+                    });
+                };
+            }
+            function extend(obj, source) {
+                if (!source) return obj;
+                if (Object.assign) return Object.assign(obj, source);
+                for (var key in source) source.hasOwnProperty(key) && (obj[key] = source[key]);
+                return obj;
+            }
+            function util_values(obj) {
+                if (Object.values) return Object.values(obj);
+                var result = [];
+                for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
+                return result;
+            }
+            var memoizedValues = memoize(util_values);
+            function perc(pixels, percentage) {
+                return Math.round(pixels * percentage / 100);
+            }
+            function min() {
+                return Math.min.apply(Math, arguments);
+            }
+            function max() {
+                return Math.max.apply(Math, arguments);
+            }
+            function roundUp(num, nearest) {
+                var remainder = num % nearest;
+                return remainder ? num - remainder + nearest : num;
+            }
+            function regexMap(str, regexp, handler) {
+                var results = [];
+                str.replace(regexp, (function(item) {
+                    results.push(handler ? handler.apply(null, arguments) : item);
+                }));
+                return results;
+            }
+            function svgToBase64(svg) {
+                return "data:image/svg+xml;base64," + base64encode(svg);
+            }
+            function objFilter(obj, filter) {
+                void 0 === filter && (filter = Boolean);
+                var result = {};
+                for (var key in obj) obj.hasOwnProperty(key) && filter(obj[key], key) && (result[key] = obj[key]);
+                return result;
+            }
+            function identity(item) {
+                return item;
+            }
+            function regexTokenize(text, regexp) {
+                var result = [];
+                text.replace(regexp, (function(token) {
+                    result.push(token);
+                    return "";
+                }));
+                return result;
+            }
+            function promiseDebounce(method, delay) {
+                void 0 === delay && (delay = 50);
+                var promise;
+                var timeout;
+                return setFunctionName((function() {
+                    timeout && clearTimeout(timeout);
+                    var localPromise = promise = promise || new promise_ZalgoPromise;
+                    timeout = setTimeout((function() {
+                        promise = null;
+                        timeout = null;
+                        promise_ZalgoPromise.try(method).then((function(result) {
+                            localPromise.resolve(result);
+                        }), (function(err) {
+                            localPromise.reject(err);
+                        }));
+                    }), delay);
+                    return localPromise;
+                }), getFunctionName(method) + "::promiseDebounced");
+            }
+            function safeInterval(method, time) {
+                var timeout;
+                !function loop() {
+                    timeout = setTimeout((function() {
+                        method();
+                        loop();
+                    }), time);
+                }();
+                return {
+                    cancel: function() {
+                        clearTimeout(timeout);
+                    }
+                };
+            }
+            function isInteger(str) {
+                return Boolean(str.match(/^[0-9]+$/));
+            }
+            function isFloat(str) {
+                return Boolean(str.match(/^[0-9]+\.[0-9]+$/));
+            }
+            function serializePrimitive(value) {
+                return value.toString();
+            }
+            function deserializePrimitive(value) {
+                return "true" === value || "false" !== value && (isInteger(value) ? parseInt(value, 10) : isFloat(value) ? parseFloat(value) : value);
+            }
+            function dotify(obj, prefix, newobj) {
+                void 0 === prefix && (prefix = "");
+                void 0 === newobj && (newobj = {});
+                prefix = prefix ? prefix + "." : prefix;
+                for (var key in obj) obj.hasOwnProperty(key) && null != obj[key] && "function" != typeof obj[key] && (obj[key] && Array.isArray(obj[key]) && obj[key].length && obj[key].every((function(val) {
+                    return "object" != typeof val;
+                })) ? newobj["" + prefix + key + "[]"] = obj[key].join(",") : obj[key] && "object" == typeof obj[key] ? newobj = dotify(obj[key], "" + prefix + key, newobj) : newobj["" + prefix + key] = serializePrimitive(obj[key]));
+                return newobj;
+            }
+            function undotify(obj) {
+                var result = {};
+                for (var key in obj) if (obj.hasOwnProperty(key) && "string" == typeof obj[key]) {
+                    var value = obj[key];
+                    if (key.match(/^.+\[\]$/)) {
+                        key = key.slice(0, -2);
+                        value = value.split(",").map(deserializePrimitive);
+                    } else value = deserializePrimitive(value);
+                    var keyResult = result;
+                    var parts = key.split(".");
+                    for (var i = 0; i < parts.length; i++) {
+                        var part = parts[i];
+                        var isLast = i + 1 === parts.length;
+                        var isIndex = !isLast && isInteger(parts[i + 1]);
+                        if ("constructor" === part || "prototype" === part || "__proto__" === part) throw new Error("Disallowed key: " + part);
+                        isLast ? keyResult[part] = value : keyResult = keyResult[part] = keyResult[part] || (isIndex ? [] : {});
+                    }
+                }
+                return result;
+            }
+            function eventEmitter() {
+                var triggered = {};
+                var handlers = {};
+                var emitter = {
+                    on: function(eventName, handler) {
+                        var handlerList = handlers[eventName] = handlers[eventName] || [];
+                        handlerList.push(handler);
+                        var cancelled = !1;
+                        return {
+                            cancel: function() {
+                                if (!cancelled) {
+                                    cancelled = !0;
+                                    handlerList.splice(handlerList.indexOf(handler), 1);
+                                }
+                            }
+                        };
+                    },
+                    once: function(eventName, handler) {
+                        var listener = emitter.on(eventName, (function() {
+                            listener.cancel();
+                            handler();
+                        }));
+                        return listener;
+                    },
+                    trigger: function(eventName) {
+                        for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) args[_key3 - 1] = arguments[_key3];
+                        var handlerList = handlers[eventName];
+                        var promises = [];
+                        if (handlerList) {
+                            var _loop = function(_i2) {
+                                var handler = handlerList[_i2];
+                                promises.push(promise_ZalgoPromise.try((function() {
+                                    return handler.apply(void 0, args);
+                                })));
+                            };
+                            for (var _i2 = 0; _i2 < handlerList.length; _i2++) _loop(_i2);
+                        }
+                        return promise_ZalgoPromise.all(promises).then(src_util_noop);
+                    },
+                    triggerOnce: function(eventName) {
+                        if (triggered[eventName]) return promise_ZalgoPromise.resolve();
+                        triggered[eventName] = !0;
+                        for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) args[_key4 - 1] = arguments[_key4];
+                        return emitter.trigger.apply(emitter, [ eventName ].concat(args));
+                    },
+                    reset: function() {
+                        handlers = {};
+                    }
+                };
+                return emitter;
+            }
+            function camelToDasherize(string) {
+                return string.replace(/([A-Z])/g, (function(g) {
+                    return "-" + g.toLowerCase();
+                }));
+            }
+            function dasherizeToCamel(string) {
+                return string.replace(/-([a-z])/g, (function(g) {
+                    return g[1].toUpperCase();
+                }));
+            }
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+            }
+            function util_get(item, path, def) {
+                if (!path) return def;
+                var pathParts = path.split(".");
+                for (var i = 0; i < pathParts.length; i++) {
+                    if ("object" != typeof item || null === item) return def;
+                    item = item[pathParts[i]];
+                }
+                return void 0 === item ? def : item;
+            }
+            function safeTimeout(method, time) {
+                var interval = safeInterval((function() {
+                    if ((time -= 100) <= 0) {
+                        interval.cancel();
+                        method();
+                    }
+                }), 100);
+            }
+            function defineLazyProp(obj, key, getter) {
+                if (Array.isArray(obj)) {
+                    if ("number" != typeof key) throw new TypeError("Array key must be number");
+                } else if ("object" == typeof obj && null !== obj && "string" != typeof key) throw new TypeError("Object key must be string");
+                Object.defineProperty(obj, key, {
+                    configurable: !0,
+                    enumerable: !0,
+                    get: function() {
+                        delete obj[key];
+                        var value = getter();
+                        obj[key] = value;
+                        return value;
+                    },
+                    set: function(value) {
+                        delete obj[key];
+                        obj[key] = value;
+                    }
+                });
+            }
+            function arrayFrom(item) {
+                return [].slice.call(item);
+            }
+            function isObject(item) {
+                return "object" == typeof item && null !== item;
+            }
+            function isObjectObject(obj) {
+                return isObject(obj) && "[object Object]" === {}.toString.call(obj);
+            }
+            function isPlainObject(obj) {
+                if (!isObjectObject(obj)) return !1;
+                var constructor = obj.constructor;
+                if ("function" != typeof constructor) return !1;
+                var prototype = constructor.prototype;
+                return !!isObjectObject(prototype) && !!prototype.hasOwnProperty("isPrototypeOf");
+            }
+            function replaceObject(item, replacer, fullKey) {
+                void 0 === fullKey && (fullKey = "");
+                if (Array.isArray(item)) {
+                    var length = item.length;
+                    var result = [];
+                    var _loop2 = function(i) {
+                        defineLazyProp(result, i, (function() {
+                            var itemKey = fullKey ? fullKey + "." + i : "" + i;
+                            var child = replacer(item[i], i, itemKey);
+                            (isPlainObject(child) || Array.isArray(child)) && (child = replaceObject(child, replacer, itemKey));
+                            return child;
+                        }));
+                    };
+                    for (var i = 0; i < length; i++) _loop2(i);
+                    return result;
+                }
+                if (isPlainObject(item)) {
+                    var _result = {};
+                    var _loop3 = function(key) {
+                        if (!item.hasOwnProperty(key)) return "continue";
+                        defineLazyProp(_result, key, (function() {
+                            var itemKey = fullKey ? fullKey + "." + key : "" + key;
+                            var child = replacer(item[key], key, itemKey);
+                            (isPlainObject(child) || Array.isArray(child)) && (child = replaceObject(child, replacer, itemKey));
+                            return child;
+                        }));
+                    };
+                    for (var key in item) _loop3(key);
+                    return _result;
+                }
+                throw new Error("Pass an object or array");
+            }
+            function copyProp(source, target, name, def) {
+                if (source.hasOwnProperty(name)) {
+                    var descriptor = Object.getOwnPropertyDescriptor(source, name);
+                    Object.defineProperty(target, name, descriptor);
+                } else target[name] = def;
+            }
+            function regex(pattern, string, start) {
+                void 0 === start && (start = 0);
+                "string" == typeof pattern && (pattern = new RegExp(pattern));
+                var result = string.slice(start).match(pattern);
+                if (result) {
+                    var index = result.index;
+                    var regmatch = result[0];
+                    return {
+                        text: regmatch,
+                        groups: result.slice(1),
+                        start: start + index,
+                        end: start + index + regmatch.length,
+                        length: regmatch.length,
+                        replace: function(text) {
+                            return regmatch ? "" + regmatch.slice(0, start + index) + text + regmatch.slice(index + regmatch.length) : "";
+                        }
+                    };
+                }
+            }
+            function regexAll(pattern, string) {
+                var matches = [];
+                var start = 0;
+                for (;;) {
+                    var regmatch = regex(pattern, string, start);
+                    if (!regmatch) break;
+                    matches.push(regmatch);
+                    start = match.end;
+                }
+                return matches;
+            }
+            function isDefined(value) {
+                return null != value;
+            }
+            function cycle(method) {
+                return promise_ZalgoPromise.try(method).then((function() {
+                    return cycle(method);
+                }));
+            }
+            function debounce(method, time) {
+                void 0 === time && (time = 100);
+                var timeout;
+                return setFunctionName((function() {
+                    var _arguments3 = arguments, _this3 = this;
+                    clearTimeout(timeout);
+                    timeout = setTimeout((function() {
+                        return method.apply(_this3, _arguments3);
+                    }), time);
+                }), getFunctionName(method) + "::debounced");
+            }
+            function util_isRegex(item) {
+                return "[object RegExp]" === {}.toString.call(item);
+            }
+            var util_weakMapMemoize = function(method) {
+                var weakmap = new weakmap_CrossDomainSafeWeakMap;
+                return function(arg) {
+                    var _this4 = this;
+                    return weakmap.getOrSet(arg, (function() {
+                        return method.call(_this4, arg);
+                    }));
+                };
+            };
+            var util_weakMapMemoizePromise = function(method) {
+                var weakmap = new weakmap_CrossDomainSafeWeakMap;
+                return function(arg) {
+                    var _this5 = this;
+                    return weakmap.getOrSet(arg, (function() {
+                        return method.call(_this5, arg).finally((function() {
+                            weakmap.delete(arg);
+                        }));
+                    }));
+                };
+            };
+            function getOrSet(obj, key, getter) {
+                if (obj.hasOwnProperty(key)) return obj[key];
+                var val = getter();
+                obj[key] = val;
+                return val;
+            }
+            function cleanup(obj) {
+                var tasks = [];
+                var cleaned = !1;
+                var cleanErr;
+                var cleaner = {
+                    set: function(name, item) {
+                        if (!cleaned) {
+                            obj[name] = item;
+                            cleaner.register((function() {
+                                delete obj[name];
+                            }));
+                        }
+                        return item;
+                    },
+                    register: function(method) {
+                        var task = once((function() {
+                            return method(cleanErr);
+                        }));
+                        cleaned ? method(cleanErr) : tasks.push(task);
+                        return {
+                            cancel: function() {
+                                var index = tasks.indexOf(task);
+                                -1 !== index && tasks.splice(index, 1);
+                            }
+                        };
+                    },
+                    all: function(err) {
+                        cleanErr = err;
+                        var results = [];
+                        cleaned = !0;
+                        for (;tasks.length; ) {
+                            var task = tasks.shift();
+                            results.push(task());
+                        }
+                        return promise_ZalgoPromise.all(results).then(src_util_noop);
+                    }
+                };
+                return cleaner;
+            }
+            function tryCatch(fn) {
+                var result;
+                var error;
+                try {
+                    result = fn();
+                } catch (err) {
+                    error = err;
+                }
+                return {
+                    result: result,
+                    error: error
+                };
+            }
+            function removeFromArray(arr, item) {
+                var index = arr.indexOf(item);
+                -1 !== index && arr.splice(index, 1);
+            }
+            function assertExists(name, thing) {
+                if (null == thing) throw new Error("Expected " + name + " to be present");
+                return thing;
+            }
+            function unique(arr) {
+                var result = {};
+                for (var _i4 = 0; _i4 < arr.length; _i4++) result[arr[_i4]] = !0;
+                return Object.keys(result);
+            }
+            var constHas = function(constant, value) {
+                return -1 !== memoizedValues(constant).indexOf(value);
+            };
+            function dedupeErrors(handler) {
+                var seenErrors = [];
+                var seenStringifiedErrors = {};
+                return function(err) {
+                    if (-1 === seenErrors.indexOf(err)) {
+                        seenErrors.push(err);
+                        var stringifiedError = stringifyError(err);
+                        if (!seenStringifiedErrors[stringifiedError]) {
+                            seenStringifiedErrors[stringifiedError] = !0;
+                            return handler(err);
+                        }
+                    }
+                };
+            }
+            var util_ExtendableError = function(_Error) {
+                _inheritsLoose(ExtendableError, _Error);
+                function ExtendableError(message) {
+                    var _this6;
+                    (_this6 = _Error.call(this, message) || this).name = _this6.constructor.name;
+                    "function" == typeof Error.captureStackTrace ? Error.captureStackTrace(function(self) {
+                        if (void 0 === self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+                        return self;
+                    }(_this6), _this6.constructor) : _this6.stack = new Error(message).stack;
+                    return _this6;
+                }
+                return ExtendableError;
+            }(wrapNativeSuper_wrapNativeSuper(Error));
+            var KEY_CODES = {
+                ENTER: 13,
+                SPACE: 32
+            };
+            var ATTRIBUTES = {
+                UID: "data-uid"
+            };
+            var UID_HASH_LENGTH = 30;
+            function getBody() {
+                var body = document.body;
+                if (!body) throw new Error("Body element not found");
+                return body;
+            }
+            function isDocumentReady() {
+                return Boolean(document.body) && "complete" === document.readyState;
+            }
+            function isDocumentInteractive() {
+                return Boolean(document.body) && "interactive" === document.readyState;
+            }
+            function urlEncode(str) {
+                return encodeURIComponent(str);
+            }
+            function waitForWindowReady() {
+                return inlineMemoize(waitForWindowReady, (function() {
+                    return new promise_ZalgoPromise((function(resolve) {
+                        isDocumentReady() && resolve();
+                        window.addEventListener("load", (function() {
+                            return resolve();
+                        }));
+                    }));
+                }));
+            }
+            var waitForDocumentReady = memoize((function() {
+                return new promise_ZalgoPromise((function(resolve) {
+                    if (isDocumentReady() || isDocumentInteractive()) return resolve();
+                    var interval = setInterval((function() {
+                        if (isDocumentReady() || isDocumentInteractive()) {
+                            clearInterval(interval);
+                            return resolve();
+                        }
+                    }), 10);
+                }));
+            }));
+            function waitForDocumentBody() {
+                return promise_ZalgoPromise.try((function() {
+                    return document.body ? document.body : waitForDocumentReady().then((function() {
+                        if (document.body) return document.body;
+                        throw new Error("Document ready but document.body not present");
+                    }));
+                }));
+            }
+            function parseQuery(queryString) {
+                return inlineMemoize(parseQuery, (function() {
+                    var params = {};
+                    if (!queryString) return params;
+                    if (-1 === queryString.indexOf("=")) return params;
+                    for (var _i2 = 0, _queryString$split2 = queryString.split("&"); _i2 < _queryString$split2.length; _i2++) {
+                        var pair = _queryString$split2[_i2];
+                        (pair = pair.split("="))[0] && pair[1] && (params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]));
+                    }
+                    return params;
+                }), [ queryString ]);
+            }
+            function getQueryParam(name) {
+                return parseQuery(window.location.search.slice(1))[name];
+            }
+            function urlWillRedirectPage(url) {
+                return -1 === url.indexOf("#") || 0 !== url.indexOf("#") && url.split("#")[0] !== window.location.href.split("#")[0];
+            }
+            function formatQuery(obj) {
+                void 0 === obj && (obj = {});
+                return Object.keys(obj).filter((function(key) {
+                    return "string" == typeof obj[key] || "boolean" == typeof obj[key];
+                })).map((function(key) {
+                    var val = obj[key];
+                    if ("string" != typeof val && "boolean" != typeof val) throw new TypeError("Invalid type for query");
+                    return urlEncode(key) + "=" + urlEncode(val.toString());
+                })).join("&");
+            }
+            function extendQuery(originalQuery, props) {
+                void 0 === props && (props = {});
+                return props && Object.keys(props).length ? formatQuery(_extends({}, parseQuery(originalQuery), props)) : originalQuery;
+            }
+            function extendUrl(url, options) {
+                var query = options.query || {};
+                var hash = options.hash || {};
+                var originalUrl;
+                var originalHash;
+                var _url$split = url.split("#");
+                originalHash = _url$split[1];
+                var _originalUrl$split = (originalUrl = _url$split[0]).split("?");
+                originalUrl = _originalUrl$split[0];
+                var queryString = extendQuery(_originalUrl$split[1], query);
+                var hashString = extendQuery(originalHash, hash);
+                queryString && (originalUrl = originalUrl + "?" + queryString);
+                hashString && (originalUrl = originalUrl + "#" + hashString);
+                return originalUrl;
+            }
+            function redirect(url, win) {
+                void 0 === win && (win = window);
+                return new promise_ZalgoPromise((function(resolve) {
+                    win.location = url;
+                    urlWillRedirectPage(url) || resolve();
+                }));
+            }
+            function hasMetaViewPort() {
+                var meta = document.querySelector("meta[name=viewport]");
+                return !(isDevice() && window.screen.width < 660 && !meta);
+            }
+            function isElementVisible(el) {
+                return Boolean(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+            }
+            function getPerformance() {
+                return inlineMemoize(getPerformance, (function() {
+                    var performance = window.performance;
+                    if (performance && performance.now && performance.timing && performance.timing.connectEnd && performance.timing.navigationStart && Math.abs(performance.now() - Date.now()) > 1e3 && performance.now() - (performance.timing.connectEnd - performance.timing.navigationStart) > 0) return performance;
+                }));
+            }
+            function enablePerformance() {
+                return Boolean(getPerformance());
+            }
+            function getPageRenderTime() {
+                return waitForDocumentReady().then((function() {
+                    var performance = getPerformance();
+                    if (performance) {
+                        var timing = performance.timing;
+                        return timing.connectEnd && timing.domInteractive ? timing.domInteractive - timing.connectEnd : void 0;
+                    }
+                }));
+            }
+            function htmlEncode(html) {
+                void 0 === html && (html = "");
+                return html.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/\//g, "&#x2F;");
+            }
+            function dom_isBrowser() {
+                return "undefined" != typeof window && void 0 !== window.location;
+            }
+            function querySelectorAll(selector, doc) {
+                void 0 === doc && (doc = window.document);
+                return [].slice.call(doc.querySelectorAll(selector));
+            }
+            function onClick(element, handler) {
+                element.addEventListener("touchstart", src_util_noop);
+                element.addEventListener("click", handler);
+                element.addEventListener("keypress", (function(event) {
+                    if (event.keyCode === KEY_CODES.ENTER || event.keyCode === KEY_CODES.SPACE) return handler(event);
+                }));
+            }
+            function getScript(_ref) {
+                var _ref$host = _ref.host, host = void 0 === _ref$host ? window.location.host : _ref$host, path = _ref.path, _ref$reverse = _ref.reverse, reverse = void 0 !== _ref$reverse && _ref$reverse;
+                return inlineMemoize(getScript, (function() {
+                    var url = "" + host + path;
+                    var scripts = [].slice.call(document.getElementsByTagName("script"));
+                    reverse && scripts.reverse();
+                    for (var _i4 = 0; _i4 < scripts.length; _i4++) {
+                        var script = scripts[_i4];
+                        if (script.src && script.src.replace(/^https?:\/\//, "").split("?")[0] === url) return script;
+                    }
+                }), [ path ]);
+            }
+            function isLocalStorageEnabled() {
+                return inlineMemoize(isLocalStorageEnabled, (function() {
+                    try {
+                        if ("undefined" == typeof window) return !1;
+                        if (window.localStorage) {
+                            var value = Math.random().toString();
+                            window.localStorage.setItem("__test__localStorage__", value);
+                            var result = window.localStorage.getItem("__test__localStorage__");
+                            window.localStorage.removeItem("__test__localStorage__");
+                            if (value === result) return !0;
+                        }
+                    } catch (err) {}
+                    return !1;
+                }));
+            }
+            function getBrowserLocales() {
+                var nav = window.navigator;
+                var locales = nav.languages ? [].concat(nav.languages) : [];
+                nav.language && locales.push(nav.language);
+                nav.userLanguage && locales.push(nav.userLanguage);
+                return locales.map((function(locale) {
+                    if (locale && locale.match(/^[a-z]{2}[-_][A-Z]{2}$/)) {
+                        var _locale$split = locale.split(/[-_]/);
+                        return {
+                            country: _locale$split[1],
+                            lang: _locale$split[0]
+                        };
+                    }
+                    return locale && locale.match(/^[a-z]{2}$/) ? {
+                        lang: locale
+                    } : null;
+                })).filter(Boolean);
+            }
+            function appendChild(container, child) {
+                container.appendChild(child);
+            }
+            function getElementSafe(id, doc) {
+                void 0 === doc && (doc = document);
+                return isElement(id) ? id : "string" == typeof id ? doc.querySelector(id) : void 0;
+            }
+            function getElement(id, doc) {
+                void 0 === doc && (doc = document);
+                var element = getElementSafe(id, doc);
+                if (element) return element;
+                throw new Error("Can not find element: " + stringify(id));
+            }
+            function elementReady(id) {
+                return new promise_ZalgoPromise((function(resolve, reject) {
+                    var name = stringify(id);
+                    var el = getElementSafe(id);
+                    if (el) return resolve(el);
+                    if (isDocumentReady()) return reject(new Error("Document is ready and element " + name + " does not exist"));
+                    var interval = setInterval((function() {
+                        if (el = getElementSafe(id)) {
+                            resolve(el);
+                            clearInterval(interval);
+                        } else if (isDocumentReady()) {
+                            clearInterval(interval);
+                            return reject(new Error("Document is ready and element " + name + " does not exist"));
+                        }
+                    }), 10);
+                }));
+            }
+            var dom_PopupOpenError = function(_ExtendableError) {
+                _inheritsLoose(PopupOpenError, _ExtendableError);
+                function PopupOpenError() {
+                    return _ExtendableError.apply(this, arguments) || this;
+                }
+                return PopupOpenError;
+            }(util_ExtendableError);
+            function popup(url, options) {
+                var _options$closeOnUnloa = (options = options || {}).closeOnUnload, closeOnUnload = void 0 === _options$closeOnUnloa ? 1 : _options$closeOnUnloa, _options$name = options.name, name = void 0 === _options$name ? "" : _options$name, width = options.width, height = options.height;
+                var top = 0;
+                var left = 0;
+                width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
+                height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
+                delete options.closeOnUnload;
+                delete options.name;
+                width && height && (options = _extends({
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height,
+                    status: 1,
+                    toolbar: 0,
+                    menubar: 0,
+                    resizable: 1,
+                    scrollbars: 1
+                }, options));
+                var params = Object.keys(options).map((function(key) {
+                    if (null != options[key]) return key + "=" + stringify(options[key]);
+                })).filter(Boolean).join(",");
+                var win;
+                try {
+                    win = window.open(url, name, params);
+                } catch (err) {
+                    throw new dom_PopupOpenError("Can not open popup window - " + (err.stack || err.message));
+                }
+                if (isWindowClosed(win)) {
+                    var err;
+                    throw new dom_PopupOpenError("Can not open popup window - blocked");
+                }
+                closeOnUnload && window.addEventListener("unload", (function() {
+                    return win.close();
+                }));
+                return win;
+            }
+            function writeToWindow(win, html) {
+                try {
+                    win.document.open();
+                    win.document.write(html);
+                    win.document.close();
+                } catch (err) {
+                    try {
+                        win.location = "javascript: document.open(); document.write(" + JSON.stringify(html) + "); document.close();";
+                    } catch (err2) {}
+                }
+            }
+            function writeElementToWindow(win, el) {
+                var tag = el.tagName.toLowerCase();
+                if ("html" !== tag) throw new Error("Expected element to be html, got " + tag);
+                var documentElement = win.document.documentElement;
+                for (var _i6 = 0, _arrayFrom2 = arrayFrom(documentElement.children); _i6 < _arrayFrom2.length; _i6++) documentElement.removeChild(_arrayFrom2[_i6]);
+                for (var _i8 = 0, _arrayFrom4 = arrayFrom(el.children); _i8 < _arrayFrom4.length; _i8++) documentElement.appendChild(_arrayFrom4[_i8]);
+            }
+            function setStyle(el, styleText, doc) {
+                void 0 === doc && (doc = window.document);
+                el.styleSheet ? el.styleSheet.cssText = styleText : el.appendChild(doc.createTextNode(styleText));
+            }
+            var awaitFrameLoadPromises;
+            function awaitFrameLoad(frame) {
+                if ((awaitFrameLoadPromises = awaitFrameLoadPromises || new weakmap_CrossDomainSafeWeakMap).has(frame)) {
+                    var _promise = awaitFrameLoadPromises.get(frame);
+                    if (_promise) return _promise;
+                }
+                var promise = new promise_ZalgoPromise((function(resolve, reject) {
+                    frame.addEventListener("load", (function() {
+                        !function(frame) {
+                            !function() {
+                                for (var i = 0; i < iframeWindows.length; i++) {
+                                    var closed = !1;
+                                    try {
+                                        closed = iframeWindows[i].closed;
+                                    } catch (err) {}
+                                    if (closed) {
+                                        iframeFrames.splice(i, 1);
+                                        iframeWindows.splice(i, 1);
+                                    }
+                                }
+                            }();
+                            if (frame && frame.contentWindow) try {
+                                iframeWindows.push(frame.contentWindow);
+                                iframeFrames.push(frame);
+                            } catch (err) {}
+                        }(frame);
+                        resolve(frame);
+                    }));
+                    frame.addEventListener("error", (function(err) {
+                        frame.contentWindow ? resolve(frame) : reject(err);
+                    }));
+                }));
+                awaitFrameLoadPromises.set(frame, promise);
+                return promise;
+            }
+            function awaitFrameWindow(frame) {
+                return awaitFrameLoad(frame).then((function(loadedFrame) {
+                    if (!loadedFrame.contentWindow) throw new Error("Could not find window in iframe");
+                    return loadedFrame.contentWindow;
+                }));
+            }
+            function createElement(tag, options, container) {
+                void 0 === tag && (tag = "div");
+                void 0 === options && (options = {});
+                tag = tag.toLowerCase();
+                var element = document.createElement(tag);
+                options.style && extend(element.style, options.style);
+                options.class && (element.className = options.class.join(" "));
+                options.id && element.setAttribute("id", options.id);
+                if (options.attributes) for (var _i10 = 0, _Object$keys2 = Object.keys(options.attributes); _i10 < _Object$keys2.length; _i10++) {
+                    var key = _Object$keys2[_i10];
+                    element.setAttribute(key, options.attributes[key]);
+                }
+                options.styleSheet && setStyle(element, options.styleSheet);
+                container && appendChild(container, element);
+                if (options.html) if ("iframe" === tag) {
+                    if (!container || !element.contentWindow) throw new Error("Iframe html can not be written unless container provided and iframe in DOM");
+                    writeToWindow(element.contentWindow, options.html);
+                } else element.innerHTML = options.html;
+                return element;
+            }
+            function iframe(options, container) {
+                void 0 === options && (options = {});
+                var style = options.style || {};
+                var frame = createElement("iframe", {
+                    attributes: _extends({
+                        allowTransparency: "true"
+                    }, options.attributes || {}),
+                    style: _extends({
+                        backgroundColor: "transparent",
+                        border: "none"
+                    }, style),
+                    html: options.html,
+                    class: options.class
+                });
+                var isIE = window.navigator.userAgent.match(/MSIE|Edge/i);
+                frame.hasAttribute("id") || frame.setAttribute("id", uniqueID());
+                awaitFrameLoad(frame);
+                container && getElement(container).appendChild(frame);
+                (options.url || isIE) && frame.setAttribute("src", options.url || "about:blank");
+                return frame;
+            }
+            function addEventListener(obj, event, handler) {
+                obj.addEventListener(event, handler);
+                return {
+                    cancel: function() {
+                        obj.removeEventListener(event, handler);
+                    }
+                };
+            }
+            function bindEvents(element, eventNames, handler) {
+                handler = once(handler);
+                for (var _i12 = 0; _i12 < eventNames.length; _i12++) element.addEventListener(eventNames[_i12], handler);
+                return {
+                    cancel: once((function() {
+                        for (var _i14 = 0; _i14 < eventNames.length; _i14++) element.removeEventListener(eventNames[_i14], handler);
+                    }))
+                };
+            }
+            var VENDOR_PREFIXES = [ "webkit", "moz", "ms", "o" ];
+            function setVendorCSS(element, name, value) {
+                element.style[name] = value;
+                var capitalizedName = capitalizeFirstLetter(name);
+                for (var _i16 = 0; _i16 < VENDOR_PREFIXES.length; _i16++) element.style["" + VENDOR_PREFIXES[_i16] + capitalizedName] = value;
+            }
+            var ANIMATION_START_EVENTS = [ "animationstart", "webkitAnimationStart", "oAnimationStart", "MSAnimationStart" ];
+            var ANIMATION_END_EVENTS = [ "animationend", "webkitAnimationEnd", "oAnimationEnd", "MSAnimationEnd" ];
+            function animate(element, name, clean, timeout) {
+                void 0 === timeout && (timeout = 1e3);
+                return new promise_ZalgoPromise((function(resolve, reject) {
+                    var el = getElement(element);
+                    if (!el) return resolve();
+                    var hasStarted = !1;
+                    var startTimeout;
+                    var endTimeout;
+                    var startEvent;
+                    var endEvent;
+                    function cleanUp() {
+                        clearTimeout(startTimeout);
+                        clearTimeout(endTimeout);
+                        startEvent.cancel();
+                        endEvent.cancel();
+                    }
+                    startEvent = bindEvents(el, ANIMATION_START_EVENTS, (function(event) {
+                        if (event.target === el && event.animationName === name) {
+                            clearTimeout(startTimeout);
+                            event.stopPropagation();
+                            startEvent.cancel();
+                            hasStarted = !0;
+                            endTimeout = setTimeout((function() {
+                                cleanUp();
+                                resolve();
+                            }), timeout);
+                        }
+                    }));
+                    endEvent = bindEvents(el, ANIMATION_END_EVENTS, (function(event) {
+                        if (event.target === el && event.animationName === name) {
+                            cleanUp();
+                            return "string" == typeof event.animationName && event.animationName !== name ? reject("Expected animation name to be " + name + ", found " + event.animationName) : resolve();
+                        }
+                    }));
+                    setVendorCSS(el, "animationName", name);
+                    startTimeout = setTimeout((function() {
+                        if (!hasStarted) {
+                            cleanUp();
+                            return resolve();
+                        }
+                    }), 200);
+                    clean && clean(cleanUp);
+                }));
+            }
+            function makeElementVisible(element) {
+                element.style.setProperty("visibility", "");
+            }
+            function makeElementInvisible(element) {
+                element.style.setProperty("visibility", "hidden", "important");
+            }
+            function showElement(element) {
+                element.style.setProperty("display", "");
+            }
+            function hideElement(element) {
+                element.style.setProperty("display", "none", "important");
+            }
+            function destroyElement(element) {
+                element && element.parentNode && element.parentNode.removeChild(element);
+            }
+            function showAndAnimate(element, name, clean) {
+                var animation = animate(element, name, clean);
+                showElement(element);
+                return animation;
+            }
+            function animateAndHide(element, name, clean) {
+                return animate(element, name, clean).then((function() {
+                    hideElement(element);
+                }));
+            }
+            function addClass(element, name) {
+                element.classList.add(name);
+            }
+            function removeClass(element, name) {
+                element.classList.remove(name);
+            }
+            function isElementClosed(el) {
+                return !(el && el.parentNode && el.ownerDocument && el.ownerDocument.documentElement && el.ownerDocument.documentElement.contains(el));
+            }
+            function watchElementForClose(element, handler) {
+                handler = once(handler);
+                var cancelled = !1;
+                var mutationObservers = [];
+                var interval;
+                var sacrificialFrame;
+                var sacrificialFrameWin;
+                var cancel = function() {
+                    cancelled = !0;
+                    for (var _i18 = 0; _i18 < mutationObservers.length; _i18++) mutationObservers[_i18].disconnect();
+                    interval && interval.cancel();
+                    sacrificialFrameWin && sacrificialFrameWin.removeEventListener("unload", elementClosed);
+                    sacrificialFrame && destroyElement(sacrificialFrame);
+                };
+                var elementClosed = function() {
+                    if (!cancelled) {
+                        handler();
+                        cancel();
+                    }
+                };
+                if (isElementClosed(element)) {
+                    elementClosed();
+                    return {
+                        cancel: cancel
+                    };
+                }
+                if (window.MutationObserver) {
+                    var mutationElement = element.parentElement;
+                    for (;mutationElement; ) {
+                        var mutationObserver = new window.MutationObserver((function() {
+                            isElementClosed(element) && elementClosed();
+                        }));
+                        mutationObserver.observe(mutationElement, {
+                            childList: !0
+                        });
+                        mutationObservers.push(mutationObserver);
+                        mutationElement = mutationElement.parentElement;
+                    }
+                }
+                (sacrificialFrame = document.createElement("iframe")).setAttribute("name", "__detect_close_" + uniqueID() + "__");
+                sacrificialFrame.style.display = "none";
+                awaitFrameWindow(sacrificialFrame).then((function(frameWin) {
+                    (sacrificialFrameWin = function(win) {
+                        if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
+                        return win;
+                    }(frameWin)).addEventListener("unload", elementClosed);
+                }));
+                element.appendChild(sacrificialFrame);
+                interval = safeInterval((function() {
+                    isElementClosed(element) && elementClosed();
+                }), 1e3);
+                return {
+                    cancel: cancel
+                };
+            }
+            function fixScripts(el, doc) {
+                void 0 === doc && (doc = window.document);
+                for (var _i20 = 0, _querySelectorAll2 = querySelectorAll("script", el); _i20 < _querySelectorAll2.length; _i20++) {
+                    var script = _querySelectorAll2[_i20];
+                    var parentNode = script.parentNode;
+                    if (parentNode) {
+                        var newScript = doc.createElement("script");
+                        newScript.text = script.textContent;
+                        parentNode.replaceChild(newScript, script);
+                    }
+                }
+            }
+            function onResize(el, handler, _temp) {
+                var _ref2 = void 0 === _temp ? {} : _temp, _ref2$width = _ref2.width, width = void 0 === _ref2$width || _ref2$width, _ref2$height = _ref2.height, height = void 0 === _ref2$height || _ref2$height, _ref2$interval = _ref2.interval, interval = void 0 === _ref2$interval ? 100 : _ref2$interval, _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win;
+                var currentWidth = el.offsetWidth;
+                var currentHeight = el.offsetHeight;
+                var canceled = !1;
+                handler({
+                    width: currentWidth,
+                    height: currentHeight
+                });
+                var check = function() {
+                    if (!canceled && isElementVisible(el)) {
+                        var newWidth = el.offsetWidth;
+                        var newHeight = el.offsetHeight;
+                        (width && newWidth !== currentWidth || height && newHeight !== currentHeight) && handler({
+                            width: newWidth,
+                            height: newHeight
+                        });
+                        currentWidth = newWidth;
+                        currentHeight = newHeight;
+                    }
+                };
+                var observer;
+                var timeout;
+                win.addEventListener("resize", check);
+                if (void 0 !== win.ResizeObserver) {
+                    (observer = new win.ResizeObserver(check)).observe(el);
+                    timeout = safeInterval(check, 10 * interval);
+                } else if (void 0 !== win.MutationObserver) {
+                    (observer = new win.MutationObserver(check)).observe(el, {
+                        attributes: !0,
+                        childList: !0,
+                        subtree: !0,
+                        characterData: !1
+                    });
+                    timeout = safeInterval(check, 10 * interval);
+                } else timeout = safeInterval(check, interval);
+                return {
+                    cancel: function() {
+                        canceled = !0;
+                        observer.disconnect();
+                        window.removeEventListener("resize", check);
+                        timeout.cancel();
+                    }
+                };
+            }
+            function getResourceLoadTime(url) {
+                var performance = getPerformance();
+                if (performance && "function" == typeof performance.getEntries) {
+                    var entries = performance.getEntries();
+                    for (var i = 0; i < entries.length; i++) {
+                        var entry = entries[i];
+                        if (entry && entry.name && 0 === entry.name.indexOf(url) && "number" == typeof entry.duration) return Math.floor(entry.duration);
+                    }
+                }
+            }
+            function isShadowElement(element) {
+                for (;element.parentNode; ) element = element.parentNode;
+                return "[object ShadowRoot]" === element.toString();
+            }
+            function getShadowRoot(element) {
+                for (;element.parentNode; ) element = element.parentNode;
+                if (isShadowElement(element)) return element;
+            }
+            function getShadowHost(element) {
+                var shadowRoot = getShadowRoot(element);
+                if (shadowRoot && shadowRoot.host) return shadowRoot.host;
+            }
+            function insertShadowSlot(element) {
+                var shadowHost = getShadowHost(element);
+                if (!shadowHost) throw new Error("Element is not in shadow dom");
+                var slotName = "shadow-slot-" + uniqueID();
+                var slot = document.createElement("slot");
+                slot.setAttribute("name", slotName);
+                element.appendChild(slot);
+                var slotProvider = document.createElement("div");
+                slotProvider.setAttribute("slot", slotName);
+                shadowHost.appendChild(slotProvider);
+                return isShadowElement(shadowHost) ? insertShadowSlot(slotProvider) : slotProvider;
+            }
+            function preventClickFocus(el) {
+                var onFocus = function onFocus(event) {
+                    el.removeEventListener("focus", onFocus);
+                    event.preventDefault();
+                    el.blur();
+                    return !1;
+                };
+                el.addEventListener("mousedown", (function() {
+                    el.addEventListener("focus", onFocus);
+                    setTimeout((function() {
+                        el.removeEventListener("focus", onFocus);
+                    }), 1);
+                }));
+            }
+            function getStackTrace() {
+                try {
+                    throw new Error("_");
+                } catch (err) {
+                    return err.stack || "";
+                }
+            }
+            var currentScript = "undefined" != typeof document ? document.currentScript : null;
+            var getCurrentScript = memoize((function() {
+                if (currentScript) return currentScript;
+                if (currentScript = function() {
+                    try {
+                        var stack = getStackTrace();
+                        var stackDetails = /.*at [^(]*\((.*):(.+):(.+)\)$/gi.exec(stack);
+                        var scriptLocation = stackDetails && stackDetails[1];
+                        if (!scriptLocation) return;
+                        for (var _i22 = 0, _Array$prototype$slic2 = [].slice.call(document.getElementsByTagName("script")).reverse(); _i22 < _Array$prototype$slic2.length; _i22++) {
+                            var script = _Array$prototype$slic2[_i22];
+                            if (script.src && script.src === scriptLocation) return script;
+                        }
+                    } catch (err) {}
+                }()) return currentScript;
+                throw new Error("Can not determine current script");
+            }));
+            var currentUID = uniqueID();
+            var getCurrentScriptUID = memoize((function() {
+                var script;
+                try {
+                    script = getCurrentScript();
+                } catch (err) {
+                    return currentUID;
+                }
+                var uid = script.getAttribute(ATTRIBUTES.UID);
+                if (uid && "string" == typeof uid) return uid;
+                if ((uid = script.getAttribute(ATTRIBUTES.UID + "-auto")) && "string" == typeof uid) return uid;
+                if (script.src) {
+                    var hashedString = strHashStr(JSON.stringify({
+                        src: script.src,
+                        dataset: script.dataset
+                    }));
+                    uid = "uid_" + hashedString.slice(hashedString.length - UID_HASH_LENGTH);
+                } else uid = uniqueID();
+                script.setAttribute(ATTRIBUTES.UID + "-auto", uid);
+                return uid;
+            }));
+            function submitForm(_ref3) {
+                var url = _ref3.url, target = _ref3.target, body = _ref3.body, _ref3$method = _ref3.method, method = void 0 === _ref3$method ? "post" : _ref3$method;
+                var form = document.createElement("form");
+                form.setAttribute("target", target);
+                form.setAttribute("method", method);
+                form.setAttribute("action", url);
+                form.style.display = "none";
+                if (body) for (var _i24 = 0, _Object$keys4 = Object.keys(body); _i24 < _Object$keys4.length; _i24++) {
+                    var _body$key;
+                    var key = _Object$keys4[_i24];
+                    var input = document.createElement("input");
+                    input.setAttribute("name", key);
+                    input.setAttribute("value", null == (_body$key = body[key]) ? void 0 : _body$key.toString());
+                    form.appendChild(input);
+                }
+                getBody().appendChild(form);
+                form.submit();
+                getBody().removeChild(form);
+            }
+            function getStorage(_ref) {
+                var name = _ref.name, _ref$lifetime = _ref.lifetime, lifetime = void 0 === _ref$lifetime ? 12e5 : _ref$lifetime;
+                return inlineMemoize(getStorage, (function() {
+                    var STORAGE_KEY = "__" + name + "_storage__";
+                    var newStateID = uniqueID();
+                    var accessedStorage;
+                    function getState(handler) {
+                        var localStorageEnabled = isLocalStorageEnabled();
+                        var storage;
+                        accessedStorage && (storage = accessedStorage);
+                        if (!storage && localStorageEnabled) {
+                            var rawStorage = window.localStorage.getItem(STORAGE_KEY);
+                            rawStorage && (storage = JSON.parse(rawStorage));
+                        }
+                        storage || (storage = getGlobal()[STORAGE_KEY]);
+                        storage || (storage = {
+                            id: newStateID
+                        });
+                        storage.id || (storage.id = newStateID);
+                        accessedStorage = storage;
+                        var result = handler(storage);
+                        localStorageEnabled ? window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storage)) : getGlobal()[STORAGE_KEY] = storage;
+                        accessedStorage = null;
+                        return result;
+                    }
+                    function getID() {
+                        return getState((function(storage) {
+                            return storage.id;
+                        }));
+                    }
+                    function getSession(handler) {
+                        return getState((function(storage) {
+                            var session = storage.__session__;
+                            var now = Date.now();
+                            session && now - session.created > lifetime && (session = null);
+                            session || (session = {
+                                guid: uniqueID(),
+                                created: now
+                            });
+                            storage.__session__ = session;
+                            return handler(session);
+                        }));
+                    }
+                    return {
+                        getState: getState,
+                        getID: getID,
+                        isStateFresh: function() {
+                            return getID() === newStateID;
+                        },
+                        getSessionState: function(handler) {
+                            return getSession((function(session) {
+                                session.state = session.state || {};
+                                return handler(session.state);
+                            }));
+                        },
+                        getSessionID: function() {
+                            return getSession((function(session) {
+                                return session.guid;
+                            }));
+                        }
+                    };
+                }), [ {
+                    name: name,
+                    lifetime: lifetime
+                } ]);
+            }
+            function getBelterExperimentStorage() {
+                return getStorage({
+                    name: "belter_experiment"
+                });
+            }
+            function isEventUnique(name) {
+                return getBelterExperimentStorage().getSessionState((function(state) {
+                    state.loggedBeacons = state.loggedBeacons || [];
+                    if (-1 === state.loggedBeacons.indexOf(name)) {
+                        state.loggedBeacons.push(name);
+                        return !0;
+                    }
+                    return !1;
+                }));
+            }
+            function getRandomInteger(range) {
+                return Math.floor(Math.random() * range);
+            }
+            function experiment(_ref) {
+                var name = _ref.name, _ref$sample = _ref.sample, sample = void 0 === _ref$sample ? 50 : _ref$sample, _ref$logTreatment = _ref.logTreatment, logTreatment = void 0 === _ref$logTreatment ? src_util_noop : _ref$logTreatment, _ref$logCheckpoint = _ref.logCheckpoint, logCheckpoint = void 0 === _ref$logCheckpoint ? src_util_noop : _ref$logCheckpoint, _ref$sticky = _ref.sticky;
+                var throttle = void 0 === _ref$sticky || _ref$sticky ? function(name) {
+                    return getBelterExperimentStorage().getState((function(state) {
+                        state.throttlePercentiles = state.throttlePercentiles || {};
+                        state.throttlePercentiles[name] = state.throttlePercentiles[name] || getRandomInteger(100);
+                        return state.throttlePercentiles[name];
+                    }));
+                }(name) : getRandomInteger(100);
+                var group;
+                var treatment = name + "_" + (group = throttle < sample ? "test" : sample >= 50 || sample <= throttle && throttle < 2 * sample ? "control" : "throttle");
+                var started = !1;
+                var forced = !1;
+                try {
+                    window.localStorage && window.localStorage.getItem(name) && (forced = !0);
+                } catch (err) {}
+                var exp = {
+                    isEnabled: function() {
+                        return "test" === group || forced;
+                    },
+                    isDisabled: function() {
+                        return "test" !== group && !forced;
+                    },
+                    getTreatment: function() {
+                        return treatment;
+                    },
+                    log: function(checkpoint, payload) {
+                        void 0 === payload && (payload = {});
+                        if (!started) return exp;
+                        isEventUnique(treatment + "_" + JSON.stringify(payload)) && logTreatment({
+                            name: name,
+                            treatment: treatment,
+                            payload: payload,
+                            throttle: throttle
+                        });
+                        isEventUnique(treatment + "_" + checkpoint + "_" + JSON.stringify(payload)) && logCheckpoint({
+                            name: name,
+                            treatment: treatment,
+                            checkpoint: checkpoint,
+                            payload: payload,
+                            throttle: throttle
+                        });
+                        return exp;
+                    },
+                    logStart: function(payload) {
+                        void 0 === payload && (payload = {});
+                        started = !0;
+                        return exp.log("start", payload);
+                    },
+                    logComplete: function(payload) {
+                        void 0 === payload && (payload = {});
+                        return exp.log("complete", payload);
+                    }
+                };
+                return exp;
+            }
+            function getGlobalNameSpace(_ref) {
+                var name = _ref.name, _ref$version = _ref.version, version = void 0 === _ref$version ? "latest" : _ref$version;
+                var global = getGlobal();
+                var globalKey = "__" + name + "__" + version + "_global__";
+                var namespace = global[globalKey] = global[globalKey] || {};
+                return {
+                    get: function(key, defValue) {
+                        defValue = defValue || {};
+                        return namespace[key] = namespace[key] || defValue;
+                    }
+                };
+            }
+            var headerBuilders = [];
+            function request(_ref) {
+                var url = _ref.url, _ref$method = _ref.method, method = void 0 === _ref$method ? "get" : _ref$method, _ref$headers = _ref.headers, headers = void 0 === _ref$headers ? {} : _ref$headers, json = _ref.json, data = _ref.data, body = _ref.body, _ref$win = _ref.win, win = void 0 === _ref$win ? window : _ref$win, _ref$timeout = _ref.timeout, timeout = void 0 === _ref$timeout ? 0 : _ref$timeout;
+                return new promise_ZalgoPromise((function(resolve, reject) {
+                    if (json && data || json && body || data && json) throw new Error("Only options.json or options.data or options.body should be passed");
+                    var normalizedHeaders = {};
+                    for (var _i4 = 0, _Object$keys2 = Object.keys(headers); _i4 < _Object$keys2.length; _i4++) {
+                        var _key2 = _Object$keys2[_i4];
+                        normalizedHeaders[_key2.toLowerCase()] = headers[_key2];
+                    }
+                    json ? normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/json" : (data || body) && (normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/x-www-form-urlencoded; charset=utf-8");
+                    normalizedHeaders.accept = normalizedHeaders.accept || "application/json";
+                    for (var _i6 = 0; _i6 < headerBuilders.length; _i6++) {
+                        var builtHeaders = (0, headerBuilders[_i6])();
+                        for (var _i8 = 0, _Object$keys4 = Object.keys(builtHeaders); _i8 < _Object$keys4.length; _i8++) {
+                            var _key3 = _Object$keys4[_i8];
+                            normalizedHeaders[_key3.toLowerCase()] = builtHeaders[_key3];
+                        }
+                    }
+                    var xhr = new win.XMLHttpRequest;
+                    xhr.addEventListener("load", (function() {
+                        var responseHeaders = function(rawHeaders) {
+                            void 0 === rawHeaders && (rawHeaders = "");
+                            var result = {};
+                            for (var _i2 = 0, _rawHeaders$trim$spli2 = rawHeaders.trim().split("\n"); _i2 < _rawHeaders$trim$spli2.length; _i2++) {
+                                var _line$split = _rawHeaders$trim$spli2[_i2].split(":"), _key = _line$split[0], values = _line$split.slice(1);
+                                result[_key.toLowerCase()] = values.join(":").trim();
+                            }
+                            return result;
+                        }(this.getAllResponseHeaders());
+                        if (!this.status) return reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: no response status code."));
+                        var contentType = responseHeaders["content-type"];
+                        var isJSON = contentType && (0 === contentType.indexOf("application/json") || 0 === contentType.indexOf("text/json"));
+                        var responseBody = this.responseText;
+                        try {
+                            responseBody = JSON.parse(responseBody);
+                        } catch (err) {
+                            if (isJSON) return reject(new Error("Invalid json: " + this.responseText + "."));
+                        }
+                        return resolve({
+                            status: this.status,
+                            headers: responseHeaders,
+                            body: responseBody
+                        });
+                    }), !1);
+                    xhr.addEventListener("error", (function(evt) {
+                        reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: " + evt.toString() + "."));
+                    }), !1);
+                    xhr.open(method, url, !0);
+                    for (var _key4 in normalizedHeaders) normalizedHeaders.hasOwnProperty(_key4) && xhr.setRequestHeader(_key4, normalizedHeaders[_key4]);
+                    json ? body = JSON.stringify(json) : data && (body = Object.keys(data).map((function(key) {
+                        return encodeURIComponent(key) + "=" + (data ? encodeURIComponent(data[key]) : "");
+                    })).join("&"));
+                    xhr.timeout = timeout;
+                    xhr.ontimeout = function() {
+                        reject(new Error("Request to " + method.toLowerCase() + " " + url + " has timed out"));
+                    };
+                    xhr.send(body);
+                }));
+            }
+            function addHeaderBuilder(method) {
+                headerBuilders.push(method);
+            }
+            var types_TYPES = !0;
+            function memoized(target, name, descriptor) {
+                descriptor.value = memoize(descriptor.value, {
+                    name: name,
+                    thisNamespace: !0
+                });
+            }
+            function decorators_promise(target, name, descriptor) {
+                descriptor.value = promisify(descriptor.value, {
+                    name: name
+                });
+            }
+            function isPerc(str) {
+                return "string" == typeof str && /^[0-9]+%$/.test(str);
+            }
+            function isPx(str) {
+                return "string" == typeof str && /^[0-9]+px$/.test(str);
+            }
+            function toNum(val) {
+                if ("number" == typeof val) return val;
+                var match = val.match(/^([0-9]+)(px|%)$/);
+                if (!match) throw new Error("Could not match css value from " + val);
+                return parseInt(match[1], 10);
+            }
+            function toPx(val) {
+                return toNum(val) + "px";
+            }
+            function toCSS(val) {
+                return "number" == typeof val ? toPx(val) : isPerc(val) ? val : toPx(val);
+            }
+            function percOf(num, perc) {
+                return parseInt(num * toNum(perc) / 100, 10);
+            }
+            function normalizeDimension(dim, max) {
+                if ("number" == typeof dim) return dim;
+                if (isPerc(dim)) return percOf(max, dim);
+                if (isPx(dim)) return toNum(dim);
+                throw new Error("Can not normalize dimension: " + dim);
+            }
+            function wrapPromise(method, _temp) {
+                var _ref$timeout = (void 0 === _temp ? {} : _temp).timeout, timeout = void 0 === _ref$timeout ? 5e3 : _ref$timeout;
+                var expected = [];
+                var promises = [];
+                return new promise_ZalgoPromise((function(resolve, reject) {
+                    var timer = setTimeout((function() {
+                        expected.length && reject(new Error("Expected " + expected[0].name + " to be called in " + timeout + "ms"));
+                        promises.length && reject(new Error("Expected " + promises[0].name + " promise to complete in " + timeout + "ms"));
+                    }), timeout);
+                    var expect = function(name, handler) {
+                        void 0 === handler && (handler = src_util_noop);
+                        var exp = {
+                            name: name,
+                            handler: handler
+                        };
+                        expected.push(exp);
+                        return function() {
+                            var _this = this;
+                            for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+                            removeFromArray(expected, exp);
+                            var _tryCatch = tryCatch((function() {
+                                var _handler;
+                                return (_handler = handler).call.apply(_handler, [ _this ].concat(args));
+                            })), result = _tryCatch.result, error = _tryCatch.error;
+                            if (error) {
+                                promises.push({
+                                    name: name,
+                                    promise: promise_ZalgoPromise.asyncReject(error)
+                                });
+                                throw error;
+                            }
+                            promises.push({
+                                name: name,
+                                promise: promise_ZalgoPromise.resolve(result)
+                            });
+                            return result;
+                        };
+                    };
+                    var avoid = function(name, fn) {
+                        void 0 === fn && (fn = src_util_noop);
+                        return function() {
+                            var _fn;
+                            promises.push({
+                                name: name,
+                                promise: promise_ZalgoPromise.asyncReject(new Error("Expected " + name + " to not be called"))
+                            });
+                            for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
+                            return (_fn = fn).call.apply(_fn, [ this ].concat(args));
+                        };
+                    };
+                    var expectError = function(name, handler) {
+                        void 0 === handler && (handler = src_util_noop);
+                        var exp = {
+                            name: name,
+                            handler: handler
+                        };
+                        expected.push(exp);
+                        return function() {
+                            var _this2 = this;
+                            for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) args[_key3] = arguments[_key3];
+                            removeFromArray(expected, exp);
+                            var _tryCatch2 = tryCatch((function() {
+                                var _handler2;
+                                return (_handler2 = handler).call.apply(_handler2, [ _this2 ].concat(args));
+                            })), result = _tryCatch2.result, error = _tryCatch2.error;
+                            if (error) throw error;
+                            promises.push({
+                                name: name,
+                                promise: promise_ZalgoPromise.resolve(result).then((function() {
+                                    throw new Error("Expected " + name + " to throw an error");
+                                }), src_util_noop)
+                            });
+                            return result;
+                        };
+                    };
+                    promises.push({
+                        name: "wrapPromise handler",
+                        promise: promise_ZalgoPromise.try((function() {
+                            return method({
+                                expect: expect,
+                                avoid: avoid,
+                                expectError: expectError,
+                                error: avoid,
+                                wait: function() {
+                                    return promise_ZalgoPromise.resolve();
+                                }
+                            });
+                        }))
+                    });
+                    (function wait() {
+                        return promise_ZalgoPromise.try((function() {
+                            if (promises.length) {
+                                var prom = promises[0];
+                                return prom.promise.finally((function() {
+                                    removeFromArray(promises, prom);
+                                })).then(wait);
+                            }
+                        })).then((function() {
+                            if (expected.length) return promise_ZalgoPromise.delay(10).then(wait);
+                        }));
+                    })().finally((function() {
+                        clearTimeout(timer);
+                    })).then(resolve, reject);
+                }));
+            }
+        } ]);
+    },
+    "./node_modules/@krakenjs/belter/index.js": function(module, exports, __webpack_require__) {
+        module.exports = __webpack_require__("./node_modules/@krakenjs/belter/dist/belter.js");
+    },
     "./node_modules/@paypal/sdk-constants/dist/paypal-sdk-constants.js": function(module, exports, __webpack_require__) {
         "undefined" != typeof self && self, module.exports = function(E) {
             var N = {};
@@ -106,9 +3434,9 @@ window.spb = function(modules) {
             S.r(N), S.d(N, "DEFAULT_COUNTRY", (function() {
                 return C;
             })), S.d(N, "DEFAULT_CURRENCY", (function() {
-                return u;
-            })), S.d(N, "DEFAULT_INTENT", (function() {
                 return a;
+            })), S.d(N, "DEFAULT_INTENT", (function() {
+                return u;
             })), S.d(N, "DEFAULT_COMMIT", (function() {
                 return L;
             })), S.d(N, "DEFAULT_SALE_COMMIT", (function() {
@@ -122,15 +3450,15 @@ window.spb = function(modules) {
             })), S.d(N, "DEFAULT_DEBUG", (function() {
                 return G;
             })), S.d(N, "ENV", (function() {
-                return B;
-            })), S.d(N, "MOBILE_ENV", (function() {
                 return s;
+            })), S.d(N, "MOBILE_ENV", (function() {
+                return B;
             })), S.d(N, "ERROR_CODE", (function() {
                 return K;
             })), S.d(N, "FPTI_KEY", (function() {
-                return f;
-            })), S.d(N, "FPTI_USER_ACTION", (function() {
                 return p;
+            })), S.d(N, "FPTI_USER_ACTION", (function() {
+                return f;
             })), S.d(N, "FPTI_DATA_SOURCE", (function() {
                 return l;
             })), S.d(N, "FPTI_FEED", (function() {
@@ -164,11 +3492,11 @@ window.spb = function(modules) {
             })), S.d(N, "SDK_PATH", (function() {
                 return F;
             })), S.d(N, "SDK_SETTINGS", (function() {
-                return H;
+                return _;
             })), S.d(N, "SDK_QUERY_KEYS", (function() {
                 return D;
             })), S.d(N, "COMPONENTS", (function() {
-                return _;
+                return H;
             })), S.d(N, "DEBUG", (function() {
                 return I;
             })), S.d(N, "QUERY_BOOL", (function() {
@@ -747,7 +4075,7 @@ window.spb = function(modules) {
                 XAF: "XAF",
                 XCD: "XCD",
                 YER: "YER"
-            }, F = "/sdk/js", H = {
+            }, F = "/sdk/js", _ = {
                 NAMESPACE: "data-namespace",
                 CLIENT_TOKEN: "data-client-token",
                 MERCHANT_ID: "data-merchant-id",
@@ -761,7 +4089,8 @@ window.spb = function(modules) {
                 AMOUNT: "data-amount",
                 CLIENT_METADATA_ID: "data-client-metadata-id",
                 PAGE_TYPE: "data-page-type",
-                USER_EXPERIENCE_FLOW: "data-user-experience-flow"
+                USER_EXPERIENCE_FLOW: "data-user-experience-flow",
+                POPUPS_DISABLED: "data-popups-disabled"
             }, D = {
                 COMPONENTS: "components",
                 ENV: "env",
@@ -783,7 +4112,7 @@ window.spb = function(modules) {
                 STAGE_ALIAS: "stage-alias",
                 CDN_REGISTRY: "cdn-registry",
                 VERSION: "version"
-            }, _ = {
+            }, H = {
                 BUTTONS: "buttons",
                 HOSTED_FIELDS: "hosted-fields"
             }, I = {
@@ -804,18 +4133,18 @@ window.spb = function(modules) {
                 SEARCH_RESULTS: "search-results",
                 PRODUCT_DETAILS: "product-details",
                 MINI_CART: "mini-cart"
-            }, Z = 10, C = R.US, u = r.USD, a = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = _.BUTTONS, G = I.FALSE, B = {
+            }, Z = 10, C = R.US, a = r.USD, u = e.CAPTURE, L = n.TRUE, d = n.TRUE, P = n.TRUE, c = A.FALSE, U = H.BUTTONS, G = I.FALSE, s = {
                 LOCAL: "local",
                 STAGE: "stage",
                 SANDBOX: "sandbox",
                 PRODUCTION: "production",
                 TEST: "test"
-            }, s = {
+            }, B = {
                 ANDROID: "android",
                 IOS: "iOS"
             }, K = {
                 VALIDATION_ERROR: "validation_error"
-            }, f = {
+            }, p = {
                 FEED: "feed_name",
                 STATE: "state_name",
                 TRANSITION: "transition_name",
@@ -873,8 +4202,9 @@ window.spb = function(modules) {
                 STICKINESS_ID: "stickiness_id",
                 TIMESTAMP: "t",
                 OPTION_SELECTED: "optsel",
-                USER_IDENTITY_METHOD: "user_identity_method"
-            }, p = {
+                USER_IDENTITY_METHOD: "user_identity_method",
+                FIELDS_COMPONENT_SESSION_ID: "fields_component_session_id"
+            }, f = {
                 COMMIT: "commit",
                 CONTINUE: "continue"
             }, l = {
@@ -908,7 +4238,8 @@ window.spb = function(modules) {
                 OXXO: "oxxo",
                 BOLETO: "boleto",
                 WECHATPAY: "wechatpay",
-                MERCADOPAGO: "mercadopago"
+                MERCADOPAGO: "mercadopago",
+                MULTIBANCO: "multibanco"
             }, y = {
                 PAYPAL: "PayPal",
                 CREDIT: "PayPal Credit"
@@ -927,6 +4258,7 @@ window.spb = function(modules) {
                 BANK: "bank",
                 CREDIT: "credit"
             }, J = {
+                PAY_IN_3: "payIn3",
                 PAY_IN_4: "payIn4",
                 PAYLATER: "paylater",
                 CREDIT: "credit"
@@ -938,6 +4270,338 @@ window.spb = function(modules) {
     },
     "./node_modules/@paypal/sdk-constants/index.js": function(module, exports, __webpack_require__) {
         module.exports = __webpack_require__("./node_modules/@paypal/sdk-constants/dist/paypal-sdk-constants.js");
+    },
+    "./node_modules/card-validator/dist/card-number.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.cardNumber = void 0;
+        var luhn10 = __webpack_require__("./node_modules/card-validator/dist/luhn-10.js");
+        var getCardTypes = __webpack_require__("./node_modules/credit-card-type/dist/index.js");
+        function verification(card, isPotentiallyValid, isValid) {
+            return {
+                card: card,
+                isPotentiallyValid: isPotentiallyValid,
+                isValid: isValid
+            };
+        }
+        exports.cardNumber = function(value, options) {
+            void 0 === options && (options = {});
+            var isValid, maxLength;
+            if ("string" != typeof value && "number" != typeof value) return verification(null, !1, !1);
+            var testCardValue = String(value).replace(/-|\s/g, "");
+            if (!/^\d*$/.test(testCardValue)) return verification(null, !1, !1);
+            var potentialTypes = getCardTypes(testCardValue);
+            if (0 === potentialTypes.length) return verification(null, !1, !1);
+            if (1 !== potentialTypes.length) return verification(null, !0, !1);
+            var cardType = potentialTypes[0];
+            if (options.maxLength && testCardValue.length > options.maxLength) return verification(cardType, !1, !1);
+            isValid = cardType.type === getCardTypes.types.UNIONPAY && !0 !== options.luhnValidateUnionPay || luhn10(testCardValue);
+            maxLength = Math.max.apply(null, cardType.lengths);
+            options.maxLength && (maxLength = Math.min(options.maxLength, maxLength));
+            for (var i = 0; i < cardType.lengths.length; i++) if (cardType.lengths[i] === testCardValue.length) return verification(cardType, testCardValue.length < maxLength || isValid, isValid);
+            return verification(cardType, testCardValue.length < maxLength, !1);
+        };
+    },
+    "./node_modules/card-validator/dist/cardholder-name.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.cardholderName = void 0;
+        var CARD_NUMBER_REGEX = /^[\d\s-]*$/;
+        function verification(isValid, isPotentiallyValid) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid
+            };
+        }
+        exports.cardholderName = function(value) {
+            return "string" != typeof value ? verification(!1, !1) : 0 === value.length ? verification(!1, !0) : value.length > 255 ? verification(!1, !1) : CARD_NUMBER_REGEX.test(value) ? verification(!1, !0) : verification(!0, !0);
+        };
+    },
+    "./node_modules/card-validator/dist/cvv.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.cvv = void 0;
+        function verification(isValid, isPotentiallyValid) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid
+            };
+        }
+        exports.cvv = function(value, maxLength) {
+            void 0 === maxLength && (maxLength = 3);
+            maxLength = maxLength instanceof Array ? maxLength : [ maxLength ];
+            return "string" != typeof value ? verification(!1, !1) : /^\d*$/.test(value) ? function(array, thing) {
+                for (var i = 0; i < array.length; i++) if (thing === array[i]) return !0;
+                return !1;
+            }(maxLength, value.length) ? verification(!0, !0) : value.length < Math.min.apply(null, maxLength) ? verification(!1, !0) : value.length > function(array) {
+                var maximum = 3;
+                var i = 0;
+                for (;i < array.length; i++) maximum = array[i] > maximum ? array[i] : maximum;
+                return maximum;
+            }(maxLength) ? verification(!1, !1) : verification(!0, !0) : verification(!1, !1);
+        };
+    },
+    "./node_modules/card-validator/dist/expiration-date.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        var __assign = this && this.__assign || function() {
+            return (__assign = Object.assign || function(t) {
+                for (var s, i = 1, n = arguments.length; i < n; i++) {
+                    s = arguments[i];
+                    for (var p in s) ({}).hasOwnProperty.call(s, p) && (t[p] = s[p]);
+                }
+                return t;
+            }).apply(this, arguments);
+        };
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.expirationDate = void 0;
+        var parse_date_1 = __webpack_require__("./node_modules/card-validator/dist/lib/parse-date.js");
+        var expiration_month_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-month.js");
+        var expiration_year_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-year.js");
+        function verification(isValid, isPotentiallyValid, month, year) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid,
+                month: month,
+                year: year
+            };
+        }
+        exports.expirationDate = function(value, maxElapsedYear) {
+            var date;
+            if ("string" == typeof value) {
+                value = value.replace(/^(\d\d) (\d\d(\d\d)?)$/, "$1/$2");
+                date = parse_date_1.parseDate(String(value));
+            } else {
+                if (null === value || "object" != typeof value) return verification(!1, !1, null, null);
+                var fullDate = __assign({}, value);
+                date = {
+                    month: String(fullDate.month),
+                    year: String(fullDate.year)
+                };
+            }
+            var monthValid = expiration_month_1.expirationMonth(date.month);
+            var yearValid = expiration_year_1.expirationYear(date.year, maxElapsedYear);
+            if (monthValid.isValid) {
+                if (yearValid.isCurrentYear) {
+                    var isValidForThisYear = monthValid.isValidForThisYear;
+                    return verification(isValidForThisYear, isValidForThisYear, date.month, date.year);
+                }
+                if (yearValid.isValid) return verification(!0, !0, date.month, date.year);
+            }
+            return verification(!1, !(!monthValid.isPotentiallyValid || !yearValid.isPotentiallyValid), null, null);
+        };
+    },
+    "./node_modules/card-validator/dist/expiration-month.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.expirationMonth = void 0;
+        function verification(isValid, isPotentiallyValid, isValidForThisYear) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid,
+                isValidForThisYear: isValidForThisYear || !1
+            };
+        }
+        exports.expirationMonth = function(value) {
+            var currentMonth = (new Date).getMonth() + 1;
+            if ("string" != typeof value) return verification(!1, !1);
+            if ("" === value.replace(/\s/g, "") || "0" === value) return verification(!1, !0);
+            if (!/^\d*$/.test(value)) return verification(!1, !1);
+            var month = parseInt(value, 10);
+            if (isNaN(Number(value))) return verification(!1, !1);
+            var result = month > 0 && month < 13;
+            return verification(result, result, result && month >= currentMonth);
+        };
+    },
+    "./node_modules/card-validator/dist/expiration-year.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.expirationYear = void 0;
+        function verification(isValid, isPotentiallyValid, isCurrentYear) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid,
+                isCurrentYear: isCurrentYear || !1
+            };
+        }
+        exports.expirationYear = function(value, maxElapsedYear) {
+            void 0 === maxElapsedYear && (maxElapsedYear = 19);
+            var isCurrentYear;
+            if ("string" != typeof value) return verification(!1, !1);
+            if ("" === value.replace(/\s/g, "")) return verification(!1, !0);
+            if (!/^\d*$/.test(value)) return verification(!1, !1);
+            var len = value.length;
+            if (len < 2) return verification(!1, !0);
+            var currentYear = (new Date).getFullYear();
+            if (3 === len) return verification(!1, value.slice(0, 2) === String(currentYear).slice(0, 2));
+            if (len > 4) return verification(!1, !1);
+            var numericValue = parseInt(value, 10);
+            var twoDigitYear = Number(String(currentYear).substr(2, 2));
+            var valid = !1;
+            if (2 === len) {
+                if (String(currentYear).substr(0, 2) === value) return verification(!1, !0);
+                isCurrentYear = twoDigitYear === numericValue;
+                valid = numericValue >= twoDigitYear && numericValue <= twoDigitYear + maxElapsedYear;
+            } else if (4 === len) {
+                isCurrentYear = currentYear === numericValue;
+                valid = numericValue >= currentYear && numericValue <= currentYear + maxElapsedYear;
+            }
+            return verification(valid, valid, isCurrentYear);
+        };
+    },
+    "./node_modules/card-validator/dist/index.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
+            void 0 === k2 && (k2 = k);
+            Object.defineProperty(o, k2, {
+                enumerable: !0,
+                get: function() {
+                    return m[k];
+                }
+            });
+        } : function(o, m, k, k2) {
+            void 0 === k2 && (k2 = k);
+            o[k2] = m[k];
+        });
+        var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function(o, v) {
+            Object.defineProperty(o, "default", {
+                enumerable: !0,
+                value: v
+            });
+        } : function(o, v) {
+            o.default = v;
+        });
+        var creditCardType = (this && this.__importStar || function(mod) {
+            if (mod && mod.__esModule) return mod;
+            var result = {};
+            if (null != mod) for (var k in mod) "default" !== k && {}.hasOwnProperty.call(mod, k) && __createBinding(result, mod, k);
+            __setModuleDefault(result, mod);
+            return result;
+        })(__webpack_require__("./node_modules/credit-card-type/dist/index.js"));
+        var cardholder_name_1 = __webpack_require__("./node_modules/card-validator/dist/cardholder-name.js");
+        var card_number_1 = __webpack_require__("./node_modules/card-validator/dist/card-number.js");
+        var expiration_date_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-date.js");
+        var expiration_month_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-month.js");
+        var expiration_year_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-year.js");
+        var cvv_1 = __webpack_require__("./node_modules/card-validator/dist/cvv.js");
+        var postal_code_1 = __webpack_require__("./node_modules/card-validator/dist/postal-code.js");
+        module.exports = {
+            creditCardType: creditCardType,
+            cardholderName: cardholder_name_1.cardholderName,
+            number: card_number_1.cardNumber,
+            expirationDate: expiration_date_1.expirationDate,
+            expirationMonth: expiration_month_1.expirationMonth,
+            expirationYear: expiration_year_1.expirationYear,
+            cvv: cvv_1.cvv,
+            postalCode: postal_code_1.postalCode
+        };
+    },
+    "./node_modules/card-validator/dist/lib/is-array.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.isArray = void 0;
+        exports.isArray = Array.isArray || function(arg) {
+            return "[object Array]" === {}.toString.call(arg);
+        };
+    },
+    "./node_modules/card-validator/dist/lib/parse-date.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.parseDate = void 0;
+        var expiration_year_1 = __webpack_require__("./node_modules/card-validator/dist/expiration-year.js");
+        var is_array_1 = __webpack_require__("./node_modules/card-validator/dist/lib/is-array.js");
+        exports.parseDate = function(datestring) {
+            var date;
+            /^\d{4}-\d{1,2}$/.test(datestring) ? date = datestring.split("-").reverse() : /\//.test(datestring) ? date = datestring.split(/\s*\/\s*/g) : /\s/.test(datestring) && (date = datestring.split(/ +/g));
+            if (is_array_1.isArray(date)) return {
+                month: date[0] || "",
+                year: date.slice(1).join()
+            };
+            var numberOfDigitsInMonth = function(dateString) {
+                var firstCharacter = Number(dateString[0]);
+                var assumedYear;
+                if (0 === firstCharacter) return 2;
+                if (firstCharacter > 1) return 1;
+                if (1 === firstCharacter && Number(dateString[1]) > 2) return 1;
+                if (1 === firstCharacter) {
+                    assumedYear = dateString.substr(1);
+                    return expiration_year_1.expirationYear(assumedYear).isPotentiallyValid ? 1 : 2;
+                }
+                return 5 === dateString.length ? 1 : dateString.length > 5 ? 2 : 1;
+            }(datestring);
+            var month = datestring.substr(0, numberOfDigitsInMonth);
+            return {
+                month: month,
+                year: datestring.substr(month.length)
+            };
+        };
+    },
+    "./node_modules/card-validator/dist/luhn-10.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        module.exports = function(identifier) {
+            var sum = 0;
+            var alt = !1;
+            var i = identifier.length - 1;
+            var num;
+            for (;i >= 0; ) {
+                num = parseInt(identifier.charAt(i), 10);
+                alt && (num *= 2) > 9 && (num = num % 10 + 1);
+                alt = !alt;
+                sum += num;
+                i--;
+            }
+            return sum % 10 == 0;
+        };
+    },
+    "./node_modules/card-validator/dist/postal-code.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        exports.postalCode = void 0;
+        function verification(isValid, isPotentiallyValid) {
+            return {
+                isValid: isValid,
+                isPotentiallyValid: isPotentiallyValid
+            };
+        }
+        exports.postalCode = function(value, options) {
+            void 0 === options && (options = {});
+            var minLength = options.minLength || 3;
+            return "string" != typeof value ? verification(!1, !1) : verification(!(value.length < minLength), !0);
+        };
+    },
+    "./node_modules/card-validator/src/luhn-10.js": function(module, exports, __webpack_require__) {
+        "use strict";
+        module.exports = function(identifier) {
+            var sum = 0;
+            var alt = !1;
+            var i = identifier.length - 1;
+            var num;
+            for (;i >= 0; ) {
+                num = parseInt(identifier.charAt(i), 10);
+                alt && (num *= 2) > 9 && (num = num % 10 + 1);
+                alt = !alt;
+                sum += num;
+                i--;
+            }
+            return sum % 10 == 0;
+        };
     },
     "./node_modules/credit-card-type/dist/index.js": function(module, exports, __webpack_require__) {
         "use strict";
@@ -1310,7 +4974,7 @@ window.spb = function(modules) {
         }
         function isChrome(ua) {
             void 0 === ua && (ua = getUserAgent());
-            return /Chrome|Chromium|CriOS/.test(ua);
+            return /Chrome|Chromium|CriOS/.test(ua) && !/SamsungBrowser|Silk|EdgA/.test(ua);
         }
         function _setPrototypeOf(o, p) {
             return (_setPrototypeOf = Object.setPrototypeOf || function(o, p) {
@@ -2132,7 +5796,13 @@ window.spb = function(modules) {
                             objectIDs.set(obj, uid);
                         }
                         return uid;
-                    }(val) + "]" : val;
+                    }(val) + "]" : function(element) {
+                        var passed = !1;
+                        try {
+                            (element instanceof window.Element || null !== element && "object" == typeof element && 1 === element.nodeType && "object" == typeof element.style && "object" == typeof element.ownerDocument) && (passed = !0);
+                        } catch (_) {}
+                        return passed;
+                    }(val) ? {} : val;
                 }));
             } catch (err) {
                 throw new Error("Arguments not serializable -- can not be used to memoize");
@@ -2160,7 +5830,12 @@ window.spb = function(modules) {
                 }
                 var cache;
                 cache = thisNamespace ? (thisCache = thisCache || new weakmap_CrossDomainSafeWeakMap).getOrSet(this, getEmptyObject) : simpleCache = simpleCache || {};
-                var cacheKey = serializeArgs(args);
+                var cacheKey;
+                try {
+                    cacheKey = serializeArgs(args);
+                } catch (_unused) {
+                    return method.apply(this, arguments);
+                }
                 var cacheResult = cache[cacheKey];
                 if (cacheResult && cacheTime && Date.now() - cacheResult.time < cacheTime) {
                     delete cache[cacheKey];
@@ -2866,216 +6541,6 @@ window.spb = function(modules) {
         var extendIfDefined = function(target, source) {
             for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
         };
-        function Logger(_ref) {
-            var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "debug" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
-                void 0 === httpWin && (httpWin = window);
-                var win = isSameDomain(httpWin) ? assertSameDomain(httpWin) : window;
-                return function(_ref) {
-                    var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-                    return promise_ZalgoPromise.try((function() {
-                        var beaconResult = !1;
-                        (function(_ref) {
-                            var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
-                            var hasHeaders = headers && Object.keys(headers).length;
-                            return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
-                        })({
-                            headers: headers,
-                            enableSendBeacon: enableSendBeacon
-                        }) && (beaconResult = function(url) {
-                            return "https://api2.amplitude.com/2/httpapi" === url;
-                        }(url) ? sendBeacon({
-                            win: win,
-                            url: url,
-                            data: json,
-                            useBlob: !1
-                        }) : sendBeacon({
-                            win: win,
-                            url: url,
-                            data: json,
-                            useBlob: !0
-                        }));
-                        return beaconResult || request({
-                            win: win,
-                            url: url,
-                            method: method,
-                            headers: headers,
-                            json: json
-                        });
-                    })).then(src_util_noop);
-                };
-            }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
-            var events = [];
-            var tracking = [];
-            var payloadBuilders = [];
-            var metaBuilders = [];
-            var trackingBuilders = [];
-            var headerBuilders = [];
-            function print(level, event, payload) {
-                if (dom_isBrowser() && window.console && window.console.log && !(LOG_LEVEL_PRIORITY.indexOf(level) > LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
-                    var args = [ event ];
-                    args.push(payload);
-                    (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
-                    try {
-                        window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
-                    } catch (err) {}
-                }
-            }
-            function immediateFlush() {
-                return promise_ZalgoPromise.try((function() {
-                    if (dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
-                        var meta = {};
-                        for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) extendIfDefined(meta, (0, metaBuilders[_i2])(meta));
-                        var headers = {};
-                        for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) extendIfDefined(headers, (0, 
-                        headerBuilders[_i4])(headers));
-                        var res;
-                        url && (res = transport({
-                            method: "POST",
-                            url: url,
-                            headers: headers,
-                            json: {
-                                events: events,
-                                meta: meta,
-                                tracking: tracking
-                            },
-                            enableSendBeacon: enableSendBeacon
-                        }).catch(src_util_noop));
-                        amplitudeApiKey && transport({
-                            method: "POST",
-                            url: "https://api2.amplitude.com/2/httpapi",
-                            headers: {},
-                            json: {
-                                api_key: amplitudeApiKey,
-                                events: tracking.map((function(payload) {
-                                    return _extends({
-                                        event_type: payload.transition_name || "event",
-                                        event_properties: payload
-                                    }, payload);
-                                }))
-                            },
-                            enableSendBeacon: enableSendBeacon
-                        }).catch(src_util_noop);
-                        events = [];
-                        tracking = [];
-                        return promise_ZalgoPromise.resolve(res).then(src_util_noop);
-                    }
-                }));
-            }
-            var flush = function(method, delay) {
-                void 0 === delay && (delay = 50);
-                var promise;
-                var timeout;
-                return setFunctionName((function() {
-                    timeout && clearTimeout(timeout);
-                    var localPromise = promise = promise || new promise_ZalgoPromise;
-                    timeout = setTimeout((function() {
-                        promise = null;
-                        timeout = null;
-                        promise_ZalgoPromise.try(method).then((function(result) {
-                            localPromise.resolve(result);
-                        }), (function(err) {
-                            localPromise.reject(err);
-                        }));
-                    }), delay);
-                    return localPromise;
-                }), getFunctionName(method) + "::promiseDebounced");
-            }(immediateFlush);
-            function log(level, event, payload) {
-                void 0 === payload && (payload = {});
-                if (!dom_isBrowser()) return logger;
-                prefix && (event = prefix + "_" + event);
-                var logPayload = _extends({}, objFilter(payload), {
-                    timestamp: Date.now().toString()
-                });
-                for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) extendIfDefined(logPayload, (0, 
-                payloadBuilders[_i6])(logPayload));
-                !function(level, event, payload) {
-                    events.push({
-                        level: level,
-                        event: event,
-                        payload: payload
-                    });
-                    -1 !== AUTO_FLUSH_LEVEL.indexOf(level) && flush();
-                }(level, event, logPayload);
-                print(level, event, logPayload);
-                return logger;
-            }
-            function addBuilder(builders, builder) {
-                builders.push(builder);
-                return logger;
-            }
-            dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
-                setTimeout((function() {
-                    method();
-                    loop();
-                }), time);
-            }());
-            var method, time;
-            if ("object" == typeof window) {
-                window.addEventListener("beforeunload", (function() {
-                    immediateFlush();
-                }));
-                window.addEventListener("unload", (function() {
-                    immediateFlush();
-                }));
-                window.addEventListener("pagehide", (function() {
-                    immediateFlush();
-                }));
-            }
-            var logger = {
-                debug: function(event, payload) {
-                    return log("debug", event, payload);
-                },
-                info: function(event, payload) {
-                    return log("info", event, payload);
-                },
-                warn: function(event, payload) {
-                    return log("warn", event, payload);
-                },
-                error: function(event, payload) {
-                    return log("error", event, payload);
-                },
-                track: function(payload) {
-                    void 0 === payload && (payload = {});
-                    if (!dom_isBrowser()) return logger;
-                    var trackingPayload = objFilter(payload);
-                    for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) extendIfDefined(trackingPayload, (0, 
-                    trackingBuilders[_i8])(trackingPayload));
-                    print("debug", "track", trackingPayload);
-                    tracking.push(trackingPayload);
-                    return logger;
-                },
-                flush: flush,
-                immediateFlush: immediateFlush,
-                addPayloadBuilder: function(builder) {
-                    return addBuilder(payloadBuilders, builder);
-                },
-                addMetaBuilder: function(builder) {
-                    return addBuilder(metaBuilders, builder);
-                },
-                addTrackingBuilder: function(builder) {
-                    return addBuilder(trackingBuilders, builder);
-                },
-                addHeaderBuilder: function(builder) {
-                    return addBuilder(headerBuilders, builder);
-                },
-                setTransport: function(newTransport) {
-                    transport = newTransport;
-                    return logger;
-                },
-                configure: function(opts) {
-                    opts.url && (url = opts.url);
-                    opts.prefix && (prefix = opts.prefix);
-                    opts.logLevel && (logLevel = opts.logLevel);
-                    opts.transport && (transport = opts.transport);
-                    opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
-                    opts.flushInterval && (flushInterval = opts.flushInterval);
-                    opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
-                    return logger;
-                }
-            };
-            return logger;
-        }
         var _FUNDING_SKIP_LOGIN, _AMPLITUDE_API_KEY;
         var ORDERS_API_URL = "/v2/checkout/orders";
         var FUNDING_SKIP_LOGIN = ((_FUNDING_SKIP_LOGIN = {}).paypal = "paypal", _FUNDING_SKIP_LOGIN.paylater = "paypal", 
@@ -3088,7 +6553,216 @@ window.spb = function(modules) {
         var SANDBOX_ORDER_VALIDATION_WHITELIST = [ "AcFUr3vhIePYLOXXuZzdvFL5th99W0Uygya9lqfjN3XCx-W2dGlr6A9mqiIZAHAMng1g0_haL2LitLAl", "ASmWKJfGIEy4BmvwWA3PpAX-uOdz0EYCQ89Y-oLww8LgaqqHtXEcB4dfxr88kmcp3no-efNznSFDcVjg", "AY-UBQDZ53U9-lrZ-7RGWIn-CLhVJEaZI9HsWcqqApUx_CET1nlkkNow0HpLb-y0kTUuyIA3uwbME6Dd" ];
         function logger_getLogger() {
             return inlineMemoize(logger_getLogger, (function() {
-                return Logger({
+                return function(_ref) {
+                    var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "debug" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
+                        void 0 === httpWin && (httpWin = window);
+                        var win = isSameDomain(httpWin) ? assertSameDomain(httpWin) : window;
+                        return function(_ref) {
+                            var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+                            return promise_ZalgoPromise.try((function() {
+                                var beaconResult = !1;
+                                (function(_ref) {
+                                    var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
+                                    var hasHeaders = headers && Object.keys(headers).length;
+                                    return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
+                                })({
+                                    headers: headers,
+                                    enableSendBeacon: enableSendBeacon
+                                }) && (beaconResult = function(url) {
+                                    return "https://api2.amplitude.com/2/httpapi" === url;
+                                }(url) ? sendBeacon({
+                                    win: win,
+                                    url: url,
+                                    data: json,
+                                    useBlob: !1
+                                }) : sendBeacon({
+                                    win: win,
+                                    url: url,
+                                    data: json,
+                                    useBlob: !0
+                                }));
+                                return beaconResult || request({
+                                    win: win,
+                                    url: url,
+                                    method: method,
+                                    headers: headers,
+                                    json: json
+                                });
+                            })).then(src_util_noop);
+                        };
+                    }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+                    var events = [];
+                    var tracking = [];
+                    var payloadBuilders = [];
+                    var metaBuilders = [];
+                    var trackingBuilders = [];
+                    var headerBuilders = [];
+                    function print(level, event, payload) {
+                        if (dom_isBrowser() && window.console && window.console.log && !(LOG_LEVEL_PRIORITY.indexOf(level) > LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
+                            var args = [ event ];
+                            args.push(payload);
+                            (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
+                            try {
+                                window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
+                            } catch (err) {}
+                        }
+                    }
+                    function immediateFlush() {
+                        return promise_ZalgoPromise.try((function() {
+                            if (dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
+                                var meta = {};
+                                for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) extendIfDefined(meta, (0, metaBuilders[_i2])(meta));
+                                var headers = {};
+                                for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) extendIfDefined(headers, (0, 
+                                headerBuilders[_i4])(headers));
+                                var res;
+                                url && (res = transport({
+                                    method: "POST",
+                                    url: url,
+                                    headers: headers,
+                                    json: {
+                                        events: events,
+                                        meta: meta,
+                                        tracking: tracking
+                                    },
+                                    enableSendBeacon: enableSendBeacon
+                                }).catch(src_util_noop));
+                                amplitudeApiKey && transport({
+                                    method: "POST",
+                                    url: "https://api2.amplitude.com/2/httpapi",
+                                    headers: {},
+                                    json: {
+                                        api_key: amplitudeApiKey,
+                                        events: tracking.map((function(payload) {
+                                            return _extends({
+                                                event_type: payload.transition_name || "event",
+                                                event_properties: payload
+                                            }, payload);
+                                        }))
+                                    },
+                                    enableSendBeacon: enableSendBeacon
+                                }).catch(src_util_noop);
+                                events = [];
+                                tracking = [];
+                                return promise_ZalgoPromise.resolve(res).then(src_util_noop);
+                            }
+                        }));
+                    }
+                    var flush = function(method, delay) {
+                        void 0 === delay && (delay = 50);
+                        var promise;
+                        var timeout;
+                        return setFunctionName((function() {
+                            timeout && clearTimeout(timeout);
+                            var localPromise = promise = promise || new promise_ZalgoPromise;
+                            timeout = setTimeout((function() {
+                                promise = null;
+                                timeout = null;
+                                promise_ZalgoPromise.try(method).then((function(result) {
+                                    localPromise.resolve(result);
+                                }), (function(err) {
+                                    localPromise.reject(err);
+                                }));
+                            }), delay);
+                            return localPromise;
+                        }), getFunctionName(method) + "::promiseDebounced");
+                    }(immediateFlush);
+                    function log(level, event, payload) {
+                        void 0 === payload && (payload = {});
+                        if (!dom_isBrowser()) return logger;
+                        prefix && (event = prefix + "_" + event);
+                        var logPayload = _extends({}, objFilter(payload), {
+                            timestamp: Date.now().toString()
+                        });
+                        for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) extendIfDefined(logPayload, (0, 
+                        payloadBuilders[_i6])(logPayload));
+                        !function(level, event, payload) {
+                            events.push({
+                                level: level,
+                                event: event,
+                                payload: payload
+                            });
+                            -1 !== AUTO_FLUSH_LEVEL.indexOf(level) && flush();
+                        }(level, event, logPayload);
+                        print(level, event, logPayload);
+                        return logger;
+                    }
+                    function addBuilder(builders, builder) {
+                        builders.push(builder);
+                        return logger;
+                    }
+                    dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
+                        setTimeout((function() {
+                            method();
+                            loop();
+                        }), time);
+                    }());
+                    var method, time;
+                    if ("object" == typeof window) {
+                        window.addEventListener("beforeunload", (function() {
+                            immediateFlush();
+                        }));
+                        window.addEventListener("unload", (function() {
+                            immediateFlush();
+                        }));
+                        window.addEventListener("pagehide", (function() {
+                            immediateFlush();
+                        }));
+                    }
+                    var logger = {
+                        debug: function(event, payload) {
+                            return log("debug", event, payload);
+                        },
+                        info: function(event, payload) {
+                            return log("info", event, payload);
+                        },
+                        warn: function(event, payload) {
+                            return log("warn", event, payload);
+                        },
+                        error: function(event, payload) {
+                            return log("error", event, payload);
+                        },
+                        track: function(payload) {
+                            void 0 === payload && (payload = {});
+                            if (!dom_isBrowser()) return logger;
+                            var trackingPayload = objFilter(payload);
+                            for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) extendIfDefined(trackingPayload, (0, 
+                            trackingBuilders[_i8])(trackingPayload));
+                            print("debug", "track", trackingPayload);
+                            tracking.push(trackingPayload);
+                            return logger;
+                        },
+                        flush: flush,
+                        immediateFlush: immediateFlush,
+                        addPayloadBuilder: function(builder) {
+                            return addBuilder(payloadBuilders, builder);
+                        },
+                        addMetaBuilder: function(builder) {
+                            return addBuilder(metaBuilders, builder);
+                        },
+                        addTrackingBuilder: function(builder) {
+                            return addBuilder(trackingBuilders, builder);
+                        },
+                        addHeaderBuilder: function(builder) {
+                            return addBuilder(headerBuilders, builder);
+                        },
+                        setTransport: function(newTransport) {
+                            transport = newTransport;
+                            return logger;
+                        },
+                        configure: function(opts) {
+                            opts.url && (url = opts.url);
+                            opts.prefix && (prefix = opts.prefix);
+                            opts.logLevel && (logLevel = opts.logLevel);
+                            opts.transport && (transport = opts.transport);
+                            opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
+                            opts.flushInterval && (flushInterval = opts.flushInterval);
+                            opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
+                            return logger;
+                        }
+                    };
+                    return logger;
+                }({
                     url: "/xoplatform/logger/api/logger",
                     enableSendBeacon: !0
                 });
@@ -3128,7 +6802,7 @@ window.spb = function(modules) {
         function isIOSSafari() {
             return isIos() && function(ua) {
                 void 0 === ua && (ua = getUserAgent());
-                return /Safari/.test(ua) && !isChrome(ua);
+                return /Safari/.test(ua) && !isChrome(ua) && !/Silk|FxiOS|EdgiOS/.test(ua);
             }();
         }
         function isAndroidChrome() {
@@ -3186,6 +6860,7 @@ window.spb = function(modules) {
         function isStorageStateFresh() {
             return getSDKStorage().isStateFresh();
         }
+        var session_buyerAccessToken;
         function getPostRobot() {
             var paypal = function() {
                 if (!window.paypal) throw new Error("paypal not found");
@@ -3294,7 +6969,7 @@ window.spb = function(modules) {
             }));
         }
         function callGraphQL(_ref5) {
-            var name = _ref5.name, _ref5$variables = _ref5.variables, _ref5$headers = _ref5.headers;
+            var name = _ref5.name, _ref5$variables = _ref5.variables, _ref5$headers = _ref5.headers, _ref5$returnErrorObje = _ref5.returnErrorObject, returnErrorObject = void 0 !== _ref5$returnErrorObje && _ref5$returnErrorObje;
             return request({
                 url: "/graphql?" + name,
                 method: "POST",
@@ -3313,6 +6988,7 @@ window.spb = function(modules) {
                     logger_getLogger().warn("graphql_" + name + "_error", {
                         err: message
                     });
+                    if (returnErrorObject) throw errors[0];
                     throw new Error(message);
                 }
                 if (200 !== status) {
@@ -3383,10 +7059,37 @@ window.spb = function(modules) {
         var getLsatUpgradeError = function() {
             return lsatUpgradeError;
         };
+        function auth_upgradeFacilitatorAccessToken(facilitatorAccessToken, _ref3) {
+            var _headers;
+            var buyerAccessToken = _ref3.buyerAccessToken, orderID = _ref3.orderID;
+            onLsatUpgradeCalled();
+            return callGraphQL({
+                name: "UpgradeFacilitatorAccessToken",
+                headers: (_headers = {}, _headers["x-paypal-internal-euat"] = buyerAccessToken, 
+                _headers["paypal-client-context"] = orderID, _headers),
+                query: "\n            mutation UpgradeFacilitatorAccessToken(\n                $orderID: String!\n                $buyerAccessToken: String!\n                $facilitatorAccessToken: String!\n            ) {\n                upgradeLowScopeAccessToken(\n                    token: $orderID\n                    buyerAccessToken: $buyerAccessToken\n                    merchantLSAT: $facilitatorAccessToken\n                )\n            }\n        ",
+                variables: {
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    buyerAccessToken: buyerAccessToken,
+                    orderID: orderID
+                }
+            }).then(src_util_noop).catch((function(err) {
+                !function(err) {
+                    lsatUpgradeError = err;
+                }(err);
+                throw err;
+            }));
+        }
         function isProcessorDeclineError(err) {
             var _err$response, _err$response$body, _err$response$body$da, _err$response$body$da2;
             return Boolean(null == err || null == (_err$response = err.response) || null == (_err$response$body = _err$response.body) || null == (_err$response$body$da = _err$response$body.data) || null == (_err$response$body$da2 = _err$response$body$da.details) ? void 0 : _err$response$body$da2.some((function(detail) {
                 return "INSTRUMENT_DECLINED" === detail.issue || "PAYER_ACTION_REQUIRED" === detail.issue;
+            })));
+        }
+        function isUnprocessableEntityError(err) {
+            var _err$response2, _err$response2$body, _err$response2$body$d;
+            return Boolean(null == err || null == (_err$response2 = err.response) || null == (_err$response2$body = _err$response2.body) || null == (_err$response2$body$d = _err$response2$body.details) ? void 0 : _err$response2$body$d.some((function(detail) {
+                return "DUPLICATE_INVOICE_ID" === detail.issue;
             })));
         }
         function patchOrder(orderID, data, _ref8) {
@@ -3467,7 +7170,7 @@ window.spb = function(modules) {
             logger_getLogger().info("rest_api_create_order_token");
             var headers = ((_headers15 = {}).authorization = "Bearer " + accessToken, _headers15["paypal-partner-attribution-id"] = partnerAttributionID, 
             _headers15["paypal-client-metadata-id"] = clientMetadataID, _headers15["x-app-name"] = "smart-payment-buttons", 
-            _headers15["x-app-version"] = "5.0.71", _headers15);
+            _headers15["x-app-version"] = "5.0.95", _headers15);
             var paymentSource = {
                 token: {
                     id: paymentMethodID,
@@ -3711,14 +7414,16 @@ window.spb = function(modules) {
                 return gqlResult.mobileSDKEligibility;
             }));
         }
-        function getCreateOrder(_ref4, _ref5) {
-            var createOrder = _ref4.createOrder, currency = _ref4.currency;
-            var createBillingAgreement = _ref5.createBillingAgreement, createSubscription = _ref5.createSubscription;
-            var data = {};
-            var actions = function(_ref3) {
-                var facilitatorAccessToken = _ref3.facilitatorAccessToken, intent = _ref3.intent, currency = _ref3.currency, merchantID = _ref3.merchantID, partnerAttributionID = _ref3.partnerAttributionID;
-                var order = function(_ref) {
-                    var facilitatorAccessToken = _ref.facilitatorAccessToken, intent = _ref.intent, currency = _ref.currency, merchantID = _ref.merchantID, partnerAttributionID = _ref.partnerAttributionID;
+        function getCreateOrder(_ref5, _ref6) {
+            var createOrder = _ref5.createOrder, currency = _ref5.currency;
+            var createBillingAgreement = _ref6.createBillingAgreement, createSubscription = _ref6.createSubscription;
+            var data = {
+                paymentSource: _ref5.paymentSource
+            };
+            var actions = function(_ref4) {
+                var facilitatorAccessToken = _ref4.facilitatorAccessToken, intent = _ref4.intent, currency = _ref4.currency, merchantID = _ref4.merchantID, partnerAttributionID = _ref4.partnerAttributionID;
+                var order = function(_ref2) {
+                    var facilitatorAccessToken = _ref2.facilitatorAccessToken, intent = _ref2.intent, currency = _ref2.currency, merchantID = _ref2.merchantID, partnerAttributionID = _ref2.partnerAttributionID;
                     return {
                         create: function(data) {
                             var order = _extends({}, data);
@@ -3779,8 +7484,8 @@ window.spb = function(modules) {
                     merchantID: merchantID,
                     partnerAttributionID: partnerAttributionID
                 });
-                !function(_ref2) {
-                    var facilitatorAccessToken = _ref2.facilitatorAccessToken, intent = _ref2.intent, currency = _ref2.currency, merchantID = _ref2.merchantID, partnerAttributionID = _ref2.partnerAttributionID;
+                !function(_ref3) {
+                    var facilitatorAccessToken = _ref3.facilitatorAccessToken, intent = _ref3.intent, currency = _ref3.currency, merchantID = _ref3.merchantID, partnerAttributionID = _ref3.partnerAttributionID;
                 }({
                     facilitatorAccessToken: facilitatorAccessToken,
                     intent: intent,
@@ -3793,11 +7498,11 @@ window.spb = function(modules) {
                     payment: null
                 };
             }({
-                facilitatorAccessToken: _ref5.facilitatorAccessToken,
-                intent: _ref4.intent,
+                facilitatorAccessToken: _ref6.facilitatorAccessToken,
+                intent: _ref5.intent,
                 currency: currency,
-                merchantID: _ref4.merchantID,
-                partnerAttributionID: _ref4.partnerAttributionID
+                merchantID: _ref5.merchantID,
+                partnerAttributionID: _ref5.partnerAttributionID
             });
             return memoize((function() {
                 var queryOrderID = parseQuery(window.location.search.slice(1)).orderID;
@@ -3827,9 +7532,9 @@ window.spb = function(modules) {
                             token: orderID
                         };
                     })).addTrackingBuilder((function() {
-                        var _ref6;
-                        return (_ref6 = {}).context_type = "EC-Token", _ref6.context_id = orderID, _ref6.token = orderID, 
-                        _ref6;
+                        var _ref7;
+                        return (_ref7 = {}).context_type = "EC-Token", _ref7.context_id = orderID, _ref7.token = orderID, 
+                        _ref7;
                     })).track((_getLogger$addPayload = {}, _getLogger$addPayload.state_name = "smart_button", 
                     _getLogger$addPayload.transition_name = "process_receive_order", _getLogger$addPayload.context_type = "EC-Token", 
                     _getLogger$addPayload.context_id = orderID, _getLogger$addPayload.token = orderID, 
@@ -3851,15 +7556,19 @@ window.spb = function(modules) {
             }).flush();
             return dom_redirect(url, window.top);
         };
-        var onApprove_handleProcessorError = function(err, restart) {
+        var onApprove_handleProcessorError = function(err, restart, onError) {
+            if (isUnprocessableEntityError(err)) {
+                err && err.response && (err.message = JSON.stringify(err.response) || err.message);
+                return onError(err).then(unresolvedPromise);
+            }
             if (isProcessorDeclineError(err)) return restart().then(unresolvedPromise);
             throw err;
         };
         var _excluded = [ "buyerAccessToken", "forceRestAPI" ];
         function getProps(_ref) {
-            var facilitatorAccessToken = _ref.facilitatorAccessToken, branded = _ref.branded;
+            var facilitatorAccessToken = _ref.facilitatorAccessToken, branded = _ref.branded, paymentSource = _ref.paymentSource;
             var xprops = window.xprops;
-            var uid = xprops.uid, env = xprops.env, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, commit = xprops.commit, locale = xprops.locale, platform = xprops.platform, sessionID = xprops.sessionID, clientID = xprops.clientID, partnerAttributionID = xprops.partnerAttributionID, clientMetadataID = xprops.clientMetadataID, sdkCorrelationID = xprops.sdkCorrelationID, getParentDomain = xprops.getParentDomain, clientAccessToken = xprops.clientAccessToken, getPopupBridge = xprops.getPopupBridge, getPrerenderDetails = xprops.getPrerenderDetails, getPageUrl = xprops.getPageUrl, enableThreeDomainSecure = xprops.enableThreeDomainSecure, enableVaultInstallments = xprops.enableVaultInstallments, _xprops$enableNativeC = xprops.enableNativeCheckout, enableNativeCheckout = void 0 !== _xprops$enableNativeC && _xprops$enableNativeC, rememberFunding = xprops.remember, stageHost = xprops.stageHost, apiStageHost = xprops.apiStageHost, getParent = xprops.getParent, fundingSource = xprops.fundingSource, currency = xprops.currency, connect = xprops.connect, intent = xprops.intent, merchantID = xprops.merchantID, amount = xprops.amount, userIDToken = xprops.userIDToken, enableFunding = xprops.enableFunding, disableFunding = xprops.disableFunding, disableCard = xprops.disableCard, wallet = xprops.wallet, _xprops$paymentMethod = xprops.paymentMethodToken, paymentMethodToken = void 0 === _xprops$paymentMethod ? xprops.paymentMethodNonce : _xprops$paymentMethod, _xprops$getQueriedEli = xprops.getQueriedEligibleFunding, getQueriedEligibleFunding = void 0 === _xprops$getQueriedEli ? function() {
+            var uid = xprops.uid, env = xprops.env, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, commit = xprops.commit, locale = xprops.locale, platform = xprops.platform, sessionID = xprops.sessionID, clientID = xprops.clientID, partnerAttributionID = xprops.partnerAttributionID, merchantRequestedPopupsDisabled = xprops.merchantRequestedPopupsDisabled, clientMetadataID = xprops.clientMetadataID, sdkCorrelationID = xprops.sdkCorrelationID, getParentDomain = xprops.getParentDomain, clientAccessToken = xprops.clientAccessToken, getPopupBridge = xprops.getPopupBridge, getPrerenderDetails = xprops.getPrerenderDetails, getPageUrl = xprops.getPageUrl, enableThreeDomainSecure = xprops.enableThreeDomainSecure, enableVaultInstallments = xprops.enableVaultInstallments, _xprops$enableNativeC = xprops.enableNativeCheckout, enableNativeCheckout = void 0 !== _xprops$enableNativeC && _xprops$enableNativeC, _xprops$experience = xprops.experience, experience = void 0 === _xprops$experience ? "" : _xprops$experience, rememberFunding = xprops.remember, stageHost = xprops.stageHost, apiStageHost = xprops.apiStageHost, getParent = xprops.getParent, fundingSource = xprops.fundingSource, currency = xprops.currency, connect = xprops.connect, intent = xprops.intent, merchantID = xprops.merchantID, amount = xprops.amount, userIDToken = xprops.userIDToken, enableFunding = xprops.enableFunding, disableFunding = xprops.disableFunding, disableCard = xprops.disableCard, disableAutocomplete = xprops.disableAutocomplete, wallet = xprops.wallet, _xprops$paymentMethod = xprops.paymentMethodToken, paymentMethodToken = void 0 === _xprops$paymentMethod ? xprops.paymentMethodNonce : _xprops$paymentMethod, _xprops$getQueriedEli = xprops.getQueriedEligibleFunding, getQueriedEligibleFunding = void 0 === _xprops$getQueriedEli ? function() {
                 return promise_ZalgoPromise.resolve([]);
             } : _xprops$getQueriedEli, storageID = xprops.storageID, applePay = xprops.applePay, userExperienceFlow = xprops.userExperienceFlow, allowBillingPayments = xprops.allowBillingPayments;
             var onInit = function(_ref) {
@@ -3922,20 +7631,26 @@ window.spb = function(modules) {
                 onClick: xprops.onClick
             });
             var stickinessID = storageID && isStorageStateFresh() ? storageID : getStorageID();
-            var createBillingAgreement = function(_ref) {
-                var createBillingAgreement = _ref.createBillingAgreement;
+            var createBillingAgreement = function(_ref2) {
+                var createBillingAgreement = _ref2.createBillingAgreement, paymentSource = _ref2.paymentSource;
                 if (createBillingAgreement) return function() {
-                    return createBillingAgreement({}, {}).then((function(billingToken) {
+                    return createBillingAgreement((_ref = {
+                        paymentSource: paymentSource
+                    }, {
+                        paymentSource: _ref.paymentSource
+                    }), {}).then((function(billingToken) {
                         if (!billingToken || "string" != typeof billingToken) throw new Error("Expected a billing token to be passed to createBillingAgreement");
                         return billingToken;
                     }));
+                    var _ref;
                 };
             }({
-                createBillingAgreement: xprops.createBillingAgreement
+                createBillingAgreement: xprops.createBillingAgreement,
+                paymentSource: paymentSource
             });
-            var createSubscription = function(_ref2, _ref3) {
-                var createSubscription = _ref2.createSubscription, partnerAttributionID = _ref2.partnerAttributionID, merchantID = _ref2.merchantID, clientID = _ref2.clientID;
-                var facilitatorAccessToken = _ref3.facilitatorAccessToken;
+            var createSubscription = function(_ref3, _ref4) {
+                var createSubscription = _ref3.createSubscription, partnerAttributionID = _ref3.partnerAttributionID, merchantID = _ref3.merchantID, clientID = _ref3.clientID, paymentSource = _ref3.paymentSource;
+                var facilitatorAccessToken = _ref4.facilitatorAccessToken;
                 if (createSubscription) {
                     if (merchantID && merchantID[0]) {
                         logger_getLogger().info("src_props_subscriptions_recreate_access_token_cache");
@@ -3944,8 +7659,12 @@ window.spb = function(modules) {
                         });
                     }
                     return function() {
-                        return createSubscription({}, function(_ref) {
-                            var facilitatorAccessToken = _ref.facilitatorAccessToken, partnerAttributionID = _ref.partnerAttributionID, merchantID = _ref.merchantID, clientID = _ref.clientID;
+                        return createSubscription((_ref = {
+                            paymentSource: paymentSource
+                        }, {
+                            paymentSource: _ref.paymentSource
+                        }), function(_ref2) {
+                            var facilitatorAccessToken = _ref2.facilitatorAccessToken, partnerAttributionID = _ref2.partnerAttributionID, merchantID = _ref2.merchantID, clientID = _ref2.clientID;
                             return {
                                 subscription: {
                                     create: function(data) {
@@ -4002,13 +7721,15 @@ window.spb = function(modules) {
                             if (!subscriptionID || "string" != typeof subscriptionID) throw new Error("Expected an subscription id to be passed to createSubscription");
                             return subscriptionID;
                         }));
+                        var _ref;
                     };
                 }
             }({
                 createSubscription: xprops.createSubscription,
                 partnerAttributionID: partnerAttributionID,
                 merchantID: merchantID,
-                clientID: clientID
+                clientID: clientID,
+                paymentSource: paymentSource
             }, {
                 facilitatorAccessToken: facilitatorAccessToken
             });
@@ -4017,7 +7738,8 @@ window.spb = function(modules) {
                 currency: currency,
                 intent: intent,
                 merchantID: merchantID,
-                partnerAttributionID: partnerAttributionID
+                partnerAttributionID: partnerAttributionID,
+                paymentSource: paymentSource
             }, {
                 facilitatorAccessToken: facilitatorAccessToken,
                 createBillingAgreement: createBillingAgreement,
@@ -4046,11 +7768,11 @@ window.spb = function(modules) {
                 onError: xprops.onError
             });
             var onApprove = function(_ref19) {
-                var intent = _ref19.intent, createSubscription = _ref19.createSubscription, onApprove = _ref19.onApprove, partnerAttributionID = _ref19.partnerAttributionID, onError = _ref19.onError, clientAccessToken = _ref19.clientAccessToken, vault = _ref19.vault, clientID = _ref19.clientID, facilitatorAccessToken = _ref19.facilitatorAccessToken, branded = _ref19.branded, createOrder = _ref19.createOrder;
+                var intent = _ref19.intent, createSubscription = _ref19.createSubscription, onApprove = _ref19.onApprove, partnerAttributionID = _ref19.partnerAttributionID, onError = _ref19.onError, clientAccessToken = _ref19.clientAccessToken, vault = _ref19.vault, clientID = _ref19.clientID, facilitatorAccessToken = _ref19.facilitatorAccessToken, branded = _ref19.branded, createOrder = _ref19.createOrder, paymentSource = _ref19.paymentSource;
                 if (_ref19.createBillingAgreement) return function(_ref10) {
                     var _ref10$onApprove = _ref10.onApprove, onApprove = void 0 === _ref10$onApprove ? function() {
                         throw new Error("Expected onApprove");
-                    } : _ref10$onApprove, onError = _ref10.onError, facilitatorAccessToken = _ref10.facilitatorAccessToken, createOrder = _ref10.createOrder;
+                    } : _ref10$onApprove, onError = _ref10.onError, facilitatorAccessToken = _ref10.facilitatorAccessToken, createOrder = _ref10.createOrder, paymentSource = _ref10.paymentSource;
                     if (!onApprove) throw new Error("Expected onApprove");
                     return memoize((function(_ref11, _ref12) {
                         var payerID = _ref11.payerID, paymentID = _ref11.paymentID, billingToken = _ref11.billingToken;
@@ -4066,7 +7788,8 @@ window.spb = function(modules) {
                                     payerID: payerID,
                                     paymentID: paymentID = paymentID || supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.paymentId,
                                     billingToken: billingToken = billingToken || supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.billingToken,
-                                    facilitatorAccessToken: facilitatorAccessToken
+                                    facilitatorAccessToken: facilitatorAccessToken,
+                                    paymentSource: paymentSource
                                 }, {
                                     restart: restart,
                                     redirect: onApprove_redirect
@@ -4084,12 +7807,13 @@ window.spb = function(modules) {
                     onApprove: onApprove,
                     onError: onError,
                     facilitatorAccessToken: facilitatorAccessToken,
-                    createOrder: createOrder
+                    createOrder: createOrder,
+                    paymentSource: paymentSource
                 });
                 if ("subscription" === intent || createSubscription) return function(_ref16) {
                     var _ref16$onApprove = _ref16.onApprove, onApprove = void 0 === _ref16$onApprove ? function() {
                         throw new Error("Expected onApprove");
-                    } : _ref16$onApprove, onError = _ref16.onError, facilitatorAccessToken = _ref16.facilitatorAccessToken, createOrder = _ref16.createOrder;
+                    } : _ref16$onApprove, onError = _ref16.onError, facilitatorAccessToken = _ref16.facilitatorAccessToken, createOrder = _ref16.createOrder, paymentSource = _ref16.paymentSource;
                     if (!onApprove) throw new Error("Expected onApprove");
                     return memoize((function(_ref17, _ref18) {
                         var payerID = _ref17.payerID, subscriptionID = _ref17.subscriptionID, buyerAccessToken = _ref17.buyerAccessToken;
@@ -4104,7 +7828,8 @@ window.spb = function(modules) {
                                 orderID: orderID,
                                 payerID: payerID,
                                 subscriptionID: subscriptionID,
-                                facilitatorAccessToken: facilitatorAccessToken
+                                facilitatorAccessToken: facilitatorAccessToken,
+                                paymentSource: paymentSource
                             };
                             var actions = function(_ref6) {
                                 var restart = _ref6.restart, subscriptionID = _ref6.subscriptionID, buyerAccessToken = _ref6.buyerAccessToken;
@@ -4162,7 +7887,8 @@ window.spb = function(modules) {
                     onApprove: onApprove,
                     onError: onError,
                     facilitatorAccessToken: facilitatorAccessToken,
-                    createOrder: createOrder
+                    createOrder: createOrder,
+                    paymentSource: paymentSource
                 });
                 if ("capture" === intent || "authorize" === intent || "order" === intent) return function(_ref7) {
                     var intent = _ref7.intent, _ref7$onApprove = _ref7.onApprove, onApprove = void 0 === _ref7$onApprove ? function(intent) {
@@ -4171,7 +7897,7 @@ window.spb = function(modules) {
                             if ("authorize" === intent) return actions.order.authorize().then(src_util_noop);
                             throw new Error("Unsupported intent for auto-capture: " + intent);
                         };
-                    }(intent) : _ref7$onApprove, partnerAttributionID = _ref7.partnerAttributionID, onError = _ref7.onError, clientAccessToken = _ref7.clientAccessToken, vault = _ref7.vault, clientID = _ref7.clientID, facilitatorAccessToken = _ref7.facilitatorAccessToken, branded = _ref7.branded, createOrder = _ref7.createOrder;
+                    }(intent) : _ref7$onApprove, partnerAttributionID = _ref7.partnerAttributionID, onError = _ref7.onError, clientAccessToken = _ref7.clientAccessToken, vault = _ref7.vault, clientID = _ref7.clientID, facilitatorAccessToken = _ref7.facilitatorAccessToken, branded = _ref7.branded, createOrder = _ref7.createOrder, paymentSource = _ref7.paymentSource;
                     if (!onApprove) throw new Error("Expected onApprove");
                     var upgradeLSAT = -1 === LSAT_UPGRADE_EXCLUDED_MERCHANTS.indexOf(clientID);
                     return memoize((function(_ref8, _ref9) {
@@ -4182,7 +7908,7 @@ window.spb = function(modules) {
                             logger_getLogger().info("button_approve").track((_getLogger$info$track = {}, _getLogger$info$track.transition_name = "process_checkout_approve", 
                             _getLogger$info$track.context_type = "EC-Token", _getLogger$info$track.token = orderID, 
                             _getLogger$info$track.context_id = orderID, _getLogger$info$track)).flush();
-                            billingToken || clientAccessToken || vault || !payerID && branded && logger_getLogger().error("onapprove_payerid_not_present_for_branded_standalone_button", {
+                            billingToken || clientAccessToken || vault || !payerID && branded && logger_getLogger().warn("onapprove_payerid_not_present_for_branded_standalone_button", {
                                 orderID: orderID
                             }).flush();
                             return getSupplementalOrderInfo(orderID).then((function(supplementalData) {
@@ -4192,12 +7918,13 @@ window.spb = function(modules) {
                                     paymentID: paymentID = paymentID || supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.paymentId,
                                     billingToken: billingToken = billingToken || supplementalData && supplementalData.checkoutSession && supplementalData.checkoutSession.cart && supplementalData.checkoutSession.cart.billingToken,
                                     facilitatorAccessToken: facilitatorAccessToken,
-                                    authCode: authCode
+                                    authCode: authCode,
+                                    paymentSource: paymentSource
                                 };
                                 var actions = function(_ref3) {
-                                    var intent = _ref3.intent, orderID = _ref3.orderID, paymentID = _ref3.paymentID, payerID = _ref3.payerID, restart = _ref3.restart, facilitatorAccessToken = _ref3.facilitatorAccessToken, buyerAccessToken = _ref3.buyerAccessToken, partnerAttributionID = _ref3.partnerAttributionID, forceRestAPI = _ref3.forceRestAPI;
+                                    var intent = _ref3.intent, orderID = _ref3.orderID, paymentID = _ref3.paymentID, payerID = _ref3.payerID, restart = _ref3.restart, facilitatorAccessToken = _ref3.facilitatorAccessToken, buyerAccessToken = _ref3.buyerAccessToken, partnerAttributionID = _ref3.partnerAttributionID, forceRestAPI = _ref3.forceRestAPI, onError = _ref3.onError;
                                     var order = function(_ref) {
-                                        var intent = _ref.intent, orderID = _ref.orderID, restart = _ref.restart, facilitatorAccessToken = _ref.facilitatorAccessToken, buyerAccessToken = _ref.buyerAccessToken, partnerAttributionID = _ref.partnerAttributionID, forceRestAPI = _ref.forceRestAPI;
+                                        var intent = _ref.intent, orderID = _ref.orderID, restart = _ref.restart, facilitatorAccessToken = _ref.facilitatorAccessToken, buyerAccessToken = _ref.buyerAccessToken, partnerAttributionID = _ref.partnerAttributionID, forceRestAPI = _ref.forceRestAPI, onError = _ref.onError;
                                         var get = memoize((function() {
                                             return function(orderID, _ref2) {
                                                 var _headers4;
@@ -4289,7 +8016,7 @@ window.spb = function(modules) {
                                                             orderID: orderID,
                                                             err: stringifyError(err)
                                                         });
-                                                        if (isProcessorDeclineError(err)) throw err;
+                                                        if (isProcessorDeclineError(err) || isUnprocessableEntityError(err)) throw err;
                                                         return callSmartAPI({
                                                             accessToken: buyerAccessToken,
                                                             method: "post",
@@ -4331,7 +8058,7 @@ window.spb = function(modules) {
                                                 partnerAttributionID: partnerAttributionID,
                                                 forceRestAPI: forceRestAPI
                                             }).finally(get.reset).finally(capture.reset).catch((function(err) {
-                                                return onApprove_handleProcessorError(err, restart);
+                                                return onApprove_handleProcessorError(err, restart, onError);
                                             }));
                                         }));
                                         var authorize = memoize((function() {
@@ -4403,7 +8130,7 @@ window.spb = function(modules) {
                                                 partnerAttributionID: partnerAttributionID,
                                                 forceRestAPI: forceRestAPI
                                             }).finally(get.reset).finally(authorize.reset).catch((function(err) {
-                                                return onApprove_handleProcessorError(err, restart);
+                                                return onApprove_handleProcessorError(err, restart, onError);
                                             }));
                                         }));
                                         return {
@@ -4431,10 +8158,11 @@ window.spb = function(modules) {
                                         facilitatorAccessToken: facilitatorAccessToken,
                                         buyerAccessToken: buyerAccessToken,
                                         partnerAttributionID: partnerAttributionID,
-                                        forceRestAPI: forceRestAPI
+                                        forceRestAPI: forceRestAPI,
+                                        onError: onError
                                     });
                                     !function(_ref2) {
-                                        var intent = _ref2.intent, paymentID = _ref2.paymentID, payerID = _ref2.payerID, restart = _ref2.restart, facilitatorAccessToken = _ref2.facilitatorAccessToken, buyerAccessToken = _ref2.buyerAccessToken, partnerAttributionID = _ref2.partnerAttributionID;
+                                        var intent = _ref2.intent, paymentID = _ref2.paymentID, payerID = _ref2.payerID, restart = _ref2.restart, facilitatorAccessToken = _ref2.facilitatorAccessToken, buyerAccessToken = _ref2.buyerAccessToken, partnerAttributionID = _ref2.partnerAttributionID, onError = _ref2.onError;
                                         if (paymentID) {
                                             var get = memoize((function() {
                                                 return function(paymentID, _ref4) {
@@ -4473,7 +8201,7 @@ window.spb = function(modules) {
                                                     buyerAccessToken: buyerAccessToken,
                                                     partnerAttributionID: partnerAttributionID
                                                 }).finally(get.reset).finally(execute.reset).catch((function(err) {
-                                                    return onApprove_handleProcessorError(err, restart);
+                                                    return onApprove_handleProcessorError(err, restart, onError);
                                                 }));
                                             }));
                                         }
@@ -4486,7 +8214,8 @@ window.spb = function(modules) {
                                         facilitatorAccessToken: facilitatorAccessToken,
                                         buyerAccessToken: buyerAccessToken,
                                         partnerAttributionID: partnerAttributionID,
-                                        forceRestAPI: forceRestAPI
+                                        forceRestAPI: forceRestAPI,
+                                        onError: onError
                                     });
                                     return {
                                         order: order,
@@ -4503,7 +8232,8 @@ window.spb = function(modules) {
                                     facilitatorAccessToken: facilitatorAccessToken,
                                     buyerAccessToken: buyerAccessToken,
                                     partnerAttributionID: partnerAttributionID,
-                                    forceRestAPI: forceRestAPI
+                                    forceRestAPI: forceRestAPI,
+                                    onError: onError
                                 });
                                 return onApprove(data, actions).catch((function(err) {
                                     return promise_ZalgoPromise.try((function() {
@@ -4525,12 +8255,13 @@ window.spb = function(modules) {
                     clientID: clientID,
                     facilitatorAccessToken: facilitatorAccessToken,
                     branded: branded,
-                    createOrder: createOrder
+                    createOrder: createOrder,
+                    paymentSource: paymentSource
                 });
                 if ("tokenize" === intent) return function(_ref13) {
                     var _ref13$onApprove = _ref13.onApprove, onApprove = void 0 === _ref13$onApprove ? function() {
                         throw new Error("Expected onApprove");
-                    } : _ref13$onApprove, onError = _ref13.onError, facilitatorAccessToken = _ref13.facilitatorAccessToken;
+                    } : _ref13$onApprove, onError = _ref13.onError, facilitatorAccessToken = _ref13.facilitatorAccessToken, paymentSource = _ref13.paymentSource;
                     if (!onApprove) throw new Error("Expected onApprove");
                     return memoize((function(_ref14, _ref15) {
                         var _getLogger$info$track3;
@@ -4541,7 +8272,8 @@ window.spb = function(modules) {
                         _getLogger$info$track3)).flush();
                         return onApprove({
                             facilitatorAccessToken: facilitatorAccessToken,
-                            paymentMethodToken: paymentMethodToken
+                            paymentMethodToken: paymentMethodToken,
+                            paymentSource: paymentSource
                         }, {
                             restart: restart,
                             redirect: onApprove_redirect
@@ -4556,7 +8288,8 @@ window.spb = function(modules) {
                 }({
                     onApprove: onApprove,
                     onError: onError,
-                    facilitatorAccessToken: facilitatorAccessToken
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    paymentSource: paymentSource
                 });
                 throw new Error("Unsupported intent: " + intent);
             }({
@@ -4571,7 +8304,8 @@ window.spb = function(modules) {
                 clientID: clientID,
                 facilitatorAccessToken: facilitatorAccessToken,
                 branded: branded,
-                createOrder: createOrder
+                createOrder: createOrder,
+                paymentSource: paymentSource
             });
             var onCancel = function(_ref2, _ref3) {
                 var _ref2$onCancel = _ref2.onCancel, onCancel = void 0 === _ref2$onCancel ? promiseNoop : _ref2$onCancel, onError = _ref2.onError;
@@ -4679,27 +8413,7 @@ window.spb = function(modules) {
                     logger_getLogger().info("spb_onauth_access_token_" + (accessToken ? "present" : "not_present"));
                     return promise_ZalgoPromise.try((function() {
                         if (accessToken) return upgradeLSAT ? createOrder().then((function(orderID) {
-                            return createSubscription ? accessToken : function(facilitatorAccessToken, _ref3) {
-                                var _headers;
-                                var buyerAccessToken = _ref3.buyerAccessToken, orderID = _ref3.orderID;
-                                onLsatUpgradeCalled();
-                                return callGraphQL({
-                                    name: "UpgradeFacilitatorAccessToken",
-                                    headers: (_headers = {}, _headers["x-paypal-internal-euat"] = buyerAccessToken, 
-                                    _headers["paypal-client-context"] = orderID, _headers),
-                                    query: "\n            mutation UpgradeFacilitatorAccessToken(\n                $orderID: String!\n                $buyerAccessToken: String!\n                $facilitatorAccessToken: String!\n            ) {\n                upgradeLowScopeAccessToken(\n                    token: $orderID\n                    buyerAccessToken: $buyerAccessToken\n                    merchantLSAT: $facilitatorAccessToken\n                )\n            }\n        ",
-                                    variables: {
-                                        facilitatorAccessToken: facilitatorAccessToken,
-                                        buyerAccessToken: buyerAccessToken,
-                                        orderID: orderID
-                                    }
-                                }).then(src_util_noop).catch((function(err) {
-                                    !function(err) {
-                                        lsatUpgradeError = err;
-                                    }(err);
-                                    throw err;
-                                }));
-                            }(facilitatorAccessToken, {
+                            return createSubscription ? accessToken : auth_upgradeFacilitatorAccessToken(facilitatorAccessToken, {
                                 buyerAccessToken: accessToken,
                                 orderID: orderID
                             });
@@ -4737,6 +8451,7 @@ window.spb = function(modules) {
                 currency: currency,
                 intent: intent,
                 wallet: wallet,
+                merchantRequestedPopupsDisabled: merchantRequestedPopupsDisabled,
                 getPopupBridge: getPopupBridge,
                 getPrerenderDetails: getPrerenderDetails,
                 getPageUrl: getPageUrl,
@@ -4747,12 +8462,14 @@ window.spb = function(modules) {
                 enableFunding: enableFunding,
                 disableFunding: disableFunding,
                 disableCard: disableCard,
+                disableAutocomplete: disableAutocomplete,
                 getQueriedEligibleFunding: getQueriedEligibleFunding,
                 amount: amount,
                 userIDToken: userIDToken,
                 enableThreeDomainSecure: enableThreeDomainSecure,
                 enableNativeCheckout: enableNativeCheckout,
                 enableVaultInstallments: enableVaultInstallments,
+                experience: experience,
                 onClick: onClick,
                 onInit: onInit,
                 onError: onError,
@@ -4777,9 +8494,9 @@ window.spb = function(modules) {
         var button_props_TYPES = !0;
         function getButtonProps(_ref) {
             var _branded;
-            var facilitatorAccessToken = _ref.facilitatorAccessToken;
+            var facilitatorAccessToken = _ref.facilitatorAccessToken, paymentSource = _ref.paymentSource;
             var xprops = window.xprops;
-            var buttonSessionID = xprops.buttonSessionID, style = xprops.style, branded = xprops.branded, intent = xprops.intent;
+            var buttonSessionID = xprops.buttonSessionID, style = xprops.style, branded = xprops.branded, experience = xprops.experience, intent = xprops.intent;
             branded = null != (_branded = branded) ? _branded : _ref.brandedDefault;
             if (xprops.createBillingAgreement) {
                 if (xprops.createOrder) throw new Error("Do not pass both createBillingAgreement and createOrder");
@@ -4800,11 +8517,13 @@ window.spb = function(modules) {
             }
             return _extends({}, getProps({
                 facilitatorAccessToken: facilitatorAccessToken,
-                branded: branded
+                branded: branded,
+                paymentSource: paymentSource
             }), {
                 style: style,
                 buttonSessionID: buttonSessionID,
-                branded: branded
+                branded: branded,
+                inlinexo: "inline" === experience
             });
         }
         function getComponents() {
@@ -4862,6 +8581,9 @@ window.spb = function(modules) {
             maestro: "maestro",
             jcb: "jcb"
         };
+        function isZeroAmount(value) {
+            return "0.00" === parseFloat(value).toFixed(2);
+        }
         var applepay_clean;
         var applepay = {
             name: "applepay",
@@ -4914,29 +8636,45 @@ window.spb = function(modules) {
                         return onError(error);
                     }));
                 }
+                function updateNewLineItems(_ref4) {
+                    var subtotal = _ref4.subtotal, tax = _ref4.tax, shipping = _ref4.shipping, shippingLabel = _ref4.shippingLabel, shippingIdentifier = _ref4.shippingIdentifier;
+                    var newLineItems = [];
+                    subtotal && !isZeroAmount(subtotal) && newLineItems.push({
+                        label: "Subtotal",
+                        amount: subtotal
+                    });
+                    tax && !isZeroAmount(tax) && newLineItems.push({
+                        label: "Sales Tax",
+                        amount: tax
+                    });
+                    var isPickup = "PICKUP" === shippingIdentifier;
+                    (shipping && !isZeroAmount(shipping) || isPickup) && newLineItems.push({
+                        label: shippingLabel || "Shipping",
+                        amount: shipping
+                    });
+                    return newLineItems;
+                }
                 return {
                     click: function() {
                         return promise_ZalgoPromise.try((function() {
-                            return onShippingChangeCallback = function(_ref4) {
-                                var orderID = _ref4.orderID, shippingContact = _ref4.shippingContact, _ref4$shippingMethod = _ref4.shippingMethod, shippingMethod = void 0 === _ref4$shippingMethod ? null : _ref4$shippingMethod;
+                            return onShippingChangeCallback = function(_ref5) {
+                                var orderID = _ref5.orderID, shippingContact = _ref5.shippingContact, _ref5$shippingMethod = _ref5.shippingMethod, shippingMethod = void 0 === _ref5$shippingMethod ? null : _ref5$shippingMethod;
                                 if (!onShippingChange) {
-                                    var _currentShippingMetho;
+                                    var _currentShippingMetho, _currentShippingMetho2;
                                     var update = {
                                         newTotal: {
                                             label: "Total",
                                             amount: currentTotalAmount
                                         },
-                                        newLineItems: [ {
-                                            label: "Subtotal",
-                                            amount: currentSubtotalAmount
-                                        }, {
-                                            label: "Sales Tax",
-                                            amount: currentTaxAmount
-                                        }, {
-                                            label: (null == (_currentShippingMetho = currentShippingMethod) ? void 0 : _currentShippingMetho.label) || "Shipping",
-                                            amount: currentShippingAmount
-                                        } ]
+                                        newLineItems: []
                                     };
+                                    update.newLineItems = updateNewLineItems({
+                                        shipping: currentShippingAmount,
+                                        subtotal: currentSubtotalAmount,
+                                        tax: currentTaxAmount,
+                                        shippingLabel: null == (_currentShippingMetho = currentShippingMethod) ? void 0 : _currentShippingMetho.label,
+                                        shippingIdentifier: null == (_currentShippingMetho2 = currentShippingMethod) ? void 0 : _currentShippingMetho2.identifier
+                                    });
                                     return promise_ZalgoPromise.resolve(update);
                                 }
                                 var _validateShippingCont = function(contact) {
@@ -4973,24 +8711,22 @@ window.spb = function(modules) {
                                     };
                                 }(shippingContact), errors = _validateShippingCont.errors, shipping_address = _validateShippingCont.shipping_address;
                                 if (errors && errors.length) {
-                                    var _currentShippingMetho2;
+                                    var _currentShippingMetho3, _currentShippingMetho4;
                                     var _update = {
                                         errors: errors,
                                         newTotal: {
                                             label: "Total",
                                             amount: currentTotalAmount
                                         },
-                                        newLineItems: [ {
-                                            label: "Subtotal",
-                                            amount: currentSubtotalAmount
-                                        }, {
-                                            label: "Sales Tax",
-                                            amount: currentTaxAmount
-                                        }, {
-                                            label: (null == (_currentShippingMetho2 = currentShippingMethod) ? void 0 : _currentShippingMetho2.label) || "Shipping",
-                                            amount: currentShippingAmount
-                                        } ]
+                                        newLineItems: []
                                     };
+                                    _update.newLineItems = updateNewLineItems({
+                                        shipping: currentShippingAmount,
+                                        subtotal: currentSubtotalAmount,
+                                        tax: currentTaxAmount,
+                                        shippingLabel: null == (_currentShippingMetho3 = currentShippingMethod) ? void 0 : _currentShippingMetho3.label,
+                                        shippingIdentifier: null == (_currentShippingMetho4 = currentShippingMethod) ? void 0 : _currentShippingMetho4.identifier
+                                    });
                                     return promise_ZalgoPromise.resolve(_update);
                                 }
                                 var data = {
@@ -5002,13 +8738,23 @@ window.spb = function(modules) {
                                     shipping_address: shipping_address
                                 };
                                 if (shippingMethod) {
-                                    var _currentShippingMetho3;
+                                    var _currentShippingMetho5;
                                     data.selected_shipping_option = {
-                                        label: shippingMethod.label || (null == (_currentShippingMetho3 = currentShippingMethod) ? void 0 : _currentShippingMetho3.label) || "Shipping",
+                                        label: shippingMethod.label || (null == (_currentShippingMetho5 = currentShippingMethod) ? void 0 : _currentShippingMetho5.label) || "Shipping",
                                         type: shippingMethod.identifier,
                                         amount: {
                                             currency_code: currency,
                                             value: shippingMethod.amount
+                                        }
+                                    };
+                                } else {
+                                    var _currentShippingMetho6;
+                                    data.selected_shipping_option = {
+                                        label: "Shipping",
+                                        type: null == (_currentShippingMetho6 = currentShippingMethod) ? void 0 : _currentShippingMetho6.identifier,
+                                        amount: {
+                                            currency_code: currency,
+                                            value: currentShippingAmount
                                         }
                                     };
                                 }
@@ -5028,26 +8774,24 @@ window.spb = function(modules) {
                                     currentShippingContact = shippingContact;
                                     shippingMethod && (currentShippingMethod = shippingMethod);
                                     return order_getDetailedOrderInfo(orderID, locale.country).then((function(updatedOrder) {
-                                        var _currentShippingMetho4, _currentShippingMetho5;
+                                        var _currentShippingMetho7, _currentShippingMetho8, _currentShippingMetho9;
                                         var _updatedOrder$checkou = updatedOrder.checkoutSession.cart.amounts, updatedTaxValue = _updatedOrder$checkou.tax.currencyValue, updatedSubtotalValue = _updatedOrder$checkou.subtotal.currencyValue, updatedTotalValue = _updatedOrder$checkou.total.currencyValue;
-                                        currentShippingAmount = (null == (_currentShippingMetho4 = currentShippingMethod) ? void 0 : _currentShippingMetho4.amount) || "0.00";
+                                        currentShippingAmount = (null == (_currentShippingMetho7 = currentShippingMethod) ? void 0 : _currentShippingMetho7.amount) || currentShippingAmount || "0.00";
                                         currentTotalAmount = updatedTotalValue;
                                         var update = {
                                             newTotal: {
                                                 label: "Total",
                                                 amount: updatedTotalValue
                                             },
-                                            newLineItems: [ {
-                                                label: "Subtotal",
-                                                amount: currentSubtotalAmount = "0.00" === updatedSubtotalValue ? currentSubtotalAmount : updatedSubtotalValue
-                                            }, {
-                                                label: "Sales Tax",
-                                                amount: currentTaxAmount = "0.00" === updatedTaxValue ? currentTaxAmount : updatedTaxValue
-                                            }, {
-                                                label: (null == (_currentShippingMetho5 = currentShippingMethod) ? void 0 : _currentShippingMetho5.label) || "Shipping",
-                                                amount: currentShippingAmount
-                                            } ]
+                                            newLineItems: []
                                         };
+                                        update.newLineItems = updateNewLineItems({
+                                            shipping: currentShippingAmount,
+                                            subtotal: currentSubtotalAmount = "0.00" === updatedSubtotalValue ? currentSubtotalAmount : updatedSubtotalValue,
+                                            tax: currentTaxAmount = "0.00" === updatedTaxValue ? currentTaxAmount : updatedTaxValue,
+                                            shippingLabel: null == (_currentShippingMetho8 = currentShippingMethod) ? void 0 : _currentShippingMetho8.label,
+                                            shippingIdentifier: null == (_currentShippingMetho9 = currentShippingMethod) ? void 0 : _currentShippingMetho9.identifier
+                                        });
                                         return promise_ZalgoPromise.resolve(update);
                                     }));
                                 }));
@@ -5134,31 +8878,32 @@ window.spb = function(modules) {
                                                     type: "final"
                                                 }
                                             };
-                                            subtotalValue && subtotalValue.length && result.lineItems.push({
+                                            subtotalValue && !isZeroAmount(subtotalValue) && result.lineItems.push({
                                                 label: "Subtotal",
                                                 amount: subtotalValue
                                             });
-                                            taxValue && taxValue.length && result.lineItems.push({
+                                            taxValue && !isZeroAmount(taxValue) && result.lineItems.push({
                                                 label: "Sales Tax",
                                                 amount: taxValue
                                             });
-                                            shippingValue && shippingValue.length && result.lineItems.push({
+                                            var isPickup = selectedShippingMethod && "PICKUP" === selectedShippingMethod.type;
+                                            !shippingValue || isZeroAmount(shippingValue) && !isPickup || result.lineItems.push({
                                                 label: "Shipping",
                                                 amount: shippingValue
                                             });
-                                            selectedShippingMethod && "PICKUP" === selectedShippingMethod.type && (result.requiredShippingContactFields = []);
+                                            (!selectedShippingMethod || selectedShippingMethod && "PICKUP" === selectedShippingMethod.type) && (result.requiredShippingContactFields = []);
                                             return result;
                                         }(country, order);
-                                        var _order$checkoutSessio = order.checkoutSession.cart.amounts, shippingValue = _order$checkoutSessio.shippingAndHandling.currencyValue, taxValue = _order$checkoutSessio.tax.currencyValue, subtotalValue = _order$checkoutSessio.subtotal.currencyValue;
-                                        currentShippingAmount = shippingValue;
+                                        var _order$checkoutSessio = order.checkoutSession.cart.amounts;
+                                        currentShippingAmount = _order$checkoutSessio.shippingAndHandling.currencyValue;
                                         currentShippingMethod = applePayRequest.shippingMethods && applePayRequest.shippingMethods.length ? applePayRequest.shippingMethods[0] : null;
-                                        currentTaxAmount = taxValue;
-                                        currentSubtotalAmount = subtotalValue;
+                                        currentTaxAmount = _order$checkoutSessio.tax.currencyValue;
+                                        currentSubtotalAmount = _order$checkoutSessio.subtotal.currencyValue;
                                         currentTotalAmount = _order$checkoutSessio.total.currencyValue;
                                         return applePay(4, applePayRequest).then((function(response) {
                                             var begin = response.begin, addEventListener = response.addEventListener, completeMerchantValidation = response.completeMerchantValidation, completeShippingContactSelection = response.completeShippingContactSelection, completePaymentMethodSelection = response.completePaymentMethodSelection, completeShippingMethodSelection = response.completeShippingMethodSelection, completePayment = response.completePayment;
-                                            promise_ZalgoPromise.all([ addEventListener("validatemerchant", (function(_ref5) {
-                                                var validationURL = _ref5.validationURL;
+                                            promise_ZalgoPromise.all([ addEventListener("validatemerchant", (function(_ref6) {
+                                                var validationURL = _ref6.validationURL;
                                                 logApplePayEvent("validatemerchant", {
                                                     validationURL: validationURL
                                                 });
@@ -5192,8 +8937,9 @@ window.spb = function(modules) {
                                                 })).catch((function(err) {
                                                     handleApplePayError("applepay_merchant_validation_error", err);
                                                 }));
-                                            })), addEventListener("paymentmethodselected", (function(_ref6) {
-                                                logApplePayEvent("paymentmethodselected", _ref6.paymentMethod);
+                                            })), addEventListener("paymentmethodselected", (function(_ref7) {
+                                                var _currentShippingMetho10, _currentShippingMetho11;
+                                                logApplePayEvent("paymentmethodselected", _ref7.paymentMethod);
                                                 var update = {
                                                     newTotal: {
                                                         label: "Total",
@@ -5201,24 +8947,16 @@ window.spb = function(modules) {
                                                     },
                                                     newLineItems: []
                                                 };
-                                                subtotalValue && subtotalValue.length && update.newLineItems.push({
-                                                    label: "Subtotal",
-                                                    amount: currentSubtotalAmount
+                                                update.newLineItems = updateNewLineItems({
+                                                    shipping: currentShippingAmount,
+                                                    subtotal: currentSubtotalAmount,
+                                                    tax: currentTaxAmount,
+                                                    shippingLabel: null == (_currentShippingMetho10 = currentShippingMethod) ? void 0 : _currentShippingMetho10.label,
+                                                    shippingIdentifier: null == (_currentShippingMetho11 = currentShippingMethod) ? void 0 : _currentShippingMetho11.identifier
                                                 });
-                                                taxValue && taxValue.length && update.newLineItems.push({
-                                                    label: "Sales Tax",
-                                                    amount: currentTaxAmount
-                                                });
-                                                if (shippingValue && shippingValue.length) {
-                                                    var _currentShippingMetho6;
-                                                    update.newLineItems.push({
-                                                        label: (null == (_currentShippingMetho6 = currentShippingMethod) ? void 0 : _currentShippingMetho6.label) || "Shipping",
-                                                        amount: currentShippingAmount
-                                                    });
-                                                }
                                                 completePaymentMethodSelection(update);
-                                            })), addEventListener("shippingmethodselected", (function(_ref7) {
-                                                var shippingMethod = _ref7.shippingMethod;
+                                            })), addEventListener("shippingmethodselected", (function(_ref8) {
+                                                var shippingMethod = _ref8.shippingMethod;
                                                 logApplePayEvent("shippingmethodselected");
                                                 onShippingChangeCallback({
                                                     orderID: orderID,
@@ -5228,6 +8966,7 @@ window.spb = function(modules) {
                                                     currentShippingMethod = shippingMethod;
                                                     completeShippingMethodSelection(update);
                                                 })).catch((function() {
+                                                    var _currentShippingMetho12;
                                                     var update = {
                                                         newTotal: {
                                                             label: "Total",
@@ -5235,25 +8974,17 @@ window.spb = function(modules) {
                                                         },
                                                         newLineItems: []
                                                     };
-                                                    subtotalValue && subtotalValue.length && update.newLineItems.push({
-                                                        label: "Subtotal",
-                                                        amount: currentSubtotalAmount
+                                                    update.newLineItems = updateNewLineItems({
+                                                        shipping: currentShippingAmount,
+                                                        subtotal: currentSubtotalAmount,
+                                                        tax: currentTaxAmount,
+                                                        shippingLabel: null == shippingMethod ? void 0 : shippingMethod.label,
+                                                        shippingIdentifier: null == (_currentShippingMetho12 = currentShippingMethod) ? void 0 : _currentShippingMetho12.identifier
                                                     });
-                                                    taxValue && taxValue.length && update.newLineItems.push({
-                                                        label: "Sales Tax",
-                                                        amount: currentTaxAmount
-                                                    });
-                                                    if (shippingValue && shippingValue.length) {
-                                                        var _currentShippingMetho7;
-                                                        update.newLineItems.push({
-                                                            label: (null == (_currentShippingMetho7 = currentShippingMethod) ? void 0 : _currentShippingMetho7.label) || "Shipping",
-                                                            amount: currentShippingAmount
-                                                        });
-                                                    }
                                                     completeShippingMethodSelection(update);
                                                 }));
-                                            })), addEventListener("shippingcontactselected", (function(_ref8) {
-                                                var shippingContact = _ref8.shippingContact;
+                                            })), addEventListener("shippingcontactselected", (function(_ref9) {
+                                                var shippingContact = _ref9.shippingContact;
                                                 logApplePayEvent("shippingcontactselected", shippingContact);
                                                 onShippingChangeCallback({
                                                     orderID: orderID,
@@ -5264,16 +8995,16 @@ window.spb = function(modules) {
                                                 })).catch((function(err) {
                                                     handleApplePayError("shippingContactSelected", err);
                                                 }));
-                                            })), addEventListener("paymentauthorized", (function(_ref9) {
-                                                var applePayPayment = _ref9.payment;
+                                            })), addEventListener("paymentauthorized", (function(_ref10) {
+                                                var applePayPayment = _ref10.payment;
                                                 logApplePayEvent("paymentauthorized");
                                                 if (!applePayPayment) throw new Error("No payment received from Apple.");
-                                                applePayPayment.shippingContact.countryCode = applePayPayment.shippingContact.countryCode.toUpperCase();
-                                                applePayPayment.billingContact.countryCode = applePayPayment.billingContact.countryCode.toUpperCase();
+                                                applePayPayment.shippingContact && applePayPayment.shippingContact.countryCode && (applePayPayment.shippingContact.countryCode = applePayPayment.shippingContact.countryCode.toUpperCase());
+                                                applePayPayment.billingContact && applePayPayment.billingContact.countryCode && (applePayPayment.billingContact.countryCode = applePayPayment.billingContact.countryCode.toUpperCase());
                                                 (function(orderID, clientID, applePayPayment) {
                                                     return callGraphQL({
                                                         name: "ApproveApplePayPayment",
-                                                        query: "\n            mutation ApproveApplePayPayment(\n                $token: ApplePayPaymentToken!\n                $orderID: String!\n                $clientID : String!\n                $billingContact: ApplePayPaymentContact!\n                $shippingContact: ApplePayPaymentContact!\n            ) {\n                approveApplePayPayment(\n                    token: $token\n                    orderID: $orderID\n                    clientID: $clientID\n                    billingContact: $billingContact\n                    shippingContact: $shippingContact\n                )\n            }\n        ",
+                                                        query: "\n            mutation ApproveApplePayPayment(\n                $token: ApplePayPaymentToken!\n                $orderID: String!\n                $clientID : String!\n                $billingContact: ApplePayPaymentContact!\n                $shippingContact: ApplePayPaymentContact\n            ) {\n                approveApplePayPayment(\n                    token: $token\n                    orderID: $orderID\n                    clientID: $clientID\n                    billingContact: $billingContact\n                    shippingContact: $shippingContact\n                )\n            }\n        ",
                                                         variables: {
                                                             token: applePayPayment.token,
                                                             orderID: orderID,
@@ -5602,15 +9333,24 @@ window.spb = function(modules) {
             init: function initCheckout(_ref5) {
                 var props = _ref5.props, components = _ref5.components, serviceData = _ref5.serviceData, payment = _ref5.payment, config = _ref5.config, fullRestart = _ref5.restart;
                 var Checkout = components.Checkout;
-                var sessionID = props.sessionID, buttonSessionID = props.buttonSessionID, _createOrder = props.createOrder, _onApprove = props.onApprove, _onCancel = props.onCancel, onShippingChange = props.onShippingChange, locale = props.locale, commit = props.commit, _onError = props.onError, vault = props.vault, clientAccessToken = props.clientAccessToken, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, onClick = props.onClick, amount = props.amount, clientID = props.clientID, connect = props.connect, cmid = props.clientMetadataID, _onAuth = props.onAuth, userIDToken = props.userIDToken, env = props.env, currency = props.currency, enableFunding = props.enableFunding, stickinessID = props.stickinessID, standaloneFundingSource = props.standaloneFundingSource, branded = props.branded, paymentMethodToken = props.paymentMethodToken, allowBillingPayments = props.allowBillingPayments;
+                var sessionID = props.sessionID, buttonSessionID = props.buttonSessionID, _createOrder = props.createOrder, _onApprove = props.onApprove, _onCancel = props.onCancel, onShippingChange = props.onShippingChange, locale = props.locale, commit = props.commit, _onError = props.onError, vault = props.vault, clientAccessToken = props.clientAccessToken, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, onClick = props.onClick, amount = props.amount, clientID = props.clientID, connect = props.connect, cmid = props.clientMetadataID, _onAuth = props.onAuth, userIDToken = props.userIDToken, env = props.env, currency = props.currency, enableFunding = props.enableFunding, stickinessID = props.stickinessID, standaloneFundingSource = props.standaloneFundingSource, branded = props.branded, paymentMethodToken = props.paymentMethodToken, allowBillingPayments = props.allowBillingPayments, merchantRequestedPopupsDisabled = props.merchantRequestedPopupsDisabled, inlinexo = props.inlinexo;
                 var button = payment.button, win = payment.win, fundingSource = payment.fundingSource, card = payment.card, _payment$buyerAccessT = payment.buyerAccessToken, buyerAccessToken = void 0 === _payment$buyerAccessT ? serviceData.buyerAccessToken : _payment$buyerAccessT, venmoPayloadID = payment.venmoPayloadID, buyerIntent = payment.buyerIntent;
                 var buyerCountry = serviceData.buyerCountry, sdkMeta = serviceData.sdkMeta, merchantID = serviceData.merchantID;
                 var cspNonce = config.cspNonce;
-                var context = (_ref4 = {
+                var context = function(_ref4) {
+                    var win = _ref4.win, isClick = _ref4.isClick, merchantRequestedPopupsDisabled = _ref4.merchantRequestedPopupsDisabled;
+                    var popupSupported = supportsPopups();
+                    logger_getLogger().info("spb_decide_context", {
+                        merchantRequestedPopupsDisabled: Boolean(merchantRequestedPopupsDisabled),
+                        isClick: Boolean(isClick),
+                        popupSupported: Boolean(popupSupported)
+                    });
+                    return !merchantRequestedPopupsDisabled && win || !merchantRequestedPopupsDisabled && isClick && popupSupported ? "popup" : "iframe";
+                }({
                     win: win,
-                    isClick: payment.isClick
-                }).win || _ref4.isClick && supportsPopups() ? "popup" : "iframe";
-                var _ref4;
+                    isClick: payment.isClick,
+                    merchantRequestedPopupsDisabled: merchantRequestedPopupsDisabled
+                });
                 var connectEligible = function(_ref3) {
                     var fundingSource = _ref3.fundingSource;
                     return !(!_ref3.connect || _ref3.vault || "paypal" !== fundingSource && "credit" !== fundingSource || _ref3.createBillingAgreement || _ref3.createSubscription);
@@ -5641,6 +9381,7 @@ window.spb = function(modules) {
                         stickinessID: stickinessID,
                         clientAccessToken: clientAccessToken,
                         venmoPayloadID: venmoPayloadID,
+                        inlinexo: inlinexo,
                         createAuthCode: function() {
                             return promise_ZalgoPromise.try((function() {
                                 var fundingSkipLogin = FUNDING_SKIP_LOGIN[fundingSource];
@@ -5744,6 +9485,7 @@ window.spb = function(modules) {
                             if (void 0 === _ref7$approveOnClose || !_ref7$approveOnClose) {
                                 approved = !0;
                                 logger_getLogger().info("spb_onapprove_access_token_" + (buyerAccessToken ? "present" : "not_present")).flush();
+                                session_buyerAccessToken = buyerAccessToken;
                                 return _onApprove({
                                     payerID: payerID,
                                     paymentID: paymentID,
@@ -5833,7 +9575,7 @@ window.spb = function(modules) {
                 return {
                     click: function() {
                         return promise_ZalgoPromise.try((function() {
-                            if (!win && supportsPopups()) try {
+                            if (inlinexo && "card" === fundingSource) context = "iframe"; else if (!merchantRequestedPopupsDisabled && !win && supportsPopups()) try {
                                 var _getDimensions = getDimensions(fundingSource);
                                 win = function(_ref) {
                                     var _ref$closeOnUnload = _ref.closeOnUnload;
@@ -5917,7 +9659,7 @@ window.spb = function(modules) {
             setup: function() {},
             isEligible: function(_ref) {
                 var props = _ref.props;
-                return !props.vault && !props.onShippingChange && _ref.serviceData.eligibility.cardForm;
+                return "inline" !== props.experience && !props.vault && !props.onShippingChange && _ref.serviceData.eligibility.cardForm;
             },
             isPaymentEligible: function(_ref2) {
                 var _ref3 = _ref2.payment || {}, fundingSource = _ref3.fundingSource;
@@ -6046,9 +9788,27 @@ window.spb = function(modules) {
         };
         var sdk_constants = __webpack_require__("./node_modules/@paypal/sdk-constants/index.js");
         var dist = __webpack_require__("./node_modules/credit-card-type/dist/index.js");
+        var dist_default = __webpack_require__.n(dist);
         var _CARD_FIELD_TYPE_TO_F, _VALIDATOR_TO_TYPE_MA;
+        var GQL_ERRORS = {
+            "/payment_source/card/number": {
+                VALIDATION_ERROR: "INVALID_NUMBER",
+                MISSING_REQUIRED_PARAMETER: "MISSING_NUMBER"
+            },
+            "/payment_source/card/expiry": {
+                INVALID_PARAMETER_SYNTAX: "INVALID_EXPIRATION_DATE_FORMAT",
+                INVALID_STRING_LENGTH: "INVALID_EXPIRATION_DATE_LENGTH",
+                CARD_EXPIRED: "CARD_EXPIRED",
+                MISSING_REQUIRED_PARAMETER: "MISSING_EXPIRATION_DATE"
+            },
+            "/payment_source/card/security_code": {
+                VALIDATION_ERROR: "INVALID_SECURITY_CODE"
+            },
+            TRANSACTION_REFUSED: "TRANSACTION_REJECTED"
+        };
         (_CARD_FIELD_TYPE_TO_F = {}).single = "card-field", _CARD_FIELD_TYPE_TO_F.number = "card-number-field", 
-        _CARD_FIELD_TYPE_TO_F.cvv = "card-cvv-field", _CARD_FIELD_TYPE_TO_F.expiry = "card-expiry-field";
+        _CARD_FIELD_TYPE_TO_F.cvv = "card-cvv-field", _CARD_FIELD_TYPE_TO_F.expiry = "card-expiry-field", 
+        _CARD_FIELD_TYPE_TO_F.name = "card-name-field";
         (_VALIDATOR_TO_TYPE_MA = {})[dist.types.AMERICAN_EXPRESS] = "AMEX", _VALIDATOR_TO_TYPE_MA[dist.types.DINERS_CLUB] = "DINERS", 
         _VALIDATOR_TO_TYPE_MA[dist.types.DISCOVER] = "DISCOVER", _VALIDATOR_TO_TYPE_MA[dist.types.ELO] = "ELO", 
         _VALIDATOR_TO_TYPE_MA[dist.types.HIPER] = "HIPER", _VALIDATOR_TO_TYPE_MA[dist.types.HIPERCARD] = "HIPERCARD", 
@@ -6057,6 +9817,53 @@ window.spb = function(modules) {
         _VALIDATOR_TO_TYPE_MA[dist.types.VISA] = "VISA", _VALIDATOR_TO_TYPE_MA["cb-nationale"] = "CB_NATIONALE", 
         _VALIDATOR_TO_TYPE_MA.cetelem = "CETELEM", _VALIDATOR_TO_TYPE_MA.cofidis = "COFIDIS", 
         _VALIDATOR_TO_TYPE_MA.cofinoga = "COFINOGA";
+        __webpack_require__("./node_modules/@krakenjs/belter/index.js");
+        __webpack_require__("./node_modules/card-validator/src/luhn-10.js");
+        __webpack_require__("./node_modules/card-validator/dist/index.js");
+        dist_default.a.addCard({
+            code: {
+                name: "CVV",
+                size: 3
+            },
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 18, 19 ],
+            niceType: "Carte Bancaire",
+            patterns: [],
+            type: "cb-nationale"
+        });
+        dist_default.a.addCard({
+            code: {
+                name: "CVV",
+                size: 3
+            },
+            gaps: [ 4, 8, 12, 16 ],
+            lengths: [ 19 ],
+            niceType: "Carte Aurore",
+            patterns: [],
+            type: "cetelem"
+        });
+        dist_default.a.addCard({
+            code: {
+                name: "",
+                size: 0
+            },
+            gaps: [ 4, 8, 12, 16 ],
+            lengths: [ 17 ],
+            niceType: "Cofinoga ou Privilège",
+            patterns: [],
+            type: "cofinoga"
+        });
+        dist_default.a.addCard({
+            code: {
+                name: "",
+                size: 0
+            },
+            gaps: [ 4, 8 ],
+            lengths: [ 8, 9 ],
+            niceType: "4 étoiles",
+            patterns: [],
+            type: "cofidis"
+        });
         function getExportsByFrameName(name) {
             try {
                 for (var _i2 = 0, _getAllFramesInWindow2 = getAllFramesInWindow(window); _i2 < _getAllFramesInWindow2.length; _i2++) {
@@ -6065,24 +9872,30 @@ window.spb = function(modules) {
                 }
             } catch (err) {}
         }
+        function getCardFrames() {
+            return {
+                cardFrame: getExportsByFrameName("card-field"),
+                cardNumberFrame: getExportsByFrameName("card-number-field"),
+                cardCVVFrame: getExportsByFrameName("card-cvv-field"),
+                cardExpiryFrame: getExportsByFrameName("card-expiry-field"),
+                cardNameFrame: getExportsByFrameName("card-name-field")
+            };
+        }
         function hasCardFields() {
-            if (getExportsByFrameName("card-field")) return !0;
-            var cardNumberFrame = getExportsByFrameName("card-number-field");
-            var cardCVVFrame = getExportsByFrameName("card-cvv-field");
-            var cardExpiryFrame = getExportsByFrameName("card-expiry-field");
-            return !!(cardNumberFrame && cardCVVFrame && cardExpiryFrame);
+            var _getCardFrames = getCardFrames();
+            return !!(_getCardFrames.cardFrame || _getCardFrames.cardNumberFrame && _getCardFrames.cardCVVFrame && _getCardFrames.cardExpiryFrame);
         }
         function getCardFields() {
             var cardFrame = getExportsByFrameName("card-field");
-            if (cardFrame) return cardFrame.getFieldValue();
-            var cardNumberFrame = getExportsByFrameName("card-number-field");
-            var cardCVVFrame = getExportsByFrameName("card-cvv-field");
-            var cardExpiryFrame = getExportsByFrameName("card-expiry-field");
-            return cardNumberFrame && cardNumberFrame.isFieldValid() && cardCVVFrame && cardCVVFrame.isFieldValid() && cardExpiryFrame && cardExpiryFrame.isFieldValid() ? {
+            if (cardFrame && cardFrame.isFieldValid()) return cardFrame.getFieldValue();
+            var _getCardFrames2 = getCardFrames(), cardNumberFrame = _getCardFrames2.cardNumberFrame, cardCVVFrame = _getCardFrames2.cardCVVFrame, cardExpiryFrame = _getCardFrames2.cardExpiryFrame, cardNameFrame = _getCardFrames2.cardNameFrame;
+            if (cardNumberFrame && cardNumberFrame.isFieldValid() && cardCVVFrame && cardCVVFrame.isFieldValid() && cardExpiryFrame && cardExpiryFrame.isFieldValid() && (!cardNameFrame || cardNameFrame.isFieldValid())) return {
                 number: cardNumberFrame.getFieldValue(),
                 cvv: cardCVVFrame.getFieldValue(),
-                expiry: cardExpiryFrame.getFieldValue()
-            } : void 0;
+                expiry: cardExpiryFrame.getFieldValue(),
+                name: (null == cardNameFrame ? void 0 : cardNameFrame.getFieldValue()) || ""
+            };
+            throw new Error("Card fields not available to submit");
         }
         var cardField = {
             name: "card_field",
@@ -6102,93 +9915,175 @@ window.spb = function(modules) {
                         if (!getCardFields()) return !1;
                     },
                     start: function() {
-                        return _getCardProps = function(_ref) {
-                            var _fundingEligibility$c, _fundingEligibility$c2;
-                            var facilitatorAccessToken = _ref.facilitatorAccessToken;
-                            var xprops = window.xprops;
-                            var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, fundingEligibility = xprops.fundingEligibility, onChange = xprops.onChange, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export;
-                            return _extends({}, getProps({
-                                facilitatorAccessToken: facilitatorAccessToken,
-                                branded: branded
-                            }), {
-                                type: type,
-                                branded: branded,
-                                style: style,
-                                placeholder: placeholder,
-                                cardSessionID: cardSessionID,
-                                fundingEligibility: fundingEligibility,
-                                onChange: onChange,
-                                export: parent ? parent.export : xport,
-                                facilitatorAccessToken: facilitatorAccessToken
-                            });
-                        }({
-                            facilitatorAccessToken: facilitatorAccessToken
-                        }), intent = _getCardProps.intent, branded = _getCardProps.branded, vault = _getCardProps.vault, 
-                        createOrder = _getCardProps.createOrder, onApprove = _getCardProps.onApprove, clientID = _getCardProps.clientID, 
-                        promise_ZalgoPromise.try((function() {
-                            if (!hasCardFields()) throw new Error("Card fields not available to submit");
-                            var card = getCardFields();
-                            if (card) {
-                                var restart = function() {
-                                    throw new Error("Restart not implemented for card fields flow");
-                                };
-                                return intent === sdk_constants.INTENT.TOKENIZE ? function(_ref25) {
-                                    var card = _ref25.card;
-                                    return promise_ZalgoPromise.try((function() {
-                                        console.info("Card Tokenize GQL mutation not yet implemented", {
-                                            card: card
+                        return function(_ref) {
+                            var extraFields = _ref.extraFields;
+                            var _getCardProps = function(_ref) {
+                                var _fundingEligibility$c, _fundingEligibility$c2;
+                                var facilitatorAccessToken = _ref.facilitatorAccessToken;
+                                var xprops = window.xprops;
+                                var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, fundingEligibility = xprops.fundingEligibility, onChange = xprops.onChange, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, experience = xprops.experience, xport = xprops.export;
+                                return _extends({}, getProps({
+                                    facilitatorAccessToken: facilitatorAccessToken,
+                                    branded: branded,
+                                    paymentSource: null
+                                }), {
+                                    type: type,
+                                    branded: branded,
+                                    style: style,
+                                    placeholder: placeholder,
+                                    cardSessionID: cardSessionID,
+                                    fundingEligibility: fundingEligibility,
+                                    onChange: onChange,
+                                    inlinexo: "inline" === experience,
+                                    export: parent ? parent.export : xport,
+                                    facilitatorAccessToken: facilitatorAccessToken
+                                });
+                            }({
+                                facilitatorAccessToken: _ref.facilitatorAccessToken
+                            }), intent = _getCardProps.intent, branded = _getCardProps.branded, vault = _getCardProps.vault, createOrder = _getCardProps.createOrder, onApprove = _getCardProps.onApprove, clientID = _getCardProps.clientID;
+                            !function() {
+                                var _getCardFrames4 = getCardFrames(), cardFrame = _getCardFrames4.cardFrame, cardNumberFrame = _getCardFrames4.cardNumberFrame, cardExpiryFrame = _getCardFrames4.cardExpiryFrame, cardCVVFrame = _getCardFrames4.cardCVVFrame;
+                                cardFrame && cardFrame.resetGQLErrors();
+                                cardNumberFrame && cardNumberFrame.resetGQLErrors();
+                                cardExpiryFrame && cardExpiryFrame.resetGQLErrors();
+                                cardCVVFrame && cardCVVFrame.resetGQLErrors();
+                            }();
+                            return promise_ZalgoPromise.try((function() {
+                                if (!hasCardFields()) throw new Error("Card fields not available to submit");
+                                var card = getCardFields();
+                                if (card) {
+                                    var restart = function() {
+                                        throw new Error("Restart not implemented for card fields flow");
+                                    };
+                                    return intent === sdk_constants.INTENT.TOKENIZE ? function(_ref23) {
+                                        var card = _ref23.card;
+                                        return promise_ZalgoPromise.try((function() {
+                                            console.info("Card Tokenize GQL mutation not yet implemented", {
+                                                card: card
+                                            });
+                                            return {
+                                                paymentMethodToken: uniqueID()
+                                            };
+                                        }));
+                                    }({
+                                        card: card
+                                    }).then((function(_ref2) {
+                                        return onApprove({
+                                            paymentMethodToken: _ref2.paymentMethodToken
+                                        }, {
+                                            restart: restart
                                         });
-                                        return {
-                                            paymentMethodToken: uniqueID()
-                                        };
-                                    }));
-                                }({
-                                    card: card
-                                }).then((function(_ref2) {
-                                    return onApprove({
-                                        paymentMethodToken: _ref2.paymentMethodToken
-                                    }, {
-                                        restart: restart
-                                    });
-                                })) : intent === sdk_constants.INTENT.CAPTURE || intent === sdk_constants.INTENT.AUTHORIZE ? createOrder().then((function(orderID) {
-                                    return (_ref26 = {
-                                        card: {
+                                    })) : intent === sdk_constants.INTENT.CAPTURE || intent === sdk_constants.INTENT.AUTHORIZE ? createOrder().then((function(orderID) {
+                                        var cardObject = _extends({
                                             cardNumber: card.number,
                                             expirationDate: card.expiry,
-                                            cvv: card.cvv,
-                                            postalCode: "48007"
-                                        },
-                                        orderID: orderID,
-                                        vault: vault,
-                                        branded: branded,
-                                        clientID: clientID
-                                    }, callGraphQL({
-                                        name: "ProcessPayment",
-                                        query: '\n            mutation ProcessPayment(\n                $orderID: String!\n                $clientID: String!\n                $card: CardInput!\n                $branded: Boolean!\n            ) {\n                processPayment(\n                    clientID: $clientID\n                    paymentMethod: { type: CREDIT_CARD, card: $card }\n                    branded: $branded\n                    token: $orderID\n                    buttonSessionID: "f7r7367r4"\n                )\n            }\n        ',
-                                        variables: {
-                                            orderID: _ref26.orderID,
-                                            clientID: _ref26.clientID,
-                                            card: _ref26.card,
-                                            branded: !0
-                                        }
-                                    }).then((function(gqlResult) {
-                                        if (!gqlResult) throw new Error("Error on GraphQL ProcessPayment mutation");
-                                        return gqlResult;
-                                    }))).catch((function(error) {
-                                        logger_getLogger().info("card_fields_payment_failed");
-                                        throw error;
-                                    }));
-                                    var _ref26;
-                                })).then((function() {
-                                    return onApprove({
-                                        payerID: uniqueID()
-                                    }, {
-                                        restart: restart
-                                    });
-                                })) : void 0;
-                            }
-                        }));
-                        var _getCardProps, intent, branded, vault, createOrder, onApprove, clientID;
+                                            securityCode: card.cvv
+                                        }, extraFields);
+                                        card.name && (cardObject.name = card.name);
+                                        return (_ref24 = {
+                                            card: cardObject,
+                                            orderID: orderID,
+                                            vault: vault,
+                                            branded: branded,
+                                            clientID: clientID
+                                        }, callGraphQL({
+                                            name: "ProcessPayment",
+                                            query: '\n            mutation ProcessPayment(\n                $orderID: String!\n                $clientID: String!\n                $card: CardInput!\n                $branded: Boolean!\n            ) {\n                processPayment(\n                    clientID: $clientID\n                    paymentMethod: { type: CARD, card: $card }\n                    branded: $branded\n                    orderID: $orderID\n                    buttonSessionID: "f7r7367r4"\n                )\n            }\n        ',
+                                            variables: {
+                                                orderID: _ref24.orderID,
+                                                clientID: _ref24.clientID,
+                                                card: _ref24.card,
+                                                branded: _ref24.branded
+                                            },
+                                            returnErrorObject: !0
+                                        }).then((function(gqlResult) {
+                                            if (!gqlResult) throw new Error("Error on GraphQL ProcessPayment mutation");
+                                            return gqlResult;
+                                        }))).catch((function(error) {
+                                            var _parseGQLErrors = function(errorsObject) {
+                                                var data = errorsObject.data;
+                                                var parsedErrors = [];
+                                                var errors = [];
+                                                var errorsMap = {};
+                                                Array.isArray(data) && data.length && data.forEach((function(e) {
+                                                    var details = e.details;
+                                                    Array.isArray(details) && details.length && details.forEach((function(d) {
+                                                        errors.push(d);
+                                                        var parsedError;
+                                                        if (d.field && d.issue && d.description) {
+                                                            var _GQL_ERRORS$d$field$d;
+                                                            parsedError = null != (_GQL_ERRORS$d$field$d = GQL_ERRORS[d.field][d.issue]) ? _GQL_ERRORS$d$field$d : d.issue + ": " + d.description;
+                                                            var field = d.field.split("/").pop();
+                                                            errorsMap[field] || (errorsMap[field] = []);
+                                                            errorsMap[field].push(parsedError);
+                                                        } else if (d.issue && d.description) {
+                                                            var _GQL_ERRORS$d$issue;
+                                                            parsedError = null != (_GQL_ERRORS$d$issue = GQL_ERRORS[d.issue]) ? _GQL_ERRORS$d$issue : d.issue + ": " + d.description;
+                                                        }
+                                                        parsedError && parsedErrors.push(parsedError);
+                                                    }));
+                                                }));
+                                                return {
+                                                    errors: errors,
+                                                    parsedErrors: parsedErrors,
+                                                    errorsMap: errorsMap
+                                                };
+                                            }(error), errorsMap = _parseGQLErrors.errorsMap, parsedErrors = _parseGQLErrors.parsedErrors, errors = _parseGQLErrors.errors;
+                                            errorsMap && function(errorsMap) {
+                                                var _getCardFrames3 = getCardFrames(), cardFrame = _getCardFrames3.cardFrame, cardNumberFrame = _getCardFrames3.cardNumberFrame, cardExpiryFrame = _getCardFrames3.cardExpiryFrame, cardCVVFrame = _getCardFrames3.cardCVVFrame;
+                                                var number = errorsMap.number, expiry = errorsMap.expiry, security_code = errorsMap.security_code;
+                                                if (cardFrame) {
+                                                    var cardFieldError = {
+                                                        field: "",
+                                                        errors: []
+                                                    };
+                                                    number && (cardFieldError = {
+                                                        field: "number",
+                                                        errors: number
+                                                    });
+                                                    expiry && (cardFieldError = {
+                                                        field: "expiry",
+                                                        errors: expiry
+                                                    });
+                                                    security_code && (cardFieldError = {
+                                                        field: "cvv",
+                                                        errors: security_code
+                                                    });
+                                                    cardFrame.setGqlErrors(cardFieldError);
+                                                }
+                                                cardNumberFrame && number && cardNumberFrame.setGqlErrors({
+                                                    field: "number",
+                                                    errors: number
+                                                });
+                                                cardExpiryFrame && expiry && cardExpiryFrame.setGqlErrors({
+                                                    field: "expiry",
+                                                    errors: expiry
+                                                });
+                                                cardCVVFrame && security_code && cardCVVFrame.setGqlErrors({
+                                                    field: "cvv",
+                                                    errors: security_code
+                                                });
+                                            }(errorsMap);
+                                            logger_getLogger().info("card_fields_payment_failed");
+                                            throw {
+                                                parsedErrors: parsedErrors,
+                                                errors: errors
+                                            };
+                                        }));
+                                        var _ref24;
+                                    })).then((function() {
+                                        return onApprove({
+                                            payerID: uniqueID(),
+                                            buyerAccessToken: uniqueID()
+                                        }, {
+                                            restart: restart
+                                        });
+                                    })) : void 0;
+                                }
+                            }));
+                        }({
+                            facilitatorAccessToken: facilitatorAccessToken
+                        });
                     },
                     close: promiseNoop
                 };
@@ -6196,12 +10091,1131 @@ window.spb = function(modules) {
             inline: !0,
             spinner: !0
         };
-        function lib_logger_getLogger() {
-            return inlineMemoize(lib_logger_getLogger, (function() {
-                return Logger({
-                    url: "/xoplatform/logger/api/logger"
+        function src_utils_isPromise(item) {
+            try {
+                if (!item) return !1;
+                if ("undefined" != typeof Promise && item instanceof Promise) return !0;
+                if ("undefined" != typeof window && "function" == typeof window.Window && item instanceof window.Window) return !1;
+                if ("undefined" != typeof window && "function" == typeof window.constructor && item instanceof window.constructor) return !1;
+                var _toString = {}.toString;
+                if (_toString) {
+                    var name = _toString.call(item);
+                    if ("[object Window]" === name || "[object global]" === name || "[object DOMWindow]" === name) return !1;
+                }
+                if ("function" == typeof item.then) return !0;
+            } catch (err) {
+                return !1;
+            }
+            return !1;
+        }
+        var exceptions_dispatchedErrors = [];
+        var exceptions_possiblyUnhandledPromiseHandlers = [];
+        var flush_activeCount = 0;
+        var flush_flushPromise;
+        function flush_flushActive() {
+            if (!flush_activeCount && flush_flushPromise) {
+                var promise = flush_flushPromise;
+                flush_flushPromise = null;
+                promise.resolve();
+            }
+        }
+        function flush_startActive() {
+            flush_activeCount += 1;
+        }
+        function flush_endActive() {
+            flush_activeCount -= 1;
+            flush_flushActive();
+        }
+        var src_promise_ZalgoPromise = function() {
+            function ZalgoPromise(handler) {
+                var _this = this;
+                this.resolved = void 0;
+                this.rejected = void 0;
+                this.errorHandled = void 0;
+                this.value = void 0;
+                this.error = void 0;
+                this.handlers = void 0;
+                this.dispatching = void 0;
+                this.stack = void 0;
+                this.resolved = !1;
+                this.rejected = !1;
+                this.errorHandled = !1;
+                this.handlers = [];
+                if (handler) {
+                    var _result;
+                    var _error;
+                    var resolved = !1;
+                    var rejected = !1;
+                    var isAsync = !1;
+                    flush_startActive();
+                    try {
+                        handler((function(res) {
+                            if (isAsync) _this.resolve(res); else {
+                                resolved = !0;
+                                _result = res;
+                            }
+                        }), (function(err) {
+                            if (isAsync) _this.reject(err); else {
+                                rejected = !0;
+                                _error = err;
+                            }
+                        }));
+                    } catch (err) {
+                        flush_endActive();
+                        this.reject(err);
+                        return;
+                    }
+                    flush_endActive();
+                    isAsync = !0;
+                    resolved ? this.resolve(_result) : rejected && this.reject(_error);
+                }
+                try {
+                    throw new Error("ZalgoPromise");
+                } catch (err) {
+                    this.stack = err.stack;
+                }
+            }
+            var _proto = ZalgoPromise.prototype;
+            _proto.resolve = function(result) {
+                if (this.resolved || this.rejected) return this;
+                if (src_utils_isPromise(result)) throw new Error("Can not resolve promise with another promise");
+                this.resolved = !0;
+                this.value = result;
+                this.dispatch();
+                return this;
+            };
+            _proto.reject = function(error) {
+                var _this2 = this;
+                if (this.resolved || this.rejected) return this;
+                if (src_utils_isPromise(error)) throw new Error("Can not reject promise with another promise");
+                if (!error) {
+                    var _err = error && "function" == typeof error.toString ? error.toString() : {}.toString.call(error);
+                    error = new Error("Expected reject to be called with Error, got " + _err);
+                }
+                this.rejected = !0;
+                this.error = error;
+                this.errorHandled || setTimeout((function() {
+                    _this2.errorHandled || function(err, promise) {
+                        if (-1 === exceptions_dispatchedErrors.indexOf(err)) {
+                            exceptions_dispatchedErrors.push(err);
+                            setTimeout((function() {
+                                throw new Error((err.stack || err.toString()) + "\n\nFrom promise:\n\n" + promise.stack);
+                            }), 1);
+                            for (var j = 0; j < exceptions_possiblyUnhandledPromiseHandlers.length; j++) exceptions_possiblyUnhandledPromiseHandlers[j](err, promise);
+                        }
+                    }(error, _this2);
+                }), 1);
+                this.dispatch();
+                return this;
+            };
+            _proto.asyncReject = function(error) {
+                this.errorHandled = !0;
+                this.reject(error);
+                return this;
+            };
+            _proto.dispatch = function() {
+                var resolved = this.resolved, rejected = this.rejected, handlers = this.handlers;
+                if (!this.dispatching && (resolved || rejected)) {
+                    this.dispatching = !0;
+                    flush_startActive();
+                    var chain = function(firstPromise, secondPromise) {
+                        return firstPromise.then((function(res) {
+                            secondPromise.resolve(res);
+                        }), (function(err) {
+                            secondPromise.reject(err);
+                        }));
+                    };
+                    for (var i = 0; i < handlers.length; i++) {
+                        var _handlers$i = handlers[i], onSuccess = _handlers$i.onSuccess, onError = _handlers$i.onError, promise = _handlers$i.promise;
+                        var _result2 = void 0;
+                        if (resolved) try {
+                            _result2 = onSuccess ? onSuccess(this.value) : this.value;
+                        } catch (err) {
+                            promise.reject(err);
+                            continue;
+                        } else if (rejected) {
+                            if (!onError) {
+                                promise.reject(this.error);
+                                continue;
+                            }
+                            try {
+                                _result2 = onError(this.error);
+                            } catch (err) {
+                                promise.reject(err);
+                                continue;
+                            }
+                        }
+                        if (_result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected)) {
+                            var promiseResult = _result2;
+                            promiseResult.resolved ? promise.resolve(promiseResult.value) : promise.reject(promiseResult.error);
+                            promiseResult.errorHandled = !0;
+                        } else src_utils_isPromise(_result2) ? _result2 instanceof ZalgoPromise && (_result2.resolved || _result2.rejected) ? _result2.resolved ? promise.resolve(_result2.value) : promise.reject(_result2.error) : chain(_result2, promise) : promise.resolve(_result2);
+                    }
+                    handlers.length = 0;
+                    this.dispatching = !1;
+                    flush_endActive();
+                }
+            };
+            _proto.then = function(onSuccess, onError) {
+                if (onSuccess && "function" != typeof onSuccess && !onSuccess.call) throw new Error("Promise.then expected a function for success handler");
+                if (onError && "function" != typeof onError && !onError.call) throw new Error("Promise.then expected a function for error handler");
+                var promise = new ZalgoPromise;
+                this.handlers.push({
+                    promise: promise,
+                    onSuccess: onSuccess,
+                    onError: onError
                 });
+                this.errorHandled = !0;
+                this.dispatch();
+                return promise;
+            };
+            _proto.catch = function(onError) {
+                return this.then(void 0, onError);
+            };
+            _proto.finally = function(onFinally) {
+                if (onFinally && "function" != typeof onFinally && !onFinally.call) throw new Error("Promise.finally expected a function");
+                return this.then((function(result) {
+                    return ZalgoPromise.try(onFinally).then((function() {
+                        return result;
+                    }));
+                }), (function(err) {
+                    return ZalgoPromise.try(onFinally).then((function() {
+                        throw err;
+                    }));
+                }));
+            };
+            _proto.timeout = function(time, err) {
+                var _this3 = this;
+                if (this.resolved || this.rejected) return this;
+                var timeout = setTimeout((function() {
+                    _this3.resolved || _this3.rejected || _this3.reject(err || new Error("Promise timed out after " + time + "ms"));
+                }), time);
+                return this.then((function(result) {
+                    clearTimeout(timeout);
+                    return result;
+                }));
+            };
+            _proto.toPromise = function() {
+                if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
+                return Promise.resolve(this);
+            };
+            _proto.lazy = function() {
+                this.errorHandled = !0;
+                return this;
+            };
+            ZalgoPromise.resolve = function(value) {
+                return value instanceof ZalgoPromise ? value : src_utils_isPromise(value) ? new ZalgoPromise((function(resolve, reject) {
+                    return value.then(resolve, reject);
+                })) : (new ZalgoPromise).resolve(value);
+            };
+            ZalgoPromise.reject = function(error) {
+                return (new ZalgoPromise).reject(error);
+            };
+            ZalgoPromise.asyncReject = function(error) {
+                return (new ZalgoPromise).asyncReject(error);
+            };
+            ZalgoPromise.all = function(promises) {
+                var promise = new ZalgoPromise;
+                var count = promises.length;
+                var results = [].slice();
+                if (!count) {
+                    promise.resolve(results);
+                    return promise;
+                }
+                var chain = function(i, firstPromise, secondPromise) {
+                    return firstPromise.then((function(res) {
+                        results[i] = res;
+                        0 == (count -= 1) && promise.resolve(results);
+                    }), (function(err) {
+                        secondPromise.reject(err);
+                    }));
+                };
+                for (var i = 0; i < promises.length; i++) {
+                    var prom = promises[i];
+                    if (prom instanceof ZalgoPromise) {
+                        if (prom.resolved) {
+                            results[i] = prom.value;
+                            count -= 1;
+                            continue;
+                        }
+                    } else if (!src_utils_isPromise(prom)) {
+                        results[i] = prom;
+                        count -= 1;
+                        continue;
+                    }
+                    chain(i, ZalgoPromise.resolve(prom), promise);
+                }
+                0 === count && promise.resolve(results);
+                return promise;
+            };
+            ZalgoPromise.hash = function(promises) {
+                var result = {};
+                var awaitPromises = [];
+                var _loop = function(key) {
+                    if (promises.hasOwnProperty(key)) {
+                        var value = promises[key];
+                        src_utils_isPromise(value) ? awaitPromises.push(value.then((function(res) {
+                            result[key] = res;
+                        }))) : result[key] = value;
+                    }
+                };
+                for (var key in promises) _loop(key);
+                return ZalgoPromise.all(awaitPromises).then((function() {
+                    return result;
+                }));
+            };
+            ZalgoPromise.map = function(items, method) {
+                return ZalgoPromise.all(items.map(method));
+            };
+            ZalgoPromise.onPossiblyUnhandledException = function(handler) {
+                return function(handler) {
+                    exceptions_possiblyUnhandledPromiseHandlers.push(handler);
+                    return {
+                        cancel: function() {
+                            exceptions_possiblyUnhandledPromiseHandlers.splice(exceptions_possiblyUnhandledPromiseHandlers.indexOf(handler), 1);
+                        }
+                    };
+                }(handler);
+            };
+            ZalgoPromise.try = function(method, context, args) {
+                if (method && "function" != typeof method && !method.call) throw new Error("Promise.try expected a function");
+                var result;
+                flush_startActive();
+                try {
+                    result = method.apply(context, args || []);
+                } catch (err) {
+                    flush_endActive();
+                    return ZalgoPromise.reject(err);
+                }
+                flush_endActive();
+                return ZalgoPromise.resolve(result);
+            };
+            ZalgoPromise.delay = function(_delay) {
+                return new ZalgoPromise((function(resolve) {
+                    setTimeout(resolve, _delay);
+                }));
+            };
+            ZalgoPromise.isPromise = function(value) {
+                return !!(value && value instanceof ZalgoPromise) || src_utils_isPromise(value);
+            };
+            ZalgoPromise.flush = function() {
+                return function(Zalgo) {
+                    var promise = flush_flushPromise = flush_flushPromise || new Zalgo;
+                    flush_flushActive();
+                    return promise;
+                }(ZalgoPromise);
+            };
+            return ZalgoPromise;
+        }();
+        function utils_getActualProtocol(win) {
+            void 0 === win && (win = window);
+            return win.location.protocol;
+        }
+        function utils_getProtocol(win) {
+            void 0 === win && (win = window);
+            if (win.mockDomain) {
+                var protocol = win.mockDomain.split("//")[0];
+                if (protocol) return protocol;
+            }
+            return utils_getActualProtocol(win);
+        }
+        function utils_isAboutProtocol(win) {
+            void 0 === win && (win = window);
+            return "about:" === utils_getProtocol(win);
+        }
+        function utils_canReadFromWindow(win) {
+            try {
+                return !0;
+            } catch (err) {}
+            return !1;
+        }
+        function utils_getActualDomain(win) {
+            void 0 === win && (win = window);
+            var location = win.location;
+            if (!location) throw new Error("Can not read window location");
+            var protocol = utils_getActualProtocol(win);
+            if (!protocol) throw new Error("Can not read window protocol");
+            if ("file:" === protocol) return "file://";
+            if ("about:" === protocol) {
+                var parent = function(win) {
+                    void 0 === win && (win = window);
+                    if (win) try {
+                        if (win.parent && win.parent !== win) return win.parent;
+                    } catch (err) {}
+                }(win);
+                return parent && utils_canReadFromWindow() ? utils_getActualDomain(parent) : "about://";
+            }
+            var host = location.host;
+            if (!host) throw new Error("Can not read window host");
+            return protocol + "//" + host;
+        }
+        function utils_getDomain(win) {
+            void 0 === win && (win = window);
+            var domain = utils_getActualDomain(win);
+            return domain && win.mockDomain && 0 === win.mockDomain.indexOf("mock:") ? win.mockDomain : domain;
+        }
+        function utils_isSameDomain(win) {
+            if (!function(win) {
+                try {
+                    if (win === window) return !0;
+                } catch (err) {}
+                try {
+                    var desc = Object.getOwnPropertyDescriptor(win, "location");
+                    if (desc && !1 === desc.enumerable) return !1;
+                } catch (err) {}
+                try {
+                    if (utils_isAboutProtocol(win) && utils_canReadFromWindow()) return !0;
+                } catch (err) {}
+                try {
+                    if (function(win) {
+                        void 0 === win && (win = window);
+                        return "mock:" === utils_getProtocol(win);
+                    }(win) && utils_canReadFromWindow()) return !0;
+                } catch (err) {}
+                try {
+                    if (utils_getActualDomain(win) === utils_getActualDomain(window)) return !0;
+                } catch (err) {}
+                return !1;
+            }(win)) return !1;
+            try {
+                if (win === window) return !0;
+                if (utils_isAboutProtocol(win) && utils_canReadFromWindow()) return !0;
+                if (utils_getDomain(window) === utils_getDomain(win)) return !0;
+            } catch (err) {}
+            return !1;
+        }
+        var utils_iframeWindows = [];
+        var utils_iframeFrames = [];
+        function utils_isWindowClosed(win, allowMock) {
+            void 0 === allowMock && (allowMock = !0);
+            try {
+                if (win === window) return !1;
+            } catch (err) {
+                return !0;
+            }
+            try {
+                if (!win) return !0;
+            } catch (err) {
+                return !0;
+            }
+            try {
+                if (win.closed) return !0;
+            } catch (err) {
+                return !err || "Call was rejected by callee.\r\n" !== err.message;
+            }
+            if (allowMock && utils_isSameDomain(win)) try {
+                if (win.mockclosed) return !0;
+            } catch (err) {}
+            try {
+                if (!win.parent || !win.top) return !0;
+            } catch (err) {}
+            var iframeIndex = function(collection, item) {
+                for (var i = 0; i < collection.length; i++) try {
+                    if (collection[i] === item) return i;
+                } catch (err) {}
+                return -1;
+            }(utils_iframeWindows, win);
+            if (-1 !== iframeIndex) {
+                var frame = utils_iframeFrames[iframeIndex];
+                if (frame && function(frame) {
+                    if (!frame.contentWindow) return !0;
+                    if (!frame.parentNode) return !0;
+                    var doc = frame.ownerDocument;
+                    if (doc && doc.documentElement && !doc.documentElement.contains(frame)) {
+                        var parent = frame;
+                        for (;parent.parentNode && parent.parentNode !== parent; ) parent = parent.parentNode;
+                        if (!parent.host || !doc.documentElement.contains(parent.host)) return !0;
+                    }
+                    return !1;
+                }(frame)) return !0;
+            }
+            return !1;
+        }
+        function utils_isWindow(obj) {
+            try {
+                if (obj === window) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if ("[object Window]" === {}.toString.call(obj)) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if (window.Window && obj instanceof window.Window) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if (obj && obj.self === obj) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if (obj && obj.parent === obj) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if (obj && obj.top === obj) return !0;
+            } catch (err) {
+                if (err && "Call was rejected by callee.\r\n" === err.message) return !0;
+            }
+            try {
+                if (obj && "__unlikely_value__" === obj.__cross_domain_utils_window_check__) return !1;
+            } catch (err) {
+                return !0;
+            }
+            try {
+                if ("postMessage" in obj && "self" in obj && "location" in obj) return !0;
+            } catch (err) {}
+            return !1;
+        }
+        function src_util_safeIndexOf(collection, item) {
+            for (var i = 0; i < collection.length; i++) try {
+                if (collection[i] === item) return i;
+            } catch (err) {}
+            return -1;
+        }
+        var src_weakmap_CrossDomainSafeWeakMap = function() {
+            function CrossDomainSafeWeakMap() {
+                this.name = void 0;
+                this.weakmap = void 0;
+                this.keys = void 0;
+                this.values = void 0;
+                this.name = "__weakmap_" + (1e9 * Math.random() >>> 0) + "__";
+                if (function() {
+                    if ("undefined" == typeof WeakMap) return !1;
+                    if (void 0 === Object.freeze) return !1;
+                    try {
+                        var testWeakMap = new WeakMap;
+                        var testKey = {};
+                        Object.freeze(testKey);
+                        testWeakMap.set(testKey, "__testvalue__");
+                        return "__testvalue__" === testWeakMap.get(testKey);
+                    } catch (err) {
+                        return !1;
+                    }
+                }()) try {
+                    this.weakmap = new WeakMap;
+                } catch (err) {}
+                this.keys = [];
+                this.values = [];
+            }
+            var _proto = CrossDomainSafeWeakMap.prototype;
+            _proto._cleanupClosedWindows = function() {
+                var weakmap = this.weakmap;
+                var keys = this.keys;
+                for (var i = 0; i < keys.length; i++) {
+                    var value = keys[i];
+                    if (utils_isWindow(value) && utils_isWindowClosed(value)) {
+                        if (weakmap) try {
+                            weakmap.delete(value);
+                        } catch (err) {}
+                        keys.splice(i, 1);
+                        this.values.splice(i, 1);
+                        i -= 1;
+                    }
+                }
+            };
+            _proto.isSafeToReadWrite = function(key) {
+                return !utils_isWindow(key);
+            };
+            _proto.set = function(key, value) {
+                if (!key) throw new Error("WeakMap expected key");
+                var weakmap = this.weakmap;
+                if (weakmap) try {
+                    weakmap.set(key, value);
+                } catch (err) {
+                    delete this.weakmap;
+                }
+                if (this.isSafeToReadWrite(key)) try {
+                    var name = this.name;
+                    var entry = key[name];
+                    entry && entry[0] === key ? entry[1] = value : Object.defineProperty(key, name, {
+                        value: [ key, value ],
+                        writable: !0
+                    });
+                    return;
+                } catch (err) {}
+                this._cleanupClosedWindows();
+                var keys = this.keys;
+                var values = this.values;
+                var index = src_util_safeIndexOf(keys, key);
+                if (-1 === index) {
+                    keys.push(key);
+                    values.push(value);
+                } else values[index] = value;
+            };
+            _proto.get = function(key) {
+                if (!key) throw new Error("WeakMap expected key");
+                var weakmap = this.weakmap;
+                if (weakmap) try {
+                    if (weakmap.has(key)) return weakmap.get(key);
+                } catch (err) {
+                    delete this.weakmap;
+                }
+                if (this.isSafeToReadWrite(key)) try {
+                    var entry = key[this.name];
+                    return entry && entry[0] === key ? entry[1] : void 0;
+                } catch (err) {}
+                this._cleanupClosedWindows();
+                var index = src_util_safeIndexOf(this.keys, key);
+                if (-1 !== index) return this.values[index];
+            };
+            _proto.delete = function(key) {
+                if (!key) throw new Error("WeakMap expected key");
+                var weakmap = this.weakmap;
+                if (weakmap) try {
+                    weakmap.delete(key);
+                } catch (err) {
+                    delete this.weakmap;
+                }
+                if (this.isSafeToReadWrite(key)) try {
+                    var entry = key[this.name];
+                    entry && entry[0] === key && (entry[0] = entry[1] = void 0);
+                } catch (err) {}
+                this._cleanupClosedWindows();
+                var keys = this.keys;
+                var index = src_util_safeIndexOf(keys, key);
+                if (-1 !== index) {
+                    keys.splice(index, 1);
+                    this.values.splice(index, 1);
+                }
+            };
+            _proto.has = function(key) {
+                if (!key) throw new Error("WeakMap expected key");
+                var weakmap = this.weakmap;
+                if (weakmap) try {
+                    if (weakmap.has(key)) return !0;
+                } catch (err) {
+                    delete this.weakmap;
+                }
+                if (this.isSafeToReadWrite(key)) try {
+                    var entry = key[this.name];
+                    return !(!entry || entry[0] !== key);
+                } catch (err) {}
+                this._cleanupClosedWindows();
+                return -1 !== src_util_safeIndexOf(this.keys, key);
+            };
+            _proto.getOrSet = function(key, getter) {
+                if (this.has(key)) return this.get(key);
+                var value = getter();
+                this.set(key, value);
+                return value;
+            };
+            return CrossDomainSafeWeakMap;
+        }();
+        function util_getFunctionName(fn) {
+            return fn.name || fn.__name__ || fn.displayName || "anonymous";
+        }
+        function util_setFunctionName(fn, name) {
+            try {
+                delete fn.name;
+                fn.name = name;
+            } catch (err) {}
+            fn.__name__ = fn.displayName = name;
+            return fn;
+        }
+        function src_util_uniqueID() {
+            var chars = "0123456789abcdef";
+            return "uid_" + "xxxxxxxxxx".replace(/./g, (function() {
+                return chars.charAt(Math.floor(Math.random() * chars.length));
+            })) + "_" + function(str) {
+                if ("function" == typeof btoa) return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (function(m, p1) {
+                    return String.fromCharCode(parseInt(p1, 16));
+                }))).replace(/[=]/g, "");
+                if ("undefined" != typeof Buffer) return Buffer.from(str, "utf8").toString("base64").replace(/[=]/g, "");
+                throw new Error("Can not find window.btoa or Buffer");
+            }((new Date).toISOString().slice(11, 19).replace("T", ".")).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+        }
+        var util_objectIDs;
+        function util_serializeArgs(args) {
+            try {
+                return JSON.stringify([].slice.call(args), (function(subkey, val) {
+                    return "function" == typeof val ? "memoize[" + function(obj) {
+                        util_objectIDs = util_objectIDs || new src_weakmap_CrossDomainSafeWeakMap;
+                        if (null == obj || "object" != typeof obj && "function" != typeof obj) throw new Error("Invalid object");
+                        var uid = util_objectIDs.get(obj);
+                        if (!uid) {
+                            uid = typeof obj + ":" + src_util_uniqueID();
+                            util_objectIDs.set(obj, uid);
+                        }
+                        return uid;
+                    }(val) + "]" : function(element) {
+                        var passed = !1;
+                        try {
+                            (element instanceof window.Element || null !== element && "object" == typeof element && 1 === element.nodeType && "object" == typeof element.style && "object" == typeof element.ownerDocument) && (passed = !0);
+                        } catch (_) {}
+                        return passed;
+                    }(val) ? {} : val;
+                }));
+            } catch (err) {
+                throw new Error("Arguments not serializable -- can not be used to memoize");
+            }
+        }
+        function util_getEmptyObject() {
+            return {};
+        }
+        var util_memoizeGlobalIndex = 0;
+        var util_memoizeGlobalIndexValidFrom = 0;
+        function util_memoize(method, options) {
+            void 0 === options && (options = {});
+            var _options$thisNamespac = options.thisNamespace, thisNamespace = void 0 !== _options$thisNamespac && _options$thisNamespac, cacheTime = options.time;
+            var simpleCache;
+            var thisCache;
+            var memoizeIndex = util_memoizeGlobalIndex;
+            util_memoizeGlobalIndex += 1;
+            var memoizedFunction = function() {
+                for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+                if (memoizeIndex < util_memoizeGlobalIndexValidFrom) {
+                    simpleCache = null;
+                    thisCache = null;
+                    memoizeIndex = util_memoizeGlobalIndex;
+                    util_memoizeGlobalIndex += 1;
+                }
+                var cache;
+                cache = thisNamespace ? (thisCache = thisCache || new src_weakmap_CrossDomainSafeWeakMap).getOrSet(this, util_getEmptyObject) : simpleCache = simpleCache || {};
+                var cacheKey;
+                try {
+                    cacheKey = util_serializeArgs(args);
+                } catch (_unused) {
+                    return method.apply(this, arguments);
+                }
+                var cacheResult = cache[cacheKey];
+                if (cacheResult && cacheTime && Date.now() - cacheResult.time < cacheTime) {
+                    delete cache[cacheKey];
+                    cacheResult = null;
+                }
+                if (cacheResult) return cacheResult.value;
+                var time = Date.now();
+                var value = method.apply(this, arguments);
+                cache[cacheKey] = {
+                    time: time,
+                    value: value
+                };
+                return value;
+            };
+            memoizedFunction.reset = function() {
+                simpleCache = null;
+                thisCache = null;
+            };
+            return util_setFunctionName(memoizedFunction, (options.name || util_getFunctionName(method)) + "::memoized");
+        }
+        util_memoize.clear = function() {
+            util_memoizeGlobalIndexValidFrom = util_memoizeGlobalIndex;
+        };
+        function belter_src_util_noop() {}
+        function util_stringifyError(err, level) {
+            void 0 === level && (level = 1);
+            if (level >= 3) return "stringifyError stack overflow";
+            try {
+                if (!err) return "<unknown error: " + {}.toString.call(err) + ">";
+                if ("string" == typeof err) return err;
+                if (err instanceof Error) {
+                    var stack = err && err.stack;
+                    var message = err && err.message;
+                    if (stack && message) return -1 !== stack.indexOf(message) ? stack : message + "\n" + stack;
+                    if (stack) return stack;
+                    if (message) return message;
+                }
+                return err && err.toString && "function" == typeof err.toString ? err.toString() : {}.toString.call(err);
+            } catch (newErr) {
+                return "Error while stringifying error: " + util_stringifyError(newErr, level + 1);
+            }
+        }
+        util_memoize((function(obj) {
+            if (Object.values) return Object.values(obj);
+            var result = [];
+            for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
+            return result;
+        }));
+        function util_objFilter(obj, filter) {
+            void 0 === filter && (filter = Boolean);
+            var result = {};
+            for (var key in obj) obj.hasOwnProperty(key) && filter(obj[key], key) && (result[key] = obj[key]);
+            return result;
+        }
+        Error;
+        function dom_isDocumentReady() {
+            return Boolean(document.body) && "complete" === document.readyState;
+        }
+        function dom_isDocumentInteractive() {
+            return Boolean(document.body) && "interactive" === document.readyState;
+        }
+        util_memoize((function() {
+            return new src_promise_ZalgoPromise((function(resolve) {
+                if (dom_isDocumentReady() || dom_isDocumentInteractive()) return resolve();
+                var interval = setInterval((function() {
+                    if (dom_isDocumentReady() || dom_isDocumentInteractive()) {
+                        clearInterval(interval);
+                        return resolve();
+                    }
+                }), 10);
             }));
+        }));
+        function src_dom_isBrowser() {
+            return "undefined" != typeof window && void 0 !== window.location;
+        }
+        var dom_currentScript = "undefined" != typeof document ? document.currentScript : null;
+        var dom_getCurrentScript = util_memoize((function() {
+            if (dom_currentScript) return dom_currentScript;
+            if (dom_currentScript = function() {
+                try {
+                    var stack = function() {
+                        try {
+                            throw new Error("_");
+                        } catch (err) {
+                            return err.stack || "";
+                        }
+                    }();
+                    var stackDetails = /.*at [^(]*\((.*):(.+):(.+)\)$/gi.exec(stack);
+                    var scriptLocation = stackDetails && stackDetails[1];
+                    if (!scriptLocation) return;
+                    for (var _i22 = 0, _Array$prototype$slic2 = [].slice.call(document.getElementsByTagName("script")).reverse(); _i22 < _Array$prototype$slic2.length; _i22++) {
+                        var script = _Array$prototype$slic2[_i22];
+                        if (script.src && script.src === scriptLocation) return script;
+                    }
+                } catch (err) {}
+            }()) return dom_currentScript;
+            throw new Error("Can not determine current script");
+        }));
+        var dom_currentUID = src_util_uniqueID();
+        util_memoize((function() {
+            var script;
+            try {
+                script = dom_getCurrentScript();
+            } catch (err) {
+                return dom_currentUID;
+            }
+            var uid = script.getAttribute("data-uid");
+            if (uid && "string" == typeof uid) return uid;
+            if ((uid = script.getAttribute("data-uid-auto")) && "string" == typeof uid) return uid;
+            if (script.src) {
+                var hashedString = function(str) {
+                    var hash = "";
+                    for (var i = 0; i < str.length; i++) {
+                        var total = str[i].charCodeAt(0) * i;
+                        str[i + 1] && (total += str[i + 1].charCodeAt(0) * (i - 1));
+                        hash += String.fromCharCode(97 + Math.abs(total) % 26);
+                    }
+                    return hash;
+                }(JSON.stringify({
+                    src: script.src,
+                    dataset: script.dataset
+                }));
+                uid = "uid_" + hashedString.slice(hashedString.length - 30);
+            } else uid = src_util_uniqueID();
+            script.setAttribute("data-uid-auto", uid);
+            return uid;
+        }));
+        var src_http_headerBuilders = [];
+        function http_request(_ref) {
+            var url = _ref.url, _ref$method = _ref.method, method = void 0 === _ref$method ? "get" : _ref$method, _ref$headers = _ref.headers, headers = void 0 === _ref$headers ? {} : _ref$headers, json = _ref.json, data = _ref.data, body = _ref.body, _ref$win = _ref.win, win = void 0 === _ref$win ? window : _ref$win, _ref$timeout = _ref.timeout, timeout = void 0 === _ref$timeout ? 0 : _ref$timeout;
+            return new src_promise_ZalgoPromise((function(resolve, reject) {
+                if (json && data || json && body || data && json) throw new Error("Only options.json or options.data or options.body should be passed");
+                var normalizedHeaders = {};
+                for (var _i4 = 0, _Object$keys2 = Object.keys(headers); _i4 < _Object$keys2.length; _i4++) {
+                    var _key2 = _Object$keys2[_i4];
+                    normalizedHeaders[_key2.toLowerCase()] = headers[_key2];
+                }
+                json ? normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/json" : (data || body) && (normalizedHeaders["content-type"] = normalizedHeaders["content-type"] || "application/x-www-form-urlencoded; charset=utf-8");
+                normalizedHeaders.accept = normalizedHeaders.accept || "application/json";
+                for (var _i6 = 0; _i6 < src_http_headerBuilders.length; _i6++) {
+                    var builtHeaders = (0, src_http_headerBuilders[_i6])();
+                    for (var _i8 = 0, _Object$keys4 = Object.keys(builtHeaders); _i8 < _Object$keys4.length; _i8++) {
+                        var _key3 = _Object$keys4[_i8];
+                        normalizedHeaders[_key3.toLowerCase()] = builtHeaders[_key3];
+                    }
+                }
+                var xhr = new win.XMLHttpRequest;
+                xhr.addEventListener("load", (function() {
+                    var responseHeaders = function(rawHeaders) {
+                        void 0 === rawHeaders && (rawHeaders = "");
+                        var result = {};
+                        for (var _i2 = 0, _rawHeaders$trim$spli2 = rawHeaders.trim().split("\n"); _i2 < _rawHeaders$trim$spli2.length; _i2++) {
+                            var _line$split = _rawHeaders$trim$spli2[_i2].split(":"), _key = _line$split[0], values = _line$split.slice(1);
+                            result[_key.toLowerCase()] = values.join(":").trim();
+                        }
+                        return result;
+                    }(this.getAllResponseHeaders());
+                    if (!this.status) return reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: no response status code."));
+                    var contentType = responseHeaders["content-type"];
+                    var isJSON = contentType && (0 === contentType.indexOf("application/json") || 0 === contentType.indexOf("text/json"));
+                    var responseBody = this.responseText;
+                    try {
+                        responseBody = JSON.parse(responseBody);
+                    } catch (err) {
+                        if (isJSON) return reject(new Error("Invalid json: " + this.responseText + "."));
+                    }
+                    return resolve({
+                        status: this.status,
+                        headers: responseHeaders,
+                        body: responseBody
+                    });
+                }), !1);
+                xhr.addEventListener("error", (function(evt) {
+                    reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: " + evt.toString() + "."));
+                }), !1);
+                xhr.open(method, url, !0);
+                for (var _key4 in normalizedHeaders) normalizedHeaders.hasOwnProperty(_key4) && xhr.setRequestHeader(_key4, normalizedHeaders[_key4]);
+                json ? body = JSON.stringify(json) : data && (body = Object.keys(data).map((function(key) {
+                    return encodeURIComponent(key) + "=" + (data ? encodeURIComponent(data[key]) : "");
+                })).join("&"));
+                xhr.timeout = timeout;
+                xhr.ontimeout = function() {
+                    reject(new Error("Request to " + method.toLowerCase() + " " + url + " has timed out"));
+                };
+                xhr.send(body);
+            }));
+        }
+        var config_AUTO_FLUSH_LEVEL = [ "warn", "error" ];
+        var config_LOG_LEVEL_PRIORITY = [ "error", "warn", "info", "debug" ];
+        var src_util_sendBeacon = function(_ref2) {
+            var _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win, url = _ref2.url, data = _ref2.data, _ref2$useBlob = _ref2.useBlob, useBlob = void 0 === _ref2$useBlob || _ref2$useBlob;
+            try {
+                var json = JSON.stringify(data);
+                if (!win.navigator.sendBeacon) throw new Error("No sendBeacon available");
+                if (useBlob) {
+                    var blob = new Blob([ json ], {
+                        type: "application/json"
+                    });
+                    return win.navigator.sendBeacon(url, blob);
+                }
+                return win.navigator.sendBeacon(url, json);
+            } catch (e) {
+                return !1;
+            }
+        };
+        var util_extendIfDefined = function(target, source) {
+            for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
+        };
+        function logger_Logger(_ref) {
+            var url = _ref.url, prefix = _ref.prefix, _ref$logLevel = _ref.logLevel, logLevel = void 0 === _ref$logLevel ? "debug" : _ref$logLevel, _ref$transport = _ref.transport, transport = void 0 === _ref$transport ? function(httpWin) {
+                void 0 === httpWin && (httpWin = window);
+                var win = utils_isSameDomain(httpWin) ? function(win) {
+                    if (!utils_isSameDomain(win)) throw new Error("Expected window to be same domain");
+                    return win;
+                }(httpWin) : window;
+                return function(_ref) {
+                    var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+                    return src_promise_ZalgoPromise.try((function() {
+                        var beaconResult = !1;
+                        (function(_ref) {
+                            var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
+                            var hasHeaders = headers && Object.keys(headers).length;
+                            return !!(window && window.navigator.sendBeacon && !hasHeaders && enableSendBeacon && window.Blob);
+                        })({
+                            headers: headers,
+                            enableSendBeacon: enableSendBeacon
+                        }) && (beaconResult = function(url) {
+                            return "https://api2.amplitude.com/2/httpapi" === url;
+                        }(url) ? src_util_sendBeacon({
+                            win: win,
+                            url: url,
+                            data: json,
+                            useBlob: !1
+                        }) : src_util_sendBeacon({
+                            win: win,
+                            url: url,
+                            data: json,
+                            useBlob: !0
+                        }));
+                        return beaconResult || http_request({
+                            win: win,
+                            url: url,
+                            method: method,
+                            headers: headers,
+                            json: json
+                        });
+                    })).then(belter_src_util_noop);
+                };
+            }() : _ref$transport, amplitudeApiKey = _ref.amplitudeApiKey, _ref$flushInterval = _ref.flushInterval, flushInterval = void 0 === _ref$flushInterval ? 6e4 : _ref$flushInterval, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
+            var events = [];
+            var tracking = [];
+            var payloadBuilders = [];
+            var metaBuilders = [];
+            var trackingBuilders = [];
+            var headerBuilders = [];
+            function print(level, event, payload) {
+                if (src_dom_isBrowser() && window.console && window.console.log && !(config_LOG_LEVEL_PRIORITY.indexOf(level) > config_LOG_LEVEL_PRIORITY.indexOf(logLevel))) {
+                    var args = [ event ];
+                    args.push(payload);
+                    (payload.error || payload.warning) && args.push("\n\n", payload.error || payload.warning);
+                    try {
+                        window.console[level] && window.console[level].apply ? window.console[level].apply(window.console, args) : window.console.log && window.console.log.apply && window.console.log.apply(window.console, args);
+                    } catch (err) {}
+                }
+            }
+            function immediateFlush() {
+                return src_promise_ZalgoPromise.try((function() {
+                    if (src_dom_isBrowser() && "file:" !== window.location.protocol && (events.length || tracking.length)) {
+                        var meta = {};
+                        for (var _i2 = 0; _i2 < metaBuilders.length; _i2++) util_extendIfDefined(meta, (0, 
+                        metaBuilders[_i2])(meta));
+                        var headers = {};
+                        for (var _i4 = 0; _i4 < headerBuilders.length; _i4++) util_extendIfDefined(headers, (0, 
+                        headerBuilders[_i4])(headers));
+                        var res;
+                        url && (res = transport({
+                            method: "POST",
+                            url: url,
+                            headers: headers,
+                            json: {
+                                events: events,
+                                meta: meta,
+                                tracking: tracking
+                            },
+                            enableSendBeacon: enableSendBeacon
+                        }).catch(belter_src_util_noop));
+                        amplitudeApiKey && transport({
+                            method: "POST",
+                            url: "https://api2.amplitude.com/2/httpapi",
+                            headers: {},
+                            json: {
+                                api_key: amplitudeApiKey,
+                                events: tracking.map((function(payload) {
+                                    return _extends({
+                                        event_type: payload.transition_name || "event",
+                                        event_properties: payload
+                                    }, payload);
+                                }))
+                            },
+                            enableSendBeacon: enableSendBeacon
+                        }).catch(belter_src_util_noop);
+                        events = [];
+                        tracking = [];
+                        return src_promise_ZalgoPromise.resolve(res).then(belter_src_util_noop);
+                    }
+                }));
+            }
+            var flush = function(method, delay) {
+                void 0 === delay && (delay = 50);
+                var promise;
+                var timeout;
+                return util_setFunctionName((function() {
+                    timeout && clearTimeout(timeout);
+                    var localPromise = promise = promise || new src_promise_ZalgoPromise;
+                    timeout = setTimeout((function() {
+                        promise = null;
+                        timeout = null;
+                        src_promise_ZalgoPromise.try(method).then((function(result) {
+                            localPromise.resolve(result);
+                        }), (function(err) {
+                            localPromise.reject(err);
+                        }));
+                    }), delay);
+                    return localPromise;
+                }), util_getFunctionName(method) + "::promiseDebounced");
+            }(immediateFlush);
+            function log(level, event, payload) {
+                void 0 === payload && (payload = {});
+                if (!src_dom_isBrowser()) return logger;
+                prefix && (event = prefix + "_" + event);
+                var logPayload = _extends({}, util_objFilter(payload), {
+                    timestamp: Date.now().toString()
+                });
+                for (var _i6 = 0; _i6 < payloadBuilders.length; _i6++) util_extendIfDefined(logPayload, (0, 
+                payloadBuilders[_i6])(logPayload));
+                !function(level, event, payload) {
+                    events.push({
+                        level: level,
+                        event: event,
+                        payload: payload
+                    });
+                    -1 !== config_AUTO_FLUSH_LEVEL.indexOf(level) && flush();
+                }(level, event, logPayload);
+                print(level, event, logPayload);
+                return logger;
+            }
+            function addBuilder(builders, builder) {
+                builders.push(builder);
+                return logger;
+            }
+            src_dom_isBrowser() && (method = flush, time = flushInterval, function loop() {
+                setTimeout((function() {
+                    method();
+                    loop();
+                }), time);
+            }());
+            var method, time;
+            if ("object" == typeof window) {
+                window.addEventListener("beforeunload", (function() {
+                    immediateFlush();
+                }));
+                window.addEventListener("unload", (function() {
+                    immediateFlush();
+                }));
+                window.addEventListener("pagehide", (function() {
+                    immediateFlush();
+                }));
+            }
+            var logger = {
+                debug: function(event, payload) {
+                    return log("debug", event, payload);
+                },
+                info: function(event, payload) {
+                    return log("info", event, payload);
+                },
+                warn: function(event, payload) {
+                    return log("warn", event, payload);
+                },
+                error: function(event, payload) {
+                    return log("error", event, payload);
+                },
+                track: function(payload) {
+                    void 0 === payload && (payload = {});
+                    if (!src_dom_isBrowser()) return logger;
+                    var trackingPayload = util_objFilter(payload);
+                    for (var _i8 = 0; _i8 < trackingBuilders.length; _i8++) util_extendIfDefined(trackingPayload, (0, 
+                    trackingBuilders[_i8])(trackingPayload));
+                    print("debug", "track", trackingPayload);
+                    tracking.push(trackingPayload);
+                    return logger;
+                },
+                flush: flush,
+                immediateFlush: immediateFlush,
+                addPayloadBuilder: function(builder) {
+                    return addBuilder(payloadBuilders, builder);
+                },
+                addMetaBuilder: function(builder) {
+                    return addBuilder(metaBuilders, builder);
+                },
+                addTrackingBuilder: function(builder) {
+                    return addBuilder(trackingBuilders, builder);
+                },
+                addHeaderBuilder: function(builder) {
+                    return addBuilder(headerBuilders, builder);
+                },
+                setTransport: function(newTransport) {
+                    transport = newTransport;
+                    return logger;
+                },
+                configure: function(opts) {
+                    opts.url && (url = opts.url);
+                    opts.prefix && (prefix = opts.prefix);
+                    opts.logLevel && (logLevel = opts.logLevel);
+                    opts.transport && (transport = opts.transport);
+                    opts.amplitudeApiKey && (amplitudeApiKey = opts.amplitudeApiKey);
+                    opts.flushInterval && (flushInterval = opts.flushInterval);
+                    opts.enableSendBeacon && (enableSendBeacon = opts.enableSendBeacon);
+                    return logger;
+                }
+            };
+            return logger;
+        }
+        function lib_logger_getLogger() {
+            return function(method, logic, args) {
+                void 0 === args && (args = []);
+                var cache = method.__inline_memoize_cache__ = method.__inline_memoize_cache__ || {};
+                var key = util_serializeArgs(args);
+                return cache.hasOwnProperty(key) ? cache[key] : cache[key] = function() {
+                    return logger_Logger({
+                        url: "/xoplatform/logger/api/logger"
+                    });
+                }.apply(void 0, args);
+            }(lib_logger_getLogger);
         }
         var POPUP_OPTIONS = {
             width: 500,
@@ -6217,15 +11231,15 @@ window.spb = function(modules) {
                 var payment = _ref2.payment;
                 return !(payment.win || !payment.paymentMethodID || window.innerWidth < 250 && "paypal" === payment.fundingSource);
             },
-            init: function(_ref7) {
-                var props = _ref7.props, components = _ref7.components, payment = _ref7.payment, serviceData = _ref7.serviceData, config = _ref7.config;
+            init: function(_ref8) {
+                var props = _ref8.props, components = _ref8.components, payment = _ref8.payment, serviceData = _ref8.serviceData, config = _ref8.config;
                 var createOrder = props.createOrder, onApprove = props.onApprove, clientAccessToken = props.clientAccessToken, enableThreeDomainSecure = props.enableThreeDomainSecure, partnerAttributionID = props.partnerAttributionID, getParent = props.getParent, userIDToken = props.userIDToken, clientID = props.clientID, env = props.env;
                 var ThreeDomainSecure = components.ThreeDomainSecure, Installments = components.Installments;
                 var fundingSource = payment.fundingSource, paymentMethodID = payment.paymentMethodID, button = payment.button;
                 var facilitatorAccessToken = serviceData.facilitatorAccessToken, buyerCountry = serviceData.buyerCountry;
                 var cspNonce = config.cspNonce;
-                var clientMetadataID = function(_ref6) {
-                    var props = _ref6.props;
+                var clientMetadataID = function(_ref7) {
+                    var props = _ref7.props;
                     return props.clientMetadataID || props.sessionID;
                 }({
                     props: props
@@ -6255,9 +11269,9 @@ window.spb = function(modules) {
                             installmentPlan: installmentPlan
                         }),
                         requireShipping: shippingRequired(orderID)
-                    }).then((function(_ref8) {
-                        var validate = _ref8.validate;
-                        if (_ref8.requireShipping) {
+                    }).then((function(_ref9) {
+                        var validate = _ref9.validate;
+                        if (_ref9.requireShipping) {
                             if ("paypal" !== fundingSource) throw new Error("Shipping address requested for " + fundingSource + " payment");
                             return function() {
                                 logger_getLogger().info("web_checkout_fallback").flush();
@@ -6302,7 +11316,13 @@ window.spb = function(modules) {
                                     createOrder: createOrder,
                                     getParent: getParent
                                 });
-                                if (200 !== status) throw new Error("Validate payment failed with status: " + status);
+                                if (200 !== status) {
+                                    if (Array.isArray(body.details)) {
+                                        var _ref6$issue = (body.details && body.details[0] || {}).issue, issue = void 0 === _ref6$issue ? "" : _ref6$issue;
+                                        if (0 !== issue.trim().length) throw new Error("Validate payment failed with issue: " + issue);
+                                    }
+                                    throw new Error("Validate payment failed with status: " + status);
+                                }
                             }));
                         }({
                             ThreeDomainSecure: ThreeDomainSecure,
@@ -6342,7 +11362,7 @@ window.spb = function(modules) {
                                             var _headers;
                                             return function(_ref) {
                                                 var _ref$variables = _ref.variables, _ref$headers = _ref.headers;
-                                                return request({
+                                                return http_request({
                                                     url: "/graphql?" + _ref.name,
                                                     method: "POST",
                                                     json: {
@@ -6419,7 +11439,7 @@ window.spb = function(modules) {
                                                                 term: selectedInstallment.term,
                                                                 interval_duration: selectedInstallment.intervalDuration
                                                             });
-                                                            return promise_ZalgoPromise.try((function() {
+                                                            return src_promise_ZalgoPromise.try((function() {
                                                                 return _onPay(orderID, installmentPlan);
                                                             })).finally((function() {
                                                                 !function(button) {
@@ -6447,7 +11467,7 @@ window.spb = function(modules) {
                                                         var _Installments = Installments({
                                                             clientID: clientID
                                                         }), renderTo = _Installments.renderTo, updateProps = _Installments.updateProps, show = _Installments.show, close = _Installments.close;
-                                                        var render = memoize((function() {
+                                                        var render = util_memoize((function() {
                                                             return renderTo(window.xprops.getParent(), "#installments-modal");
                                                         }));
                                                         render();
@@ -6470,13 +11490,13 @@ window.spb = function(modules) {
                                             }
                                             throw new Error("Installments fetch returns null");
                                         })).catch((function(err) {
-                                            return promise_ZalgoPromise.try((function() {
+                                            return src_promise_ZalgoPromise.try((function() {
                                                 var _getLogger$error$trac;
                                                 getLogger().error("installment_fetch_error", {
-                                                    err: stringifyError(err)
+                                                    err: util_stringifyError(err)
                                                 }).track((_getLogger$error$trac = {}, _getLogger$error$trac.transition_name = "installments_error", 
                                                 _getLogger$error$trac.context_type = "EC-Token", _getLogger$error$trac.token = orderID, 
-                                                _getLogger$error$trac.context_id = orderID, _getLogger$error$trac.err = stringifyError(err), 
+                                                _getLogger$error$trac.context_id = orderID, _getLogger$error$trac.err = util_stringifyError(err), 
                                                 _getLogger$error$trac)).flush();
                                                 return _onPay(orderID);
                                             }));
@@ -6502,8 +11522,8 @@ window.spb = function(modules) {
                     }
                 };
             },
-            setupMenu: function(_ref9) {
-                var props = _ref9.props, payment = _ref9.payment, serviceData = _ref9.serviceData, components = _ref9.components, config = _ref9.config, restart = _ref9.restart;
+            setupMenu: function(_ref10) {
+                var props = _ref10.props, payment = _ref10.payment, serviceData = _ref10.serviceData, components = _ref10.components, config = _ref10.config, restart = _ref10.restart;
                 var clientAccessToken = props.clientAccessToken, createOrder = props.createOrder, enableThreeDomainSecure = props.enableThreeDomainSecure, partnerAttributionID = props.partnerAttributionID, sessionID = props.sessionID, clientMetadataID = props.clientMetadataID, userIDToken = props.userIDToken;
                 var fundingSource = payment.fundingSource, paymentMethodID = payment.paymentMethodID, button = payment.button;
                 var content = serviceData.content, facilitatorAccessToken = serviceData.facilitatorAccessToken;
@@ -6519,22 +11539,22 @@ window.spb = function(modules) {
                         });
                     }));
                 };
-                var loadCheckout = function(_ref10) {
+                var loadCheckout = function(_ref11) {
                     return checkout.init({
                         props: props,
                         components: components,
                         serviceData: serviceData,
                         config: config,
-                        payment: _ref10.payment,
+                        payment: _ref11.payment,
                         restart: restart
                     }).start();
                 };
                 if ("paypal" === fundingSource) return [ {
                     label: content.payWithDifferentMethod,
                     popup: POPUP_OPTIONS,
-                    onSelect: function(_ref11) {
+                    onSelect: function(_ref12) {
                         var _getLogger$info$track2;
-                        var win = _ref11.win;
+                        var win = _ref12.win;
                         logger_getLogger().info("click_choose_funding").track((_getLogger$info$track2 = {}, 
                         _getLogger$info$track2.transition_name = "process_click_pay_with_different_payment_method", 
                         _getLogger$info$track2.optsel = "pay_with_different_payment_method", _getLogger$info$track2)).flush();
@@ -6566,9 +11586,9 @@ window.spb = function(modules) {
                 }, {
                     label: content.payWithDifferentAccount,
                     popup: POPUP_OPTIONS,
-                    onSelect: function(_ref12) {
+                    onSelect: function(_ref13) {
                         var _getLogger$info$track3;
-                        var win = _ref12.win;
+                        var win = _ref13.win;
                         logger_getLogger().info("click_choose_account").track((_getLogger$info$track3 = {}, 
                         _getLogger$info$track3.transition_name = "process_click_pay_with_different_account", 
                         _getLogger$info$track3.optsel = "pay_with_different_account", _getLogger$info$track3)).flush();
@@ -6614,10 +11634,10 @@ window.spb = function(modules) {
                 } ];
                 throw new Error("Can not render menu for " + fundingSource);
             },
-            updateFlowClientConfig: function(_ref13) {
+            updateFlowClientConfig: function(_ref14) {
                 return updateButtonClientConfig({
-                    fundingSource: _ref13.payment.fundingSource,
-                    orderID: _ref13.orderID,
+                    fundingSource: _ref14.payment.fundingSource,
+                    orderID: _ref14.orderID,
                     inline: !0
                 });
             },
@@ -6908,12 +11928,12 @@ window.spb = function(modules) {
         }
         var nativeEligibilityResults;
         function canUsePopupAppSwitch(_ref4) {
-            var fundingSource = _ref4.fundingSource;
-            return !(!isIOSSafari() && !isAndroidChrome() || fundingSource && "paypal" !== fundingSource && "venmo" !== fundingSource);
+            var fundingSource = _ref4.fundingSource, win = _ref4.win;
+            return !(!isIOSSafari() && !isAndroidChrome() || fundingSource && "paypal" !== fundingSource && "venmo" !== fundingSource || win && !toProxyWindow(win).getWindow());
         }
         function canUseNativeQRCode(_ref5) {
-            var fundingSource = _ref5.fundingSource;
-            return !(isIos() || isAndroid() || fundingSource && "venmo" !== fundingSource);
+            var fundingSource = _ref5.fundingSource, win = _ref5.win;
+            return !(isIos() || isAndroid() || fundingSource && "venmo" !== fundingSource || win);
         }
         function setNativeOptOut(fallbackOptions) {
             var type = fallbackOptions.type;
@@ -7568,12 +12588,21 @@ window.spb = function(modules) {
                                 stickinessID: stickinessID,
                                 pageUrl: pageUrl
                             });
+                            var cancelModal = function() {
+                                return promise_ZalgoPromise.try((function() {
+                                    return onCancel();
+                                })).then((function() {
+                                    qrCodeComponentInstance.close();
+                                    return onDestroy();
+                                }));
+                            };
                             var qrCodeComponentInstance = QRCode({
                                 cspNonce: config.cspNonce,
                                 qrPath: url,
                                 state: "qr_default",
                                 orderID: orderID,
                                 onClose: onQRClose,
+                                onCancel: cancelModal,
                                 onEscapePath: onEscapePath
                             });
                             function updateQRCodeComponentState(newState) {
@@ -7582,9 +12611,19 @@ window.spb = function(modules) {
                                     qrPath: url,
                                     orderID: orderID,
                                     onClose: onQRClose,
+                                    onCancel: cancelModal,
                                     onEscapePath: onEscapePath
                                 }, newState));
                             }
+                            var closeQRCode = function(event) {
+                                onQRClose(event);
+                                return promise_ZalgoPromise.delay(2e3).then((function() {
+                                    return promise_ZalgoPromise.try((function() {
+                                        qrCodeComponentInstance.close();
+                                        return onDestroy();
+                                    }));
+                                })).then(src_util_noop);
+                            };
                             var connection = connectNative({
                                 config: config,
                                 sessionUID: sessionUID,
@@ -7600,25 +12639,20 @@ window.spb = function(modules) {
                                         return updateQRCodeComponentState({
                                             state: "qr_authorized"
                                         }).then((function() {
-                                            return function(event) {
-                                                onQRClose("onApprove");
-                                                return promise_ZalgoPromise.delay(2e3).then((function() {
-                                                    return promise_ZalgoPromise.try((function() {
-                                                        qrCodeComponentInstance.close();
-                                                        return onDestroy();
-                                                    }));
-                                                })).then(src_util_noop);
-                                            }().then((function() {
+                                            return closeQRCode("onApprove").then((function() {
                                                 return onApprove(res);
                                             }));
                                         }));
                                     },
                                     onCancel: function() {
-                                        return updateQRCodeComponentState({
-                                            state: "qr_error",
-                                            errorText: "The authorization was canceled"
-                                        }).then((function() {
+                                        return promise_ZalgoPromise.try((function() {
                                             return onCancel();
+                                        })).then((function() {
+                                            return closeQRCode("onCancel");
+                                        })).then((function() {
+                                            return {
+                                                buttonSessionID: buttonSessionID
+                                            };
                                         }));
                                     },
                                     onError: function(res) {
@@ -7654,15 +12688,28 @@ window.spb = function(modules) {
                 }
             };
         }
-        function popup_getEligibility(_ref) {
-            var fundingSource = _ref.fundingSource, props = _ref.props, serviceData = _ref.serviceData, sfvc = _ref.sfvc, validatePromise = _ref.validatePromise, stickinessID = _ref.stickinessID, appDetect = _ref.appDetect;
+        function popup_getEligibility(_ref3) {
+            var fundingSource = _ref3.fundingSource, props = _ref3.props, serviceData = _ref3.serviceData, sfvc = _ref3.sfvc, validatePromise = _ref3.validatePromise, stickinessID = _ref3.stickinessID, appDetect = _ref3.appDetect;
             var createOrder = props.createOrder, vault = props.vault, platform = props.platform, clientID = props.clientID, currency = props.currency, buttonSessionID = props.buttonSessionID, enableFunding = props.enableFunding, merchantDomain = props.merchantDomain;
             var buyerCountry = serviceData.buyerCountry, cookies = serviceData.cookies, merchantID = serviceData.merchantID;
             var shippingCallbackEnabled = Boolean(props.onShippingChange);
             return validatePromise.then((function(valid) {
-                return !!valid && !(appDetect && !appDetect.installed) && (!!isNativeOptedIn({
+                return !!valid && (!!isNativeOptedIn({
                     props: props
-                }) || !sfvc && createOrder().then((function(orderID) {
+                }) || !!function(_ref2) {
+                    var appDetect = _ref2.appDetect;
+                    return null === appDetect || "paypal" !== _ref2.fundingSource || !(!appDetect.installed || !function(_ref) {
+                        var version = _ref.version;
+                        if (!version) return !1;
+                        var num = version.split(".");
+                        return parseInt(num.join(""), 10) > 850;
+                    }({
+                        version: null == appDetect ? void 0 : appDetect.version
+                    }));
+                }({
+                    fundingSource: fundingSource,
+                    appDetect: appDetect
+                }) && (!sfvc || "venmo" === fundingSource) && createOrder().then((function(orderID) {
                     return getNativeEligibility({
                         vault: vault,
                         platform: platform,
@@ -7694,8 +12741,8 @@ window.spb = function(modules) {
                 })));
             }));
         }
-        function initNativePopup(_ref2) {
-            var payment = _ref2.payment, props = _ref2.props, serviceData = _ref2.serviceData, config = _ref2.config, sessionUID = _ref2.sessionUID, fallback = _ref2.fallback, callbacks = _ref2.callbacks, clean = _ref2.clean;
+        function initNativePopup(_ref4) {
+            var payment = _ref4.payment, props = _ref4.props, serviceData = _ref4.serviceData, config = _ref4.config, sessionUID = _ref4.sessionUID, fallback = _ref4.fallback, callbacks = _ref4.callbacks, clean = _ref4.clean;
             var buttonSessionID = props.buttonSessionID, onClick = props.onClick, createOrder = props.createOrder;
             var fundingSource = payment.fundingSource, win = payment.win;
             var _onInit = callbacks.onInit, _onApprove = callbacks.onApprove, _onCancel = callbacks.onCancel, _onError = callbacks.onError, onClose = callbacks.onClose, onDestroy = callbacks.onDestroy, _onShippingChange = callbacks.onShippingChange;
@@ -7783,8 +12830,8 @@ window.spb = function(modules) {
                                 };
                             }));
                         };
-                        var changeDomainAndAwaitFallback = function(_ref3) {
-                            var pageUrl = _ref3.pageUrl, stickinessID = _ref3.stickinessID, fallbackOptions = _ref3.fallbackOptions;
+                        var changeDomainAndAwaitFallback = function(_ref5) {
+                            var pageUrl = _ref5.pageUrl, stickinessID = _ref5.stickinessID, fallbackOptions = _ref5.fallbackOptions;
                             return nativePopupWinProxy.isClosed().then((function(isClosed) {
                                 if (isClosed) return handleFallback(fallbackOptions);
                                 fallbackOptions && setNativeOptOut(fallbackOptions);
@@ -7827,8 +12874,8 @@ window.spb = function(modules) {
                                 }));
                             }));
                         }));
-                        var onDetectPossibleAppSwitch = once((function(_ref4) {
-                            var pageUrl = _ref4.pageUrl, stickinessID = _ref4.stickinessID;
+                        var onDetectPossibleAppSwitch = once((function(_ref6) {
+                            var pageUrl = _ref6.pageUrl, stickinessID = _ref6.stickinessID;
                             return promise_ZalgoPromise.try((function() {
                                 var _getLogger$info$track6;
                                 onLsatUpgradeCalled();
@@ -7842,8 +12889,8 @@ window.spb = function(modules) {
                                             onDetectAppSwitch();
                                             return _onInit();
                                         },
-                                        onApprove: function(_ref5) {
-                                            var data = _ref5.data;
+                                        onApprove: function(_ref7) {
+                                            var data = _ref7.data;
                                             onDetectAppSwitch();
                                             return _onApprove({
                                                 data: data
@@ -7853,23 +12900,23 @@ window.spb = function(modules) {
                                             onDetectAppSwitch();
                                             return _onCancel();
                                         },
-                                        onShippingChange: function(_ref6) {
-                                            var data = _ref6.data;
+                                        onShippingChange: function(_ref8) {
+                                            var data = _ref8.data;
                                             onDetectAppSwitch();
                                             return _onShippingChange({
                                                 data: data
                                             });
                                         },
-                                        onError: function(_ref7) {
-                                            var data = _ref7.data;
+                                        onError: function(_ref9) {
+                                            var data = _ref9.data;
                                             onDetectAppSwitch();
                                             reject(new Error(data.message));
                                             return _onError({
                                                 data: data
                                             });
                                         },
-                                        onFallback: function(_ref8) {
-                                            var fallbackOptions = _ref8.data;
+                                        onFallback: function(_ref10) {
+                                            var fallbackOptions = _ref10.data;
                                             onDetectAppSwitch();
                                             return changeDomainAndAwaitFallback({
                                                 pageUrl: pageUrl,
@@ -7929,21 +12976,24 @@ window.spb = function(modules) {
                         var awaitRedirectListener = postRobotOnceProxy("awaitRedirect", {
                             proxyWin: nativePopupWinProxy,
                             domain: nativePopupDomain
-                        }, (function(_ref9) {
-                            var _ref9$data = _ref9.data, appDetect = _ref9$data.app, pageUrl = _ref9$data.pageUrl, sfvc = _ref9$data.sfvc, stickinessID = _ref9$data.stickinessID;
+                        }, (function(_ref11) {
+                            var _ref11$data = _ref11.data, appDetect = _ref11$data.app, pageUrl = _ref11$data.pageUrl, sfvc = _ref11$data.sfvc, stickinessID = _ref11$data.stickinessID;
                             logger_getLogger().info("native_post_message_await_redirect").flush();
-                            (app = appDetect) && Object.keys(app).forEach((function(key) {
-                                var _getLogger$info, _getLogger$info$track;
-                                logger_getLogger().info("native_app_" + (app.installed ? "installed" : "not_installed") + "_" + key, (_getLogger$info = {}, 
-                                _getLogger$info[key] = app[key], _getLogger$info)).track((_getLogger$info$track = {}, 
-                                _getLogger$info$track.state_name = "smart_button", _getLogger$info$track.transition_name = "native_app_installed", 
-                                _getLogger$info$track.info_msg = "native_app_" + (app.installed ? "installed" : "not_installed") + "_" + key + ": " + app[key].toString(), 
-                                _getLogger$info$track)).flush();
-                            }));
-                            var app;
+                            !function(app) {
+                                if (app) {
+                                    var _getLogger$info$track;
+                                    var logMessage = "native_app";
+                                    Object.keys(app).forEach((function(key) {
+                                        logMessage += "_" + String(app[key]);
+                                    }));
+                                    logger_getLogger().info(logMessage).track((_getLogger$info$track = {}, _getLogger$info$track.state_name = "smart_button", 
+                                    _getLogger$info$track.transition_name = "native_app_installed", _getLogger$info$track.info_msg = logMessage, 
+                                    _getLogger$info$track)).flush();
+                                }
+                            }(appDetect);
                             logger_getLogger().addTrackingBuilder((function() {
-                                var _ref10;
-                                return (_ref10 = {}).stickiness_id = stickinessID, _ref10;
+                                var _ref12;
+                                return (_ref12 = {}).stickiness_id = stickinessID, _ref12;
                             }));
                             var onDetectPossibleAppSwitchListener = postRobotOnceProxy("detectAppSwitch", {
                                 proxyWin: nativePopupWinProxy,
@@ -7967,8 +13017,8 @@ window.spb = function(modules) {
                             var onApproveListener = postRobotOnceProxy("onApprove", {
                                 proxyWin: nativePopupWinProxy,
                                 domain: nativePopupDomain
-                            }, (function(_ref11) {
-                                var data = _ref11.data;
+                            }, (function(_ref13) {
+                                var data = _ref13.data;
                                 onDetectAppSwitch();
                                 _onApprove({
                                     data: data
@@ -7986,9 +13036,9 @@ window.spb = function(modules) {
                             var onFallbackListener = postRobotOnceProxy("onFallback", {
                                 proxyWin: nativePopupWinProxy,
                                 domain: nativePopupDomain
-                            }, (function(_ref12) {
+                            }, (function(_ref14) {
                                 var _getLogger$info$track10;
-                                var fallbackOptions = _ref12.data;
+                                var fallbackOptions = _ref14.data;
                                 onDetectAppSwitch();
                                 logger_getLogger().info("native_message_onfallback").track((_getLogger$info$track10 = {}, 
                                 _getLogger$info$track10.transition_name = "native_onfallback", _getLogger$info$track10)).flush();
@@ -8012,8 +13062,8 @@ window.spb = function(modules) {
                             var onErrorListener = postRobotOnceProxy("onError", {
                                 proxyWin: nativePopupWinProxy,
                                 domain: nativePopupDomain
-                            }, (function(_ref13) {
-                                var data = _ref13.data;
+                            }, (function(_ref15) {
+                                var data = _ref15.data;
                                 _onError({
                                     data: data
                                 });
@@ -8040,9 +13090,9 @@ window.spb = function(modules) {
                                     stickinessID: stickinessID,
                                     appDetect: appDetect
                                 })
-                            }).then((function(_ref14) {
-                                var eligible = _ref14.eligible;
-                                if (!_ref14.valid) {
+                            }).then((function(_ref16) {
+                                var eligible = _ref16.eligible;
+                                if (!_ref16.valid) {
                                     closeListener.cancel();
                                     nativePopupWinProxy.close();
                                     return onDestroy().then((function() {
@@ -8152,10 +13202,6 @@ window.spb = function(modules) {
         }
         var native_clean;
         var parentPopupBridge;
-        function branded_vault_card_getClientMetadataID(_ref) {
-            var props = _ref.props;
-            return props.clientMetadataID || props.sessionID;
-        }
         function isValidMerchantIDs(merchantIDs, payees) {
             if (merchantIDs.length !== payees.length) return !1;
             var merchantEmails = [];
@@ -8205,143 +13251,7 @@ window.spb = function(modules) {
             newMenu.renderTo(window.xprops.getParent(), "#" + containerUID + " #smart-menu");
             return menu_menu = newMenu;
         }
-        var PAYMENT_FLOWS = [ {
-            name: "nonce",
-            setup: function(_ref2) {
-                var props = _ref2.props;
-                var env = props.env;
-                var cspNonce = _ref2.config.cspNonce;
-                var clientMetadataID = branded_vault_card_getClientMetadataID({
-                    props: props
-                });
-                loadFraudnet({
-                    env: env,
-                    clientMetadataID: clientMetadataID,
-                    cspNonce: cspNonce
-                }).catch(src_util_noop);
-            },
-            isEligible: function(_ref3) {
-                var _wallet$card;
-                var props = _ref3.props;
-                var paymentMethodToken = props.paymentMethodToken, branded = props.branded;
-                var wallet = _ref3.serviceData.wallet;
-                var instrument = null == wallet || null == (_wallet$card = wallet.card) ? void 0 : _wallet$card.instruments.filter((function(_ref4) {
-                    return _ref4.tokenID === paymentMethodToken;
-                }))[0];
-                return !!(paymentMethodToken && wallet && instrument && branded && 0 !== wallet.card.instruments.length && wallet.card.instruments.some((function(item) {
-                    return item.tokenID && item.branded;
-                })));
-            },
-            isPaymentEligible: function(_ref5) {
-                var _wallet$card2;
-                var payment = _ref5.payment;
-                var branded = _ref5.props.branded;
-                var wallet = _ref5.serviceData.wallet;
-                var fundingSource = payment.fundingSource, paymentMethodID = payment.paymentMethodID;
-                var instrument = null == wallet || null == (_wallet$card2 = wallet.card) ? void 0 : _wallet$card2.instruments.filter((function(_ref6) {
-                    return _ref6.tokenID === paymentMethodID;
-                }))[0];
-                return !!instrument && "card" === fundingSource && !(!branded || !instrument.branded) && !(null == instrument || !instrument.tokenID);
-            },
-            init: function(_ref8) {
-                var _wallet$card3;
-                var props = _ref8.props, components = _ref8.components, payment = _ref8.payment, serviceData = _ref8.serviceData, config = _ref8.config, fullRestart = _ref8.restart;
-                var createOrder = props.createOrder, onApprove = props.onApprove, clientID = props.clientID, branded = props.branded, buttonSessionID = props.buttonSessionID;
-                var wallet = serviceData.wallet;
-                var paymentMethodID = payment.paymentMethodID;
-                var clientMetadataID = branded_vault_card_getClientMetadataID({
-                    props: props
-                });
-                var instrument = null == wallet || null == (_wallet$card3 = wallet.card) ? void 0 : _wallet$card3.instruments.filter((function(_ref9) {
-                    return _ref9.tokenID === paymentMethodID;
-                }))[0];
-                var paymentMethodToken = null == instrument ? void 0 : instrument.tokenID;
-                if (!paymentMethodToken) {
-                    logger_getLogger().info("branded_vault_card_payment_failed");
-                    throw new Error("PAY_WITH_DIFFERENT_CARD");
-                }
-                var restart = function() {
-                    return function() {
-                        logger_getLogger().info("web_checkout_fallback").flush();
-                        return checkout.init({
-                            props: props,
-                            components: components,
-                            serviceData: serviceData,
-                            payment: payment,
-                            config: config,
-                            restart: fullRestart
-                        });
-                    }().start();
-                };
-                return {
-                    start: function() {
-                        return createOrder().then((function(orderID) {
-                            return function(_ref7) {
-                                var orderID = _ref7.orderID, paymentMethodToken = _ref7.paymentMethodToken, clientID = _ref7.clientID, branded = _ref7.branded, buttonSessionID = _ref7.buttonSessionID, clientMetadataID = _ref7.clientMetadataID;
-                                logger_getLogger().info("branded_vault_card_payment_initiated");
-                                if (!branded) throw new Error("Expected payment to be branded");
-                                return function(_ref23) {
-                                    var _headers23;
-                                    var orderID = _ref23.orderID, paymentMethodToken = _ref23.paymentMethodToken, clientID = _ref23.clientID, branded = _ref23.branded, buttonSessionID = _ref23.buttonSessionID, clientMetadataID = _ref23.clientMetadataID;
-                                    logger_getLogger().info("pay_with_payment_method_token_input_params", {
-                                        orderID: orderID,
-                                        paymentMethodToken: paymentMethodToken,
-                                        clientID: clientID,
-                                        branded: branded,
-                                        buttonSessionID: buttonSessionID
-                                    });
-                                    return callGraphQL({
-                                        name: "approvePaymentWithNonce",
-                                        query: "\n            mutation ApprovePaymentWithNonce(\n                $orderID : String!\n                $clientID : String!\n                $paymentMethodToken: String!\n                $branded: Boolean!\n                $buttonSessionID: String\n            ) {\n                approvePaymentWithNonce(\n                    token: $orderID\n                    clientID: $clientID\n                    paymentMethodNonce: $paymentMethodToken\n                    branded: $branded\n                    buttonSessionID: $buttonSessionID\n                ) {\n                    buyer {\n                        userId\n                    }\n                }\n            }\n        ",
-                                        variables: {
-                                            orderID: orderID,
-                                            clientID: clientID,
-                                            paymentMethodToken: paymentMethodToken,
-                                            branded: branded,
-                                            buttonSessionID: buttonSessionID
-                                        },
-                                        headers: (_headers23 = {}, _headers23["paypal-client-context"] = orderID, _headers23["paypal-client-metadata-id"] = clientMetadataID, 
-                                        _headers23)
-                                    }).then((function(_ref24) {
-                                        var approvePaymentWithNonce = _ref24.approvePaymentWithNonce;
-                                        logger_getLogger().info("pay_with_paymentMethodToken", JSON.stringify(approvePaymentWithNonce));
-                                        return {
-                                            payerID: approvePaymentWithNonce.buyer.userId
-                                        };
-                                    }));
-                                }({
-                                    orderID: orderID,
-                                    paymentMethodToken: paymentMethodToken,
-                                    clientID: clientID,
-                                    branded: branded,
-                                    buttonSessionID: buttonSessionID,
-                                    clientMetadataID: clientMetadataID
-                                }).catch((function(error) {
-                                    logger_getLogger().info("branded_vault_card_payment_failed");
-                                    error.code = "PAY_WITH_DIFFERENT_CARD";
-                                    throw error;
-                                }));
-                            }({
-                                orderID: orderID,
-                                paymentMethodToken: paymentMethodToken,
-                                clientID: clientID,
-                                branded: branded,
-                                buttonSessionID: buttonSessionID,
-                                clientMetadataID: clientMetadataID
-                            }).then((function(_ref10) {
-                                return onApprove({
-                                    payerID: _ref10.payerID
-                                }, {
-                                    restart: restart
-                                });
-                            }));
-                        }));
-                    },
-                    close: promiseNoop
-                };
-            },
-            inline: !0
-        }, vaultCapture, walletCapture, cardField, cardForm, {
+        var PAYMENT_FLOWS = [ vaultCapture, walletCapture, cardField, cardForm, {
             name: "popup_bridge",
             setup: function(_ref) {
                 var props = _ref.props;
@@ -8442,16 +13352,16 @@ window.spb = function(modules) {
                 var _ref3, props, serviceData, clientID, currency, env, buttonSessionID, enableFunding, merchantDomain, merchantID, buyerCountry, cookies;
             },
             isEligible: function(_ref6) {
-                var props = _ref6.props;
-                var clientID = props.clientID, fundingSource = props.fundingSource, onShippingChange = props.onShippingChange, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, env = props.env;
-                var merchantID = _ref6.serviceData.merchantID;
-                return !(!_ref6.config.firebase || !canUsePopupAppSwitch({
+                var _fundingEligibility$v;
+                var props = _ref6.props, serviceData = _ref6.serviceData;
+                var clientID = props.clientID, fundingSource = props.fundingSource, onShippingChange = props.onShippingChange, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, env = props.env, platform = props.platform;
+                var cookies = serviceData.cookies, merchantID = serviceData.merchantID, fundingEligibility = serviceData.fundingEligibility;
+                var isVenmoEligible = null == fundingEligibility || null == (_fundingEligibility$v = fundingEligibility.venmo) ? void 0 : _fundingEligibility$v.eligible;
+                return !(!_ref6.config.firebase || platform && "desktop" === platform && !isVenmoEligible || !canUsePopupAppSwitch({
                     fundingSource: fundingSource
                 }) && !canUseNativeQRCode({
                     fundingSource: fundingSource
-                }) || !isNativeOptedIn({
-                    props: props
-                }) && (function() {
+                }) || function() {
                     var now = Date.now();
                     var optOutLifetime = 0;
                     getStorageState((function(state) {
@@ -8459,32 +13369,26 @@ window.spb = function(modules) {
                         nativeOptOutLifetime && "number" == typeof nativeOptOutLifetime && (optOutLifetime = nativeOptOutLifetime);
                     }));
                     return optOutLifetime > now;
-                }() || !supportsPopups() || onShippingChange || createBillingAgreement || createSubscription || "local" === env || "stage" === env || merchantID.length > 1 || -1 !== LSAT_UPGRADE_EXCLUDED_MERCHANTS.indexOf(clientID)));
+                }() || !isNativeOptedIn({
+                    props: props
+                }) && (!cookies && "paypal" === fundingSource || !supportsPopups() || onShippingChange || createBillingAgreement || createSubscription || "local" === env || "stage" === env || merchantID.length > 1 || -1 !== LSAT_UPGRADE_EXCLUDED_MERCHANTS.indexOf(clientID)));
             },
             isPaymentEligible: function(_ref7) {
+                var payment = _ref7.payment;
                 var platform = _ref7.props.platform;
-                var fundingSource = _ref7.payment.fundingSource;
-                if (!NATIVE_CHECKOUT_URI[fundingSource] || !NATIVE_CHECKOUT_POPUP_URI[fundingSource] || !NATIVE_CHECKOUT_FALLBACK_URI[fundingSource]) return !1;
-                if (!canUsePopupAppSwitch({
-                    fundingSource: fundingSource
+                var fundingSource = payment.fundingSource, win = payment.win;
+                return !!(NATIVE_CHECKOUT_URI[fundingSource] && NATIVE_CHECKOUT_POPUP_URI[fundingSource] && NATIVE_CHECKOUT_FALLBACK_URI[fundingSource]) && !(!canUsePopupAppSwitch({
+                    fundingSource: fundingSource,
+                    win: win
                 }) && !canUseNativeQRCode({
-                    fundingSource: fundingSource
-                })) return !1;
-                if (platform && "desktop" === platform) {
-                    var _nativeEligibilityRes, _nativeEligibilityRes2;
-                    var eligibleReasons = [ "isUserAgentEligible", "isBrowserMobileAndroid" ];
-                    var ineligibleReasons = nativeEligibilityResults && (null == (_nativeEligibilityRes = nativeEligibilityResults[fundingSource]) || null == (_nativeEligibilityRes2 = _nativeEligibilityRes.ineligibilityReason) ? void 0 : _nativeEligibilityRes2.split(","));
-                    var eligible = null == ineligibleReasons ? void 0 : ineligibleReasons.every((function(reason) {
-                        return !reason || -1 !== (null == eligibleReasons ? void 0 : eligibleReasons.indexOf(reason));
-                    }));
-                    if (ineligibleReasons && !eligible) return !1;
-                }
-                return !0;
+                    fundingSource: fundingSource,
+                    win: win
+                })) && (platform && "desktop" === platform ? !(!nativeEligibilityResults || !nativeEligibilityResults[fundingSource]) && nativeEligibilityResults[fundingSource].eligibility : !(win && !toProxyWindow(win).getWindow()));
             },
             init: function(_ref2) {
                 var props = _ref2.props, components = _ref2.components, config = _ref2.config, payment = _ref2.payment, serviceData = _ref2.serviceData, restart = _ref2.restart;
                 var onApprove = props.onApprove, onCancel = props.onCancel, onError = props.onError, buttonSessionID = props.buttonSessionID, onShippingChange = props.onShippingChange;
-                var fundingSource = payment.fundingSource;
+                var fundingSource = payment.fundingSource, win = payment.win;
                 if (!config.firebase) throw new Error("Can not run native flow without firebase config");
                 native_clean && native_clean.all();
                 native_clean = cleanup();
@@ -8501,8 +13405,7 @@ window.spb = function(modules) {
                     })).then((function(winClosedOrNotPassed) {
                         var checkoutPayment = _extends({}, payment, {
                             win: winClosedOrNotPassed ? null : fallbackWin,
-                            isClick: !1,
-                            isNativeFallback: !0
+                            isClick: !1
                         });
                         var instance = checkout.init({
                             props: props,
@@ -8518,10 +13421,12 @@ window.spb = function(modules) {
                 var sessionUID = uniqueID();
                 var initFlow;
                 if (canUsePopupAppSwitch({
-                    fundingSource: fundingSource
+                    fundingSource: fundingSource,
+                    win: win
                 })) initFlow = initNativePopup; else {
                     if (!canUseNativeQRCode({
-                        fundingSource: fundingSource
+                        fundingSource: fundingSource,
+                        win: win
                     })) throw new Error("No valid native payment flow found");
                     initFlow = initNativeQRCode;
                 }
@@ -8534,7 +13439,7 @@ window.spb = function(modules) {
                     clean: native_clean,
                     sessionUID: sessionUID,
                     fallback: function(opts) {
-                        var _ref6 = opts || {}, win = _ref6.win, _ref6$fallbackOptions = _ref6.fallbackOptions, fallbackOptions = void 0 === _ref6$fallbackOptions ? {} : _ref6$fallbackOptions;
+                        var _ref6 = opts || {}, fallbackWin = _ref6.win, _ref6$fallbackOptions = _ref6.fallbackOptions, fallbackOptions = void 0 === _ref6$fallbackOptions ? {} : _ref6$fallbackOptions;
                         return promise_ZalgoPromise.try((function() {
                             var _getLogger$info$track6;
                             var result = setNativeOptOut(fallbackOptions);
@@ -8542,7 +13447,7 @@ window.spb = function(modules) {
                             logger_getLogger().info("native_message_onfallback").track((_getLogger$info$track6 = {}, 
                             _getLogger$info$track6.transition_name = "native_onfallback", _getLogger$info$track6.transition_type = result ? "native_opt_out" : "native_fallback", 
                             _getLogger$info$track6.transition_reason = fallback_reason || "", _getLogger$info$track6)).flush();
-                            return fallbackToWebCheckout(win);
+                            return fallbackToWebCheckout(fallbackWin);
                         }));
                     },
                     callbacks: {
@@ -8753,11 +13658,21 @@ window.spb = function(modules) {
                 })).info("button_click").info("button_click_pay_flow_" + name).info("button_click_fundingsource_" + fundingSource).info("button_click_instrument_" + (instrumentType || "default")).addTrackingBuilder((function() {
                     var _ref5;
                     return (_ref5 = {}).selected_payment_method = fundingSource, _ref5.context_type = "button_session_id", 
-                    _ref5.context_id = buttonSessionID, _ref5.token = null, _ref5;
+                    _ref5.context_id = buttonSessionID, _ref5.button_session_id = buttonSessionID, _ref5.user_id = buttonSessionID, 
+                    _ref5.token = null, _ref5;
                 })).track((_getLogger$addPayload = {}, _getLogger$addPayload.transition_name = "process_button_click", 
                 _getLogger$addPayload.chosen_fi_type = instrumentType, _getLogger$addPayload.payment_flow = name, 
                 _getLogger$addPayload.is_vault = instrumentType ? "1" : "0", _getLogger$addPayload.info_msg = enableNativeCheckout ? "tester" : "", 
                 _getLogger$addPayload)).flush();
+                var loggingPromise = promise_ZalgoPromise.try((function() {
+                    return window.xprops.sessionState.get("__confirm_" + fundingSource + "_payload__").then((function(confirmPayload) {
+                        var fieldsSessionID = confirmPayload ? confirmPayload.payment_source[fundingSource].metadata.fieldsSessionID : "";
+                        logger_getLogger().addTrackingBuilder((function() {
+                            var _ref6;
+                            return (_ref6 = {}).fields_component_session_id = fieldsSessionID, _ref6;
+                        }));
+                    }));
+                }));
                 var clickPromise = click ? promise_ZalgoPromise.try(click) : promise_ZalgoPromise.resolve();
                 clickPromise.catch(src_util_noop);
                 return promise_ZalgoPromise.try((function() {
@@ -9160,7 +14075,7 @@ window.spb = function(modules) {
                                 });
                             }));
                         }));
-                        return promise_ZalgoPromise.all([ updateClientConfigPromise, clickPromise, vaultPromise, validateOrderPromise, startPromise, confirmOrderPromise ]).catch((function(err) {
+                        return promise_ZalgoPromise.all([ loggingPromise, updateClientConfigPromise, clickPromise, vaultPromise, validateOrderPromise, startPromise, confirmOrderPromise ]).catch((function(err) {
                             return promise_ZalgoPromise.try(close).then((function() {
                                 throw err;
                             }));
@@ -9199,7 +14114,8 @@ window.spb = function(modules) {
             var merchantID = serviceData.merchantID, buyerCountry = serviceData.buyerCountry;
             var props = getButtonProps({
                 facilitatorAccessToken: facilitatorAccessToken,
-                brandedDefault: brandedDefault
+                brandedDefault: brandedDefault,
+                paymentSource: null
             });
             var env = props.env, sessionID = props.sessionID, partnerAttributionID = props.partnerAttributionID, commit = props.commit, sdkCorrelationID = props.sdkCorrelationID, locale = props.locale, onShippingChange = props.onShippingChange, buttonSessionID = props.buttonSessionID, merchantDomain = props.merchantDomain, onInit = props.onInit, getPrerenderDetails = props.getPrerenderDetails, rememberFunding = props.rememberFunding, getQueriedEligibleFunding = props.getQueriedEligibleFunding, style = props.style, fundingSource = props.fundingSource, intent = props.intent, createBillingAgreement = props.createBillingAgreement, createSubscription = props.createSubscription, stickinessID = props.stickinessID;
             var config = getConfig({
@@ -9275,11 +14191,11 @@ window.spb = function(modules) {
                         instrumentID: instrumentID,
                         instrumentType: instrumentType
                     };
-                }(button);
+                }(button), paymentFundingSource = _getSelectedFunding.fundingSource;
                 var payment = {
                     button: button,
                     menuToggle: menuToggle,
-                    fundingSource: _getSelectedFunding.fundingSource,
+                    fundingSource: paymentFundingSource,
                     card: _getSelectedFunding.card,
                     paymentMethodID: _getSelectedFunding.paymentMethodID,
                     instrumentID: _getSelectedFunding.instrumentID,
@@ -9304,7 +14220,8 @@ window.spb = function(modules) {
                     event.stopPropagation();
                     var paymentProps = getButtonProps({
                         facilitatorAccessToken: facilitatorAccessToken,
-                        brandedDefault: brandedDefault
+                        brandedDefault: brandedDefault,
+                        paymentSource: paymentFundingSource
                     });
                     var payPromise = initiatePayment({
                         payment: payment,
@@ -9338,8 +14255,8 @@ window.spb = function(modules) {
                         var menuPromise = function(_ref2) {
                             var payment = _ref2.payment;
                             return promise_ZalgoPromise.try((function() {
-                                if (!paymentProcessing) return isEnabled() ? function(_ref6) {
-                                    var payment = _ref6.payment, serviceData = _ref6.serviceData, config = _ref6.config, components = _ref6.components, props = _ref6.props;
+                                if (!paymentProcessing) return isEnabled() ? function(_ref7) {
+                                    var payment = _ref7.payment, serviceData = _ref7.serviceData, config = _ref7.config, components = _ref7.components, props = _ref7.props;
                                     return promise_ZalgoPromise.try((function() {
                                         var _getLogger$info$info$;
                                         var fundingSource = payment.fundingSource, button = payment.button;
@@ -9360,9 +14277,9 @@ window.spb = function(modules) {
                                             serviceData: serviceData,
                                             components: components,
                                             config: config,
-                                            restart: function(_ref7) {
+                                            restart: function(_ref8) {
                                                 return initiatePaymentFlow({
-                                                    payment: _ref7.payment,
+                                                    payment: _ref8.payment,
                                                     serviceData: serviceData,
                                                     config: config,
                                                     components: components,
@@ -9465,7 +14382,8 @@ window.spb = function(modules) {
                         if (!button) throw new Error("Can not find button element");
                         var paymentProps = getButtonProps({
                             facilitatorAccessToken: facilitatorAccessToken,
-                            brandedDefault: brandedDefault
+                            brandedDefault: brandedDefault,
+                            paymentSource: paymentFundingSource
                         });
                         var payPromise = initiatePayment({
                             payment: {
@@ -9552,7 +14470,7 @@ window.spb = function(modules) {
                 logger.addTrackingBuilder((function() {
                     var _ref3;
                     return (_ref3 = {}).state_name = "smart_button", _ref3.context_type = "button_session_id", 
-                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.71", 
+                    _ref3.context_id = buttonSessionID, _ref3.button_session_id = buttonSessionID, _ref3.button_version = "5.0.95", 
                     _ref3.button_correlation_id = buttonCorrelationID, _ref3.stickiness_id = isAndroidChrome() ? stickinessID : null, 
                     _ref3.bn_code = partnerAttributionID, _ref3.user_action = commit ? "commit" : "continue", 
                     _ref3.seller_id = merchantID[0], _ref3.merchant_domain = merchantDomain, _ref3.t = Date.now().toString(), 
@@ -9659,8 +14577,8 @@ window.spb = function(modules) {
                 components: components
             });
             var setupExportsTask = function(_ref) {
-                var props = _ref.props, isEnabled = _ref.isEnabled;
-                var _createOrder = props.createOrder, _onApprove = props.onApprove, onError = props.onError, onCancel = props.onCancel, onClick = props.onClick, fundingSource = props.fundingSource, commit = props.commit, intent = props.intent, currency = props.currency;
+                var props = _ref.props, isEnabled = _ref.isEnabled, facilitatorAccessToken = _ref.facilitatorAccessToken, fundingEligibility = _ref.fundingEligibility, merchantID = _ref.merchantID;
+                var _createOrder = props.createOrder, _onApprove = props.onApprove, onError = props.onError, onCancel = props.onCancel, onClick = props.onClick, commit = props.commit, intent = props.intent, fundingSource = props.fundingSource, currency = props.currency;
                 var fundingSources = querySelectorAll("[data-funding-source]").map((function(el) {
                     return el.getAttribute("data-funding-source");
                 })).filter(Boolean);
@@ -9670,6 +14588,23 @@ window.spb = function(modules) {
                         commit: commit,
                         currency: currency,
                         intent: intent
+                    },
+                    currency: currency,
+                    intent: intent,
+                    isGuestEnabled: function() {
+                        var _fundingEligibility$c;
+                        return null != fundingEligibility && null != (_fundingEligibility$c = fundingEligibility.card) && _fundingEligibility$c.hasOwnProperty("guestEnabled") ? fundingEligibility.card.guestEnabled : function(merchantID) {
+                            return callGraphQL({
+                                name: "GetFundingEligibility",
+                                query: "\n            query GetFundingEligibility(\n                $merchantID:[ String ]\n            ) {\n            fundingEligibility(\n                merchantId: $merchantID\n            ) {\n                card {\n                    guestEnabled\n                }\n            }\n          }\n        ",
+                                variables: {
+                                    merchantID: merchantID
+                                }
+                            }).then((function(gqlResult) {
+                                if (!gqlResult || !gqlResult.fundingEligibility) throw new Error("GraphQL fundingEligibility returned no fundingEligibility object");
+                                return gqlResult && gqlResult.fundingEligibility && gqlResult.fundingEligibility.card && gqlResult.fundingEligibility.card.guestEnabled;
+                            }));
+                        }(merchantID);
                     },
                     paymentSession: function() {
                         return {
@@ -9689,7 +14624,8 @@ window.spb = function(modules) {
                             },
                             onApprove: function(merchantData) {
                                 return _onApprove({
-                                    payerID: merchantData.payerID
+                                    payerID: merchantData.payerID,
+                                    forceRestAPI: !0
                                 }, {
                                     restart: function() {
                                         throw new Error("Action unimplemented");
@@ -9697,13 +14633,33 @@ window.spb = function(modules) {
                                 });
                             },
                             onCancel: onCancel,
-                            onError: onError
+                            onError: onError,
+                            upgradeFacilitatorAccessToken: function(_ref3) {
+                                var merchantAccessToken = _ref3.facilitatorAccessToken, orderID = _ref3.orderID;
+                                var buyerAccessToken = session_buyerAccessToken;
+                                if (!buyerAccessToken) {
+                                    logger_getLogger().error("lsat_upgrade_error", {
+                                        err: "buyer access token not found"
+                                    });
+                                    throw new Error("Buyer access token not found");
+                                }
+                                return auth_upgradeFacilitatorAccessToken(merchantAccessToken, {
+                                    buyerAccessToken: buyerAccessToken,
+                                    orderID: orderID
+                                });
+                            },
+                            getFacilitatorAccessToken: function() {
+                                return facilitatorAccessToken;
+                            }
                         };
                     }
                 };
             }({
                 props: props,
-                isEnabled: isEnabled
+                isEnabled: isEnabled,
+                facilitatorAccessToken: facilitatorAccessToken,
+                fundingEligibility: fundingEligibility,
+                merchantID: merchantID
             });
             var validatePropsTask = setupButtonLogsTask.then((function() {
                 return function(_ref2) {

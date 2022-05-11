@@ -1,8 +1,8 @@
 /* @flow */
 
 import { FPTI_KEY } from '@paypal/sdk-constants/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { request } from 'belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { request } from '@krakenjs/belter/src';
 
 import { GRAPHQL_URI } from '../config';
 import { FPTI_CUSTOM_KEY, FPTI_TRANSITION, HEADERS, SMART_PAYMENT_BUTTONS, STATUS_CODES } from '../constants';
@@ -120,7 +120,7 @@ export function callSmartAPI({ accessToken, url, method = 'get', headers: reqHea
         });
 }
 
-export function callGraphQL<T>({ name, query, variables = {}, headers = {} } : {| name : string, query : string, variables? : { [string] : mixed }, headers? : { [string] : string } |}) : ZalgoPromise<T> {
+export function callGraphQL<T>({ name, query, variables = {}, headers = {}, returnErrorObject = false } : {| name : string, query : string, variables? : { [string] : mixed }, headers? : { [string] : string }, returnErrorObject? : boolean |}) : ZalgoPromise<T> {
     return request({
         url:     `${ GRAPHQL_URI }?${ name }`,
         method:  'POST',
@@ -139,6 +139,11 @@ export function callGraphQL<T>({ name, query, variables = {}, headers = {} } : {
             const message = errors[0].message || JSON.stringify(errors[0]);
 
             getLogger().warn(`graphql_${ name }_error`, { err: message });
+
+            if (returnErrorObject) {
+                throw errors[0];
+            }
+
             throw new Error(message);
         }
 

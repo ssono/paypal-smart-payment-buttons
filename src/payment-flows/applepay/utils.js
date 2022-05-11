@@ -25,6 +25,10 @@ const validNetworks : ValidNetworks = {
     jcb:            'jcb'
 };
 
+export function isZeroAmount(value : string) : boolean {
+    return parseFloat(value).toFixed(2) === '0.00';
+}
+
 function getSupportedNetworksFromIssuers(issuers : $ReadOnlyArray<string>) : $ReadOnlyArray<ApplePaySupportedNetworks> {
     if (!issuers || (issuers && issuers.length === 0)) {
         return [];
@@ -105,6 +109,9 @@ function getMerchantCapabilities(supportedNetworks : $ReadOnlyArray<ApplePaySupp
 
 export function createApplePayRequest(countryCode : $Values<typeof COUNTRY>, order : DetailedOrderInfo) : ApplePayPaymentRequest {
     const {
+        flags: {
+            isShippingAddressRequired
+        },
         allowedCardIssuers,
         cart: {
             amounts: {
@@ -144,12 +151,12 @@ export function createApplePayRequest(countryCode : $Values<typeof COUNTRY>, ord
             'name',
             'phone'
         ],
-        requiredShippingContactFields: [
+        requiredShippingContactFields: isShippingAddressRequired ? [
             'postalAddress',
             'name',
             'phone',
             'email'
-        ],
+        ] : [],
         shippingContact: shippingContact && shippingContact.givenName ? shippingContact : {},
         shippingMethods: applePayShippingMethods && applePayShippingMethods.length ? applePayShippingMethods : [],
         lineItems:       [],
@@ -160,29 +167,27 @@ export function createApplePayRequest(countryCode : $Values<typeof COUNTRY>, ord
         }
     };
 
-    if (subtotalValue && subtotalValue.length) {
+    if (subtotalValue && !isZeroAmount(subtotalValue)) {
         result.lineItems.push({
             label:  'Subtotal',
             amount: subtotalValue
         });
     }
 
-    if (taxValue && taxValue.length) {
+    if (taxValue && !isZeroAmount(taxValue)) {
         result.lineItems.push({
             label:  'Sales Tax',
             amount: taxValue
         });
     }
 
-    if (shippingValue && shippingValue.length) {
+    const isPickup = selectedShippingMethod && selectedShippingMethod.type === 'PICKUP';
+
+    if (shippingValue && (!isZeroAmount(shippingValue) || isPickup)) {
         result.lineItems.push({
             label:  'Shipping',
             amount: shippingValue
         });
-    }
-
-    if (selectedShippingMethod && selectedShippingMethod.type === 'PICKUP') {
-        result.requiredShippingContactFields = [];
     }
 
     return result;
